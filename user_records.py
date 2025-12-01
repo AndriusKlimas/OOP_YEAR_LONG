@@ -1,5 +1,5 @@
 class User:
-    _play_history = {}
+    _play_history = []
 
     def __init__(self, username: str, password: str):
         self._username = username
@@ -34,4 +34,17 @@ class User:
         else:
             return True
 
-    def start_play(self, video_id: int):
+    @staticmethod
+    def get_play_id():
+        play = len(User._play_history) + 1
+        return play
+
+    def create_play_record(self):
+        record = 
+
+    def start_play(self, video_id: int, pos: int = 0):
+        if video_id is None or pos is None:
+            return False
+        else:
+            self._play_history.append()
+            return True
