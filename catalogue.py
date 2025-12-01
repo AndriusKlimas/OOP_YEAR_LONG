@@ -13,3 +13,11 @@ class Video:
     @staticmethod
     def return_valid_genres() -> list:
         return list(Video.VALID_GENRES)
+
+
+    def add_genre(self, genre:str) -> bool:
+        if genre not in self.genres and genre in Video.VALID_GENRES:
+            self.genres.append(genre)
+            return True
+        else:
+            return False
