@@ -1,23 +1,45 @@
 class Video:
-    VALID_GENRES = ['Action', 'Comedy', 'Drama', 'Horror', 'Romance', 'Sci-Fi', 'Documentary']
+    VALID_GENRES = ['action', 'comedy', 'drama', 'horror', 'romance', 'scifi', 'documentary']
 
     def __init__(self, _video_id : int, title:str, description:str, _duration_seconds:int, _release_year:int, _genres:list = []):
-        self.genres = _genres
+        self._genres = _genres
         self._video_id = _video_id
         self.title = title
         self.description = description
         self._duration_seconds = _duration_seconds
         self._release_year = _release_year
 
-    # def check_genre(self, genre:str) -> bool:
+    #Creating a static method
     @staticmethod
+    #setting a method called return_valid_genres
     def return_valid_genres() -> list:
+        #returning a copy list of all valid genres
         return list(Video.VALID_GENRES)
 
-
+    #method to add genre
     def add_genre(self, genre:str) -> bool:
-        if genre not in self.genres and genre in Video.VALID_GENRES:
-            self.genres.append(genre)
+        #checking if the genre is not in the video, and if it is in the valid genres
+        if genre not in self._genres and genre in Video.VALID_GENRES:
+            #adding it to the video if it is not in the list and in valid genres
+            self._genres.append(genre.lower())
+            #returning TRUE
             return True
+        #else
         else:
+            #returning FALSE
             return False
+
+    #method to check genre
+    def check_genre(self, genre:str) -> bool:
+        #checking if the genre is in the video and if it is in the valid genres
+        if genre.lower() in self._genres and genre.lower() in Video.VALID_GENRES:
+            #returning True
+            return True
+        #else
+        else:
+            #Returning false
+            return False
+
+
+
+
