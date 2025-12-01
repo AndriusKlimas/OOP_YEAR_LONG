@@ -51,3 +51,12 @@ class Video:
     def __hash__(self) -> int:
         return hash((self._video_id))
 
+    def __format__(self, format_spec: str):
+        match format_spec:
+            case "short":
+                return f"{self.title}, {self._release_year}, {self._duration_seconds} seconds)"
+            case "long":
+                return f"Title: {self.title}\nDescription: {self.description}\nDuration: {self._duration_seconds} seconds\nRelease Year: {self._release_year}\nGenres: {', '.join(self._genres)}"
+            case _:
+                return "Please enter a valid format"
+
