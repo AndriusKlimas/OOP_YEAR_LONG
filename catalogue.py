@@ -1,4 +1,5 @@
 class Video:
+    #Created a class variable to stare all valid genres
     VALID_GENRES = ['action', 'comedy', 'drama', 'horror', 'romance', 'scifi', 'documentary']
 
     def __init__(self, _video_id : int, title:str, description:str, _duration_seconds:int, _release_year:int, _genres:list = []):
@@ -41,5 +42,12 @@ class Video:
             return False
 
 
+    def __str__(self) -> str:
+        return f"Title is {self.title} and description is {self.description}, Duration is {self._duration_seconds} seconds, Release year is {self._release_year}. Genres are {', '.join(self._genres)}"
 
+    def __repr__(self) -> str:
+        return f"Video_ID: {self._video_id}, Title: {self.title}, Description: {self.description}, Duration: {self._duration_seconds}, Release Year: {self._release_year}, Genres: {self._genres}"
+
+    def __hash__(self) -> int:
+        return hash((self._video_id))
 
