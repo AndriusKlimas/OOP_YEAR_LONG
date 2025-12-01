@@ -1,5 +1,5 @@
 class Video:
-    valid_genres = ['Action', 'Comedy', 'Drama', 'Horror', 'Romance', 'Sci-Fi', 'Documentary']
+    VALID_GENRES = ['Action', 'Comedy', 'Drama', 'Horror', 'Romance', 'Sci-Fi', 'Documentary']
 
     def __init__(self, _video_id : int, title:str, description:str, _duration_seconds:int, _release_year:int, _genres:list = []):
         self.genres = _genres
@@ -11,3 +11,5 @@ class Video:
 
     # def check_genre(self, genre:str) -> bool:
     @staticmethod
+    def return_valid_genres() -> list:
+        return list(Video.VALID_GENRES)
