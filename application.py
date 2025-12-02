@@ -60,4 +60,44 @@ match choice:
 
     #If 3 is entered
     case "3":
+        search_genre = input("Please enter the genre you would like to look for: ")
+        # going through dictionary looking through the values stored in each key for the one seached for
+        for video in videos.values():
+            #calling the method check_genre from class to check the genre is their
+            if video.check_genre(search_genre):
+                #If it is their then print the info for the video that had the genre in it
+                print(video)
 
+    #of 4 is entered
+    case "4":
+        print("Feature coming soon!")
+
+    #If 5 is entered
+    case "5":
+        print("Feature coming soon!")
+
+    #If 6 is entered
+    case "6":
+        genres_list = []
+        print("Please enter the following details to add a new video:")
+        get_video_id = max(videos.keys()) + 1
+        get_title = input("Title: ")
+        get_description = input("Description: ")
+        get_duration = int(input("Duration seconds: "))
+        get_release_year = int(input("Release Year: "))
+        while True:
+            get_genres = input("Please enter the genres")
+            if get_genres in Video.return_valid_genres():
+                genres_list.append(get_genres)
+            else:
+                print("Genre not valid. Please choose a valid genre")
+                print(Video.return_valid_genres())
+            print("Would you like to add another genre? (y/n)")
+            genres_list.append(get_genres)
+            another = input().lower()
+            if another == "n":
+                break
+        new_video = Video(get_video_id, get_title, get_description, get_duration, get_release_year, genres_list)
+        videos[new_video._video_id] = new_video
+        print("Video added to list")
+        print(videos[new_video._video_id])
