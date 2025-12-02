@@ -1,6 +1,6 @@
 class Video:
     #Created a class variable to stare all valid genres
-    VALID_GENRES = ['action', 'comedy', 'drama', 'horror', 'romance', 'scifi', 'documentary']
+    VALID_GENRES = ["action", "comedy", "drama", "horror", "romance", "scifi", "documentary", "animation", "thriller", "crime"]
 
     def __init__(self, _video_id : int, title:str, description:str, _duration_seconds:int, _release_year:int, _genres:list = []):
         self._genres = _genres
