@@ -12,8 +12,20 @@ class PlayRecord:
 
         PlayRecord.record_counter += 1
 
+    def __eq__(self, other: object) -> bool | NotImplemented:
+        if not isinstance(other, User):
+            return NotImplemented
+
+        return self._username == other._username
+
+    def __ne__(self, other: object) -> bool | NotImplemented:
+        if not isinstance(other, User):
+            return True
+
     def get_play_id(self):
         return self._play_id
+
+
 
 
 class User:
