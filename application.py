@@ -101,3 +101,27 @@ match choice:
         videos[new_video._video_id] = new_video
         print("Video added to list")
         print(videos[new_video._video_id])
+
+
+    #If 7 is entered
+    case "7":
+        #Need to work on as multiple videos may have same name
+        remove_video = input("Please enter the name of the video you would like to remove: ")
+        # going through dictionary looking through the values stored in each key for the one seached for
+        for video in videos.values():
+            # If the search gets a ping back then it will move on, all lower case as user may spell it with caps or without
+            if remove_video.lower() in video.title.lower():
+                #Removing the video from the dictionary
+                del videos[video._video_id]
+                print(f"Video removed from list")
+                # Will break out of the function if its found
+                break
+        else:
+            print("Video not found.")
+
+    #If 0 is entered
+    case "0":
+        print("Exiting Application. Goodbye!")
+
+    case _:
+        print("Invalid choice. Please choose a vlaid choice.")
