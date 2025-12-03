@@ -19,14 +19,16 @@ class PlayRecord:
         return f"{self.__class__.__name__} Play ID: {self.get_play_id()} Username: {self.get_username()} Video ID: {self.get_video_id()} Position in Seconds: {self.get_pos()} "
 
     def __eq__(self, other: object) -> bool | NotImplemented:
-        if not isinstance(other, User):
+        if not isinstance(other, PlayRecord):
             return NotImplemented
 
-        return self._username == other._username
+        return self._play_id == other._play_id
 
     def __ne__(self, other: object) -> bool | NotImplemented:
-        if not isinstance(other, User):
+        if not isinstance(other, PlayRecord):
             return True
+
+        return self._play_id != other._play_id
 
     def get_play_id(self) -> int:
         return self._play_id
@@ -50,6 +52,10 @@ class User:
 
     def get_username(self):
         return self._username
+
+    @staticmethod
+    def get_play_history():
+        return dict(User._play_history)
 
     def __str__(self):
         return f"Username: {self.get_username()} Password = ********"

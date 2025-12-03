@@ -1,17 +1,18 @@
 from catalogue import Video
+from user_records import User, PlayRecord
 # from user_records import User
 
-users = []
-videos = {
+users = {}
+videos = {}
+play_records = {}
 
-}
 #setting up video classes and storing them in variables
 video1 = Video(1, "Inception", "A mind-bending thriller", 8880, 2010, ["scifi", "thriller"])
 video2 = Video(2, "The Matrix", "A hacker discovers reality", 8160, 1999, ["scifi", "action"])
 video3 = Video(3, "The Godfather", "Crime family saga", 10500, 1972, ["drama", "crime"])
 video4 = Video(4, "Toy Story", "Toys come to life", 4860, 1995, ["animation", "comedy"])
 video5 = Video(5, "UP", "Ballon building", 16732, 2008, ["animation", "drama"])
-# users = User
+
 #Mnayally adding videos to the dictionary
 videos[video1._video_id] = video1
 videos[video2._video_id] = video2
@@ -19,6 +20,33 @@ videos[video3._video_id] = video3
 videos[video4._video_id] = video4
 videos[video5._video_id] = video5
 
+# users = User
+user1 = User("NoahClarke123", "Password123!")
+user2 = User("Film_Critic1", "ILoveMovies0000")
+user3 = User("Bob_iscool", "iamBob05$")
+user4 = User("Jedibob212", "Sidius66")
+user5 = User("IronManFan3", "TonyStark44!")
+
+#Manually adding users to the dictionary
+users[user1.get_username()] = user1
+users[user2.get_username()] = user2
+users[user3.get_username()] = user3
+users[user4.get_username()] = user4
+users[user5.get_username()] = user5
+
+record1 = User.start_play(user1, video1._video_id, 500)
+record2 = User.start_play(user1, video3._video_id)
+record3 = User.start_play(user2, video2._video_id, 120)
+record4 = User.start_play(user2, video5._video_id)
+record5 = User.start_play(user3, video3._video_id, 30)
+record6 = User.start_play(user3, video1._video_id)
+record7 = User.start_play(user1, video2._video_id, 240)
+record8 = User.start_play(user4, video4._video_id)
+record9 = User.start_play(user5, video5._video_id, 60)
+record10 = User.start_play(user2, video1._video_id, 10)
+
+#updates the play_record dictionary with the play_history dictionary stored in User class
+play_records = User.get_play_history()
 
 print("Welcome, please choose on of the below Options:")
 print("1. View all Videos")
@@ -61,7 +89,7 @@ match choice:
     #If 3 is entered
     case "3":
         search_genre = input("Please enter the genre you would like to look for: ")
-        # going through dictionary looking through the values stored in each key for the one seached for
+        # going through dictionary looking through the values stored in each key for the one searched for
         for video in videos.values():
             #calling the method check_genre from class to check the genre is their
             if video.check_genre(search_genre):
@@ -70,11 +98,51 @@ match choice:
 
     #of 4 is entered
     case "4":
-        print("Feature coming soon!")
+        #creates an empty list to store the play records for the requested user
+        user_records = []
+        #asks the user to enter the username of the user they want to see the history of
+        username = input("Please enter the username of the user you would like to show the play history for: ")
+        #for loop to search through the values of each record in the play_records dictionary
+        for record in play_records.values():
+
+            if record.get_username() == username:
+                user_records.append(record)
+            else:
+                print("Invalid username entered")
+        print(f"Here is the play history for {username}")
+        for r in user_records:
+            print(r)
 
     #If 5 is entered
     case "5":
-        print("Feature coming soon!")
+        #asks the user to enter the username they wish to play a video from
+        username = input("Please enter the username of the user you wish to use: ")
+        #if the username enterd is found within the users dictionary
+        if username in users:
+            #it asks the user to enter the title of the video they wish to watch
+            video = input("Please enter the title of the video: ")
+            #creates a variable for when the program finds the movie they entered
+            found = False
+            #for loop to search through all the movie titles in the videos dictionary
+            for t in videos.values():
+                #if the title in the dictionary is the same as the title the user entered
+                if t.title.lower() == video.lower():
+                    #uses the start_play function to create a play record for the specified user in the dictionary with the video_id of the specified video
+                    users[username].start_play(t._video_id)
+                    'lets the user know that the user is now playing the movie they requested'
+                    print(f"{users[username].get_username()} is now playing {t.title}")
+                    #changes the found variable to true
+                    found = True
+                    #breaks from the loop
+                    break
+            #if the title they entered was not found in the list
+            if not found:
+                #lets the user know they entered an invalid title
+                print("Invalid title entered")
+        #if the username they entered wasnt found in the user dictionary
+        else:
+            #lets the user know they entered an invalid username
+            print("Invalid username entered")
 
     #If 6 is entered
     case "6":
@@ -124,6 +192,6 @@ match choice:
         print("Exiting Application. Goodbye!")
 
     case _:
-        print("Invalid choice. Please choose a vlaid choice.")
+        print("Invalid choice. Please choose a valid choice.")
 
     #added to dev_main
