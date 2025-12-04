@@ -1,3 +1,31 @@
+#Option 1 def
+def print_videos(videos_dictionary):
+    for video in videos_dictionary.values():
+        print(video)
+
+#Option 2 def
+def video_search(videos_dictionary, search_video):
+    for video in videos_dictionary.values():
+        if search_video.lower() in video.title.lower():
+            return video
+    return None
+
+#Option 3 def
+def search_genre(videos_dictionary, search_genre):
+    for video in videos_dictionary.values():
+        if video.check_genre(search_genre):
+            print(video)
+    return None
+
+#Option 7 def
+def video_remover(videos_dictionary, remove_video):
+    for video in videos_dictionary.values():
+        if remove_video.lower() in video.title.lower():
+            del videos_dictionary[video.get_video_id()]
+            return True
+    return False
+
+
 from catalogue import Video
 from user_records import User, PlayRecord
 # from user_records import User
@@ -70,36 +98,40 @@ choice = input("Enter your choice (1-7) or 0 to exit: ")
 match choice:
     #If 1 is entered
     case "1":
-        #Print all videos currently in the dictionary
-        #Loop through all videos in the dictionary
-        for video in videos.values():
-            #Print each one, one by one
-            print(video)
+        print_videos(videos)
     #If 2 is entered(stack overflow helped with searching this)
     case "2":
-        #Setting a variable to sore the name of the movie
         search_video = input("Please enter the Video title you are looking for: ")
-        #going through dictionary looking through the values stored in each key for the one seached for
-        for video in videos.values():
-            #If the search gets a ping back then it will move on, all lower case as user may spell it with caps or without
-            if search_video.lower() in video.title.lower():
-                #Printing that specific video with all the info needed
-                print(video)
-                #Will break out of the function if its found
-                break
-        #f not found/broken out of then it will print the below
+        video_info = video_search(videos, search_video)
+        if video_info is not None:
+            print(video_info)
         else:
             print("Video not found.")
+        # #Setting a variable to sore the name of the movie
+        # search_video = input("Please enter the Video title you are looking for: ")
+        # #going through dictionary looking through the values stored in each key for the one seached for
+        # for video in videos.values():
+        #     #If the search gets a ping back then it will move on, all lower case as user may spell it with caps or without
+        #     if search_video.lower() in video.title.lower():
+        #         #Printing that specific video with all the info needed
+        #         print(video)
+        #         #Will break out of the function if its found
+        #         break
+        # #f not found/broken out of then it will print the below
+        # else:
+        #     print("Video not found.")
 
     #If 3 is entered
     case "3":
-        search_genre = input("Please enter the genre you would like to look for: ")
+        search_video_genre = input("Please enter the genre you would like to look for: ")
+        search_genre(videos, search_video_genre)
+
         # going through dictionary looking through the values stored in each key for the one searched for
-        for video in videos.values():
-            #calling the method check_genre from class to check the genre is their
-            if video.check_genre(search_genre):
-                #If it is their then print the info for the video that had the genre in it
-                print(video)
+        # for video in videos.values():
+        #     #calling the method check_genre from class to check the genre is their
+        #     if video.check_genre(search_genre):
+        #         #If it is their then print the info for the video that had the genre in it
+        #         print(video)
 
     #of 4 is entered
     case "4":
@@ -203,17 +235,22 @@ match choice:
     case "7":
         #Need to work on as multiple videos may have same name
         remove_video = input("Please enter the name of the video you would like to remove: ")
-        # going through dictionary looking through the values stored in each key for the one seached for
-        for video in videos.values():
-            # If the search gets a ping back then it will move on, all lower case as user may spell it with caps or without
-            if remove_video.lower() in video.title.lower():
-                #Removing the video from the dictionary
-                del videos[video.get_video_id()]
-                print(f"Video removed from list")
-                # Will break out of the function if its found
-                break
+        video_removed = video_remover(videos, remove_video)
+        if video_removed == True:
+            print("Video removed from list")
         else:
             print("Video not found.")
+        # going through dictionary looking through the values stored in each key for the one seached for
+        # for video in videos.values():
+        #     # If the search gets a ping back then it will move on, all lower case as user may spell it with caps or without
+        #     if remove_video.lower() in video.title.lower():
+        #         #Removing the video from the dictionary
+        #         del videos[video.get_video_id()]
+        #         print(f"Video removed from list")
+        #         # Will break out of the function if its found
+        #         break
+        # else:
+        #     print("Video not found.")
 
     #If 0 is entered
     case "0":
