@@ -42,6 +42,19 @@ class Video:
             return False
 
 
+    def get_video_id(self) -> int:
+        return self._video_id
+
+    def get_duration_seconds(self) -> int:
+        return self._duration_seconds
+
+    def get_release_year(self) -> int:
+        return self._release_year
+
+    def get_genres(self) -> list:
+        return list(self._genres)
+
+
     def __str__(self) -> str:
         return f"Title is {self.title} and description is {self.description}, Duration is {self._duration_seconds} seconds, Release year is {self._release_year}. Genres are {', '.join(self._genres)}"
 
