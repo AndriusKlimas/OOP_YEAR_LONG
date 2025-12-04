@@ -154,27 +154,48 @@ match choice:
 
     #If 6 is entered
     case "6":
+        #creating a genere list for the new video
         genres_list = []
+        #Print to tell user to input info
         print("Please enter the following details to add a new video:")
+        #set the video ID to the highest number in the list and then add 1 to it and sent it to that e.g. 5 is highest then it adds 1 and makes it a video id of 6
         get_video_id = max(videos.keys()) + 1
+        #Asking for the title
         get_title = input("Title: ")
+        #Askign for description
         get_description = input("Description: ")
+        # Asking for duration
         get_duration = int(input("Duration seconds: "))
+        # Asking for release year
         get_release_year = int(input("Release Year: "))
+        #Loop to get genres
         while True:
+            #Asking for genre
             get_genres = input("Please enter the genres")
+            #Cheking if genre is valid by using the return valid method from the class
             if get_genres in Video.return_valid_genres():
+                #If it is then add it to teh list
                 genres_list.append(get_genres)
+            #If not
             else:
+                #Tell the user the genre is not allowed
                 print("Genre not valid. Please choose a valid genre")
+                #Printing out all the valid genres
                 print(Video.return_valid_genres())
+            #asking if they want to add another genre
             print("Would you like to add another genre? (y/n)")
+            #getting the user input
             another = input().lower()
+            #if they aswear no then break the loop
             if another == "n":
                 break
+        # creating the new video object with the gathered info
         new_video = Video(get_video_id, get_title, get_description, get_duration, get_release_year, genres_list)
+        #adding the new video to the videos dictionary
         videos[new_video.get_video_id()] = new_video
+        #print saying it has been added
         print("Video added to list")
+        #print out the video info added
         print(videos[new_video.get_video_id()])
 
 
