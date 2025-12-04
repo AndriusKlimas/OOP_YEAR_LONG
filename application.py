@@ -36,17 +36,22 @@ users[user5.get_username()] = user5
 
 record1 = User.start_play(user1, video1._video_id, 500)
 record2 = User.start_play(user1, video3._video_id)
-record3 = User.start_play(user2, video2._video_id, 120)
+record3 = User.start_play(user2, video2._video_id, 1000)
 record4 = User.start_play(user2, video5._video_id)
-record5 = User.start_play(user3, video3._video_id, 30)
+record5 = User.start_play(user3, video3._video_id, 2500)
 record6 = User.start_play(user3, video1._video_id)
-record7 = User.start_play(user1, video2._video_id, 240)
+record7 = User.start_play(user1, video2._video_id, 600)
 record8 = User.start_play(user4, video4._video_id)
 record9 = User.start_play(user5, video5._video_id, 60)
-record10 = User.start_play(user2, video1._video_id, 10)
+record10 = User.start_play(user2, video1._video_id, 4000)
 
 #updates the play_record dictionary with the play_history dictionary stored in User class
 play_records = User.get_play_history()
+
+def sec_to_min(seconds):
+    minutes = seconds // 60
+    secs = seconds % 60
+    return f"{minutes} minutes and {secs} seconds"
 
 print("Welcome, please choose on of the below Options:")
 print("1. View all Videos")
@@ -107,11 +112,14 @@ match choice:
 
             if record.get_username() == username:
                 user_records.append(record)
-            else:
-                print("Invalid username entered")
-        print(f"Here is the play history for {username}")
-        for r in user_records:
-            print(r)
+        if not user_records:
+            print("Invalid username entered")
+        else:
+            print(f"Here is the play history for {username}")
+            for r in user_records:
+                vid_id = r.get_video_id()
+                title = videos[vid_id].title
+                print(f"{title} starting at {sec_to_min(r.get_pos())}")
 
     #If 5 is entered
     case "5":

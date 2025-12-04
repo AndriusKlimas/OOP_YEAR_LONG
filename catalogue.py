@@ -10,6 +10,9 @@ class Video:
         self._duration_seconds = _duration_seconds
         self._release_year = _release_year
 
+    def get_title(self):
+        return self.title
+
     #Creating a static method
     @staticmethod
     #setting a method called return_valid_genres
