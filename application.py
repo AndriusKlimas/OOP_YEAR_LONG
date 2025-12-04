@@ -14,11 +14,11 @@ video4 = Video(4, "Toy Story", "Toys come to life", 4860, 1995, ["animation", "c
 video5 = Video(5, "UP", "Ballon building", 16732, 2008, ["animation", "drama"])
 
 #Mnayally adding videos to the dictionary
-videos[video1._video_id] = video1
-videos[video2._video_id] = video2
-videos[video3._video_id] = video3
-videos[video4._video_id] = video4
-videos[video5._video_id] = video5
+videos[video1.get_video_id()] = video1
+videos[video2.get_video_id()] = video2
+videos[video3.get_video_id()] = video3
+videos[video4.get_video_id()] = video4
+videos[video5.get_video_id()] = video5
 
 # users = User
 user1 = User("NoahClarke123", "Password123!")
@@ -70,7 +70,7 @@ choice = input("Enter your choice (1-7) or 0 to exit: ")
 match choice:
     #If 1 is entered
     case "1":
-        #Peint all videos currently in the dictionary
+        #Print all videos currently in the dictionary
         #Loop through all videos in the dictionary
         for video in videos.values():
             #Print each one, one by one
@@ -174,9 +174,9 @@ match choice:
             if another == "n":
                 break
         new_video = Video(get_video_id, get_title, get_description, get_duration, get_release_year, genres_list)
-        videos[new_video._video_id] = new_video
+        videos[new_video.get_video_id()] = new_video
         print("Video added to list")
-        print(videos[new_video._video_id])
+        print(videos[new_video.get_video_id()])
 
 
     #If 7 is entered
@@ -188,7 +188,7 @@ match choice:
             # If the search gets a ping back then it will move on, all lower case as user may spell it with caps or without
             if remove_video.lower() in video.title.lower():
                 #Removing the video from the dictionary
-                del videos[video._video_id]
+                del videos[video.get_video_id()]
                 print(f"Video removed from list")
                 # Will break out of the function if its found
                 break
