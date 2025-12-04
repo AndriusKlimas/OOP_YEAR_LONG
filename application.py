@@ -1,54 +1,89 @@
 #Option 1 def
 def print_videos(videos_dictionary):
+    #Loops through dictionary and prints all videos
     for video in videos_dictionary.values():
         print(video)
 
 #Option 2 def
 def video_search(videos_dictionary, search_video):
+    #loops through dictionary and stores the video info in video variable
     for video in videos_dictionary.values():
+        #if the search_video is found in video.title then return the video found
         if search_video.lower() in video.title.lower():
             return video
+    #Else return none so it will not crash
     return None
 
 #Option 3 def
 def search_genre(videos_dictionary, search_genre):
+    #loops through dictionary and stores the video info in video variable
     for video in videos_dictionary.values():
+        #using the method check_genre from video class to check if the genre is in the video
         if video.check_genre(search_genre):
+            #print out the video if the genre is found
             print(video)
+    #else return none so it will not crash
     return None
 
 #Option 7 def
 def video_remover(videos_dictionary, remove_video):
+    #loops through dictionary and stores the video info in video variable
     for video in videos_dictionary.values():
+        #If the remove_video is found in the dictionary via title
         if remove_video.lower() in video.title.lower():
+            #then delete that video from the dictionary
             del videos_dictionary[video.get_video_id()]
+            #Return True
             return True
+    #else return false so it will not crash
     return False
 
 #Option 6 def
 def new_video(videos_dictionary):
+    # creating a genere list for the new video
     genres_list = []
+    # print to tell user to input info
     print("Please enter the following details to add a new video:")
+    # set the video ID to the highest number in the list and then add 1 to it and sent it to that e.g. 5 is highest then it adds 1 and makes it a video id of 6
     get_video_id = max(videos_dictionary.keys()) + 1
+    # asking for the title
     get_title = input("Title: ")
+    # askign for description
     get_description = input("Description: ")
+    # asking for duration
     get_duration = int(input("Duration seconds: "))
+    # asking for release year
     get_release_year = int(input("Release Year: "))
+    # loop to get genres
     while True:
+        # asking for genre
         get_genres = input("Please enter the genres")
+        # cheking if genre is valid by using the return valid method from the class
         if get_genres in Video.return_valid_genres():
+            # If it is then add it to teh list
             genres_list.append(get_genres)
+        # If not
         else:
+            # tell the user the genre is not allowed
             print("Genre not valid. Please choose a valid genre")
+            # printing out all the valid genres
             print(Video.return_valid_genres())
+        # asking if they want to add another genre
         print("Would you like to add another genre? (y/n)")
+        # getting the user input
         another = input().lower()
+        # if they aswear no then break the loop
         if another == "n":
             break
+    # creating the new video object with the gathered info
     new_video = Video(get_video_id, get_title, get_description, get_duration, get_release_year, genres_list)
+    # adding the new video to the videos dictionary
     videos_dictionary[new_video.get_video_id()] = new_video
+    # print saying it has been added
     print("Video added to list")
+    # print out the video info added
     print(videos[new_video.get_video_id()])
+    return videos_dictionary
 
 
 from catalogue import Video
@@ -123,13 +158,18 @@ choice = input("Enter your choice (1-7) or 0 to exit: ")
 match choice:
     #If 1 is entered
     case "1":
+        #Calling the method to print all videos
         print_videos(videos)
     #If 2 is entered(stack overflow helped with searching this)
     case "2":
+        #Getting the user to input the video they are searching for
         search_video = input("Please enter the Video title you are looking for: ")
+        #calling the method to search the video
         video_info = video_search(videos, search_video)
+        #If it variable video_info is not none then show the info
         if video_info is not None:
             print(video_info)
+        #else show video is not found as it means video was not found
         else:
             print("Video not found.")
         # #Setting a variable to sore the name of the movie
@@ -148,7 +188,9 @@ match choice:
 
     #If 3 is entered
     case "3":
+        #getting user to input the genre they are searching for
         search_video_genre = input("Please enter the genre you would like to look for: ")
+        #calling the method to search the genre
         search_genre(videos, search_video_genre)
 
         # going through dictionary looking through the values stored in each key for the one searched for
@@ -211,6 +253,7 @@ match choice:
 
     #If 6 is entered
     case "6":
+        #Calling the method to add a new video
         new_video(videos)
         #creating a genere list for the new video
         # genres_list = []
@@ -261,9 +304,12 @@ match choice:
     case "7":
         #Need to work on as multiple videos may have same name
         remove_video = input("Please enter the name of the video you would like to remove: ")
+        #calling the method to remove the video
         video_removed = video_remover(videos, remove_video)
+        #if the video method comes back as true then print video removed
         if video_removed == True:
             print("Video removed from list")
+        #else print video not found
         else:
             print("Video not found.")
         # going through dictionary looking through the values stored in each key for the one seached for
