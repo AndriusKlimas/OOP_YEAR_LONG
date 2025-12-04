@@ -59,20 +59,20 @@ class Video:
 
 
     def __str__(self) -> str:
-        return f"Title is {self.title} and description is {self.description}, Duration is {self._duration_seconds} seconds, Release year is {self._release_year}. Genres are {', '.join(self._genres)}"
+        return f"Title is {self.title} and description is {self.description}, Duration is {self.get_duration_seconds()} seconds, Release year is {self.get_release_year()}. Genres are {', '.join(self.get_genres())}"
 
     def __repr__(self) -> str:
-        return f"Video_ID: {self._video_id}, Title: {self.title}, Description: {self.description}, Duration: {self._duration_seconds}, Release Year: {self._release_year}, Genres: {self._genres}"
+        return f"Video_ID: {self.get_video_id()}, Title: {self.title}, Description: {self.description}, Duration: {self.get_duration_seconds()}, Release Year: {self.get_release_year()}, Genres: {self.get_genres()}"
 
     def __hash__(self) -> int:
-        return hash((self._video_id))
+        return hash((self.get_video_id()))
 
     def __format__(self, format_spec: str):
         match format_spec:
             case "short":
-                return f"{self.title}, {self._release_year}, {self._duration_seconds} seconds)"
+                return f"{self.title}, {self.get_release_year()}, {self.get_duration_seconds()} seconds)"
             case "long":
-                return f"Title: {self.title}\nDescription: {self.description}\nDuration: {self._duration_seconds} seconds\nRelease Year: {self._release_year}\nGenres: {', '.join(self._genres)}"
+                return f"Title: {self.title}\nDescription: {self.description}\nDuration: {self.get_duration_seconds()} seconds\nRelease Year: {self.get_release_year()}\nGenres: {', '.join(self.get_genres())}"
             case _:
                 return "Please enter a valid format"
 
