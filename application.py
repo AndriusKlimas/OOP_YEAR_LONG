@@ -169,7 +169,6 @@ match choice:
                 print("Genre not valid. Please choose a valid genre")
                 print(Video.return_valid_genres())
             print("Would you like to add another genre? (y/n)")
-            genres_list.append(get_genres)
             another = input().lower()
             if another == "n":
                 break
