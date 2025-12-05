@@ -53,6 +53,9 @@ class User:
     def get_username(self):
         return self._username
 
+    def get_history(self):
+        return dict(self._play_history)
+
     @staticmethod
     def get_play_history():
         return dict(User._play_history)
