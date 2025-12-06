@@ -1,3 +1,5 @@
+#imports annotations for type hinting
+
 class Video:
     #Created a class variable to stare all valid genres
     VALID_GENRES = ["action", "comedy", "drama", "horror", "romance", "scifi", "documentary", "animation", "thriller", "crime"]

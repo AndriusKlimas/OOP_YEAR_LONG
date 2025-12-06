@@ -1,54 +1,108 @@
+#imports annotations for type hinting
 from __future__ import annotations
 
+#creates a class for the play records
 class PlayRecord:
 
     record_counter: int = 1
 
     def __init__(self, username: str, video_id: int, position_in_seconds: int):
+        """sets up the constructor for the play records class
+
+        This method sets up the constructor for the play records class using play_id, username, video_id and the position in seconds
+
+        """
         self._play_id = PlayRecord.record_counter
         self._username = username
         self._video_id = video_id
         self._position_in_seconds = position_in_seconds
 
+        #the play id increases each time it is called
         PlayRecord.record_counter += 1
 
     def __str__(self):
+        """sets up the str method for the play records class
+
+        This method returns the username and position in seconds for each play record to the user
+
+        """
         return f"Username: {self.get_username()} Position in Seconds: {self.get_pos()}"
 
     def __repr__(self):
+        """sets up the repr method for the play records class
+
+        This method returns the class name, play id, username, video id, position in seconds to the developers
+
+        """
         return f"{self.__class__.__name__} Play ID: {self.get_play_id()} Username: {self.get_username()} Video ID: {self.get_video_id()} Position in Seconds: {self.get_pos()} "
 
     def __eq__(self, other: object) -> bool | NotImplemented:
+        """sets up the eq method for the play records class
+
+        This method checks that the play id of self is equal to the play id of the other entered
+
+        """
         if not isinstance(other, PlayRecord):
             return NotImplemented
 
         return self._play_id == other._play_id
 
     def __ne__(self, other: object) -> bool | NotImplemented:
+        """sets up the ne method for the play record class
+
+        This method checks that the play id is not equal to the play id of the other entered
+
+        """
         if not isinstance(other, PlayRecord):
             return True
 
         return self._play_id != other._play_id
 
     def get_play_id(self) -> int:
+        """gets the play id of self
+
+        This method returns the play id of the current user
+
+        """
         return self._play_id
 
     def get_video_id(self) -> int:
+        """gets the video id of self
+
+        This method returns the video id of the current user
+
+        """
         return self._video_id
 
     def get_username(self) -> str:
+        """gets the username of self
+
+        This method returns the username of the current user
+
+        """
         return self._username
 
     def get_pos(self) -> int:
+        """gets the position in seconds of self
+
+        This method returns the position in seconds of the current user
+
+        """
         return self._position_in_seconds
 
 
+#creates a class for the Users
 class User:
-    _play_history = {}
 
     def __init__(self, username: str, password: str):
+        """sets up the constructor for the user class
+
+        This method sets up the constructor for the play user class using username and password
+
+        """
         self._username = username
         self.__password = password
+        self._play_history = {}
 
     def get_username(self):
         return self._username
@@ -56,17 +110,29 @@ class User:
     def get_history(self):
         return dict(self._play_history)
 
-    @staticmethod
-    def get_play_history():
-        return dict(User._play_history)
 
     def __str__(self):
+        """sets up the str method for the play record class
+
+        This method returns the username and the protected password to the user
+
+        """
         return f"Username: {self.get_username()} Password = ********"
 
     def __repr__(self):
+        """sets up the repr method for the play record class
+
+        This method returns the class name, username and protected password to the developers
+
+        """
         return f"{self.__class__.__name__}\nUsername: {self.get_username()}\nPassword: ********"
 
     def __format__(self, format_spec: str):
+        """sets up the format method for the user class
+
+        This method checks what spec of format the user wants and returns either a short or long version
+
+        """
         match format_spec:
             case "short":
                 return f"Username: {self.get_username()}"
@@ -77,12 +143,22 @@ class User:
                 return repr(self)
 
     def __eq__(self, other: object) -> bool | NotImplemented:
+        """sets up the eq method for the user class
+
+        This method checks that the username is equal to the username of the other entered
+
+        """
         if not isinstance(other, User):
             return NotImplemented
 
         return self._username == other._username
 
     def __ne__(self, other: object) -> bool | NotImplemented:
+        """sets up the ne method for the user class
+
+        This method checks that the username is not equal to the username of the other entered
+
+        """
         if not isinstance(other, User):
             return True
 
@@ -90,6 +166,11 @@ class User:
 
     #defines a function called start_play which takes in self, video_id and position in seconds as pos
     def start_play(self, video_id: int, pos: int = 0):
+        """creates a play record using info from the user class
+
+        This method uses the play id as a key and the username, video id and position in seconds as the values to create an item in the play history dictionary for the user
+
+        """
         #validates that the video_id is valid (above 0) and the position in seconds is valid (0 or above)
         if video_id <= 0 or pos < 0:
             #if not, returns false
@@ -105,6 +186,11 @@ class User:
 
     #defines a function called get_plays
     def get_plays(self, video_id: int):
+        """gets a list of all the users play records for a specific video_id
+
+        This method checks the video id entered and returns a list to the user of all records with that video id
+
+        """
         #creates an empty list called plays
         plays = []
         #validates that the video_id is valid (above 0)
@@ -124,6 +210,11 @@ class User:
 
     @staticmethod
     def validate_password(password: str):
+        """validates the users password
+
+        This method validates that the users password contains at least 8 characters, a digit, an uppercase, and a lowercase
+
+        """
         if len(password) < 8:
             print("Password must contain at least 8 characters")
             return False
@@ -143,6 +234,11 @@ class User:
         return True
 
     def change_password(self, old_pass: str, new_pass: str):
+        """changes the users current password
+
+        This method asks the user to enter their current password and then asks them to enter a new password. It then validates that this password meets the requirements
+
+        """
         if old_pass != self.__password:
             print("Password entered does not match current password")
             return False

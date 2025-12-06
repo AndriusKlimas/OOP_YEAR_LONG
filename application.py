@@ -1,3 +1,6 @@
+#imports annotations for type hinting
+from __future__ import annotations
+
 #Option 1 def
 def print_videos(videos_dictionary):
     #Loops through dictionary and prints all videos
@@ -27,22 +30,40 @@ def search_genre(videos_dictionary, search_genre):
 
 #option 4 def
 def show_user_history(users_dict: dict, videos_dict: dict):
+    """Shows the user's play history.
+
+    This method takes in a username and returns the user history for the user with that username
+
+    """
+    #asks the user to enter the username they want to see the play history of
     username = input("Please enter the username of the user you would like to show the play history for: ")
-    if username in users:
+    #if the username they entered is in the users list
+    if username in users_dict:
+        #sets up a variable to store the history for that user
         user_records = users_dict[username].get_history()
-    else:
-        user_records = {}
-    if not user_records:
-        print("Invalid username entered")
-    else:
-        print(f"Here is the play history for {username}")
+        #prints a statement ot let the user know the history
+        print(f"Here is the play history for {username}: ")
+        #for loop to search through all the play records for that user
         for r in user_records.values():
+            #creates a variable to store the video id for that record
             vid_id = r.get_video_id()
+            #creates a variable to store the title of the video with that video id
             title = videos_dict[vid_id].title
+            #prints the title of the play record and the time in minutes and seconds of the position
             print(f"{title} starting at {sec_to_min(r.get_pos())}")
+
+    #if the username isnt in the dictionary
+    else:
+        #letds the user know their username is invalid
+        print("Invalid username entered")
 
 #option 5 def
 def play_video_user(user_dict: dict, videos_dict: dict):
+    """Create a new play record
+
+    This method takes in a username and a video that they want to watch. It then creates a play record for the user with that username and the video id of the title they entered
+
+    """
     # asks the user to enter the username they wish to play a video from
     username = input("Please enter the username of the user you wish to use: ")
     # if the username entered is found within the users dictionary
@@ -56,10 +77,8 @@ def play_video_user(user_dict: dict, videos_dict: dict):
             # if the title in the dictionary is the same as the title the user entered
             if t.title.lower() == video.lower():
                 # uses the start_play function to create a play record for the specified user in the dictionary with the video_id of the specified video
-                user_dict[username].start_play(t._video_id)
-                #updates the play_records list to include the new play record
-                play_records: dict = User.get_play_history()
-                'lets the user know that the user is now playing the movie they requested'
+                user_dict[username].start_play(t.get_video_id())
+                #lets the user know that the user is now playing the movie they requested
                 print(f"{user_dict[username].get_username()} is now playing {t.title}")
                 # changes the found variable to true
                 found = True
@@ -135,10 +154,13 @@ def new_video(videos_dictionary):
     return videos_dictionary
 
 
+#imports Video class from catalogue.py
 from catalogue import Video
+#imports User class and PlayRecords class from user_records.py
 from user_records import User, PlayRecord
 # from user_records import User
 
+#creates two blank dictionaries for the users and the videos
 users: dict = {}
 videos: dict = {}
 
@@ -170,19 +192,19 @@ users[user3.get_username()] = user3
 users[user4.get_username()] = user4
 users[user5.get_username()] = user5
 
-record1 = User.start_play(user1, video1.get_video_id(), 500)
-record2 = User.start_play(user1, video3.get_video_id())
-record3 = User.start_play(user2, video2.get_video_id(), 1000)
-record4 = User.start_play(user2, video5.get_video_id())
-record5 = User.start_play(user3, video3.get_video_id(), 2500)
-record6 = User.start_play(user3, video1.get_video_id())
-record7 = User.start_play(user1, video2.get_video_id(), 600)
-record8 = User.start_play(user4, video4.get_video_id())
-record9 = User.start_play(user5, video5.get_video_id(), 60)
-record10 = User.start_play(user2, video1.get_video_id(), 4000)
+#Manually creates 10 play records using the user data and video data
+record1 = user1.start_play(video1.get_video_id(), 500)
+record2 = user1.start_play(video3.get_video_id())
+record3 = user2.start_play(video2.get_video_id(), 1000)
+record4 = user2.start_play(video5.get_video_id())
+record5 = user3.start_play(video3.get_video_id(), 2500)
+record6 = user3.start_play(video1.get_video_id())
+record7 = user1.start_play(video2.get_video_id(), 600)
+record8 = user4.start_play(video4.get_video_id())
+record9 = user5.start_play(video5.get_video_id(), 60)
+record10 = user2.start_play(video1.get_video_id(), 4000)
 
-#updates the play_record dictionary with the play_history dictionary stored in User class
-play_records: dict = User.get_play_history()
+
 
 def sec_to_min(seconds):
     """Convert seconds to a human-readable minutes and seconds string.
@@ -196,11 +218,14 @@ def sec_to_min(seconds):
         Raises:
             ValueError: If *seconds* is negative.
         """
-
+    #creates a minute variable which is equal to the nearest whole minute
     minutes = seconds // 60
+    #creates a second variable which takes the remainder of the floored minute
     secs = seconds % 60
+    #returns the minutes and seconds of the video position
     return f"{minutes} minutes and {secs} seconds"
 
+#Shows a menu to the user with different option on our video playing application
 print("Welcome, please choose on of the below Options:")
 print("1. View all Videos")
 print("2. Search for specific video")
