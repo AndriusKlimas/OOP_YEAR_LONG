@@ -110,6 +110,11 @@ class User:
         return self._username
 
     def get_history(self):
+        """ gets the play history of the user
+
+        Returns:
+            dictionary of the play history for that user
+        """
         return dict(self._play_history)
 
 
