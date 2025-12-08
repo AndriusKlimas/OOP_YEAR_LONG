@@ -2,13 +2,27 @@
 from __future__ import annotations
 
 #Option 1 def
-def print_videos(videos_dictionary):
+def print_videos(videos_dictionary) -> None:
+    """
+    args:
+        videos_dictionary (dict): a dictionary of videos with key is Video ID and value is Video object
+    return:
+        Prints all videos in the dictionary
+    """
     #Loops through dictionary and prints all videos
     for video in videos_dictionary.values():
         print(video)
 
 #Option 2 def
-def video_search(videos_dictionary, search_video):
+def video_search(videos_dictionary, search_video) -> Video | None:
+    """
+    args:
+        videos_dictionary (dict): a dictionary of videos with key is Video ID and value is Video object
+        search_video: (str): the title of the video to search for
+
+    returns:
+        it will return the video if found else none
+    """
     #loops through dictionary and stores the video info in video variable
     for video in videos_dictionary.values():
         #if the search_video is found in video.title then return the video found
@@ -18,7 +32,15 @@ def video_search(videos_dictionary, search_video):
     return None
 
 #Option 3 def
-def search_genre(videos_dictionary, search_genre):
+def search_genre(videos_dictionary, search_genre) -> None:
+    """
+    args:
+        videos_dictionary (dict): a dictionary of videos with key is Video ID and value is Video object
+        search_genre: (str): the genre to search for
+
+    return:
+        prints all videos found with that genre | None
+    """
     #loops through dictionary and stores the video info in video variable
     for video in videos_dictionary.values():
         #using the method check_genre from video class to check if the genre is in the video
@@ -94,7 +116,15 @@ def play_video_user(user_dict: dict, videos_dict: dict):
         print("Invalid username entered")
 
 #Option 7 def
-def video_remover(videos_dictionary, remove_video):
+def video_remover(videos_dictionary, remove_video) -> bool:
+    """
+    args:
+        videos_dictionary (dict): a dictionary of videos with key is Video ID and value is Video object
+        remove_video: (str): the title of the video to remove
+
+    return:
+        bool: returns True if video is removed, else False
+    """
     #loops through dictionary and stores the video info in video variable
     for video in videos_dictionary.values():
         #If the remove_video is found in the dictionary via title
@@ -107,7 +137,14 @@ def video_remover(videos_dictionary, remove_video):
     return False
 
 #Option 6 def
-def new_video(videos_dictionary):
+def new_video(videos_dictionary) -> None:
+    """
+    args:
+        videos_dictionary (dict): a dictionary of videos with key is Video ID and value is Video object
+
+    return:
+        Prints the new video added to the dictionary, and adds the video to dictionary
+    """
     # creating a genere list for the new video
     genres_list = []
     # print to tell user to input info
@@ -151,7 +188,6 @@ def new_video(videos_dictionary):
     print("Video added to list")
     # print out the video info added
     print(videos[new_video.get_video_id()])
-    return videos_dictionary
 
 
 #imports Video class from catalogue.py
