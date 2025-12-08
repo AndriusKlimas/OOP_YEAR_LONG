@@ -107,6 +107,11 @@ class User:
         self._play_history = {}
 
     def get_username(self):
+        """ gets the username of the user
+
+        Returns:
+            username for the user
+        """
         return self._username
 
     def get_history(self):
