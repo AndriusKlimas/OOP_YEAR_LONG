@@ -3,7 +3,7 @@ from __future__ import annotations
 
 #Option 1 def
 def print_videos(videos_dictionary) -> None:
-    """
+    """ prints all videos in the dictionary
     args:
         videos_dictionary (dict): a dictionary of videos with key is Video ID and value is Video object
 
@@ -14,7 +14,7 @@ def print_videos(videos_dictionary) -> None:
 
 #Option 2 def
 def video_search(videos_dictionary, search_video) -> Video | None:
-    """
+    """ searching for a specific video in the dictionary
     args:
         videos_dictionary (dict): a dictionary of videos with key is Video ID and value is Video object
         search_video: (str): the title of the video to search for
@@ -29,7 +29,7 @@ def video_search(videos_dictionary, search_video) -> Video | None:
 
 #Option 3 def
 def search_genre(videos_dictionary, search_genre) -> None:
-    """
+    """ searching for a specific genre in the dictionary
     args:
         videos_dictionary (dict): a dictionary of videos with key is Video ID and value is Video object
         search_genre: (str): the genre to search for
@@ -109,7 +109,7 @@ def play_video_user(user_dict: dict, videos_dict: dict):
 
 #Option 7 def
 def video_remover(videos_dictionary, remove_video) -> bool:
-    """
+    """ Removes a video from the dictionary
     args:
         videos_dictionary (dict): a dictionary of videos with key is Video ID and value is Video object
         remove_video: (str): the title of the video to remove
@@ -130,7 +130,7 @@ def video_remover(videos_dictionary, remove_video) -> bool:
 
 #Option 6 def
 def new_video(videos_dictionary) -> None:
-    """
+    """ Adds a new video to the dictionary by creating an object of the video class
     args:
         videos_dictionary (dict): a dictionary of videos with key is Video ID and value is Video object
 
