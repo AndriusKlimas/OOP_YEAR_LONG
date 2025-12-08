@@ -179,9 +179,14 @@ class User:
     def start_play(self, video_id: int, pos: int = 0):
         """creates a play record using info from the user class
 
-        This method uses the play id as a key and the username, video id and position in seconds as the values to create an item in the play history dictionary for the user
+         Args:
+             video_id (int): The video id of the video_id the user wants to watch
+             pos (int): The position of the video in seconds
 
-        """
+         Returns:
+             True if the video id and position are valid, False otherwise
+         """
+
         #validates that the video_id is valid (above 0) and the position in seconds is valid (0 or above)
         if video_id <= 0 or pos < 0:
             #if not, returns false
