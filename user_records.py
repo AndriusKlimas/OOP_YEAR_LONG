@@ -145,10 +145,15 @@ class User:
                 return repr(self)
 
     def __eq__(self, other: object) -> bool | NotImplementedType:
-        """sets up the eq method for the user class
+        """ Compares two User objects
 
-        This method checks that the username is equal to the username of the other entered
+        Compares the username in both objects
+        Args:
+            other (object): The other User object to check against
 
+        Returns:
+             NotImplemented if other is not a User;
+             True if other's username equals this username; False if the usernames differ.
         """
         if not isinstance(other, User):
             return NotImplemented
