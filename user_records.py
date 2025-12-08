@@ -199,8 +199,11 @@ class User:
     def get_plays(self, video_id: int):
         """gets a list of all the users play records for a specific video_id
 
-        This method checks the video id entered and returns a list to the user of all records with that video id
+        Args:
+            video_id (int): The video id of the video_id the user wants to search for
 
+        Returns:
+            The plays list created of all the play records for the video
         """
         #creates an empty list called plays
         plays = []
