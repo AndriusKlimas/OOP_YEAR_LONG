@@ -221,10 +221,13 @@ class User:
 
     @staticmethod
     def validate_password(password: str):
-        """validates the users password
+        """Validates if the password entered has at least 8 characters, has a digit and has an uppercase and lowercase
 
-        This method validates that the users password contains at least 8 characters, a digit, an uppercase, and a lowercase
+        Args:
+            password (str): the password that hs been entered
 
+        Returns:
+            True if password meets all criteria, False otherwise
         """
         if len(password) < 8:
             print("Password must contain at least 8 characters")
