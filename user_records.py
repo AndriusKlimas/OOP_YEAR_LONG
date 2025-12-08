@@ -97,10 +97,11 @@ class PlayRecord:
 class User:
 
     def __init__(self, username: str, password: str):
-        """sets up the constructor for the user class
-
-        This method sets up the constructor for the play user class using username and password
-
+        """ sets up the constructor for the user class
+        
+        Args:
+            username (str): The username for the user
+            password (str): The password for the user
         """
         self._username = username
         self.__password = password
