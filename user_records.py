@@ -1,6 +1,8 @@
 #imports annotations for type hinting
 from __future__ import annotations
 
+from types import NotImplementedType
+
 #creates a class for the play records
 class PlayRecord:
 
@@ -36,7 +38,7 @@ class PlayRecord:
         """
         return f"{self.__class__.__name__} Play ID: {self.get_play_id()} Username: {self.get_username()} Video ID: {self.get_video_id()} Position in Seconds: {self.get_pos()} "
 
-    def __eq__(self, other: object) -> bool | NotImplemented:
+    def __eq__(self, other: object) -> bool | NotImplementedType:
         """sets up the eq method for the play records class
 
         This method checks that the play id of self is equal to the play id of the other entered
@@ -47,7 +49,7 @@ class PlayRecord:
 
         return self._play_id == other._play_id
 
-    def __ne__(self, other: object) -> bool | NotImplemented:
+    def __ne__(self, other: object) -> bool | NotImplementedType:
         """sets up the ne method for the play record class
 
         This method checks that the play id is not equal to the play id of the other entered
@@ -142,7 +144,7 @@ class User:
                 print("Invalid option selected")
                 return repr(self)
 
-    def __eq__(self, other: object) -> bool | NotImplemented:
+    def __eq__(self, other: object) -> bool | NotImplementedType:
         """sets up the eq method for the user class
 
         This method checks that the username is equal to the username of the other entered
@@ -153,7 +155,7 @@ class User:
 
         return self._username == other._username
 
-    def __ne__(self, other: object) -> bool | NotImplemented:
+    def __ne__(self, other: object) -> bool | NotImplementedType:
         """sets up the ne method for the user class
 
         This method checks that the username is not equal to the username of the other entered
