@@ -114,18 +114,18 @@ class User:
 
 
     def __str__(self):
-        """sets up the str method for the play record class
+        """ sets up the str method for the user class
 
-        This method returns the username and the protected password to the user
-
+        Returns:
+            statement including username and password (hidden)
         """
         return f"Username: {self.get_username()} Password = ********"
 
     def __repr__(self):
-        """sets up the repr method for the play record class
+        """ sets up the repr method for the user class
 
-        This method returns the class name, username and protected password to the developers
-
+        Returns:
+            statement including class name, username and password (hidden)
         """
         return f"{self.__class__.__name__}\nUsername: {self.get_username()}\nPassword: ********"
 
@@ -136,9 +136,9 @@ class User:
             format_spec (str): Which type of format to use
 
         Returns:
-        short format statement if format_spec is "short";
-        long format statement if format_spec is "long";
-        repr if invalid option is given
+            short format statement if format_spec is "short";
+            long format statement if format_spec is "long";
+            repr if invalid option is given
         """
         match format_spec:
             case "short":
