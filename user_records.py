@@ -161,10 +161,15 @@ class User:
         return self._username == other._username
 
     def __ne__(self, other: object) -> bool | NotImplementedType:
-        """sets up the ne method for the user class
+        """ Compares two User objects
 
-        This method checks that the username is not equal to the username of the other entered
+        Compares the username in both objects
+        Args:
+            other (object): The other User object to check against
 
+        Returns:
+             True if other is not a User;
+             True if other's username does not equal this username; False if usernames are the same
         """
         if not isinstance(other, User):
             return True
