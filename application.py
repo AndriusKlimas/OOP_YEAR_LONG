@@ -6,8 +6,7 @@ def print_videos(videos_dictionary) -> None:
     """
     args:
         videos_dictionary (dict): a dictionary of videos with key is Video ID and value is Video object
-    return:
-        Prints all videos in the dictionary
+
     """
     #Loops through dictionary and prints all videos
     for video in videos_dictionary.values():
@@ -20,16 +19,13 @@ def video_search(videos_dictionary, search_video) -> Video | None:
         videos_dictionary (dict): a dictionary of videos with key is Video ID and value is Video object
         search_video: (str): the title of the video to search for
 
-    returns:
-        it will return the video if found else none
     """
     #loops through dictionary and stores the video info in video variable
     for video in videos_dictionary.values():
         #if the search_video is found in video.title then return the video found
         if search_video.lower() in video.title.lower():
             return video
-    #Else return none so it will not crash
-    return None
+
 
 #Option 3 def
 def search_genre(videos_dictionary, search_genre) -> None:
@@ -38,8 +34,6 @@ def search_genre(videos_dictionary, search_genre) -> None:
         videos_dictionary (dict): a dictionary of videos with key is Video ID and value is Video object
         search_genre: (str): the genre to search for
 
-    return:
-        prints all videos found with that genre | None
     """
     #loops through dictionary and stores the video info in video variable
     for video in videos_dictionary.values():
@@ -47,8 +41,6 @@ def search_genre(videos_dictionary, search_genre) -> None:
         if video.check_genre(search_genre):
             #print out the video if the genre is found
             print(video)
-    #else return none so it will not crash
-    return None
 
 #option 4 def
 def show_user_history(users_dict: dict, videos_dict: dict):
@@ -142,8 +134,7 @@ def new_video(videos_dictionary) -> None:
     args:
         videos_dictionary (dict): a dictionary of videos with key is Video ID and value is Video object
 
-    return:
-        Prints the new video added to the dictionary, and adds the video to dictionary
+
     """
     # creating a genere list for the new video
     genres_list = []
