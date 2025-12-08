@@ -130,10 +130,15 @@ class User:
         return f"{self.__class__.__name__}\nUsername: {self.get_username()}\nPassword: ********"
 
     def __format__(self, format_spec: str):
-        """sets up the format method for the user class
+        """ sets up the format method for the user class
 
-        This method checks what spec of format the user wants and returns either a short or long version
+        Args:
+            format_spec (str): Which type of format to use
 
+        Returns:
+        short format statement if format_spec is "short";
+        long format statement if format_spec is "long";
+        repr if invalid option is given
         """
         match format_spec:
             case "short":
