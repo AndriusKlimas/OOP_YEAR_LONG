@@ -166,6 +166,15 @@ class User:
 
         return self._username != other._username
 
+    def __hash__(self):
+        """ Changes the unique identifier for the User class (username) to a number
+
+
+        Returns:
+            hashed version of username
+        """
+        return hash(self._username)
+
     #defines a function called start_play which takes in self, video_id and position in seconds as pos
     def start_play(self, video_id: int, pos: int = 0):
         """creates a play record using info from the user class
