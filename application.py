@@ -236,7 +236,7 @@ print("6. Add a new Video to the system")
 print("7. Remove a Video from the system")
 print("0. Exit Application")
 
-
+#getting users input
 choice = input("Enter your choice (1-7) or 0 to exit: ")
 
 #Setting up match case for user input
@@ -369,7 +369,7 @@ match choice:
     #If 0 is entered
     case "0":
         print("Exiting Application. Goodbye!")
-
+    #if anything else is entered
     case _:
         print("Invalid choice. Please choose a valid choice.")
 
