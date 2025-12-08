@@ -166,6 +166,15 @@ class User:
 
         return self._username != other._username
 
+    def __hash__(self):
+        """ Changes the unique identifier for the User class (username) to a number
+
+
+        Returns:
+            hashed version of username
+        """
+        return hash(self._username)
+
     #defines a function called start_play which takes in self, video_id and position in seconds as pos
     def start_play(self, video_id: int, pos: int = 0):
         """creates a play record using info from the user class
@@ -236,10 +245,14 @@ class User:
         return True
 
     def change_password(self, old_pass: str, new_pass: str):
-        """changes the users current password
+        """Changes the users current password
 
-        This method asks the user to enter their current password and then asks them to enter a new password. It then validates that this password meets the requirements
+        Args:
+            old_pass (str): The users current password
+            new_pass (str): The password the user wants to change to
 
+        Returns:
+            True if old password is equal to current password and if new password passes validation , False otherwise
         """
         if old_pass != self.__password:
             print("Password entered does not match current password")
