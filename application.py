@@ -44,10 +44,11 @@ def search_genre(videos_dictionary, search_genre) -> None:
 
 #option 4 def
 def show_user_history(users_dict: dict, videos_dict: dict):
-    """Shows the user's play history.
+    """ shows the user's play history
 
-    This method takes in a username and returns the user history for the user with that username
-
+    Args:
+        users_dict (dict): dictionary of all users
+        videos_dict (dict): dictionary of all videos
     """
     #asks the user to enter the username they want to see the play history of
     username = input("Please enter the username of the user you would like to show the play history for: ")
