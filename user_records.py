@@ -85,10 +85,10 @@ class PlayRecord:
         return self._username
 
     def get_pos(self) -> int:
-        """gets the position in seconds of self
+        """ gets the position in seconds
 
-        This method returns the position in seconds of the current user
-
+        Returns:
+            position in seconds for this user
         """
         return self._position_in_seconds
 
