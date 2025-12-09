@@ -23,10 +23,10 @@ class PlayRecord:
         PlayRecord.record_counter += 1
 
     def __str__(self):
-        """sets up the str method for the play records class
+        """ sets up the str method for the playrecord class
 
-        This method returns the username and position in seconds for each play record to the user
-
+        Returns:
+            statement including username and position_in_seconds
         """
         return f"Username: {self.get_username()} Position in Seconds: {self.get_pos()}"
 
