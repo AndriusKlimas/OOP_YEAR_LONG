@@ -50,10 +50,15 @@ class PlayRecord:
         return self._play_id == other._play_id
 
     def __ne__(self, other: object) -> bool | NotImplementedType:
-        """sets up the ne method for the play record class
+        """ Compares two PlayRecord objects
 
-        This method checks that the play id is not equal to the play id of the other entered
+        Compares the play_id in both objects
+        Args:
+            other (object): The other PlayRecord object to check against
 
+        Returns:
+             True if other is not a PlayRecord;
+             True if other's username does not equal this play_id; False if play_ids are the same
         """
         if not isinstance(other, PlayRecord):
             return True
