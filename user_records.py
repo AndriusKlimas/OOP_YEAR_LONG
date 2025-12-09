@@ -95,6 +95,14 @@ class PlayRecord:
         """
         return self._position_in_seconds
 
+    def get_username(self):
+        """ gets the username of the user
+
+        Returns:
+            username for the user
+        """
+        return self._username
+
 
 #creates a class for the Users
 class User:
