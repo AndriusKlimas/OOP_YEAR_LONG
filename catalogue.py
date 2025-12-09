@@ -11,6 +11,15 @@ class Video:
 
     #creating a constructor
     def __init__(self, _video_id : int, title:str, description:str, _duration_seconds:int, _release_year:int, _genres:list = []):
+        """ set up the video class cunstructor
+        args:
+            _video_id (int): unique identifier for the video
+            title (str): title of the video
+            description (str): description of the video
+            _duration_seconds (int): duration of the video in seconds
+            _release_year (int): release year of the video
+            _genres (list): list of genres for the video
+        """
         self._genres = _genres
         self._video_id = _video_id
         self.title = title
