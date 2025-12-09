@@ -61,10 +61,11 @@ class PlayRecord:
         return self._play_id != other._play_id
 
     def get_play_id(self) -> int:
-        """gets the play id of self
 
-        This method returns the play id of the current user
+        """ gets the play_id of the play record
 
+        Returns:
+            play_id of play record
         """
         return self._play_id
 
