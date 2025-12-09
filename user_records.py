@@ -9,10 +9,12 @@ class PlayRecord:
     record_counter: int = 1
 
     def __init__(self, username: str, video_id: int, position_in_seconds: int):
-        """sets up the constructor for the play records class
+        """ sets up the constructor for the PlayRecord class
 
-        This method sets up the constructor for the play records class using play_id, username, video_id and the position in seconds
-
+        Args:
+            username (str): The username for the user
+            video_id (int): Video id of the video in the play record
+            position_in_seconds (int): Position in seconds of the video
         """
         self._play_id = PlayRecord.record_counter
         self._username = username
