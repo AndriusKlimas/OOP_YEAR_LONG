@@ -239,13 +239,10 @@ def sec_to_min(seconds):
     """Convert seconds to a human-readable minutes and seconds string.
 
         Args:
-            seconds (int): Number of seconds (must be >= 0).
+            seconds (int): Number of seconds
 
         Returns:
             str: Formatted string in the form "N minutes and M seconds".
-
-        Raises:
-            ValueError: If *seconds* is negative.
         """
     #creates a minute variable which is equal to the nearest whole minute
     minutes = seconds // 60
