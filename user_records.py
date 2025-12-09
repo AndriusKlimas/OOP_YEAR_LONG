@@ -39,10 +39,15 @@ class PlayRecord:
         return f"{self.__class__.__name__} Play ID: {self.get_play_id()} Username: {self.get_username()} Video ID: {self.get_video_id()} Position in Seconds: {self.get_pos()} "
 
     def __eq__(self, other: object) -> bool | NotImplementedType:
-        """sets up the eq method for the play records class
+        """ Compares two PlayRecord objects
 
-        This method checks that the play id of self is equal to the play id of the other entered
+        Compares the play_id in both objects
+        Args:
+            other (object): The other PlayRecord object to check against
 
+        Returns:
+             NotImplemented if other is not a PlayRecord;
+             True if other's play_id equals this play_id; False if the play_ids differ.
         """
         if not isinstance(other, PlayRecord):
             return NotImplemented
@@ -58,7 +63,7 @@ class PlayRecord:
 
         Returns:
              True if other is not a PlayRecord;
-             True if other's username does not equal this play_id; False if play_ids are the same
+             True if other's play_id does not equal this play_id; False if play_ids are the same
         """
         if not isinstance(other, PlayRecord):
             return True
