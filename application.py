@@ -73,16 +73,17 @@ def show_user_history(users_dict: dict, videos_dict: dict):
         print("Invalid username entered")
 
 #option 5 def
-def play_video_user(user_dict: dict, videos_dict: dict):
-    """Create a new play record
+def play_video_user(users_dict: dict, videos_dict: dict):
+    """ creates a play record
 
-    This method takes in a username and a video that they want to watch. It then creates a play record for the user with that username and the video id of the title they entered
-
+    Args:
+        users_dict (dict): dictionary of all users
+        videos_dict (dict): dictionary of all videos
     """
     # asks the user to enter the username they wish to play a video from
     username = input("Please enter the username of the user you wish to use: ")
     # if the username entered is found within the users dictionary
-    if username in user_dict:
+    if username in users_dict:
         # it asks the user to enter the title of the video they wish to watch
         video = input("Please enter the title of the video: ")
         # creates a variable for when the program finds the movie they entered
@@ -92,9 +93,9 @@ def play_video_user(user_dict: dict, videos_dict: dict):
             # if the title in the dictionary is the same as the title the user entered
             if t.title.lower() == video.lower():
                 # uses the start_play function to create a play record for the specified user in the dictionary with the video_id of the specified video
-                user_dict[username].start_play(t.get_video_id())
+                users_dict[username].start_play(t.get_video_id())
                 #lets the user know that the user is now playing the movie they requested
-                print(f"{user_dict[username].get_username()} is now playing {t.title}")
+                print(f"{users_dict[username].get_username()} is now playing {t.title}")
                 # changes the found variable to true
                 found = True
                 # breaks from the loop
