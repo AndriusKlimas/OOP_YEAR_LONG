@@ -31,10 +31,10 @@ class PlayRecord:
         return f"Username: {self.get_username()} Position in Seconds: {self.get_pos()}"
 
     def __repr__(self):
-        """sets up the repr method for the play records class
+        """ sets up the repr method for the playrecord class
 
-        This method returns the class name, play id, username, video id, position in seconds to the developers
-
+        Returns:
+            statement including class name, play_id, username, video_id and position_in_seconds
         """
         return f"{self.__class__.__name__} Play ID: {self.get_play_id()} Username: {self.get_username()} Video ID: {self.get_video_id()} Position in Seconds: {self.get_pos()} "
 
