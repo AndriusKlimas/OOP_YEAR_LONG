@@ -76,14 +76,6 @@ class PlayRecord:
         """
         return self._video_id
 
-    def get_username(self) -> str:
-        """gets the username of self
-
-        This method returns the username of the current user
-
-        """
-        return self._username
-
     def get_pos(self) -> int:
         """ gets the position in seconds
 
