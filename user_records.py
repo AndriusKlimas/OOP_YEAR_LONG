@@ -69,10 +69,10 @@ class PlayRecord:
         return self._play_id
 
     def get_video_id(self) -> int:
-        """gets the video id of self
+        """ gets the video_id of the video in the play record
 
-        This method returns the video id of the current user
-
+        Returns:
+            video_id for video in play record
         """
         return self._video_id
 
