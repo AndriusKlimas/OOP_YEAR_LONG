@@ -143,7 +143,7 @@ class User:
         Returns:
             statement including username and password (hidden)
         """
-        return f"Username: {self.get_username()} Password = ********"
+        return f"Username: {self._username} Password = ********"
 
     def __repr__(self):
         """ sets up the repr method for the user class
@@ -166,9 +166,9 @@ class User:
         """
         match format_spec:
             case "short":
-                return f"Username: {self.get_username()}"
+                return f"Username: {self._username}"
             case "long":
-                return f"Username: {self.get_username()} Password: ********"
+                return f"Username: {self._username} Password: ********"
             case _:
                 print("Invalid option selected")
                 return repr(self)
