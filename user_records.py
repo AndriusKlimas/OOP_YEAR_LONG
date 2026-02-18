@@ -224,7 +224,7 @@ class User:
          """
 
         #validates that the video_id is valid (above 0) and the position in seconds is valid (0 or above)
-        if video_id < 0 or pos <= 0:
+        if video_id <= 0 or pos < 0:
             #if not, returns false
             return False
         #If hey are both valid
@@ -253,7 +253,7 @@ class User:
         #creates an empty list called plays
         plays = []
         #validates that the video_id is valid (above 0)
-        if video_id < 0:
+        if video_id <= 0:
             #lets the user know if it isnt valid
             print("Invalid video ID entered")
             #returns the empty list
