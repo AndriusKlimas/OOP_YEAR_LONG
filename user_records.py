@@ -289,16 +289,21 @@ class User:
 
         return True
 
-    def change_password(self, old_pass: str, new_pass: str):
+    def change_password(self, username: str, old_pass: str, new_pass: str):
         """Changes the users current password
 
         Args:
+            username (str): The current username
             old_pass (str): The users current password
             new_pass (str): The password the user wants to change to
 
         Returns:
             True if old password is equal to current password and if new password passes validation , False otherwise
         """
+        if username != self._username:
+            print("Invalid username entered")
+            return False
+
         if old_pass != self.__password:
             print("New password must not contain the username")
             return False
