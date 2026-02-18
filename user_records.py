@@ -129,7 +129,14 @@ class User:
         Returns:
             dictionary of the play history for that user (video_id as key, list of PlayRecords as value)
         """
-        return dict(self._play_history)
+        #creates a new dictionary to store the copied history
+        history_copy = {}
+        #loops through each video_id in the play history
+        for vid_id in self._play_history:
+            #creates a copy of the list of play records for this video_id
+            history_copy[vid_id] = list(self._play_history[vid_id])
+        #returns the copied dictionary
+        return history_copy
 
 
     def __str__(self):
