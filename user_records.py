@@ -57,20 +57,15 @@ class PlayRecord:
         return self._play_id == other._play_id
 
     def __ne__(self, other: object) -> bool | NotImplementedType:
-        """ Compares two PlayRecord objects
+        """Compares two PlayRecord objects for inequality by delegating to __eq__.
 
-        Compares the play_id in both objects
-        Args:
-            other (object): The other PlayRecord object to check against
-
-        Returns:
-             NotImplemented if other is not a PlayRecord;
-             True if other's play_id does not equal this play_id; False if play_ids are the same
+        This avoids duplicating the equality logic. If __eq__ returns NotImplemented,
+        we propagate it so Python can try reflected operations.
         """
-        if not isinstance(other, PlayRecord):
+        eq_result = self.__eq__(other)
+        if eq_result is NotImplemented:
             return NotImplemented
-
-        return self._play_id != other._play_id
+        return not eq_result
 
     def get_play_id(self) -> int:
 
@@ -190,20 +185,15 @@ class User:
         return self._username == other._username
 
     def __ne__(self, other: object) -> bool | NotImplementedType:
-        """ Compares two User objects
+        """Compares two User objects for inequality by delegating to __eq__.
 
-        Compares the username in both objects
-        Args:
-            other (object): The other User object to check against
-
-        Returns:
-             Notimplemented if other is not a User;
-             True if other's username does not equal this username; False if usernames are the same
+        This avoids duplicating the equality logic. If __eq__ returns NotImplemented,
+        we propagate it so Python can try reflected operations.
         """
-        if not isinstance(other, User):
+        eq_result = self.__eq__(other)
+        if eq_result is NotImplemented:
             return NotImplemented
-
-        return self._username != other._username
+        return not eq_result
 
     def __hash__(self):
         """ Changes the unique identifier for the User class (username) to a number
