@@ -30,7 +30,7 @@ class PlayRecord:
         Returns:
             statement including username and position_in_seconds
         """
-        return f"Username: {self.get_username()} Position in Seconds: {self.get_pos()}"
+        return f"Username: {self._username} Position in Seconds: {self.get_pos()}"
 
     def __repr__(self):
         """ sets up the repr method for the playrecord class
@@ -38,7 +38,7 @@ class PlayRecord:
         Returns:
             statement including class name, play_id, username, video_id and position_in_seconds
         """
-        return f"{self.__class__.__name__} Play ID: {self.get_play_id()} Username: {self.get_username()} Video ID: {self.get_video_id()} Position in Seconds: {self.get_pos()} "
+        return f"{self.__class__.__name__} Play ID: {self.get_play_id()} Username: {self._username} Video ID: {self.get_video_id()} Position in Seconds: {self.get_pos()} "
 
     def __eq__(self, other: object) -> bool | NotImplementedType:
         """ Compares two PlayRecord objects
