@@ -151,7 +151,7 @@ class User:
         Returns:
             statement including class name, username and password (hidden)
         """
-        return f"{self.__class__.__name__}\nUsername: {self.get_username()}\nPassword: ********"
+        return f"{self.__class__.__name__}\nUsername: {self._username}\nPassword: ********\nPLay History: {self._play_history}"
 
     def __format__(self, format_spec: str):
         """ sets up the format method for the user class
