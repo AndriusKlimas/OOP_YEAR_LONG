@@ -127,7 +127,7 @@ class User:
         """ gets the play history of the user
 
         Returns:
-            dictionary of the play history for that user
+            dictionary of the play history for that user (video_id as key, list of PlayRecords as value)
         """
         return dict(self._play_history)
 
@@ -217,15 +217,19 @@ class User:
          """
 
         #validates that the video_id is valid (above 0) and the position in seconds is valid (0 or above)
-        if video_id <= 0 or pos < 0:
+        if video_id < 0 or pos <= 0:
             #if not, returns false
             return False
         #If hey are both valid
         else:
             #creates a variable called play_record, which is a created play record. takes the username, video id and position in seconds
             play_record = PlayRecord(self._username, video_id, pos)
-            #adds this record into the play history dictionary and sets the play_id as the key
-            self._play_history[play_record.get_play_id()] = play_record
+            #checks if this video_id already exists in the play history dictionary
+            if video_id not in self._play_history:
+                #if not, creates a new empty list for this video_id
+                self._play_history[video_id] = []
+            #adds this play record to the list for this video_id
+            self._play_history[video_id].append(play_record)
             #returns true
             return True
 
@@ -242,17 +246,15 @@ class User:
         #creates an empty list called plays
         plays = []
         #validates that the video_id is valid (above 0)
-        if video_id <= 0:
+        if video_id < 0:
             #lets the user know if it isnt valid
             print("Invalid video ID entered")
             #returns the empty list
             return plays
-        #if it is valid, loops through all of the values of the dictionary
-        for p in self._play_history.values():
-            #if the video_id supplied mathces a video_id in the dictionary
-            if p.get_video_id() == video_id:
-                #append the plays list with this entry
-                plays.append(p)
+        #if the video_id exists in the play history dictionary
+        if video_id in self._play_history:
+            #gets the list of play records for this video_id
+            plays = self._play_history[video_id]
         #returns the list
         return plays
 
