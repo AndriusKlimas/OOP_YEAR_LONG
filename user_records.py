@@ -64,11 +64,11 @@ class PlayRecord:
             other (object): The other PlayRecord object to check against
 
         Returns:
-             True if other is not a PlayRecord;
+             NotImplemented if other is not a PlayRecord;
              True if other's play_id does not equal this play_id; False if play_ids are the same
         """
         if not isinstance(other, PlayRecord):
-            return True
+            return NotImplemented
 
         return self._play_id != other._play_id
 
@@ -197,11 +197,11 @@ class User:
             other (object): The other User object to check against
 
         Returns:
-             True if other is not a User;
+             Notimplemented if other is not a User;
              True if other's username does not equal this username; False if usernames are the same
         """
         if not isinstance(other, User):
-            return True
+            return NotImplemented
 
         return self._username != other._username
 
