@@ -257,7 +257,7 @@ class User:
         return plays
 
     @staticmethod
-    def validate_password(password: str):
+    def validate_password(password: str) -> bool:
         """Validates if the password entered has at least 8 characters, has a digit and has an uppercase and lowercase
 
         Args:
@@ -266,20 +266,25 @@ class User:
         Returns:
             True if password meets all criteria, False otherwise
         """
+        if password is None:
+            return False
+
         if len(password) < 8:
-            print("Password must contain at least 8 characters")
             return False
 
-        if not password.isdigit():
-            print("Password must contain at least one digit!")
+        upper_check = any((c.isupper() for c in password))
+        if not upper_check:
+            print("No uppercase letters included")
             return False
 
-        if not password.isupper():
-            print("Password must contain at least one uppercase!")
+        lower_check = any((c.islower() for c in password))
+        if not lower_check:
+            print("No lowercase letters included")
             return False
 
-        if not password.islower():
-            print("Password must contain at least one lower!")
+        digit_check = any((c.isdigit() for c in password))
+        if not digit_check:
+            print("No digits included")
             return False
 
         return True
@@ -295,12 +300,12 @@ class User:
             True if old password is equal to current password and if new password passes validation , False otherwise
         """
         if old_pass != self.__password:
-            print("Password entered does not match current password")
+            print("New password must not contain the username")
             return False
 
         if not User.validate_password(new_pass):
             print("Password entered does not meet the requirements")
             return False
 
-        self.__password = new_pass
         return True
+
