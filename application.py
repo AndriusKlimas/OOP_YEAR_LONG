@@ -58,14 +58,16 @@ def show_user_history(users_dict: dict, videos_dict: dict):
         user_records = users_dict[username].get_history()
         #prints a statement ot let the user know the history
         print(f"Here is the play history for {username}: ")
-        #for loop to search through all the play records for that user
-        for r in user_records.values():
-            #creates a variable to store the video id for that record
-            vid_id = r.get_video_id()
+        #for loop to search through all the video_ids in the user's play history
+        for vid_id in user_records:
+            #gets the list of play records for this video_id
+            play_records_list = user_records[vid_id]
             #creates a variable to store the title of the video with that video id
             title = videos_dict[vid_id].title
-            #prints the title of the play record and the time in minutes and seconds of the position
-            print(f"{title} starting at {sec_to_min(r.get_pos())}")
+            #loops through all play records for this video
+            for r in play_records_list:
+                #prints the title of the play record and the time in minutes and seconds of the position
+                print(f"{title} starting at {sec_to_min(r.get_pos())}")
 
     #if the username isnt in the dictionary
     else:
