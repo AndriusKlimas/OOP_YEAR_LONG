@@ -5,7 +5,7 @@ from catalogue import Video
 from user_records import User, PlayRecord
 
 #Option 1 def
-def print_videos(videos_dictionary) -> None:
+def print_videos(videos_dictionary: dict) -> None:
     """ prints all videos in the dictionary
     args:
         videos_dictionary (dict): a dictionary of videos with key is Video ID and value is Video object
@@ -15,7 +15,7 @@ def print_videos(videos_dictionary) -> None:
         print(video)
 
 #Option 2 def
-def video_search(videos_dictionary, search_video) -> Video | None:
+def video_search(videos_dictionary: dict, search_video: str) -> Video | None:
     """ searching for a specific video in the dictionary
     args:
         videos_dictionary (dict): a dictionary of videos with key is Video ID and value is Video object
@@ -28,7 +28,7 @@ def video_search(videos_dictionary, search_video) -> Video | None:
 
 
 #Option 3 def
-def search_genre(videos_dictionary, search_genre) -> None:
+def search_genre(videos_dictionary: dict, search_genre: str) -> None:
     """ searching for a specific genre in the dictionary
     args:
         videos_dictionary (dict): a dictionary of videos with key is Video ID and value is Video object
@@ -40,7 +40,7 @@ def search_genre(videos_dictionary, search_genre) -> None:
             print(video)
 
 #option 4 def
-def show_user_history(users_dict: dict, videos_dict: dict):
+def show_user_history(users_dict: dict, videos_dict: dict) -> None:
     """ shows the user's play history
 
     Args:
@@ -61,7 +61,7 @@ def show_user_history(users_dict: dict, videos_dict: dict):
         print("Invalid username entered")
 
 #option 5 def
-def play_video_user(users_dict: dict, videos_dict: dict):
+def play_video_user(users_dict: dict, videos_dict: dict) -> None:
     """ creates a play record
 
     Args:
@@ -86,7 +86,7 @@ def play_video_user(users_dict: dict, videos_dict: dict):
         print("Invalid username entered")
 
 #Option 6 def
-def new_video(videos_dictionary) -> None:
+def new_video(videos_dictionary: dict) -> None:
     """ Adds a new video to the dictionary by creating an object of the video class
     args:
         videos_dictionary (dict): a dictionary of videos with key is Video ID and value is Video object
@@ -118,7 +118,7 @@ def new_video(videos_dictionary) -> None:
     print(videos[new_video.get_video_id()])
 
 #Option 7 def
-def video_remover(videos_dictionary, remove_video) -> bool:
+def video_remover(videos_dictionary: dict, remove_video: str) -> bool:
     """ Removes a video from the dictionary
     args:
         videos_dictionary (dict): a dictionary of videos with key is Video ID and value is Video object
@@ -133,7 +133,7 @@ def video_remover(videos_dictionary, remove_video) -> bool:
             return True
     return False
 
-def sec_to_min(seconds):
+def sec_to_min(seconds: int) -> str:
     """Convert seconds to a human-readable minutes and seconds string.
 
         Args:
