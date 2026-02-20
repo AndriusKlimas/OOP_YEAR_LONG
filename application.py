@@ -1,6 +1,13 @@
 #imports annotations for type hinting
 from __future__ import annotations
 
+#imports Video class from catalogue.py
+from catalogue import Video
+#imports User class and PlayRecords class from user_records.py
+from user_records import User, PlayRecord
+# from user_records import User
+
+
 #Option 1 def
 def print_videos(videos_dictionary) -> None:
     """ prints all videos in the dictionary
@@ -111,27 +118,6 @@ def play_video_user(users_dict: dict, videos_dict: dict):
         # lets the user know they entered an invalid username
         print("Invalid username entered")
 
-#Option 7 def
-def video_remover(videos_dictionary, remove_video) -> bool:
-    """ Removes a video from the dictionary
-    args:
-        videos_dictionary (dict): a dictionary of videos with key is Video ID and value is Video object
-        remove_video: (str): the title of the video to remove
-
-    return:
-        bool: returns True if video is removed, else False
-    """
-    #loops through dictionary and stores the video info in video variable
-    for video in videos_dictionary.values():
-        #If the remove_video is found in the dictionary via title
-        if remove_video.lower() in video.title.lower():
-            #then delete that video from the dictionary
-            del videos_dictionary[video.get_video_id()]
-            #Return True
-            return True
-    #else return false so it will not crash
-    return False
-
 #Option 6 def
 def new_video(videos_dictionary) -> None:
     """ Adds a new video to the dictionary by creating an object of the video class
@@ -184,12 +170,43 @@ def new_video(videos_dictionary) -> None:
     # print out the video info added
     print(videos[new_video.get_video_id()])
 
+#Option 7 def
+def video_remover(videos_dictionary, remove_video) -> bool:
+    """ Removes a video from the dictionary
+    args:
+        videos_dictionary (dict): a dictionary of videos with key is Video ID and value is Video object
+        remove_video: (str): the title of the video to remove
 
-#imports Video class from catalogue.py
-from catalogue import Video
-#imports User class and PlayRecords class from user_records.py
-from user_records import User, PlayRecord
-# from user_records import User
+    return:
+        bool: returns True if video is removed, else False
+    """
+    #loops through dictionary and stores the video info in video variable
+    for video in videos_dictionary.values():
+        #If the remove_video is found in the dictionary via title
+        if remove_video.lower() in video.title.lower():
+            #then delete that video from the dictionary
+            del videos_dictionary[video.get_video_id()]
+            #Return True
+            return True
+    #else return false so it will not crash
+    return False
+
+def sec_to_min(seconds):
+    """Convert seconds to a human-readable minutes and seconds string.
+
+        Args:
+            seconds (int): Number of seconds
+
+        Returns:
+            str: Formatted string in the form "N minutes and M seconds".
+        """
+    #creates a minute variable which is equal to the nearest whole minute
+    minutes = seconds // 60
+    #creates a second variable which takes the remainder of the floored minute
+    secs = seconds % 60
+    #returns the minutes and seconds of the video position
+    return f"{minutes} minutes and {secs} seconds"
+
 
 #creates two blank dictionaries for the users and the videos
 users: dict = {}
@@ -234,24 +251,6 @@ record7 = user1.start_play(video2.get_video_id(), 600)
 record8 = user4.start_play(video4.get_video_id())
 record9 = user5.start_play(video5.get_video_id(), 60)
 record10 = user2.start_play(video1.get_video_id(), 4000)
-
-
-
-def sec_to_min(seconds):
-    """Convert seconds to a human-readable minutes and seconds string.
-
-        Args:
-            seconds (int): Number of seconds
-
-        Returns:
-            str: Formatted string in the form "N minutes and M seconds".
-        """
-    #creates a minute variable which is equal to the nearest whole minute
-    minutes = seconds // 60
-    #creates a second variable which takes the remainder of the floored minute
-    secs = seconds % 60
-    #returns the minutes and seconds of the video position
-    return f"{minutes} minutes and {secs} seconds"
 
 #Shows a menu to the user with different option on our video playing application
 print("Welcome, please choose on of the below Options:")
@@ -402,3 +401,4 @@ match choice:
         print("Invalid choice. Please choose a valid choice.")
 
     #added to dev_main
+
