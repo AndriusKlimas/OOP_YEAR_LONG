@@ -110,7 +110,19 @@ class User:
         Args:
             username (str): The username for the user
             password (str): The password for the user
+
         """
+        if username is None:
+            raise ValueError("Username cannot be None")
+        if password is None:
+            raise ValueError("Password cannot be None")
+
+        if len(username.strip()) == 0:
+            raise ValueError("Username cannot be empty")
+
+        if not User.validate_password(password):
+            raise ValueError("Password does not meet the requirements")
+
         self._username = username
         self.__password = password
         self._play_history = {}
@@ -309,6 +321,20 @@ class User:
         Returns:
             True if old password is equal to current password and if new password passes validation , False otherwise
         """
+        if username is None:
+            print("Username cannot be None")
+            return False
+        if old_pass is None:
+            print("Old password cannot be None")
+            return False
+        if new_pass is None:
+            print("New password cannot be None")
+            return False
+
+        if len(username.strip()) == 0:
+            print("Username cannot be empty")
+            return False
+
         if username != self._username:
             print("Invalid username entered")
             return False
