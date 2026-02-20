@@ -24,7 +24,7 @@ class PlayRecord:
         #the play id increases each time it is called
         PlayRecord.record_counter += 1
 
-    def __str__(self):
+    def __str__(self) -> str:
         """ sets up the str method for the playrecord class
 
         Returns:
@@ -32,7 +32,7 @@ class PlayRecord:
         """
         return f"Username: {self._username} Position in Seconds: {self.get_pos()}"
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """ sets up the repr method for the playrecord class
 
         Returns:
@@ -92,7 +92,7 @@ class PlayRecord:
         """
         return self._position_in_seconds
 
-    def get_username(self):
+    def get_username(self) -> str:
         """ gets the username of the user
 
         Returns:
@@ -127,7 +127,7 @@ class User:
         self.__password = password
         self._play_history = {}
 
-    def get_username(self):
+    def get_username(self) -> str:
         """ gets the username of the user
 
         Returns:
@@ -135,7 +135,7 @@ class User:
         """
         return self._username
 
-    def get_history(self):
+    def get_history(self) -> dict[int, list[PlayRecord]]:
         """ gets the play history of the user
 
         Returns:
@@ -151,7 +151,7 @@ class User:
         return history_copy
 
 
-    def __str__(self):
+    def __str__(self) -> str:
         """ sets up the str method for the user class
 
         Returns:
@@ -159,7 +159,7 @@ class User:
         """
         return f"Username: {self._username} Password = ********"
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """ sets up the repr method for the user class
 
         Returns:
@@ -167,7 +167,7 @@ class User:
         """
         return f"{self.__class__.__name__}\nUsername: {self._username}\nPassword: ********\nPLay History: {self._play_history}"
 
-    def __format__(self, format_spec: str):
+    def __format__(self, format_spec: str) -> str:
         """ sets up the format method for the user class
 
         Args:
@@ -214,7 +214,7 @@ class User:
             return NotImplemented
         return not eq_result
 
-    def __hash__(self):
+    def __hash__(self) -> int:
         """ Changes the unique identifier for the User class (username) to a number
 
 
@@ -224,7 +224,7 @@ class User:
         return hash(self._username)
 
     #defines a function called start_play which takes in self, video_id and position in seconds as pos
-    def start_play(self, video_id: int, pos: int = 0):
+    def start_play(self, video_id: int, pos: int = 0) -> bool:
         """creates a play record using info from the user class
 
          Args:
@@ -253,7 +253,7 @@ class User:
             return True
 
     #defines a function called get_plays
-    def get_plays(self, video_id: int):
+    def get_plays(self, video_id: int) -> list:
         """gets a list of all the users play records for a specific video_id
 
         Args:
@@ -282,7 +282,7 @@ class User:
         """Validates if the password entered has at least 8 characters, has a digit and has an uppercase and lowercase
 
         Args:
-            password (str): the password that hs been entered
+            password (str | None): the password that hs been entered
 
         Returns:
             True if password meets all criteria, False otherwise
@@ -310,7 +310,7 @@ class User:
 
         return True
 
-    def change_password(self, username: str, old_pass: str, new_pass: str):
+    def change_password(self, username: str, old_pass: str, new_pass: str) -> bool:
         """Changes the users current password
 
         Args:
