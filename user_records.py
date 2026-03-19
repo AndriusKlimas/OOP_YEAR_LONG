@@ -1,6 +1,6 @@
 #imports annotations for type hinting
 from __future__ import annotations
-
+from functools import total_ordering
 from types import NotImplementedType
 
 #creates a class for the play records
@@ -102,6 +102,7 @@ class PlayRecord:
 
 
 #creates a class for the Users
+@total_ordering
 class User:
 
     def __init__(self, username: str, password: str):
@@ -213,6 +214,21 @@ class User:
         if eq_result is NotImplemented:
             return NotImplemented
         return not eq_result
+
+    def __lt__(self, other: object) -> bool | NotImplementedType:
+        """Compares two User objects and ranks them based on their username
+
+
+        Args:
+            other (object): The other User object to check against
+
+        Returns:
+            Whichever object is less than the other
+        """
+        if not isinstance(other, User):
+            return NotImplemented
+
+        return self._username < other._username
 
     def __hash__(self) -> int:
         """ Changes the unique identifier for the User class (username) to a number
