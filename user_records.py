@@ -3,6 +3,9 @@ from __future__ import annotations
 from functools import total_ordering
 from types import NotImplementedType
 
+class InvalidUserError(Exception):
+    pass
+
 #creates a class for the play records
 class PlayRecord:
 
