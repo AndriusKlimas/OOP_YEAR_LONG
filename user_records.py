@@ -124,7 +124,7 @@ class User:
 
         if not User.validate_username(username):
             raise InvalidUserError("Username does not meet the requirements")
-        
+
         self.__password = password
         self._play_history = {}
 
@@ -251,15 +251,10 @@ class User:
              True if the video id and position are valid, False otherwise
          """
 
-        #validates that the video_id is valid (above 0) and the position in seconds is valid (0 or above)
         if video_id <= 0 or pos < 0:
-            #if not, returns false
             return False
-        #If hey are both valid
         else:
-            #creates a variable called play_record, which is a created play record. takes the username, video id and position in seconds
             play_record = PlayRecord(self._username, video_id, pos)
-            #checks if this video_id already exists in the play history dictionary
             if video_id not in self._play_history:
                 #if not, creates a new empty list for this video_id
                 self._play_history[video_id] = []
@@ -366,7 +361,15 @@ class User:
         return True
 
     @staticmethod
-    def validate_username(self, username: str) -> bool:
+    def validate_username(username: str) -> bool:
+        """Validates if the username entered is empty or not
+
+        Args:
+            username (str | None): the password that hs been entered
+
+        Returns:
+            True if password meets all criteria, False otherwise
+            """
         if not username:
             return False
 
