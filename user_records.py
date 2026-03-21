@@ -116,18 +116,15 @@ class User:
             password (str): The password for the user
 
         """
-        if username is None:
-            raise ValueError("Username cannot be None")
-        if password is None:
-            raise ValueError("Password cannot be None")
-
-        if len(username.strip()) == 0:
-            raise ValueError("Username cannot be empty")
 
         if not User.validate_password(password):
-            raise ValueError("Password does not meet the requirements")
+            raise InvalidUserError("Password does not meet the requirements")
 
         self._username = username
+
+        if not User.validate_username(username):
+            raise InvalidUserError("Username does not meet the requirements")
+        
         self.__password = password
         self._play_history = {}
 
@@ -368,3 +365,9 @@ class User:
 
         return True
 
+    @staticmethod
+    def validate_username(self, username: str) -> bool:
+        if not username:
+            return False
+
+        return True
