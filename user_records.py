@@ -110,12 +110,32 @@ class PlayRecord:
 
     @staticmethod
     def validate_username(username: str) -> bool:
+        """Validate if a username is valid.
+
+        A valid username must not be None.
+
+        Args:
+            username: The username to validate.
+
+        Returns:
+            True if the username is valid, False otherwise.
+        """
         if username is None:
             return False
         return True
 
     @staticmethod
     def validate_video_id(video_id: int) -> bool:
+        """Validate if a video ID is valid.
+
+        A valid video ID must not be None and must be a non-negative integer.
+
+        Args:
+            video_id: The video ID to validate.
+
+        Returns:
+            True if the video ID is valid, False otherwise.
+        """
         if video_id is None:
             return False
         if video_id < 0:
@@ -124,6 +144,16 @@ class PlayRecord:
 
     @staticmethod
     def validate_position_in_seconds(position_in_seconds: int) -> bool:
+        """Validate if a position in seconds is valid.
+
+        A valid position must not be None and must be a non-negative integer.
+
+        Args:
+            position_in_seconds: The position in seconds to validate.
+
+        Returns:
+            True if the position is valid, False otherwise.
+        """
         if position_in_seconds is None:
             return False
         if position_in_seconds < 0:
