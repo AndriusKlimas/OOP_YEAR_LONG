@@ -8,7 +8,7 @@ from typing import List, Optional
 #Creating the class
 class Video:
     #Created a class variable to stare all valid genres
-    VALID_GENRES = ["action", "comedy", "drama", "horror", "romance", "scifi", "documentary", "animation", "thriller", "crime"]
+    _VALID_GENRES = ["action", "comedy", "drama", "horror", "romance", "scifi", "documentary", "animation", "thriller", "crime"]
 
     #creating a constructor
     def __init__(
@@ -47,7 +47,7 @@ class Video:
         Returns:
             A copy of the list of all valid genres.
         """
-        return list(Video.VALID_GENRES)
+        return list(Video._VALID_GENRES)
 
     #method to add genre
     def add_genre(self, genre: str) -> bool:
@@ -59,7 +59,7 @@ class Video:
         Returns:
             True if the genre was successfully added, False otherwise.
         """
-        if genre not in self._genres and genre in Video.VALID_GENRES:
+        if genre not in self._genres and genre in Video._VALID_GENRES:
             self._genres.append(genre.lower())
             return True
         else:
@@ -75,7 +75,7 @@ class Video:
         Returns:
             True if the genre is in the video, False otherwise.
         """
-        if genre.lower() in self._genres and genre.lower() in Video.VALID_GENRES:
+        if genre.lower() in self._genres and genre.lower() in Video._VALID_GENRES:
             return True
         else:
             return False
