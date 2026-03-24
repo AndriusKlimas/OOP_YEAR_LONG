@@ -25,10 +25,29 @@ class Video:
         """
         self._genres: List[str] = list(genres) if genres is not None else []
 
+        if not Video.validate_id(video_id):
+            print("Invalid video id.")
+            exit()
         self._video_id: int = video_id
+
+        if not Video.validate_title(title):
+            print("Invalid title.")
+            exit()
         self.title: str = title
+
+        if not Video.validate_description(description):
+            print("Invalid description.")
+            exit()
         self.description: str = description
+
+        if not Video.validate_duration_seconds(duration_seconds):
+            print("Invalid duration seconds.")
+            exit()
         self._duration_seconds: int = duration_seconds
+
+        if not Video.validate_release_year(release_year):
+            print("Invalid release year.")
+            exit()
         self._release_year: int = release_year
 
     #method to get title
