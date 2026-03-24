@@ -16,12 +16,12 @@ class Video:
         """Initialize a Video object.
 
         Args:
-            _video_id: Unique identifier for the video.
+            video_id: Unique identifier for the video.
             title: Title of the video.
             description: Description of the video.
-            _duration_seconds: Duration of the video in seconds.
-            _release_year: Release year of the video.
-            _genres: Optional list of genres; defaults to an empty list.
+            duration_seconds: Duration of the video in seconds.
+            release_year: Release year of the video.
+            genres: Optional list of genres; defaults to an empty list.
         """
         self._genres: List[str] = list(genres) if genres is not None else []
 
@@ -137,30 +137,69 @@ class Video:
         return list(self._genres)
 
     @staticmethod
-    def validate_id(video_id) -> int:
+    def validate_id(video_id: int) -> bool:
+        """Validate if a video ID is valid.
+
+        A valid video ID must be a non-negative integer.
+
+        Args:
+            video_id: The video ID to validate.
+
+        Returns:
+            True if the video ID is valid, False otherwise.
+        """
         if video_id is None:
             return False
         if video_id < 0:
             return False
-        if video_id is not int():
+        if not isinstance(video_id, int):
             return False
         return True
 
     @staticmethod
-    def validate_title(title):
+    def validate_title(title: str) -> bool:
+        """Validate if a title is valid.
+
+        A valid title must not be None.
+
+        Args:
+            title: The title to validate.
+
+        Returns:
+            True if the title is valid, False otherwise.
+        """
         if title is None:
             return False
         return True
 
     @staticmethod
-    def validate_description(description):
+    def validate_description(description: str) -> bool:
+        """Validate if a description is valid.
+
+        A valid description must not be None.
+
+        Args:
+            description: The description to validate.
+
+        Returns:
+            True if the description is valid, False otherwise.
+        """
         if description is None:
             return False
         return True
 
-
     @staticmethod
-    def validate_duration_seconds(duration_seconds):
+    def validate_duration_seconds(duration_seconds: int) -> bool:
+        """Validate if a duration in seconds is valid.
+
+        A valid duration must be a non-negative integer.
+
+        Args:
+            duration_seconds: The duration in seconds to validate.
+
+        Returns:
+            True if the duration is valid, False otherwise.
+        """
         if duration_seconds is None:
             return False
         if duration_seconds < 0:
@@ -168,7 +207,17 @@ class Video:
         return True
 
     @staticmethod
-    def validate_release_year(release_year):
+    def validate_release_year(release_year: int) -> bool:
+        """Validate if a release year is valid.
+
+        A valid release year must be a non-negative integer.
+
+        Args:
+            release_year: The release year to validate.
+
+        Returns:
+            True if the release year is valid, False otherwise.
+        """
         if release_year is None:
             return False
         if release_year < 0:
