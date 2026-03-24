@@ -293,9 +293,9 @@ class Video:
 
         Returns:
             True if the videos have different IDs, False otherwise.
-            True if other is not a Video instance.
+            NotImplemented if other is not a Video instance.
         """
         if not isinstance(other, Video):
-            return True
+            return NotImplemented
 
         return self._video_id != other._video_id
