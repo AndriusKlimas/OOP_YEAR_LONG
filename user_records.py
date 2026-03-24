@@ -106,6 +106,30 @@ class PlayRecord:
         return self._username
 
 
+
+
+    @staticmethod
+    def validate_username(username: str) -> bool:
+        if username is None:
+            return False
+        return True
+
+    @staticmethod
+    def validate_video_id(video_id: int) -> bool:
+        if video_id is None:
+            return False
+        if video_id < 0:
+            return False
+        return True
+
+    @staticmethod
+    def validate_position_in_seconds(position_in_seconds: int) -> bool:
+        if position_in_seconds is None:
+            return False
+        if position_in_seconds < 0:
+            return False
+        return True
+
 #creates a class for the Users
 class User:
 
