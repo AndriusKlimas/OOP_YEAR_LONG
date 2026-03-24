@@ -140,6 +140,22 @@ class Video:
         return True
 
 
+    @staticmethod
+    def validate_duration_seconds(duration_seconds):
+        if duration_seconds is None:
+            return False
+        if duration_seconds < 0:
+            return False
+        return True
+
+    @staticmethod
+    def validate_release_year(release_year):
+        if release_year is None:
+            return False
+        if release_year < 0:
+            return False
+        return True
+
 
     #to print out the info about the video
     def __str__(self) -> str:
