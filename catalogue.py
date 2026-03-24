@@ -127,6 +127,18 @@ class Video:
             return False
         return True
 
+    @staticmethod
+    def validate_title(title):
+        if title is None:
+            return False
+        return True
+
+    @staticmethod
+    def validate_description(description):
+        if description is None:
+            return False
+        return True
+
 
 
     #to print out the info about the video
