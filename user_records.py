@@ -1,6 +1,7 @@
 #imports annotations for type hinting
 from __future__ import annotations
 
+from typing import Dict
 from types import NotImplementedType
 
 #creates a class for the play records
@@ -8,35 +9,35 @@ class PlayRecord:
 
     record_counter: int = 1
 
-    def __init__(self, username: str, video_id: int, position_in_seconds: int):
-        """ sets up the constructor for the PlayRecord class
+    def __init__(self, username: str, video_id: int, position_in_seconds: int) -> None:
+        """Initialize a PlayRecord object.
 
         Args:
-            username (str): The username for the user
-            video_id (int): Video id of the video in the play record
-            position_in_seconds (int): Position in seconds of the video
+            username: The username for the user.
+            video_id: Video ID of the video in the play record.
+            position_in_seconds: Position in seconds of the video.
         """
-        self._play_id = PlayRecord.record_counter
-        self._username = username
-        self._video_id = video_id
-        self._position_in_seconds = position_in_seconds
+        self._play_id: int = PlayRecord.record_counter
+        self._username: str = username
+        self._video_id: int = video_id
+        self._position_in_seconds: int = position_in_seconds
 
-        #the play id increases each time it is called
+        # The play ID increases each time a record is created
         PlayRecord.record_counter += 1
 
-    def __str__(self):
-        """ sets up the str method for the playrecord class
+    def __str__(self) -> str:
+        """Return a user-friendly string representation of the play record.
 
         Returns:
-            statement including username and position_in_seconds
+            A formatted string with username and position in seconds.
         """
         return f"Username: {self.get_username()} Position in Seconds: {self.get_pos()}"
 
-    def __repr__(self):
-        """ sets up the repr method for the playrecord class
+    def __repr__(self) -> str:
+        """Return a developer-friendly string representation of the play record.
 
         Returns:
-            statement including class name, play_id, username, video_id and position_in_seconds
+            A formatted string with class name, play ID, username, video ID, and position.
         """
         return f"{self.__class__.__name__} Play ID: {self.get_play_id()} Username: {self.get_username()} Video ID: {self.get_video_id()} Position in Seconds: {self.get_pos()} "
 
@@ -73,35 +74,34 @@ class PlayRecord:
         return self._play_id != other._play_id
 
     def get_play_id(self) -> int:
-
-        """ gets the play_id of the play record
+        """Get the play ID of the play record.
 
         Returns:
-            play_id of play record
+            The play ID.
         """
         return self._play_id
 
     def get_video_id(self) -> int:
-        """ gets the video_id of the video in the play record
+        """Get the video ID of the video in the play record.
 
         Returns:
-            video_id for video in play record
+            The video ID.
         """
         return self._video_id
 
     def get_pos(self) -> int:
-        """ gets the position in seconds
+        """Get the position in seconds.
 
         Returns:
-            position in seconds for this user
+            Position in seconds for this user.
         """
         return self._position_in_seconds
 
-    def get_username(self):
-        """ gets the username of the user
+    def get_username(self) -> str:
+        """Get the username of the user.
 
         Returns:
-            username for the user
+            The username for the user.
         """
         return self._username
 
@@ -111,7 +111,7 @@ class User:
 
     def __init__(self, username: str, password: str):
         """ sets up the constructor for the user class
-        
+
         Args:
             username (str): The username for the user
             password (str): The password for the user
