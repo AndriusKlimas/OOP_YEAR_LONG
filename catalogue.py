@@ -12,7 +12,7 @@ class Video:
 
     #creating a constructor
     def __init__(
-        self,_video_id: int,title: str,description: str,_duration_seconds: int,_release_year: int,_genres: Optional[List[str]] = None) -> None:
+        self,video_id: int,title: str,description: str,duration_seconds: int,release_year: int,genres: Optional[List[str]] = None) -> None:
         """Initialize a Video object.
 
         Args:
@@ -23,12 +23,13 @@ class Video:
             _release_year: Release year of the video.
             _genres: Optional list of genres; defaults to an empty list.
         """
-        self._genres: List[str] = list(_genres) if _genres is not None else []
-        self._video_id: int = _video_id
+        self._genres: List[str] = list(genres) if genres is not None else []
+
+        self._video_id: int = video_id
         self.title: str = title
         self.description: str = description
-        self._duration_seconds: int = _duration_seconds
-        self._release_year: int = _release_year
+        self._duration_seconds: int = duration_seconds
+        self._release_year: int = release_year
 
     #method to get title
     def get_title(self) -> str:
@@ -115,6 +116,18 @@ class Video:
             A copy of the genres list.
         """
         return list(self._genres)
+
+    @staticmethod
+    def validate_id(video_id) -> int:
+        if video_id is None:
+            return False
+        if video_id < 0:
+            return False
+        if video_id is not int():
+            return False
+        return True
+
+
 
     #to print out the info about the video
     def __str__(self) -> str:
