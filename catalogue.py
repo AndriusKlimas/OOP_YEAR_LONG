@@ -100,6 +100,16 @@ class Video:
         else:
             return False
 
+
+    #New thing added
+    @staticmethod
+    def validate_genre(genre: str) -> bool:
+        if genre.lower() in Video._VALID_GENRES:
+            return True
+        else:
+            return False
+
+
     #for good practice to return private variables
     def get_video_id(self) -> int:
         """Get the unique identifier of the video.
