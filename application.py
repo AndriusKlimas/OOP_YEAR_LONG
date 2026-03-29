@@ -149,58 +149,97 @@ def sec_to_min(seconds: int) -> str:
     return f"{minutes} minutes and {secs} seconds"
 
 def parse_videos(filename: str) -> list:
-    """Parses a file of video information into a list of dictionaries
+    """Parses a file of video information into a list of Video objects.
 
     Args:
-        filename (str): the name of the file to parse
+        filename(str): the name of the file
 
     Returns:
-        A list of dictionaries of video information
+        Invalid records are logged and skipped; the function returns a list of successfully
+        created Video objects.
     """
     with open(filename) as file:
         video_dicts = json.load(file)
 
     videos = []
-    for video_dict in video_dicts:
-        video = Video.from_dict(video_dict)
-        videos.append(video)
+    for i, video_dict in enumerate(video_dicts, start=1):
+        try:
+            video = Video.from_dict(video_dict)
+            videos.append(video)
+        except Exception as e:
+            # Log invalid record and continue
+            print(f"Invalid video record #{i} in {filename}: {e}")
     return videos
 
+
 def parse_users(filename: str) -> list:
-    """Parses a file of user information into a list of dictionaries
+    """Parses a file of user information into a list of User objects.
 
-        Args:
-            filename (str): the name of the file to parse
+    Args:
+        filename(str): the name of the file
 
-        Returns:
-            A list of dictionaries of user information
+    Returns:
+        Invalid records are logged and skipped; the function returns a list of successfully
+        created User objects.
     """
     with open(filename) as file:
         users_dicts = json.load(file)
 
     users = []
-    for users_dict in users_dicts:
-        user = User.from_dict(users_dict)
-        users.append(user)
+    for i, users_dict in enumerate(users_dicts, start=1):
+        try:
+            user = User.from_dict(users_dict)
+            users.append(user)
+        except Exception as e:
+            print(f"Invalid user record #{i} in {filename}: {e}")
     return users
 
-def parse_playrecords(filename: str) -> list:
-    """Parses a file of playrecord information into a list of dictionaries
 
-        Args:
-            filename (str): the name of the file to parse
+def parse_playrecords(filename: str, users: dict | None) -> list:
+    """Parses a file of playrecord information.
 
-        Returns:
-            A list of dictionaries of playrecord information
+    Args:
+        filename(str): the name of the file
+        users: (dict): a dictionary of users
+
+    Returns:
+        Invalid records are logged and skipped; the function returns a list of PlayRecord objects that were created.
+
+    If a `users` mapping is provided the function will attempt to attach play records to
+    the corresponding User objects by calling User.start_play.
     """
     with open(filename) as file:
         play_dicts = json.load(file)
 
     playrecords = []
-    for play_dict in play_dicts:
-        playrecord = PlayRecord.from_dict(play_dict)
-        playrecords.append(playrecord)
+    for i, play_dict in enumerate(play_dicts, start=1):
+        try:
+            # If we have a users mapping we prefer to attach the record to that user
+            if users is not None:
+                username = play_dict.get("username")
+                video_id = play_dict.get("video_id")
+                pos = play_dict.get("position_in_seconds", 0)
 
+                if username is None:
+                    raise ValueError(f"Unknown username '{username}'")
+                if video_id is None:
+                    raise ValueError(f"Unknown video_id '{video_id}'")
+
+                # Use start_play to create and register the play record.
+                success = users[username].start_play(video_id, pos)
+                if not success:
+                    raise ValueError(f"Failed to create play record for user '{username}' and video '{video_id}'")
+
+                # Retrieve the most recent play record for this user/video
+                pr_list = users[username].get_plays(video_id)
+                if pr_list:
+                    playrecords.append(pr_list[-1])
+            else:
+                # No users mapping available: try to use PlayRecord.from_dict (may raise)
+                pr = PlayRecord.from_dict(play_dict)
+                playrecords.append(pr)
+        except Exception as e:
+            print(f"Invalid playrecord #{i} in {filename}: {e}")
     return playrecords
 
 
@@ -242,7 +281,6 @@ record8 = user4.start_play(video4.get_video_id())
 record9 = user5.start_play(video5.get_video_id(), 60)
 record10 = user2.start_play(video1.get_video_id(), 4000)
 
-print("Welcome, please choose on of the below Options:")
 print("1. View all Videos")
 print("2. Search for specific video")
 print("3. Show all videos in specific genre")
@@ -294,5 +332,4 @@ match choice:
 
     case _:
         print("Invalid choice. Please choose a valid choice.")
-
 
