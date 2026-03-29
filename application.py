@@ -270,16 +270,75 @@ users[user3.get_username()] = user3
 users[user4.get_username()] = user4
 users[user5.get_username()] = user5
 
-record1 = user1.start_play(video1.get_video_id(), 500)
-record2 = user1.start_play(video3.get_video_id())
-record3 = user2.start_play(video2.get_video_id(), 1000)
-record4 = user2.start_play(video5.get_video_id())
-record5 = user3.start_play(video3.get_video_id(), 2500)
-record6 = user3.start_play(video1.get_video_id())
-record7 = user1.start_play(video2.get_video_id(), 600)
-record8 = user4.start_play(video4.get_video_id())
-record9 = user5.start_play(video5.get_video_id(), 60)
-record10 = user2.start_play(video1.get_video_id(), 4000)
+
+def create_default_playrecords():
+    """Create the hardcoded play records used by the example data.
+
+    This simply calls start_play on the example users and videos. Keeping this
+    in a function makes it easy to reuse or skip later if the program loads
+    playrecords from files.
+    """
+    record1 = user1.start_play(video1.get_video_id(), 500)
+    record2 = user1.start_play(video3.get_video_id())
+    record3 = user2.start_play(video2.get_video_id(), 1000)
+    record4 = user2.start_play(video5.get_video_id())
+    record5 = user3.start_play(video3.get_video_id(), 2500)
+    record6 = user3.start_play(video1.get_video_id())
+    record7 = user1.start_play(video2.get_video_id(), 600)
+    record8 = user4.start_play(video4.get_video_id())
+    record9 = user5.start_play(video5.get_video_id(), 60)
+    record10 = user2.start_play(video1.get_video_id(), 4000)
+    return [record1, record2, record3, record4, record5, record6, record7, record8, record9, record10]
+
+# create defaults immediately (keeps original behaviour)
+create_default_playrecords()
+
+def data_setup(parse_type: str, filename: str | None = None):
+    """Prompt the user (up to 3 tries) for a filename and parse the file.
+
+    Args:
+        parse_type (str): one of "videos", "users" or "playrecords".
+        filename (str | None): optional initial filename to try first (if provided
+                                the function will attempt it, otherwise it will
+                                prompt the user).
+
+    Returns:
+        list: list of parsed objects on success, or None to indicate the caller
+              should use the hardcoded defaults.
+    """
+    attempts = 3
+    for attempt in range(attempts):
+        # If caller provided a filename, try it first on the first attempt.
+        if attempt == 0 and filename:
+            fname = filename.strip()
+        else:
+            fname = input(f"Enter {parse_type} filename (JSON) or press Enter to use defaults: ").strip()
+
+        if not fname:
+            # User chose defaults or pressed Enter
+            return None
+
+        try:
+            if parse_type == "videos":
+                items = parse_videos(fname)
+            elif parse_type == "users":
+                items = parse_users(fname)
+            elif parse_type == "playrecords":
+                # parse_playrecords uses the current `users` mapping to attach records
+                items = parse_playrecords(fname, users)
+            else:
+                print("Unknown data type requested; using defaults.")
+                return None
+
+            print(f"Loaded {len(items)} {parse_type} from {fname}")
+            return items
+        except FileNotFoundError:
+            print(f"File not found: {fname}. Attempts left: {attempts - attempt - 1}")
+        except Exception as e:
+            print(f"Error loading {parse_type} from {fname}: {e}. Attempts left: {attempts - attempt - 1}")
+
+    print(f"Failed to load {parse_type} after {attempts} attempts; using defaults.")
+    return None
 
 print("1. View all Videos")
 print("2. Search for specific video")
@@ -332,4 +391,3 @@ match choice:
 
     case _:
         print("Invalid choice. Please choose a valid choice.")
-
