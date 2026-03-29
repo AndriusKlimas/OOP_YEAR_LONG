@@ -1,6 +1,8 @@
 #imports annotations for type hinting
 from __future__ import annotations
 
+import json
+
 from catalogue import Video
 from user_records import User, PlayRecord
 
@@ -145,6 +147,61 @@ def sec_to_min(seconds: int) -> str:
     minutes = seconds // 60
     secs = seconds % 60
     return f"{minutes} minutes and {secs} seconds"
+
+def parse_videos(filename: str) -> list:
+    """Parses a file of video information into a list of dictionaries
+
+    Args:
+        filename (str): the name of the file to parse
+
+    Returns:
+        A list of dictionaries of video information
+    """
+    with open(filename) as file:
+        video_dicts = json.load(file)
+
+    videos = []
+    for video_dict in video_dicts:
+        video = Video.from_dict(video_dict)
+        videos.append(video)
+    return videos
+
+def parse_users(filename: str) -> list:
+    """Parses a file of user information into a list of dictionaries
+
+        Args:
+            filename (str): the name of the file to parse
+
+        Returns:
+            A list of dictionaries of user information
+    """
+    with open(filename) as file:
+        users_dicts = json.load(file)
+
+    users = []
+    for users_dict in users_dicts:
+        user = User.from_dict(users_dict)
+        users.append(user)
+    return users
+
+def parse_playrecords(filename: str) -> list:
+    """Parses a file of playrecord information into a list of dictionaries
+
+        Args:
+            filename (str): the name of the file to parse
+
+        Returns:
+            A list of dictionaries of playrecord information
+    """
+    with open(filename) as file:
+        play_dicts = json.load(file)
+
+    playrecords = []
+    for play_dict in play_dicts:
+        playrecord = PlayRecord.from_dict(play_dict)
+        playrecords.append(playrecord)
+
+    return playrecords
 
 
 users: dict = {}
