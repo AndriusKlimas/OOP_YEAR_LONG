@@ -104,6 +104,7 @@ class PlayRecord:
         return self._username
 
 
+
 #creates a class for the Users
 @total_ordering
 class User:
@@ -374,3 +375,36 @@ class User:
             return False
 
         return True
+
+    @classmethod
+    def from_dict(cls, data):
+        """Creates a user object from a dictionary
+
+        Args:
+            data (dict): The dictionary that represents the user
+
+        Returns:
+            User object based on the class
+        """
+        try:
+            username = data["username"]
+            password = data["password"]
+            return cls(username, password)
+
+        except KeyError as e:
+            raise ValueError(f"{cls.__name__} JSON error -> Missing key {e}")
+
+
+    def to_dict(self):
+        """Converts the user object to a dictionary
+
+        Returns:
+            Dictionary representing the user object
+        """
+        data = {}
+        data["type"] = self.__class__.__name__
+
+        data["username"] = self._username
+        data["password"] = self.__password
+
+        return data
