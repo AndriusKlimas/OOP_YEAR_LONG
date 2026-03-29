@@ -11,7 +11,7 @@ class PlayRecord:
 
     record_counter: int = 1
 
-    def __init__(self, username: str, video_id: int, position_in_seconds: int):
+    def __init__(self, username: str | User, video_id: int, position_in_seconds: int):
         """ sets up the constructor for the PlayRecord class
 
         Args:
@@ -122,7 +122,7 @@ class PlayRecord:
         except KeyError as e:
             raise ValueError(f"JSON error occurred when building {cls.__name__} - cannot find key {e}")
 
-    def to_dict(self):
+    def to_dict(self) -> dict:
         """ converts the object to a dictionary
 
         Returns:
@@ -133,7 +133,7 @@ class PlayRecord:
         data = {}
 
         data["type"] = self.__class__.__name__
-        data["username"] = self._username.to_dict()
+        data["username"] = self.get_username()
         data["video_id"] = self.get_video_id()
         data["position_in_seconds"] = self.get_pos()
 
@@ -415,7 +415,7 @@ class User:
         return True
 
     @classmethod
-    def from_dict(cls, data):
+    def from_dict(cls, data: dict[str, str]) -> User:
         """Creates a user object from a dictionary
 
         Args:
@@ -433,7 +433,7 @@ class User:
             raise ValueError(f"{cls.__name__} JSON error -> Missing key {e}")
 
 
-    def to_dict(self):
+    def to_dict(self) -> dict:
         """Converts the user object to a dictionary
 
         Returns:
