@@ -340,54 +340,65 @@ def data_setup(parse_type: str, filename: str | None = None):
     print(f"Failed to load {parse_type} after {attempts} attempts; using defaults.")
     return None
 
-print("1. View all Videos")
-print("2. Search for specific video")
-print("3. Show all videos in specific genre")
-print("4. View all PlayRecords by a user")
-print("5. Play a specific Video for a specified User")
-print("6. Add a new Video to the system")
-print("7. Remove a Video from the system")
-print("0. Exit Application")
+if __name__ == "__main__":
 
-choice = input("Enter your choice (1-7) or 0 to exit: ")
+    video_filename = input("Please enter a filename where video information is stored or press Enter to use defaults: ").strip()
+    vdata = data_setup("videos", video_filename)
+    user_filename = input("Please enter a filename where user information is stored or press Enter to use defaults: ").strip()
+    udata = data_setup("users", user_filename)
+    pr_filename = input("Please enter a filename where Play Record information is stored or press Enter to use defaults: ").strip()
+    prdata = data_setup("playrecords", pr_filename)
 
-match choice:
-    case "1":
-        print_videos(videos)
-    case "2":
-        search_video = input("Please enter the Video title you are looking for: ")
-        video_info = video_search(videos, search_video)
-        #If it variable video_info is not none then show the info
-        if video_info is not None:
-            print(video_info)
-        else:
-            print("Video not found.")
 
-    case "3":
-        search_video_genre = input("Please enter the genre you would like to look for: ")
-        search_genre(videos, search_video_genre)
 
-    case "4":
-        show_user_history(users, videos)
+    print("1. View all Videos")
+    print("2. Search for specific video")
+    print("3. Show all videos in specific genre")
+    print("4. View all PlayRecords by a user")
+    print("5. Play a specific Video for a specified User")
+    print("6. Add a new Video to the system")
+    print("7. Remove a Video from the system")
+    print("0. Exit Application")
 
-    case "5":
-        play_video_user(users, videos)
+    choice = input("Enter your choice (1-7) or 0 to exit: ")
 
-    case "6":
-        new_video(videos)
+    match choice:
+        case "1":
+            print_videos(videos)
+        case "2":
+            search_video = input("Please enter the Video title you are looking for: ")
+            video_info = video_search(videos, search_video)
+            #If it variable video_info is not none then show the info
+            if video_info is not None:
+                print(video_info)
+            else:
+                print("Video not found.")
 
-    case "7":
-        #Need to work on as multiple videos may have same name
-        remove_video = input("Please enter the name of the video you would like to remove: ")
-        video_removed = video_remover(videos, remove_video)
-        if video_removed == True:
-            print("Video removed from list")
+        case "3":
+            search_video_genre = input("Please enter the genre you would like to look for: ")
+            search_genre(videos, search_video_genre)
 
-        else:
-            print("Video not found.")
+        case "4":
+            show_user_history(users, videos)
 
-    case "0":
-        print("Exiting Application. Goodbye!")
+        case "5":
+            play_video_user(users, videos)
 
-    case _:
-        print("Invalid choice. Please choose a valid choice.")
+        case "6":
+            new_video(videos)
+
+        case "7":
+            #Need to work on as multiple videos may have same name
+            remove_video = input("Please enter the name of the video you would like to remove: ")
+            video_removed = video_remover(videos, remove_video)
+            if video_removed == True:
+                print("Video removed from list")
+
+            else:
+                print("Video not found.")
+
+        case "0":
+            print("Exiting Application. Goodbye!")
+
+        case _:
+            print("Invalid choice. Please choose a valid choice.")
