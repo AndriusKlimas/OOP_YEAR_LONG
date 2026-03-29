@@ -103,6 +103,44 @@ class PlayRecord:
         """
         return self._username
 
+    @classmethod
+    def from_dict(cls, data: dict) -> PlayRecord:
+        """ creates a PlayRecord from a dictionary
+
+        Returns:
+            PlayRecord object based on the class
+        """
+        try:
+            if data["type"] != cls.__name__:
+                raise ValueError(f"Invalid type value ({data["type"]}) within dict  - {cls.__name__} cannot deserialise")
+
+            temp_username = data["username"]
+            username = User.from_dict(temp_username)
+            video_id = data["video_id"]
+            position_in_seconds = data["position_in_seconds"]
+            return PlayRecord(username, video_id, position_in_seconds)
+        except KeyError as e:
+            raise ValueError(f"JSON error occurred when building {cls.__name__} - cannot find key {e}")
+
+    def to_dict(self):
+        """ converts the object to a dictionary
+
+        Returns:
+            Dictionary representation of the object
+
+
+        """
+        data = {}
+
+        data["type"] = self.__class__.__name__
+        data["username"] = self._username.to_dict()
+        data["video_id"] = self.get_video_id()
+        data["position_in_seconds"] = self.get_pos()
+
+        return data
+
+
+
 
 
 #creates a class for the Users
