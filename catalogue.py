@@ -309,3 +309,55 @@ class Video:
             return NotImplemented
 
         return self._video_id != other._video_id
+
+    def __le__(self, other: object) -> bool | NotImplementedType:
+        """Check equality between two videos based on their video IDs.
+        Args:
+            other: The object to compare with.
+        Returns:
+        True if both videos have the same ID, False otherwise.
+        NotImplemented if other is not a Video instance.
+        """
+        if not isinstance(other, Video):
+            return NotImplemented
+        return self._video_id <= other._video_id
+
+    def __ge__(self, other: object) -> bool | NotImplementedType:
+        """Check inequality between two videos based on their video IDs.
+        Args:
+            other: The object to compare with.
+
+        return:
+        True if both videos have the same ID, False otherwise.
+        NotImplemented if other is not a Video instance.
+            """
+        if not isinstance(other, Video):
+            return NotImplemented
+        return self._video_id >= other._video_id
+
+    def __lt__(self, other: object) -> bool | NotImplementedType:
+        """Check equality between two videos based on their video IDs.
+        Args:
+            other: The object to compare with.
+
+        return:
+        True if both videos have the same ID, False otherwise.
+        NotImplemented if other is not a Video instance.
+            """
+        if not isinstance(other, Video):
+            return NotImplemented
+        return self._video_id < other._video_id
+
+
+    def __gt__(self, other: object) -> bool | NotImplementedType:
+        """Check inequality between two videos based on their video IDs.
+        Args:
+            other: The object to compare with.
+
+        return:
+        True if both videos have the same ID, False otherwise.
+        NotImplemented if other is not a Video instance.
+            """
+        if not isinstance(other, Video):
+            return NotImplemented
+        return self._video_id > other._video_id
