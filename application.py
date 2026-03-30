@@ -183,7 +183,7 @@ def new_video(videos_dictionary) -> None:
     #added sleep for the fun of it
     time.sleep(3)
 
-    print(videos[new_video])
+
 
     #for testing to see if added correctly
     # print(f"{videos.keys()}")
