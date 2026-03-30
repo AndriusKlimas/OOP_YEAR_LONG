@@ -314,16 +314,7 @@ match choice:
                     print(video_info)
             else:
                 print("Video not found.")
-        # #Getting the user to input the video they are searching for
-        # search_video = input("Please enter the Video title you are looking for: ")
-        # #calling the method to search the video
-        # video_info = video_search(videos, search_video)
-        # #If it variable video_info is not none then show the info
-        # if video_info is not None:
-        #     print(video_info)
-        # #else show video is not found as it means video was not found
-        # else:
-        #     print("Video not found.")
+
 
     #If 3 is entered
     case "3":
