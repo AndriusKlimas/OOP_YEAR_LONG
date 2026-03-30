@@ -134,7 +134,7 @@ def video_remover(videos_dictionary, remove_video) -> bool:
 def new_video(videos_dictionary) -> None:
     """ Adds a new video to the dictionary by creating an object of the video class
     args:
-        videos_dictionary (dict): a dictionary of videos with key is Video ID and value is Video object
+        videos_dictionary (dict): a dictionary of videos with key is title and value is Video object
 
 
     """
@@ -159,20 +159,20 @@ def new_video(videos_dictionary) -> None:
             break
 
     new_video = Video(get_video_id, get_title, get_description, get_duration, get_release_year, genres_list)
-    'checking if he video is in the dictionary'
+    #'checking if he video is in the dictionary'
     if get_title in videos_dictionary.keys:
-        'if it is then add the class object under hte same key'
+        #'if it is then add the class object under hte same key'
         videos_dictionary[get_title].append(new_video)
-        'if not then add the class object under a new key'
+        #'if not then add the class object under a new key'
     else:
         videos_dictionary[get_title] = new_video
 
     print("Video added to list")
 
-
+    #added sleep for the fun of it
     time.sleep(3)
 
-
+    print(videos[new_video.get_title()])
 
     # # creating a genere list for the new video
     # genres_list = []
