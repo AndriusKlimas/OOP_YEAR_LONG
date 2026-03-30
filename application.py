@@ -1,6 +1,6 @@
 #imports annotations for type hinting
 from __future__ import annotations
-
+import time
 #Option 1 def
 def print_videos(videos_dictionary) -> None:
     """ prints all videos in the dictionary
@@ -157,7 +157,21 @@ def new_video(videos_dictionary) -> None:
         another = input().lower()
         if another == "n":
             break
-        new_video = Video(get_video_id, get_title, get_description, get_duration, get_release_year, genres_list)
+
+    new_video = Video(get_video_id, get_title, get_description, get_duration, get_release_year, genres_list)
+    'checking if he video is in the dictionary'
+    if get_title in videos_dictionary.keys:
+        'if it is then add the class object under hte same key'
+        videos_dictionary[get_title].append(new_video)
+        'if not then add the class object under a new key'
+    else:
+        videos_dictionary[get_title] = new_video
+
+    print("Video added to list")
+
+
+    time.sleep(3)
+
 
 
     # # creating a genere list for the new video
