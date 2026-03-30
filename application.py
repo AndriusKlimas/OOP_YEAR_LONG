@@ -146,7 +146,12 @@ def new_video(videos_dictionary) -> None:
     #getting basic info
     genres_list = []
     print("Please enter the following details to add a new video:")
-    get_video_id = max(videos_dictionary.value()) + 1
+    #video id no longer key, now goes through dict, counts, and then adds 1 onto for new video id
+    get_video_id = 0
+    for video_list in videos_dictionary.values():
+        for video in video_list:
+            get_video_id += 1
+    get_video_id += 1
     get_title = input("Title: ")
     get_description = input("Description: ")
     get_duration = int(input("Duration seconds: "))
@@ -178,11 +183,12 @@ def new_video(videos_dictionary) -> None:
     #added sleep for the fun of it
     time.sleep(3)
 
-    print(videos[new_video.get_title()])
+    print(videos[new_video])
 
-    print(f"{videos.keys()}")
-    for key, value in videos.items():
-        print(f"  Key: {key}, Value type: {type(value)}, Value: {value}")
+    #for testing to see if added correctly
+    # print(f"{videos.keys()}")
+    # for key, value in videos.items():
+    #     print(f"  Key: {key}, Value type: {type(value)}, Value: {value}")
 
 
 #for pre-populating the dictionary, needed as cant add 2 manually to the same key
