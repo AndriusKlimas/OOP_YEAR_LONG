@@ -19,12 +19,19 @@ def video_search(videos_dictionary, search_video) -> Video | None:
         videos_dictionary (dict): a dictionary of videos with key is Video ID and value is Video object
         search_video: (str): the title of the video to search for
 
+    returns:
+    Video: if the video is found, return it, else return None
     """
-    #loops through dictionary and stores the video info in video variable
-    for video in videos_dictionary.values():
-        #if the search_video is found in video.title then return the video found
-        if search_video.lower() in video.title.lower():
+    for video in videos_dictionary.keys():
+        if search_video in video:
             return video
+        else:
+            return None
+    #loops through dictionary and stores the video info in video variable
+    # for video in videos_dictionary.values():
+    #     #if the search_video is found in video.title then return the video found
+    #     if search_video.lower() in video.title.lower():
+    #         return video
 
 
 #Option 3 def
