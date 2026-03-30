@@ -167,7 +167,7 @@ def new_video(videos_dictionary) -> None:
 
     new_video = Video(get_video_id, get_title, get_description, get_duration, get_release_year, genres_list)
     #'checking if he video is in the dictionary'
-    if get_title in videos_dictionary.keys:
+    if get_title in videos_dictionary.keys():
         #'if it is then add the class object under hte same key'
         videos_dictionary[get_title].append(new_video)
         #'if not then add the class object under a new key'
@@ -242,13 +242,15 @@ video2 = Video(2, "The Matrix", "A hacker discovers reality", 8160, 1999, ["scif
 video3 = Video(3, "The Godfather", "Crime family saga", 10500, 1972, ["drama", "crime"])
 video4 = Video(4, "Toy Story", "Toys come to life", 4860, 1995, ["animation", "comedy"])
 video5 = Video(5, "UP", "Ballon building", 16732, 2008, ["animation", "drama"])
+video6 = Video(5, "UP", "ballon finding", 1435, 2018, ["comedy2", "drama"])
 
 #Mnayally adding videos to the dictionary
-videos[video1.get_video_id()] = video1
-videos[video2.get_video_id()] = video2
-videos[video3.get_video_id()] = video3
-videos[video4.get_video_id()] = video4
-videos[video5.get_video_id()] = video5
+videos[video1.get_title()] = video1
+videos[video2.get_title()] = video2
+videos[video3.get_title()] = video3
+videos[video4.get_title()] = video4
+videos[video5.get_title()] = video5
+videos[video6.get_title()].append(video6)
 
 # users = User
 user1 = User("NoahClarke123", "Password123!")
