@@ -270,6 +270,25 @@ users[user3.get_username()] = user3
 users[user4.get_username()] = user4
 users[user5.get_username()] = user5
 
+def create_default_videos() -> dict:
+    """Create and return the default videos dictionary used when no file is provided.
+
+    Returns:
+        A dictionary that maps video id to video title.
+       """
+
+    vids = {}
+    v1 = Video(1, "Inception", "A mind-bending thriller", 8880, 2010, ["scifi", "thriller"])
+    v2 = Video(2, "The Matrix", "A hacker discovers reality", 8160, 1999, ["scifi", "action"])
+    v3 = Video(3, "The Godfather", "Crime family saga", 10500, 1972, ["drama", "crime"])
+    v4 = Video(4, "Toy Story", "Toys come to life", 4860, 1995, ["animation", "comedy"])
+    v5 = Video(5, "Up", "Balloon building", 16732, 2008, ["animation", "drama"])
+
+    for v in (v1, v2, v3, v4, v5):
+        vids[v.get_video_id()] = v
+    return vids
+
+
 
 def create_default_playrecords():
     """Create the hardcoded play records used by the example data.
@@ -290,8 +309,6 @@ def create_default_playrecords():
     record10 = user2.start_play(video1.get_video_id(), 4000)
     return [record1, record2, record3, record4, record5, record6, record7, record8, record9, record10]
 
-# create defaults immediately (keeps original behaviour)
-create_default_playrecords()
 
 def data_setup(parse_type: str, filename: str | None = None):
     """Prompt the user (up to 3 tries) for a filename and parse the file.
