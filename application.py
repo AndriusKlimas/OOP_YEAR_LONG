@@ -69,6 +69,8 @@ def search_genre(videos_dictionary, search_genre) -> None:
 
     """
 
+
+
     try:
         # loops through dictionary and stores the video info in video variable
         for video_list in videos_dictionary.values():
@@ -368,8 +370,14 @@ match choice:
     case "3":
         #getting user to input the genre they are searching for
         search_video_genre = input("Please enter the genre you would like to look for: ")
+        in_valid_genres = Video.validate_genre(search_video_genre)
+        if in_valid_genres == True:
+            search_genre(videos, search_video_genre)
+        else:
+            print("Genre not valid.")
         #calling the method to search the genre
-        search_genre(videos, search_video_genre)
+
+
 
 
     #of 4 is entered
