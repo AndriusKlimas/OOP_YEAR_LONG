@@ -50,14 +50,6 @@ def video_search(videos_dictionary, search_video) -> Video | None:
         print(f"An error occurred while searching for video: {e}")
         return None
 
-    #old code keeping for time being
-    # search_video = search_video.strip().lower()  # Strip whitespace
-    #
-    # for title, video_list in videos_dictionary.items():
-    #     if search_video == title.strip().lower():  # Strip both sides
-    #         return video_list
-    #
-    # return None
 
 
 #Option 3 def
@@ -87,9 +79,6 @@ def search_genre(videos_dictionary, search_genre) -> None:
 
     except Exception as e:
         print(f"An error occurred while searching for genre: {e}")
-
-
-
 
 
 #option 4 def
@@ -169,16 +158,61 @@ def video_remover(videos_dictionary, remove_video) -> bool:
     return:
         bool: returns True if video is removed, else False
     """
-    #loops through dictionary and stores the video info in video variable
-    for video in videos_dictionary.values():
-        #If the remove_video is found in the dictionary via title
-        if remove_video.lower() in video.title.lower():
-            #then delete that video from the dictionary
-            del videos_dictionary[video.get_video_id()]
-            #Return True
-            return True
-    #else return false so it will not crash
-    return False
+    #ps need comments for this as its complex
+    try:
+        #stripping white spaces again, causes issues if not their
+        search_video = remove_video.strip().lower()
+        #to store the videos found
+        videos_found = []
+        #this will be used to store the title/key iof found
+        title_key = None
+
+        #finding all videos
+        for title, video_list in videos_dictionary.items():
+            if search_video == title.strip().lower():
+                title_key = title
+                if isinstance(video_list, list):
+                    videos_found = video_list
+                else:
+                    videos_found = [video_list]
+                break
+
+        #if the videos_found list is empty, then do the below
+        if not videos_found:
+            print(f"No videos found with title provided: {remove_video}")
+            return False
+
+        #in this part will check how many iteams are added to teh list
+        if len(videos_found) > 1:
+            for num, video in enumerate(videos_found,1):
+                print(f"{num}. {video}")
+
+            choice = int(input("Please enter the one you would like to remove(numbers only): "))
+            try:
+                actual_remove = choice - 1
+                videos_found.pop(actual_remove)
+            except IndexError:
+                print("out of range")
+            except ValueError:
+                print("please enter a number")
+
+        #if one video is found
+        else:
+            print(f"removing video: {videos_found}")
+            videos_found.pop(0)
+
+        #checking if ther list is not empty, if it is then remove the key for dictioanry
+        if not videos_found:
+            del videos_dictionary[title_key]
+
+        return True
+    except Exception as e:
+        print(f"An error occurred while removing video: {e}")
+        return False
+
+
+
+
 
 #Option 6 def
 def new_video(videos_dictionary) -> None:
@@ -269,17 +303,8 @@ add_video_to_dict(videos, video3)
 add_video_to_dict(videos, video4)
 add_video_to_dict(videos, video5)
 add_video_to_dict(videos, video6)
-# videos[video1.get_title()] = video1
-# videos[video2.get_title()] = video2
-# videos[video3.get_title()] = video3
-# videos[video4.get_title()] = video4
-# videos[video5.get_title()] = video5
-# videos[video6.get_title()] = video6
 
-#testing to see what is actually being put into the dictionary, used for manual testing
-# print(f"{videos.keys()}")
-# for key, value in videos.items():
-#     print(f"  Key: {key}, Value type: {type(value)}, Value: {value}")
+
 
 # users = User
 user1 = User("NoahClarke123", "Password123!")
