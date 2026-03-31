@@ -34,14 +34,27 @@ def video_search(videos_dictionary, search_video) -> Video | None:
     returns:
     Video: if the video is found, return it, else return None
     """
-    #for some unknown reason white spaces where appearing, causing issues when looking it up
+    # for some unknown reason white spaces where appearing, causing issues when looking it up
     search_video = search_video.strip().lower()  # Strip whitespace
+    try:
+        for title, video_list in videos_dictionary.items():
+            if search_video == title:
+                return video_list
 
-    for title, video_list in videos_dictionary.items():
-        if search_video == title.strip().lower():  # Strip both sides
-            return video_list
+        return None
 
-    return None
+    except Exception as e:
+        print(f"An error occurred while searching for video: {e}")
+        return None
+
+    #old code keeping for time being
+    # search_video = search_video.strip().lower()  # Strip whitespace
+    #
+    # for title, video_list in videos_dictionary.items():
+    #     if search_video == title.strip().lower():  # Strip both sides
+    #         return video_list
+    #
+    # return None
 
 
 #Option 3 def
