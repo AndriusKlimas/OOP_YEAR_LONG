@@ -28,17 +28,20 @@ def print_videos(videos_dictionary) -> None:
 def video_search(videos_dictionary, search_video) -> Video | None:
     """ searching for a specific video in the dictionary
     args:
-        videos_dictionary (dict): a dictionary of videos with key is Video ID and value is Video object
+        videos_dictionary (dict): a dictionary of videos with key is video title and value is Video object
         search_video: (str): the title of the video to search for
 
     returns:
     Video: if the video is found, return it, else return None
     """
     # for some unknown reason white spaces where appearing, causing issues when looking it up
-    search_video = search_video.strip().lower()  # Strip whitespace
+
     try:
+        #stripping white spaces again, causes issues if not their
+        search_video = search_video.strip().lower()
         for title, video_list in videos_dictionary.items():
-            if search_video == title:
+            #stripping white spaces again, causes issues if not their
+            if search_video == title.strip().lower():
                 return video_list
 
         return None
@@ -61,16 +64,36 @@ def video_search(videos_dictionary, search_video) -> Video | None:
 def search_genre(videos_dictionary, search_genre) -> None:
     """ searching for a specific genre in the dictionary
     args:
-        videos_dictionary (dict): a dictionary of videos with key is Video ID and value is Video object
+        videos_dictionary (dict): a dictionary of videos with key is video title and value is Video object
         search_genre: (str): the genre to search for
 
     """
-    #loops through dictionary and stores the video info in video variable
-    for video in videos_dictionary.values():
-        #using the method check_genre from video class to check if the genre is in the video
-        if video.check_genre(search_genre):
-            #print out the video if the genre is found
-            print(video)
+
+    try:
+        # loops through dictionary and stores the video info in video variable
+        for video_list in videos_dictionary.values():
+            # Handle both single videos and lists
+            if isinstance(video_list, list):
+                for video in video_list:
+                    # using the method check_genre from video class to check if the genre is in the video
+                    if video.check_genre(search_genre):
+                        # print out the video if the genre is found
+                        print(video)
+            else:
+                if video_list.check_genre(search_genre):
+                    print(video_list)
+
+    except Exception as e:
+        print(f"An error occurred while searching for genre: {e}")
+    # try:
+    #     #loops through dictionary and stores the video info in video variable
+    #     for video in videos_dictionary.values():
+    #         #using the method check_genre from video class to check if the genre is in the video
+    #         if video.check_genre(search_genre):
+    #             #print out the video if the genre is found
+    #             print(video)
+    # except Exception as e:
+    #     print(f"An error occurred while searching for genre: {e}")
 
 #option 4 def
 def show_user_history(users_dict: dict, videos_dict: dict):
