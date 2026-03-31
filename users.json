@@ -1,0 +1,28 @@
+[
+  {
+    "type": "User",
+    "username": "anna_writer",
+    "password": "WritePass123"
+  },
+  {
+    "type": "User",
+    "username": "moviebuff99",
+    "password": "BuffsLoveMovies1"
+  },
+  {
+    "type": "User",
+    "username": "sam_gamer",
+    "password": "GameTime2022"
+  },
+  {
+    "type": "User",
+    "username": "linda87",
+    "password": "LindaPass87"
+  },
+  {
+    "type": "User",
+    "username": "doc_viewer",
+    "password": "DocuMent9"
+  }
+]
+
