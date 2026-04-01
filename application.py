@@ -354,35 +354,23 @@ def parse_playrecords(filename: str, users: dict | None) -> list:
             print(f"Invalid playrecord #{i} in {filename}: {e}")
     return playrecords
 
+def create_default_videos() -> dict:
+    """Create and return the default videos dictionary used when no file is provided.
 
-users: dict = {}
-videos: dict = {}
+    Returns:
+        A dictionary that maps video id to video title.
+       """
 
-video1 = Video(1, "Inception", "A mind-bending thriller", 8880, 2010, ["scifi", "thriller"])
-video2 = Video(2, "The Matrix", "A hacker discovers reality", 8160, 1999, ["scifi", "action"])
-video3 = Video(3, "The Godfather", "Crime family saga", 10500, 1972, ["drama", "crime"])
-video4 = Video(4, "Toy Story", "Toys come to life", 4860, 1995, ["animation", "comedy"])
-video5 = Video(5, "UP", "Ballon building", 16732, 2008, ["animation", "drama"])
-video6 = Video(6, "UP", "ballon finding", 1435, 2018, ["comedy", "crimne"])
+    vids = {}
+    v1 = Video(1, "Inception", "A mind-bending thriller", 8880, 2010, ["scifi", "thriller"])
+    v2 = Video(2, "The Matrix", "A hacker discovers reality", 8160, 1999, ["scifi", "action"])
+    v3 = Video(3, "The Godfather", "Crime family saga", 10500, 1972, ["drama", "crime"])
+    v4 = Video(4, "Toy Story", "Toys come to life", 4860, 1995, ["animation", "comedy"])
+    v5 = Video(5, "Up", "Balloon building", 16732, 2008, ["animation", "drama"])
 
-add_video_to_dict(videos, video1)
-add_video_to_dict(videos, video2)
-add_video_to_dict(videos, video3)
-add_video_to_dict(videos, video4)
-add_video_to_dict(videos, video5)
-add_video_to_dict(videos, video6)
-
-user1 = User("NoahClarke123", "Password123!")
-user2 = User("Film_Critic1", "ILoveMovies0000")
-user3 = User("Bob_iscool", "iamBob05$")
-user4 = User("Jedibob212", "Sidius66")
-user5 = User("IronManFan3", "TonyStark44!")
-
-users[user1.get_username()] = user1
-users[user2.get_username()] = user2
-users[user3.get_username()] = user3
-users[user4.get_username()] = user4
-users[user5.get_username()] = user5
+    for v in (v1, v2, v3, v4, v5):
+        vids[v.get_video_id()] = v
+    return vids
 
 
 def create_default_playrecords():
