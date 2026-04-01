@@ -410,8 +410,6 @@ def create_default_playrecords():
     record11 = user5.start_play(video6.get_video_id(), 90)
     return [record1, record2, record3, record4, record5, record6, record7, record8, record9, record10, record11]
 
-# create defaults immediately (keeps original behaviour)
-create_default_playrecords()
 
 def data_setup(parse_type: str, filename: str | None = None):
     """Prompt the user (up to 3 tries) for a filename and parse the file.
