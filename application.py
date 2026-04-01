@@ -460,14 +460,35 @@ def data_setup(parse_type: str, filename: str | None = None):
 
 if __name__ == "__main__":
 
-    video_filename = input("Please enter a filename where video information is stored or press Enter to use defaults: ").strip()
+    # Videos
+    video_filename = input(
+        "Please enter a filename where video information is stored or press Enter to use defaults: ").strip()
     vdata = data_setup("videos", video_filename)
-    user_filename = input("Please enter a filename where user information is stored or press Enter to use defaults: ").strip()
+    if vdata is None:
+        videos = create_default_videos()
+    else:
+        # vdata is a list of Video objects
+        videos = {v.get_video_id(): v for v in vdata}
+
+    # Users
+    user_filename = input(
+        "Please enter a filename where user information is stored or press Enter to use defaults: ").strip()
     udata = data_setup("users", user_filename)
-    pr_filename = input("Please enter a filename where Play Record information is stored or press Enter to use defaults: ").strip()
-    prdata = data_setup("playrecords", pr_filename)
+    if udata is None:
+        users = create_default_users()
+    else:
+        users = {u.get_username(): u for u in udata}
 
-
+    # Playrecords
+    pr_filename = input(
+        "Please enter a filename where Play Record information is stored or press Enter to use defaults: ").strip()
+    # data_setup for playrecords returns either a filename (string) or None
+    pr_setup = data_setup("playrecords", pr_filename)
+    if pr_setup is None:
+        playrecords = create_default_playrecords(users, videos)
+    else:
+        # pr_setup is a filename; call parse_playrecords with the users mapping
+        playrecords = parse_playrecords(pr_setup, users)
 
     print("1. View all Videos")
     print("2. Search for specific video")
