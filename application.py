@@ -252,6 +252,14 @@ def sec_to_min(seconds: int) -> str:
     secs = seconds % 60
     return f"{minutes} minutes and {secs} seconds"
 
+#for pre-populating the dictionary, needed as cant add 2 manually to the same key
+def add_video_to_dict(videos_dict, video):
+    title = video.get_title()
+    if title in videos_dict:
+        videos_dict[title].append(video)
+    else:
+        videos_dict[title] = [video]
+
 def parse_videos(filename: str) -> list:
     """Parses a file of video information into a list of Video objects.
 
