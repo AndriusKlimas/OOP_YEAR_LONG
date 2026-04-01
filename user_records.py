@@ -70,6 +70,58 @@ class PlayRecord:
             return NotImplemented
         return not eq_result
 
+    def __lt__(self, other: object) -> bool | NotImplementedType:
+        """ Compares two PlayRecord objects
+        Compares the play_id in both objects
+        Args:
+            other (object): The other PlayRecord object to check against
+
+        return:
+        True if other's play_id is less than this play_id;
+
+            """
+        if not isinstance(other, PlayRecord):
+            return NotImplemented
+        return self._play_id < other._play_id
+
+    def __gt__(self, other: object) -> bool | NotImplementedType:
+        """ Compares two PlayRecord objects
+        Compares the play_id in both objects
+        Args:
+            other (object): The other PlayRecord object to check against
+        return:
+        True if other's play_id is greater than this play_id;
+            """
+        if not isinstance(other, PlayRecord):
+            return NotImplemented
+        return self._play_id > other._play_id
+
+    def __le__(self, other: object) -> bool | NotImplementedType:
+        """ Compares two PlayRecord objects
+        Compares the play_id in both objects
+        Args:
+            other (object): The other PlayRecord object to check against
+        return:
+        True if other's play_id is less than this play_id;
+            """
+        if not isinstance(other, PlayRecord):
+            return True
+        return self._play_id <= other._play_id
+
+    def __ge__(self, other: object) -> bool | NotImplementedType:
+        """ Compares two PlayRecord objects
+        Compares the play_id in both objects
+        args:
+        other (object): The other PlayRecord object to check against
+        return:
+        True if other's play_id is greater than this play_id;
+        """
+        if not isinstance(other, PlayRecord):
+            return NotImplemented
+        return self._play_id >= other._play_id
+
+
+
     def get_play_id(self) -> int:
 
         """ gets the play_id of the play record
