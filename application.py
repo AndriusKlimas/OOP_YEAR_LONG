@@ -4,7 +4,7 @@ from __future__ import annotations
 import json
 
 from catalogue import Video
-from user_records import User, PlayRecord
+from user_records import User
 
 #Option 1 def
 def print_videos(videos_dictionary: dict) -> None:
@@ -260,6 +260,7 @@ def add_video_to_dict(videos_dict, video):
     else:
         videos_dict[title] = [video]
 
+
 def parse_videos(filename: str) -> list:
     """Parses a file of video information into a list of Video objects.
 
@@ -307,53 +308,6 @@ def parse_users(filename: str) -> list:
     return users
 
 
-def parse_playrecords(filename: str, users: dict | None) -> list:
-    """Parses a file of playrecord information.
-
-    Args:
-        filename(str): the name of the file
-        users: (dict): a dictionary of users
-
-    Returns:
-        Invalid records are logged and skipped; the function returns a list of PlayRecord objects that were created.
-
-    If a `users` mapping is provided the function will attempt to attach play records to
-    the corresponding User objects by calling User.start_play.
-    """
-    with open(filename) as file:
-        play_dicts = json.load(file)
-
-    playrecords = []
-    for i, play_dict in enumerate(play_dicts, start=1):
-        try:
-            # If we have a users mapping we prefer to attach the record to that user
-            if users is not None:
-                username = play_dict.get("username")
-                video_id = play_dict.get("video_id")
-                pos = play_dict.get("position_in_seconds", 0)
-
-                if username is None:
-                    raise ValueError(f"Unknown username '{username}'")
-                if video_id is None:
-                    raise ValueError(f"Unknown video_id '{video_id}'")
-
-                # Use start_play to create and register the play record.
-                success = users[username].start_play(video_id, pos)
-                if not success:
-                    raise ValueError(f"Failed to create play record for user '{username}' and video '{video_id}'")
-
-                # Retrieve the most recent play record for this user/video
-                pr_list = users[username].get_plays(video_id)
-                if pr_list:
-                    playrecords.append(pr_list[-1])
-            else:
-                # No users mapping available: try to use PlayRecord.from_dict (may raise)
-                pr = PlayRecord.from_dict(play_dict)
-                playrecords.append(pr)
-        except Exception as e:
-            print(f"Invalid playrecord #{i} in {filename}: {e}")
-    return playrecords
-
 def create_default_videos() -> dict:
     """Create and return the default videos dictionary used when no file is provided.
 
@@ -390,27 +344,6 @@ def create_default_users() -> dict:
     return us
 
 
-def create_default_playrecords():
-    """Create the hardcoded play records used by the example data.
-
-    This simply calls start_play on the example users and videos. Keeping this
-    in a function makes it easy to reuse or skip later if the program loads
-    playrecords from files.
-    """
-    record1 = user1.start_play(video1.get_video_id(), 500)
-    record2 = user1.start_play(video3.get_video_id())
-    record3 = user2.start_play(video2.get_video_id(), 1000)
-    record4 = user2.start_play(video5.get_video_id())
-    record5 = user3.start_play(video3.get_video_id(), 2500)
-    record6 = user3.start_play(video1.get_video_id())
-    record7 = user1.start_play(video2.get_video_id(), 600)
-    record8 = user4.start_play(video4.get_video_id())
-    record9 = user5.start_play(video5.get_video_id(), 60)
-    record10 = user2.start_play(video1.get_video_id(), 4000)
-    record11 = user5.start_play(video6.get_video_id(), 90)
-    return [record1, record2, record3, record4, record5, record6, record7, record8, record9, record10, record11]
-
-
 def data_setup(parse_type: str, filename: str | None = None):
     """Prompt the user (up to 3 tries) for a filename and parse the file.
 
@@ -441,9 +374,6 @@ def data_setup(parse_type: str, filename: str | None = None):
                 items = parse_videos(fname)
             elif parse_type == "users":
                 items = parse_users(fname)
-            elif parse_type == "playrecords":
-                # parse_playrecords uses the current `users` mapping to attach records
-                items = parse_playrecords(fname, users)
             else:
                 print("Unknown data type requested; using defaults.")
                 return None
@@ -479,16 +409,6 @@ if __name__ == "__main__":
     else:
         users = {u.get_username(): u for u in udata}
 
-    # Playrecords
-    pr_filename = input(
-        "Please enter a filename where Play Record information is stored or press Enter to use defaults: ").strip()
-    # data_setup for playrecords returns either a filename (string) or None
-    pr_setup = data_setup("playrecords", pr_filename)
-    if pr_setup is None:
-        playrecords = create_default_playrecords(users, videos)
-    else:
-        # pr_setup is a filename; call parse_playrecords with the users mapping
-        playrecords = parse_playrecords(pr_setup, users)
 
     print("1. View all Videos")
     print("2. Search for specific video")
