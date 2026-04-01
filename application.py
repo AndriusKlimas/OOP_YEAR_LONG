@@ -134,18 +134,24 @@ def play_video_user(users_dict: dict, videos_dict: dict) -> None:
 def new_video(videos_dictionary: dict) -> None:
     """ Adds a new video to the dictionary by creating an object of the video class
     args:
-        videos_dictionary (dict): a dictionary of videos with key is Video ID and value is Video object
+        videos_dictionary (dict): a dictionary of videos with key is title and value is Video object
 
 
     """
+    #getting basic info
     genres_list = []
     print("Please enter the following details to add a new video:")
-    get_video_id = max(videos_dictionary.keys()) + 1
+    #video id no longer key, now goes through dict, counts, and then adds 1 onto for new video id
+    get_video_id = 0
+    for video_list in videos_dictionary.values():
+        for video in video_list:
+            get_video_id += 1
+    get_video_id += 1
     get_title = input("Title: ")
     get_description = input("Description: ")
     get_duration = int(input("Duration seconds: "))
     get_release_year = int(input("Release Year: "))
-
+    #loop for genre
     while True:
         get_genres = input("Please enter the genres")
         if get_genres in Video.return_valid_genres():
@@ -157,10 +163,19 @@ def new_video(videos_dictionary: dict) -> None:
         another = input().lower()
         if another == "n":
             break
+    #creating a new video class object
     new_video = Video(get_video_id, get_title, get_description, get_duration, get_release_year, genres_list)
-    videos_dictionary[new_video.get_video_id()] = new_video
+    #'checking if he video is in the dictionary'
+    if get_title in videos_dictionary.keys():
+        #'if it is then add the class object under hte same key'
+        videos_dictionary[get_title].append(new_video)
+        #'if not then add the class object under a new key'
+    else:
+        videos_dictionary[get_title] = [new_video]
+
     print("Video added to list")
-    print(videos[new_video.get_video_id()])
+
+    #added sleep for the
 
 #Option 7 def
 def video_remover(videos_dictionary: dict, remove_video: str) -> bool:
