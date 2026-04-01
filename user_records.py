@@ -528,31 +528,61 @@ class User:
     def from_dict(cls, data: dict[str, str]) -> User:
         """Creates a user object from a dictionary
 
-        Args:
-            data (dict): The dictionary that represents the user
-
-        Returns:
-            User object based on the class
+        This method also reconstructs nested PlayRecords if a 'play_history' key
+        exists in the provided dict. The expected format for play records is a
+        list of dictionaries (as produced by PlayRecord.to_dict()).
         """
         try:
             username = data["username"]
             password = data["password"]
-            return cls(username, password)
+            # Create user object (validates username/password)
+            user = cls(username, password)
+
+            # Optional nested play history: expect a list of playrecord dicts
+            plays = data.get("play_history") or data.get("playrecords") or data.get("play_records")
+            if plays:
+                if not isinstance(plays, list):
+                    raise ValueError("play_history must be a list of play record dicts")
+                for pr in plays:
+                    try:
+                        # Use PlayRecord.from_dict to create a PlayRecord instance
+                        play_obj = PlayRecord.from_dict(pr)
+                        # Insert into user's internal play history structure
+                        vid = play_obj.get_video_id()
+                        if vid not in user._play_history:
+                            user._play_history[vid] = []
+                        user._play_history[vid].append(play_obj)
+                    except Exception as e:
+                        # Skip invalid play records but continue
+                        print(f"Warning: skipping invalid nested PlayRecord for user '{username}': {e}")
+
+            return user
 
         except KeyError as e:
             raise ValueError(f"{cls.__name__} JSON error -> Missing key {e}")
 
 
     def to_dict(self) -> dict:
-        """Converts the user object to a dictionary
+        """Converts the user object to a dictionary, including nested play records.
 
         Returns:
-            Dictionary representing the user object
+            Dictionary representing the user object. If the user has play records,
+            they are included under the 'play_history' key as a list of dictionaries.
         """
         data = {}
         data["type"] = self.__class__.__name__
 
         data["username"] = self._username
         data["password"] = self.__password
+
+        # Flatten play history to a list of PlayRecord dicts
+        all_play_records = []
+        for plays in self._play_history.values():
+            for pr in plays:
+                # Each pr is a PlayRecord instance; use its to_dict()
+                all_play_records.append(pr.to_dict())
+
+        if all_play_records:
+            data["play_history"] = all_play_records
 
         return data
