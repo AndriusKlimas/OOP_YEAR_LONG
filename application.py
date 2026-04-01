@@ -13,8 +13,21 @@ def print_videos(videos_dictionary: dict) -> None:
         videos_dictionary (dict): a dictionary of videos with key is Video ID and value is Video object
 
     """
-    for video in videos_dictionary.values():
-        print(video)
+    #Loops through dictionary and prints all videos
+    try:
+        # Loops through dictionary and prints all videos
+        for video_list in videos_dictionary.values():
+            #found below on w3schools and stackoverflow isinstance()
+            if isinstance(video_list, list):
+                for video in video_list:
+                    print(video)
+            else:
+                print(video_list)
+
+    except TypeError:
+        print("Error: videos_dictionary must be a dictionary")
+    except Exception as e:
+        print(f"An error occurred while printing videos: {e}")
 
 #Option 2 def
 def video_search(videos_dictionary: dict, search_video: str) -> Video | None:
