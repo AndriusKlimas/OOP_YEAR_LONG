@@ -538,8 +538,7 @@ class User:
             # Create user object (validates username/password)
             user = cls(username, password)
 
-            # Optional nested play history: expect a list of playrecord dicts
-            plays = data.get("play_history") or data.get("playrecords") or data.get("play_records")
+            plays = data.get("play_history")
             if plays:
                 if not isinstance(plays, list):
                     raise ValueError("play_history must be a list of play record dicts")
