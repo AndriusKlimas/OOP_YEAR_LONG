@@ -372,6 +372,23 @@ def create_default_videos() -> dict:
         vids[v.get_video_id()] = v
     return vids
 
+def create_default_users() -> dict:
+    """Create and return the default users dictionary used when no file is provided.
+
+    Returns:
+        A dictionary that maps username to user object.
+       """
+    us = {}
+    u1 = User("NoahClarke123", "Password123!")
+    u2 = User("Film_Critic1", "ILoveMovies0000")
+    u3 = User("Bob_iscool", "iamBob05$")
+    u4 = User("Jedibob212", "Sidius66")
+    u5 = User("IronManFan3", "TonyStark44!")
+
+    for u in (u1, u2, u3, u4, u5):
+        us[u.get_username()] = u
+    return us
+
 
 def create_default_playrecords():
     """Create the hardcoded play records used by the example data.
