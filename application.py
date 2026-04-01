@@ -60,13 +60,29 @@ def video_search(videos_dictionary: dict, search_video: str) -> Video | None:
 def search_genre(videos_dictionary: dict, search_genre: str) -> None:
     """ searching for a specific genre in the dictionary
     args:
-        videos_dictionary (dict): a dictionary of videos with key is Video ID and value is Video object
+        videos_dictionary (dict): a dictionary of videos with key is video title and value is Video object
         search_genre: (str): the genre to search for
 
     """
-    for video in videos_dictionary.values():
-        if video.check_genre(search_genre):
-            print(video)
+    try:
+        # loops through dictionary and stores the video info in video variable
+        #whitespace again causing issues
+        search_genre = search_genre.strip().lower()
+        found = False
+
+        for title, genre_list in videos_dictionary.items():
+            for video in genre_list:
+                #hets the genres from the class object using the fucntion
+                video_genres = Video.get_genres(video)
+                if search_genre in video_genres:
+                    print(video)
+                    found = True
+
+        if not found:
+            print(f"No videos found with genre: {search_genre}")
+
+    except Exception as e:
+        print(f"An error occurred while searching for genre: {e}")
 
 #option 4 def
 def show_user_history(users_dict: dict, videos_dict: dict) -> None:
