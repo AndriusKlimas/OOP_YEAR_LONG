@@ -33,13 +33,27 @@ def print_videos(videos_dictionary: dict) -> None:
 def video_search(videos_dictionary: dict, search_video: str) -> Video | None:
     """ searching for a specific video in the dictionary
     args:
-        videos_dictionary (dict): a dictionary of videos with key is Video ID and value is Video object
+        videos_dictionary (dict): a dictionary of videos with key is video title and value is Video object
         search_video: (str): the title of the video to search for
 
+    returns:
+    Video: if the video is found, return it, else return None
     """
-    for video in videos_dictionary.values():
-        if search_video.lower() in video.title.lower():
-            return video
+    # for some unknown reason white spaces where appearing, causing issues when looking it up
+
+    try:
+        #stripping white spaces again, causes issues if not their
+        search_video = search_video.strip().lower()
+        for title, video_list in videos_dictionary.items():
+            #stripping white spaces again, causes issues if not their
+            if search_video == title.strip().lower():
+                return video_list
+
+        return None
+
+    except Exception as e:
+        print(f"An error occurred while searching for video: {e}")
+        return None
 
 
 #Option 3 def
