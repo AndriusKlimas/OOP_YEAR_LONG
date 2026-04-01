@@ -402,7 +402,8 @@ def create_default_playrecords():
     record8 = user4.start_play(video4.get_video_id())
     record9 = user5.start_play(video5.get_video_id(), 60)
     record10 = user2.start_play(video1.get_video_id(), 4000)
-    return [record1, record2, record3, record4, record5, record6, record7, record8, record9, record10]
+    record11 = user5.start_play(video6.get_video_id(), 90)
+    return [record1, record2, record3, record4, record5, record6, record7, record8, record9, record10, record11]
 
 # create defaults immediately (keeps original behaviour)
 create_default_playrecords()
