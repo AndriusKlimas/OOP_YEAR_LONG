@@ -214,7 +214,7 @@ def video_remover(videos_dictionary: dict, remove_video: str) -> bool:
         #in this part will check how many iteams are added to teh list
         if len(videos_found) > 1:
             for num, video in enumerate(videos_found,1):
-                print(f"{num}. {video}")
+                print(f"{num}. Name= {Video.get_title(video)}, description = {Video.get_description(video)}, duration = {Video.get_duration_seconds(video)}, release_year = {Video.get_release_year(video)}")
 
             choice = int(input("Please enter the one you would like to remove(numbers only): "))
             try:

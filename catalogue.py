@@ -131,6 +131,13 @@ class Video:
         """
         return self._duration_seconds
 
+    def get_description(self) -> str:
+        """Get the description of the video.
+        Returns:
+            Description of the video.
+            """
+        return self.description
+
     # for good practice to return private variables
     def get_release_year(self) -> int:
         """Get the release year of the video.
@@ -245,7 +252,7 @@ class Video:
         Returns:
             A formatted string with video information.
         """
-        return f"Title is {self.title} and description is {self.description}, Duration is {self.get_duration_seconds()} seconds, Release year is {self.get_release_year()}. Genres are {', '.join(self.get_genres())}"
+        return f"Title is {self.get_title()} and description is {self.get_description()}, Duration is {self.get_duration_seconds()} seconds, Release year is {self.get_release_year()}. Genres are {', '.join(self.get_genres())}"
 
     #for a developer
     def __repr__(self) -> str:
@@ -254,7 +261,7 @@ class Video:
         Returns:
             A formatted string with all video details and ID.
         """
-        return f"Video_ID: {self.get_video_id()}, Title: {self.title}, Description: {self.description}, Duration: {self.get_duration_seconds()}, Release Year: {self.get_release_year()}, Genres: {self.get_genres()}"
+        return f"Video_ID: {self.get_video_id()}, Title: {self.get_title()}, Description: {self.get_description()}, Duration: {self.get_duration_seconds()}, Release Year: {self.get_release_year()}, Genres: {self.get_genres()}"
 
     #defining equality method
     def __hash__(self) -> int:
