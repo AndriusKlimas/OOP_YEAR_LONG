@@ -215,14 +215,16 @@ class PlayRecord:
             PlayRecord object based on the class
         """
         try:
-            if data["type"] != cls.__name__:
-                raise ValueError(f"Invalid type value ({data["type"]}) within dict  - {cls.__name__} cannot deserialise")
+            # Validate type field if present
+            if data.get("type") is not None and data.get("type") != cls.__name__:
+                raise ValueError(f"Invalid type value ({data.get('type')}) within dict - {cls.__name__} cannot deserialise")
 
-            temp_username = data["username"]
-            username = User.from_dict(temp_username)
+            # Expect username to be a string here (users are represented by username in JSON)
+            username = data["username"]
             video_id = data["video_id"]
-            position_in_seconds = data["position_in_seconds"]
-            return PlayRecord(username, video_id, position_in_seconds)
+            position_in_seconds = data.get("position_in_seconds", 0)
+
+            return PlayRecord(username, int(video_id), int(position_in_seconds))
         except KeyError as e:
             raise ValueError(f"JSON error occurred when building {cls.__name__} - cannot find key {e}")
 
@@ -237,7 +239,11 @@ class PlayRecord:
         data = {}
 
         data["type"] = self.__class__.__name__
-        data["username"] = self.get_username()
+        # username may be stored as a User or a string - normalise to string
+        uname = self.get_username()
+        if hasattr(uname, 'get_username'):
+            uname = uname.get_username()
+        data["username"] = uname
         data["video_id"] = self.get_video_id()
         data["position_in_seconds"] = self.get_pos()
 
