@@ -187,11 +187,57 @@ def video_remover(videos_dictionary: dict, remove_video: str) -> bool:
     return:
         bool: returns True if video is removed, else False
     """
-    for video in videos_dictionary.values():
-        if remove_video.lower() in video.title.lower():
-            del videos_dictionary[video.get_video_id()]
-            return True
-    return False
+    #ps need comments for this as its complex
+    try:
+        #stripping white spaces again, causes issues if not their
+        search_video = remove_video.strip().lower()
+        #to store the videos found
+        videos_found = []
+        #this will be used to store the title/key iof found
+        title_key = None
+
+        #finding all videos
+        for title, video_list in videos_dictionary.items():
+            if search_video == title.strip().lower():
+                title_key = title
+                if isinstance(video_list, list):
+                    videos_found = video_list
+                else:
+                    videos_found = [video_list]
+                break
+
+        #if the videos_found list is empty, then do the below
+        if not videos_found:
+            print(f"No videos found with title provided: {remove_video}")
+            return False
+
+        #in this part will check how many iteams are added to teh list
+        if len(videos_found) > 1:
+            for num, video in enumerate(videos_found,1):
+                print(f"{num}. {video}")
+
+            choice = int(input("Please enter the one you would like to remove(numbers only): "))
+            try:
+                actual_remove = choice - 1
+                videos_found.pop(actual_remove)
+            except IndexError:
+                print("out of range")
+            except ValueError:
+                print("please enter a number")
+
+        #if one video is found
+        else:
+            print(f"removing video: {videos_found}")
+            videos_found.pop(0)
+
+        #checking if ther list is not empty, if it is then remove the key for dictioanry
+        if not videos_found:
+            del videos_dictionary[title_key]
+
+        return True
+    except Exception as e:
+        print(f"An error occurred while removing video: {e}")
+        return False
 
 def sec_to_min(seconds: int) -> str:
     """Convert seconds to a human-readable minutes and seconds string.
