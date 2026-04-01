@@ -363,12 +363,14 @@ video2 = Video(2, "The Matrix", "A hacker discovers reality", 8160, 1999, ["scif
 video3 = Video(3, "The Godfather", "Crime family saga", 10500, 1972, ["drama", "crime"])
 video4 = Video(4, "Toy Story", "Toys come to life", 4860, 1995, ["animation", "comedy"])
 video5 = Video(5, "UP", "Ballon building", 16732, 2008, ["animation", "drama"])
+video6 = Video(6, "UP", "ballon finding", 1435, 2018, ["comedy", "crimne"])
 
-videos[video1.get_video_id()] = video1
-videos[video2.get_video_id()] = video2
-videos[video3.get_video_id()] = video3
-videos[video4.get_video_id()] = video4
-videos[video5.get_video_id()] = video5
+add_video_to_dict(videos, video1)
+add_video_to_dict(videos, video2)
+add_video_to_dict(videos, video3)
+add_video_to_dict(videos, video4)
+add_video_to_dict(videos, video5)
+add_video_to_dict(videos, video6)
 
 user1 = User("NoahClarke123", "Password123!")
 user2 = User("Film_Critic1", "ILoveMovies0000")
@@ -480,15 +482,26 @@ if __name__ == "__main__":
         case "2":
             search_video = input("Please enter the Video title you are looking for: ")
             video_info = video_search(videos, search_video)
-            #If it variable video_info is not none then show the info
             if video_info is not None:
-                print(video_info)
+                # isinstance is used to check if the iteam retuernd is a list, if it is then do the below source
+                # w3schools, stackoverflow
+                if isinstance(video_info, list):
+                    for video in video_info:
+                        print(video)
+                else:
+                    print(video_info)
             else:
                 print("Video not found.")
 
         case "3":
+            # getting user to input the genre they are searching for
             search_video_genre = input("Please enter the genre you would like to look for: ")
-            search_genre(videos, search_video_genre)
+            in_valid_genres = Video.validate_genre(search_video_genre)
+            if in_valid_genres == True:
+                search_genre(videos, search_video_genre)
+            else:
+                print("Genre not valid.")
+            # calling the method to search the genre
 
         case "4":
             show_user_history(users, videos)
@@ -500,12 +513,14 @@ if __name__ == "__main__":
             new_video(videos)
 
         case "7":
-            #Need to work on as multiple videos may have same name
+
             remove_video = input("Please enter the name of the video you would like to remove: ")
+            # calling the method to remove the video
             video_removed = video_remover(videos, remove_video)
+            # if the video method comes back as true then print video removed
             if video_removed == True:
                 print("Video removed from list")
-
+            # else print video not found
             else:
                 print("Video not found.")
 
