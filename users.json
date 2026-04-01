@@ -2,27 +2,66 @@
   {
     "type": "User",
     "username": "anna_writer",
-    "password": "WritePass123"
+    "password": "WritePass123",
+    "play_history": [
+      {
+        "type": "PlayRecord",
+        "username": "anna_writer",
+        "video_id": 10,
+        "position_in_seconds": 200
+      }
+    ]
   },
   {
     "type": "User",
     "username": "moviebuff99",
-    "password": "BuffsLoveMovies1"
+    "password": "BuffsLoveMovies1",
+    "play_history": [
+      {
+        "type": "PlayRecord",
+        "username": "moviebuff99",
+        "video_id": 11,
+        "position_in_seconds": 0
+      }
+    ]
   },
   {
     "type": "User",
     "username": "sam_gamer",
-    "password": "GameTime2022"
+    "password": "GameTime2022",
+    "play_history": [
+      {
+        "type": "PlayRecord",
+        "username": "sam_gamer",
+        "video_id": 12,
+        "position_in_seconds": 150
+      }
+    ]
   },
   {
     "type": "User",
     "username": "linda87",
-    "password": "LindaPass87"
+    "password": "LindaPass87",
+    "play_history": [
+      {
+        "type": "PlayRecord",
+        "username": "linda87",
+        "video_id": 13,
+        "position_in_seconds": 4000
+      }
+    ]
   },
   {
     "type": "User",
     "username": "doc_viewer",
-    "password": "DocuMent9"
+    "password": "DocuMent9",
+    "play_history": [
+      {
+        "type": "PlayRecord",
+        "username": "doc_viewer",
+        "video_id": 14,
+        "position_in_seconds": 60
+      }
+    ]
   }
 ]
-
