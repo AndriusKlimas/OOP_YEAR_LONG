@@ -450,6 +450,8 @@ if __name__ == "__main__":
         print("Please choose form one of the following:")
         print("1. Login")
         print("2. Create a new account")
+        print("3. auto login for testing, with json")
+        print("4. auto login for testing, without json")
         print("0. Exit")
         choice = input().strip()
 
@@ -470,6 +472,30 @@ if __name__ == "__main__":
         if choice == "2":
             print("in development")
             #in development
+
+        if choice == "3":
+
+            username = "anna_writer".strip()
+            password = "WritePass123".strip()
+
+            user = User.validate_login(users, username, password)
+            if user is not None:
+                users[username] = user
+                keep_going = False
+            else:
+                print("Invalid username or password")
+
+        if choice == "4":
+
+            username = "NoahClarke123".strip()
+            password = "Password123!".strip()
+
+            user = User.validate_login(users, username, password)
+            if user is not None:
+                users[username] = user
+                keep_going = False
+            else:
+                print("Invalid username or password")
 
 
         if choice == "0":
