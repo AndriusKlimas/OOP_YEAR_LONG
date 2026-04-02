@@ -290,6 +290,7 @@ class User:
         Returns:
             password for the user
             """
+        return self.__password
     def get_history(self) -> dict[int, list[PlayRecord]]:
         """ gets the play history of the user
 
