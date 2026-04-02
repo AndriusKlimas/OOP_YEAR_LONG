@@ -505,7 +505,7 @@ class User:
             print("Invalid username entered")
             return False
 
-        if old_pass != self.__password:
+        if old_pass != self.get_password():
             print("New password must not contain the username")
             return False
 
