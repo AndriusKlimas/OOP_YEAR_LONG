@@ -415,7 +415,7 @@ if __name__ == "__main__":
         videos = create_default_videos()
     else:
         # vdata is a list of Video objects
-        videos = parse_videos(video_filename)
+        videos =  {v.get_video_id(): v for v in vdata}
 
     # Users
     user_filename = input(
