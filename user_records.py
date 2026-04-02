@@ -597,4 +597,7 @@ class User:
         if username in user_dict:
             user = user_dict[username]
 
-            if user.get_password
+            if user.get_password() == password:
+                return user
+
+        return None
