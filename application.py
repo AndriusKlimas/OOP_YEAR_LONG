@@ -462,6 +462,8 @@ if __name__ == "__main__":
 
     choice = input("Enter your choice (1-7) or 0 to exit: ")
 
+
+    #Section 1(for any user logged in)
     match choice:
         case "1":
             print_videos(videos)
@@ -489,12 +491,19 @@ if __name__ == "__main__":
                 print("Genre not valid.")
             # calling the method to search the genre
 
+
+
+        #Section 2 (For that specific user only)
         case "4":
             show_user_history(users, videos)
 
         case "5":
             play_video_user(users, videos)
 
+
+
+
+        #Section 3(for admin only)
         case "6":
             new_video(videos)
 
