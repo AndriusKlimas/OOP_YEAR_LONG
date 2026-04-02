@@ -285,6 +285,11 @@ class User:
         """
         return self._username
 
+    def get_password(self) -> str:
+        """ gets the password of the user
+        Returns:
+            password for the user
+            """
     def get_history(self) -> dict[int, list[PlayRecord]]:
         """ gets the play history of the user
 
@@ -585,3 +590,11 @@ class User:
             data["play_history"] = all_play_records
 
         return data
+
+    @staticmethod
+    def validate_login(user_dict: dict[str, str], username: str, password: str) -> bool:
+
+        if username in user_dict:
+            user = user_dict[username]
+
+            if user.get_password
