@@ -90,15 +90,33 @@ def show_user_history(users_dict: dict, videos_dict: dict) -> None:
         videos_dict (dict): dictionary of all videos
     """
     username = input("Please enter the username of the user you would like to show the play history for: ")
+    #checking if the username is in the dicktionary
     if username in users_dict:
+        #gets the play history fromthe users dickt
         user_records = users_dict[username].get_history()
         print(f"Here is the play history for {username}: ")
+
+        #loops through the info getten
         for vid_id in user_records:
             play_records_list = user_records[vid_id]
-            title = videos_dict[vid_id].title
-            for r in play_records_list:
-                print(f"{title} starting at {sec_to_min(r.get_pos())}")
 
+            # Find the video by ID in the dictionary
+            video = None
+            for title, video_list in videos_dict.items():
+                for v in video_list:
+                    if v.get_video_id() == vid_id:
+                        video = v
+                        break
+                if video:
+                    break
+
+            #checking if the video found in the dictionary
+            if video:
+                title = video.get_title()
+                for r in play_records_list:
+                    print(f"{title} starting at {sec_to_min(r.get_pos())})")
+            else:
+                print(f"Video with ID {vid_id} not found")
     else:
         print("Invalid username entered")
 
