@@ -549,6 +549,7 @@ if __name__ == "__main__":
 
         case "0":
             print("Exiting Application. Goodbye!")
+            quit()
 
         case _:
             print("Invalid choice. Please choose a valid choice.")
