@@ -445,10 +445,16 @@ if __name__ == "__main__":
     else:
         users = {u.get_username(): u for u in udata}
 
+    keep_going = True
+    while keep_going:
+        print("Please choose form one of the following:")
+        print("1. Create a new user")
+        print("2. Update existing user")
+        print("0. Exit")
+        choice = input().strip()
+        if choice == "1":
 
-    #Getting user login
-    username = input("Please enter your username")
-    password = input("Please enter your password")
+
 
 
     print("1. View all Videos")
