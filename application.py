@@ -335,11 +335,14 @@ def create_default_videos() -> dict:
     v4 = Video(4, "Toy Story", "Toys come to life", 4860, 1995, ["animation", "comedy"])
     v5 = Video(5, "Up", "Balloon building", 16732, 2008, ["animation", "drama"])
     #Do NOT TOUCH THIS AS I NEED IT FOR MULTIPLE VIDEOS UNDER HTE SAME TITLE
-    v6 = Video(5, "Up", "Something else", 23143, 2008, ["animation", "comedy"])
+    v6 = Video(6, "Up", "Something else", 23143, 2008, ["animation", "comedy"])
 
     for v in (v1, v2, v3, v4, v5, v6):
-        vids[v.get_video_id()] = v
-    return vids
+        title = v.get_title()
+        if title in vids:
+            vids[title].append(v)
+        else:
+            vids[title] = [v]
 
 def create_default_users() -> dict:
     """Create and return the default users dictionary used when no file is provided.
