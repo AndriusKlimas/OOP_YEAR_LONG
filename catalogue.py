@@ -372,3 +372,55 @@ class Video:
             return NotImplemented
         return self._video_id > other._video_id
 
+    @classmethod
+    def from_dict(cls, data: dict) -> 'Video':
+        """
+        Creates a Video object from a dictionary.
+
+        Returns:
+            Video object based on the dict
+
+        Raises:
+            ValueError: If required fields are missing or invalid
+        """
+        try:
+            # Validate type field if present
+            if data.get("type") is not None and data.get("type") != cls.__name__:
+                raise ValueError(
+                    f"Invalid type value ({data.get('type')}) within dict - {cls.__name__} cannot deserialise")
+
+            # Extract required fields
+            video_id = data["video_id"]
+            title = data["title"]
+            description = data["description"]
+            duration_seconds = data["duration_seconds"]
+            release_year = data["release_year"]
+            genres = data.get("genres", [])
+
+            # Validate required fields
+            if not isinstance(video_id, int):
+                raise ValueError(f"video_id must be an integer, got {type(video_id)}")
+            if not isinstance(title, str) or not title.strip():
+                raise ValueError(f"title must be a non-empty string")
+            if not isinstance(description, str) or not description.strip():
+                raise ValueError(f"description must be a non-empty string")
+            if not isinstance(duration_seconds, int) or duration_seconds <= 0:
+                raise ValueError(f"duration_seconds must be a positive integer")
+            if not isinstance(release_year, int):
+                raise ValueError(f"release_year must be an integer")
+            if not isinstance(genres, list):
+                raise ValueError(f"genres must be a list")
+
+            return cls(
+                video_id=video_id,
+                title=title,
+                description=description,
+                duration_seconds=duration_seconds,
+                release_year=release_year,
+                genres=genres
+            )
+
+        except KeyError as e:
+            raise ValueError(f"JSON error occurred when building Video - cannot find key {e}")
+        except Exception as e:
+            raise ValueError(f"Unexpected error creating Video from dict: {str(e)}")
