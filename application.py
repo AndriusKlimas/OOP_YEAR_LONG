@@ -473,16 +473,22 @@ if __name__ == "__main__":
             print("Welcome new user")
             print("Please enter the username you would like: ")
             username = input().strip()
+            #Checking is the username already exists
             if username in users:
                 print("Username already exists")
             else:
                 print("Please enter the password you would like: ")
                 password = input().strip()
 
+                #creating the class object
                 new_user = User(username, password)
                 print(f"New user created {username}")
 
+                #saving user to local dictionary
                 users[username] = new_user
+
+
+
 
 
             print("in development")
