@@ -334,8 +334,10 @@ def create_default_videos() -> dict:
     v3 = Video(3, "The Godfather", "Crime family saga", 10500, 1972, ["drama", "crime"])
     v4 = Video(4, "Toy Story", "Toys come to life", 4860, 1995, ["animation", "comedy"])
     v5 = Video(5, "Up", "Balloon building", 16732, 2008, ["animation", "drama"])
+    #Do NOT TOUCH THIS AS I NEED IT FOR MULTIPLE VIDEOS UNDER HTE SAME TITLE
+    v6 = Video(5, "Up", "Something else", 23143, 2008, ["animation", "comedy"])
 
-    for v in (v1, v2, v3, v4, v5):
+    for v in (v1, v2, v3, v4, v5, v6):
         vids[v.get_video_id()] = v
     return vids
 
