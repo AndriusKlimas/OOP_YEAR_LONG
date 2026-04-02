@@ -482,6 +482,9 @@ if __name__ == "__main__":
                 new_user = User(username, password)
                 print(f"New user created {username}")
 
+                users[username] = new_user
+
+
             print("in development")
             #in development
 
