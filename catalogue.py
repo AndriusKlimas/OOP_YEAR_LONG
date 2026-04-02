@@ -424,3 +424,20 @@ class Video:
             raise ValueError(f"JSON error occurred when building Video - cannot find key {e}")
         except Exception as e:
             raise ValueError(f"Unexpected error creating Video from dict: {str(e)}")
+
+
+
+    def to_dict(self) -> dict:
+        # self, video_id: int, title: str, description: str, duration_seconds: int, release_year: int, genres: Optional[
+        #     List[str]] = None) -> None:
+        data = {}
+        data["type"] = self.__class__.__name__
+
+        data["video_id"] = self._video_id
+        data["title"] = self.title
+        data["description"] = self.description
+        data["duration_seconds"] = self._duration_seconds
+        data["release_year"] = self._release_year
+        data["genres"] = self._genres
+
+        return data
