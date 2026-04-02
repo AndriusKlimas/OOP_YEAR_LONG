@@ -593,6 +593,14 @@ class User:
 
     @staticmethod
     def validate_login(user_dict: dict[str, str], username: str, password: str) -> bool:
+        """Validates if the username entered is empty or not
+        Args:
+        user_dict (dict[str, str]): the users current password
+        username (str): The current username
+        password (str): The password the user wants to change to
+        Returns:
+            True if password meets the requirements, False otherwise
+            """
 
         if username in user_dict:
             user = user_dict[username]
