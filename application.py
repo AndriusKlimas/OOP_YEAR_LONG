@@ -470,6 +470,18 @@ if __name__ == "__main__":
 
 
         if choice == "2":
+            print("Welcome new user")
+            print("Please enter the username you would like: ")
+            username = input().strip()
+            if username in users:
+                print("Username already exists")
+            else:
+                print("Please enter the password you would like: ")
+                password = input().strip()
+
+                new_user = User(username, password)
+                print(f"New user created {username}")
+
             print("in development")
             #in development
 
