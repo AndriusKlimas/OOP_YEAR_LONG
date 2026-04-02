@@ -9,6 +9,12 @@
         "username": "anna_writer",
         "video_id": 10,
         "position_in_seconds": 200
+      },
+      {
+        "type": "PlayRecord",
+        "username": "anna_writer",
+        "video_id": 5,
+        "position_in_seconds": 1200
       }
     ]
   },
@@ -22,6 +28,18 @@
         "username": "moviebuff99",
         "video_id": 11,
         "position_in_seconds": 0
+      },
+      {
+        "type": "PlayRecord",
+        "username": "moviebuff99",
+        "video_id": 2,
+        "position_in_seconds": 3400
+      },
+      {
+        "type": "PlayRecord",
+        "username": "moviebuff99",
+        "video_id": 3,
+        "position_in_seconds": 5200
       }
     ]
   },
@@ -48,6 +66,12 @@
         "username": "linda87",
         "video_id": 13,
         "position_in_seconds": 4000
+      },
+      {
+        "type": "PlayRecord",
+        "username": "linda87",
+        "video_id": 4,
+        "position_in_seconds": 800
       }
     ]
   },
