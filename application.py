@@ -460,7 +460,7 @@ if __name__ == "__main__":
             password = input().strip()
 
             user = User.validate_login(users, username, password)
-            if user:
+            if user is not None:
                 users[username] = user
                 keep_going = False
             else:
