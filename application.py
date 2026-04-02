@@ -409,13 +409,14 @@ if __name__ == "__main__":
 
     # Videos
     video_filename = input(
-        "Please enter a filename where video information is stored or press Enter to use defaults: ").strip()
+        "Please enter a filename (json) where video information is stored or press Enter to use defaults: ").strip()
     vdata = data_setup("videos", video_filename)
     if vdata is None:
         videos = create_default_videos()
     else:
         # vdata is a list of Video objects
-        videos =  {v.get_video_id(): v for v in vdata}
+        videos = vdata
+
 
     # Users
     user_filename = input(
