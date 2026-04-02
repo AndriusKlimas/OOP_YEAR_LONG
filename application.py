@@ -446,6 +446,11 @@ if __name__ == "__main__":
         users = {u.get_username(): u for u in udata}
 
 
+    #Getting user login
+    username = input("Please enter your username")
+    password = input("Please enter your password")
+
+
     print("1. View all Videos")
     print("2. Search for specific video")
     print("3. Show all videos in specific genre")
