@@ -10,20 +10,17 @@ from user_records import User
 def print_videos(videos_dictionary: dict) -> None:
     """ prints all videos in the dictionary
     args:
-        videos_dictionary (dict): a dictionary of videos with key is Video ID and value is Video object
+        videos_dictionary (dict): a dictionary of videos with key is title and value is Video object
 
     """
     #Loops through dictionary and prints all videos
     try:
-        # Loops through dictionary and prints all videos
-        for video_list in videos_dictionary.values():
-            #found below on w3schools and stackoverflow isinstance()
+        for title, video_list in videos_dictionary.items():
             if isinstance(video_list, list):
                 for video in video_list:
                     print(video)
             else:
                 print(video_list)
-
     except TypeError:
         print("Error: videos_dictionary must be a dictionary")
     except Exception as e:
@@ -252,13 +249,13 @@ def sec_to_min(seconds: int) -> str:
     secs = seconds % 60
     return f"{minutes} minutes and {secs} seconds"
 
-#for pre-populating the dictionary, needed as cant add 2 manually to the same key
-def add_video_to_dict(videos_dict, video):
-    title = video.get_title()
-    if title in videos_dict:
-        videos_dict[title].append(video)
-    else:
-        videos_dict[title] = [video]
+# #for pre-populating the dictionary, needed as cant add 2 manually to the same key
+# def add_video_to_dict(videos_dict, video):
+#     title = video.get_title()
+#     if title in videos_dict:
+#         videos_dict[title].append(video)
+#     else:
+#         videos_dict[title] = [video]
 
 
 def parse_videos(filename: str) -> list:
@@ -344,6 +341,8 @@ def create_default_videos() -> dict:
         else:
             vids[title] = [v]
 
+    return vids
+
 def create_default_users() -> dict:
     """Create and return the default users dictionary used when no file is provided.
 
@@ -416,7 +415,7 @@ if __name__ == "__main__":
         videos = create_default_videos()
     else:
         # vdata is a list of Video objects
-        videos = {v.get_video_id(): v for v in vdata}
+        videos = parse_videos(video_filename)
 
     # Users
     user_filename = input(
