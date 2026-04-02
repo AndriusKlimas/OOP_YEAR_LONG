@@ -448,11 +448,33 @@ if __name__ == "__main__":
     keep_going = True
     while keep_going:
         print("Please choose form one of the following:")
-        print("1. Create a new user")
-        print("2. Update existing user")
+        print("1. Login")
+        print("2. Create a new account")
         print("0. Exit")
         choice = input().strip()
+
         if choice == "1":
+            print("Enter username:")
+            username = input().strip()
+            print("Enter password:")
+            password = input().strip()
+
+            user = User.validate_login(users, username, password)
+            if user:
+                users[username] = user
+                keep_going = False
+            else:
+                print("Invalid username or password")
+
+
+        if choice == "2":
+            print("in development")
+            #in development
+
+
+        if choice == "0":
+            quit()
+
 
 
 
