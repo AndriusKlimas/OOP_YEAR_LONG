@@ -271,18 +271,31 @@ def parse_videos(filename: str) -> list:
         Invalid records are logged and skipped; the function returns a list of successfully
         created Video objects.
     """
+    #opens the file inputed
     with open(filename) as file:
-        video_dicts = json.load(file)
+        videos_dictionary = json.load(file)
 
-    videos = []
-    for i, video_dict in enumerate(video_dicts, start=1):
-        try:
-            video = Video.from_dict(video_dict)
-            videos.append(video)
-        except Exception as e:
-            # Log invalid record and continue
-            print(f"Invalid video record #{i} in {filename}: {e}")
-    return videos
+    new_videos = {}
+
+    #going through each title and the indiviual info
+    for title, videos_list in videos_dictionary.items():
+        #creting an empty list with teh title as
+        new_videos[title] = []
+
+        #Goes throgh each video dictionary in the list for the title
+        for i,video_dict in enumerate(videos_list, start=1):
+            try:
+                #makes the class object using the from_dict in the video class
+                video = Video.from_dict(video_dict)
+                #if make then it will add it to the list for that title and add it to dictionary
+                new_videos[title].append(video)
+            except Exception as e:
+                #if error then it will tell the user what line hte issue is on
+                print(f"Invalid video record #{i} under title '{title}' in {filename}: {e}")
+
+    #returns the dictionary with the successful info
+    return new_videos
+
 
 
 def parse_users(filename: str) -> list:
