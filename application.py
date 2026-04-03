@@ -697,11 +697,26 @@ def create_login(users:dict) -> tuple[bool, str]:
         return True, "An unexpected error occurred during account creation"
 
 
-def admin_check(logged_in_usernmae):
-    if logged_in_usernmae.strip().lower() != "admin".strip():
+def admin_check(logged_in_usernmae:str) -> bool:
+    """check if the logged-in user is an admin.
+
+        Args:
+            logged_in_usernmae (str): The username of the currently logged-in user
+
+        Returns:
+            bool: True if user is admin, False otherwise
+        """
+    try:
+        if logged_in_usernmae.strip().lower() != "admin".strip():
+            return False
+        else:
+            return True
+    except AttributeError:
+        print("Error: Username must be a string")
         return False
-    else:
-        return True
+    except Exception as e:
+        print(f"An error occurred during admin check: {e}")
+        return False
 
 
 if __name__ == "__main__":
