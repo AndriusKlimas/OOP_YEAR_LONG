@@ -345,7 +345,9 @@ def video_editor(video_dictionary: dict) -> None:
                 print(f"Valid genres: {', '.join(Video.return_valid_genres())}")
                 new_genre = input("Enter genre to add: ").strip()
 
-                if selected_video.add_genre(new_genre):
+                valid_genre = selected_video.add_genre(new_genre)
+
+                if valid_genre:
                     print(f"Genre '{new_genre}' added!")
                     print(selected_video)
                 else:
@@ -353,11 +355,11 @@ def video_editor(video_dictionary: dict) -> None:
 
             elif genre_choice == "2":
                 if selected_video.get_genres():
-                    print(f"Current genres: {', '.join(selected_video.genres)}")
+                    print(f"Current genres: {', '.join(selected_video.get_genres())}")
                     genre_to_remove = input("Enter genre to remove: ").strip()
 
                     if genre_to_remove in selected_video.get_genres():
-                        selected_video.genres.remove(genre_to_remove)
+                        selected_video._genres.remove(genre_to_remove)
                         print(f"Genre '{genre_to_remove}' removed!")
                         print(selected_video)
                     else:
