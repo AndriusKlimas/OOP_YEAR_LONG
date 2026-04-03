@@ -512,47 +512,37 @@ if __name__ == "__main__":
         print("5. auto login (admin) for testing, without/with json")
         print("0. Exit")
         choice = input().strip()
-
-        if choice == "1":
-            keep_going, username = user_login()
-            logged_in_usernmae = username
-
-
+        match choice:
+            case "1":
+                keep_going, username = user_login()
+                logged_in_usernmae = username
 
 
+            case "2":
+                keep_going, username = create_login(users)
+                logged_in_usernmae = username
 
-        if choice == "2":
-            keep_going, username = create_login(users)
-            logged_in_usernmae = username
+            case "3":
+                username = "anna_writer".strip()
+                logged_in_usernmae = username
+                keep_going = False
 
+            case "4":
+                username = "NoahClarke123".strip()
+                logged_in_usernmae = username
+                keep_going = False
 
+            case "5":
+                username = "admin".strip()
+                logged_in_usernmae = username
+                keep_going = False
 
+            case "0":
+                print("Exiting...")
+                quit()
 
-        if choice == "3":
-
-            username = "anna_writer".strip()
-            logged_in_usernmae = username
-            keep_going = False
-
-
-
-        if choice == "4":
-
-            username = "NoahClarke123".strip()
-            logged_in_usernmae = username
-            keep_going = False
-
-        if choice == "5":
-            username = "admin".strip()
-            logged_in_usernmae = username
-            keep_going = False
-
-
-
-
-
-        if choice == "0":
-            quit()
+            case _:
+                print("Invalid choice")
 
 
     admin = admin_check(logged_in_usernmae)
