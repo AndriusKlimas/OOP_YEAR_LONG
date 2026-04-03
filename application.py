@@ -469,6 +469,7 @@ if __name__ == "__main__":
                 print("Invalid username or password")
 
 
+
         if choice == "2":
             print("Welcome new user")
             print("Please enter the username you would like: ")
