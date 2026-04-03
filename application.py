@@ -499,11 +499,9 @@ if __name__ == "__main__":
                 with open("users.json", "w") as f:
                     json.dump(existing_users, f)
 
+                keep_going = False
 
 
-
-            print("in development")
-            #in development
 
         if choice == "3":
 
