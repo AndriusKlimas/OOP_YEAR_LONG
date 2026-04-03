@@ -749,6 +749,25 @@ if __name__ == "__main__":
 
             case "3":
                 video_editor(videos)
+
+                # Convert videos dictionary to format expected by JSON
+                videos_dict = {}
+
+                # Loop through each title and its list of videos
+                for title, video_list in videos.items():
+                    # Create empty list for this title
+                    videos_dict[title] = []
+
+                    # Convert each video to a dictionary
+                    for video in video_list:
+                        video_dict = video.to_dict()
+                        videos_dict[title].append(video_dict)
+
+                # Save to JSON file
+                with open('videos.json', 'w') as file:
+                    json.dump(videos_dict, file)
+
+                print("Changes saved to JSON file!")
                 print("under development")
 
             case "0":
