@@ -470,7 +470,7 @@ def create_login(users):
         return False, username
 
 
-def admin_check():
+def admin_check(logged_in_usernmae):
     if logged_in_usernmae.strip().lower() != "admin".strip():
         return False
     else:
@@ -557,17 +557,32 @@ if __name__ == "__main__":
 
     admin = admin_check(logged_in_usernmae)
 
+    if admin != True:
+        print("1. View all Videos")
+        print("2. Search for specific video")
+        print("3. Show all videos in specific genre")
+        print("4. View all PlayRecords by a user")
+        print("5. Play a specific Video for a specified User")
+
+
+    if admin == True:
+        print("6. Add a new Video to the system")
+        print("7. Remove a Video from the system")
+        print("8. Edit a video")
 
 
 
-    print("1. View all Videos")
-    print("2. Search for specific video")
-    print("3. Show all videos in specific genre")
-    print("4. View all PlayRecords by a user")
-    print("5. Play a specific Video for a specified User")
-    print("6. Add a new Video to the system")
-    print("7. Remove a Video from the system")
-    print("0. Exit Application")
+
+
+
+    # print("1. View all Videos")
+    # print("2. Search for specific video")
+    # print("3. Show all videos in specific genre")
+    # print("4. View all PlayRecords by a user")
+    # print("5. Play a specific Video for a specified User")
+    # print("6. Add a new Video to the system")
+    # print("7. Remove a Video from the system")
+    # print("0. Exit Application")
 
     choice = input("Enter your choice (1-7) or 0 to exit: ")
 
