@@ -305,6 +305,16 @@ def video_remover(videos_dictionary: dict, remove_video: str) -> bool:
 
 
 def video_editor(video_dictionary: dict) -> None:
+    """ Allows the admin to edit the video
+
+    :args video_dictionary:
+    return: None:
+
+
+    raises:
+    ValueError: input must be a number
+    ValueError: input was not one of the options
+    """
 
     video_list = []
     video_number = 1
@@ -595,19 +605,38 @@ def data_setup(parse_type: str, filename: str | None = None):
     print(f"Failed to load {parse_type} after {attempts} attempts; using defaults.")
     return None
 
-def user_login():
-    print("Enter username:")
-    username = input().strip()
-    print("Enter password:")
-    password = input().strip()
+def user_login() -> tuple[bool, str]:
+    """ aks user to login by providing credentials, then validates it with the user dictionary
 
-    user = User.validate_login(users, username, password)
-    if user is not None:
-        users[username] = user
-        print(f"Logging in as in as {username}")
-        return False, username
-    else:
-        return True, "invalid username or password"
+    Returns:
+        tuple[bool, str]: A tuple containing:
+            - bool: False if login successful, True if login failed
+            - str: Username if successful, error message if failed
+    """
+    print("Enter username:")
+    try:
+        username = input().strip()
+        print("Enter password:")
+        password = input().strip()
+
+        try:
+            user = User.validate_login(users, username, password)
+        except Exception as e:
+            print(f"Error logging in: {e}")
+            return True, "Error logging in"
+        if user is not None:
+            users[username] = user
+            print(f"Logging in as in as {username}")
+            return False, username
+        else:
+            return True, "invalid username or password"
+
+    except KeyError:
+        print("User dictionary not found")
+        return True, "Error: Users dictionary not accessible"
+    except Exception as e:
+        print(f"An error occurred during login: {e}")
+        return True, "An unexpected error occurred during login"
 
 
 def create_login(users):
