@@ -563,6 +563,7 @@ if __name__ == "__main__":
         print("3. Show all videos in specific genre")
         print("4. View all PlayRecords by a user")
         print("5. Play a specific Video for a specified User")
+        print("0. Exit")
 
 
     if admin == True:
