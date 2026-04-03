@@ -508,6 +508,7 @@ if __name__ == "__main__":
         print("2. Create a new account")
         print("3. auto login for testing, with json")
         print("4. auto login for testing, without json")
+        print("5. auto login (admin) for testing, without/with json")
         print("0. Exit")
         choice = input().strip()
 
@@ -529,26 +530,24 @@ if __name__ == "__main__":
         if choice == "3":
 
             username = "anna_writer".strip()
-            password = "WritePass123".strip()
+            logged_in_usernmae = username
+            keep_going = False
 
-            user = User.validate_login(users, username, password)
-            if user is not None:
-                users[username] = user
-                keep_going = False
-            else:
-                print("Invalid username or password")
+
 
         if choice == "4":
 
             username = "NoahClarke123".strip()
-            password = "Password123!".strip()
+            logged_in_usernmae = username
+            keep_going = False
 
-            user = User.validate_login(users, username, password)
-            if user is not None:
-                users[username] = user
-                keep_going = False
-            else:
-                print("Invalid username or password")
+        if choice == "5":
+            username = "admin".strip()
+            logged_in_usernmae = username
+            keep_going = False
+
+
+
 
 
         if choice == "0":
@@ -558,13 +557,14 @@ if __name__ == "__main__":
     admin = admin_check(logged_in_usernmae)
 
     if admin != True:
-        choice = input(f"Welcome {logged_in_usernmae}, please choose one of the following:").strip()
+        print(f"Welcome {logged_in_usernmae.strip()}, please choose one of the following:")
         print("1. View all Videos")
         print("2. Search for specific video")
         print("3. Show all videos in specific genre")
         print("4. View all PlayRecords by a user")
         print("5. Play a specific Video for a specified User")
         print("0. Exit")
+        choice = input(f"Choice: ").strip()
         # Section 1(for any user logged in)
         match choice:
             case "1":
@@ -610,11 +610,12 @@ if __name__ == "__main__":
 
 
     if admin == True:
-        choice = input(f"Welcome {logged_in_usernmae}, please choose one of the following:").strip()
+        print(f"Welcome {logged_in_usernmae}")
         print("1. Add a new Video to the system")
         print("2. Remove a Video from the system")
         print("3. Edit a video")
         print("0. Exit")
+        choice = input(f"Choice").strip()
         match choice:
             case "1":
                 new_video(videos)
