@@ -352,9 +352,31 @@ def video_editor(video_dictionary: dict) -> None:
                     print(f"Genre '{new_genre}' is invalid or already exists.")
 
             elif genre_choice == "2":
-                if selected_video.genres:
+                if selected_video.get_genres():
                     print(f"Current genres: {', '.join(selected_video.genres)}")
                     genre_to_remove = input("Enter genre to remove: ").strip()
+
+                    if genre_to_remove in selected_video.get_genres():
+                        selected_video.genres.remove(genre_to_remove)
+                        print(f"Genre '{genre_to_remove}' removed!")
+                        print(selected_video)
+                    else:
+                        print(f"Genre '{genre_to_remove}' is invalid or already exists.")
+
+                else:
+                    print("Video selected has no genres.")
+
+            elif genre_choice == "0":
+                print("Canceled")
+                return None
+            else:
+                print("Invalid input. Please enter a valid choice.")
+                return None
+
+            print("Video chnaged successfully!")
+
+    except ValueError:
+        print("Invalid input.")
 
 
 
