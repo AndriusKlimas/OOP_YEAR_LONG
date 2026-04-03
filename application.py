@@ -274,6 +274,7 @@ def video_editor(video_dictionary: dict) -> None:
             print(f"   Release Year: {Video.get_release_year(video)}")
             print(f"   Genres: {', '.join(Video.get_genres(video)) if Video.get_genres(video) else 'No genres'}")
 
+            #adding the following info to the video_list
             video_list.append((video_number, title, video))
             video_number += 1
 
@@ -283,16 +284,19 @@ def video_editor(video_dictionary: dict) -> None:
         selected_video = None
         selected_title = None
 
+        #looping through everything on the video_list
         for num, title, video in video_list:
             if num == choice:
                 selected_video = video
                 selected_title = title
                 break
 
+        #if nothing was selected
         if selected_video is None:
             print("Invalid selection.")
             return None
 
+        #printing oput what the admin wants to do
         print("\n What would you like to edit?")
         print("1. Description")
         print("2. Duration (seconds)")
@@ -301,6 +305,37 @@ def video_editor(video_dictionary: dict) -> None:
         print("0. Cancel")
 
         edit_choice = input("Please enter your choice(numbers only): ").strip()
+
+        if edit_choice == "1":
+            new_description = input("Please enter the new desctiption you would like: ").strip()
+            selected_video.description = new_description
+            print("New description has been changed")
+
+        elif edit_choice == "2":
+            try:
+                new_duration = int(input("Enter new duration (in seconds): "))
+                selected_video.duration_seconds = new_duration
+                print("Duration updated!")
+            except ValueError:
+                print("Invalid input. Duration must be a number.")
+                return None
+
+        elif edit_choice == "3":
+            try:
+                new_year = int(input("Enter new release year: "))
+                selected_video.release_year = new_year
+                print("Release year updated!")
+            except ValueError:
+                print("Invalid input. Release year must be a number.")
+                return None
+
+        elif edit_choice == "4":
+            print("\n Genre Options:")
+            print("1. Add a genre")
+            print("2. Remove a genre")
+            print("0. Cancel")
+
+
 
 
 def sec_to_min(seconds: int) -> str:
@@ -316,13 +351,7 @@ def sec_to_min(seconds: int) -> str:
     secs = seconds % 60
     return f"{minutes} minutes and {secs} seconds"
 
-# #for pre-populating the dictionary, needed as cant add 2 manually to the same key
-# def add_video_to_dict(videos_dict, video):
-#     title = video.get_title()
-#     if title in videos_dict:
-#         videos_dict[title].append(video)
-#     else:
-#         videos_dict[title] = [video]
+
 
 
 def parse_videos(filename: str) -> list:
