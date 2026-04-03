@@ -487,6 +487,16 @@ if __name__ == "__main__":
                 #saving user to local dictionary
                 users[username] = new_user
 
+                #loadin the currnt json file
+                with open("users.json", "r") as f:
+                    existing_users = json.load(f)
+
+                #adding the new user made to the dict, using the method to_dict to assist
+                existing_users.append(new_user.to_dict())
+
+                #writing back to the json file
+                with open("users.json", "w") as f:
+                    json.dump(existing_users, f)
 
 
 
