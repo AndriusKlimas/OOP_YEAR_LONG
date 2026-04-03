@@ -12,6 +12,10 @@ def print_videos(videos_dictionary: dict) -> None:
     args:
         videos_dictionary (dict): a dictionary of videos with key is title and value is Video object
 
+    raises:
+    TypeError: if the video dictionary is not a dictionary
+    Exception : Catches general issues
+
     """
     #Loops through dictionary and prints all videos
     try:
