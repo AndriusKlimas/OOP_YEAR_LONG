@@ -514,7 +514,7 @@ if __name__ == "__main__":
         if choice == "1":
             keep_going, username = user_login()
             logged_in_usernmae = username
-            print(username)
+
 
 
 
@@ -522,7 +522,7 @@ if __name__ == "__main__":
         if choice == "2":
             keep_going, username = create_login(users)
             logged_in_usernmae = username
-            print(username)
+
 
 
 
@@ -558,18 +558,89 @@ if __name__ == "__main__":
     admin = admin_check(logged_in_usernmae)
 
     if admin != True:
+        choice = input(f"Welcome {logged_in_usernmae}, please choose one of the following:").strip()
         print("1. View all Videos")
         print("2. Search for specific video")
         print("3. Show all videos in specific genre")
         print("4. View all PlayRecords by a user")
         print("5. Play a specific Video for a specified User")
         print("0. Exit")
+        # Section 1(for any user logged in)
+        match choice:
+            case "1":
+                print_videos(videos)
+            case "2":
+                search_video = input("Please enter the Video title you are looking for: ")
+                video_info = video_search(videos, search_video)
+                if video_info is not None:
+                    # isinstance is used to check if the iteam retuernd is a list, if it is then do the below source
+                    # w3schools, stackoverflow
+                    if isinstance(video_info, list):
+                        for video in video_info:
+                            print(video)
+                    else:
+                        print(video_info)
+                else:
+                    print("Video not found.")
+
+            case "3":
+                # getting user to input the genre they are searching for
+                search_video_genre = input("Please enter the genre you would like to look for: ")
+                in_valid_genres = Video.validate_genre(search_video_genre)
+                if in_valid_genres == True:
+                    search_genre(videos, search_video_genre)
+                else:
+                    print("Genre not valid.")
+                # calling the method to search the genre
+
+            # Section 2 (For that specific user only)
+            case "4":
+                show_user_history(users, videos)
+
+            case "5":
+                play_video_user(users, videos)
+
+            case "0":
+                quit()
+
+            case _:
+                print("Invalid choice. Please choose a valid choice.")
+
+
 
 
     if admin == True:
-        print("6. Add a new Video to the system")
-        print("7. Remove a Video from the system")
-        print("8. Edit a video")
+        choice = input(f"Welcome {logged_in_usernmae}, please choose one of the following:").strip()
+        print("1. Add a new Video to the system")
+        print("2. Remove a Video from the system")
+        print("3. Edit a video")
+        print("0. Exit")
+        match choice:
+            case "1":
+                new_video(videos)
+
+            case "2":
+                remove_video = input("Please enter the name of the video you would like to remove: ")
+                # calling the method to remove the video
+                video_removed = video_remover(videos, remove_video)
+                # if the video method comes back as true then print video removed
+                if video_removed == True:
+                    print("Video removed from list")
+                # else print video not found
+                else:
+                    print("Video not found.")
+
+            case "3":
+                print("under development")
+
+            case "0":
+                quit()
+            case _:
+                print("Invalid choice. Please choose a valid choice.")
+
+
+
+
 
 
 
@@ -585,68 +656,68 @@ if __name__ == "__main__":
     # print("7. Remove a Video from the system")
     # print("0. Exit Application")
 
-    choice = input("Enter your choice (1-7) or 0 to exit: ")
+    # choice = input("Enter your choice (1-7) or 0 to exit: ")
+    #
+    #
+    # #Section 1(for any user logged in)
+    # match choice:
+    #     case "1":
+    #         print_videos(videos)
+    #     case "2":
+    #         search_video = input("Please enter the Video title you are looking for: ")
+    #         video_info = video_search(videos, search_video)
+    #         if video_info is not None:
+    #             # isinstance is used to check if the iteam retuernd is a list, if it is then do the below source
+    #             # w3schools, stackoverflow
+    #             if isinstance(video_info, list):
+    #                 for video in video_info:
+    #                     print(video)
+    #             else:
+    #                 print(video_info)
+    #         else:
+    #             print("Video not found.")
+    #
+    #     case "3":
+    #         # getting user to input the genre they are searching for
+    #         search_video_genre = input("Please enter the genre you would like to look for: ")
+    #         in_valid_genres = Video.validate_genre(search_video_genre)
+    #         if in_valid_genres == True:
+    #             search_genre(videos, search_video_genre)
+    #         else:
+    #             print("Genre not valid.")
+    #         # calling the method to search the genre
+    #
+    #
+    #
+    #     #Section 2 (For that specific user only)
+    #     case "4":
+    #         show_user_history(users, videos)
+    #
+    #     case "5":
+    #         play_video_user(users, videos)
 
 
-    #Section 1(for any user logged in)
-    match choice:
-        case "1":
-            print_videos(videos)
-        case "2":
-            search_video = input("Please enter the Video title you are looking for: ")
-            video_info = video_search(videos, search_video)
-            if video_info is not None:
-                # isinstance is used to check if the iteam retuernd is a list, if it is then do the below source
-                # w3schools, stackoverflow
-                if isinstance(video_info, list):
-                    for video in video_info:
-                        print(video)
-                else:
-                    print(video_info)
-            else:
-                print("Video not found.")
-
-        case "3":
-            # getting user to input the genre they are searching for
-            search_video_genre = input("Please enter the genre you would like to look for: ")
-            in_valid_genres = Video.validate_genre(search_video_genre)
-            if in_valid_genres == True:
-                search_genre(videos, search_video_genre)
-            else:
-                print("Genre not valid.")
-            # calling the method to search the genre
 
 
-
-        #Section 2 (For that specific user only)
-        case "4":
-            show_user_history(users, videos)
-
-        case "5":
-            play_video_user(users, videos)
-
-
-
-
-        #Section 3(for admin only)
-        case "6":
-            new_video(videos)
-
-        case "7":
-
-            remove_video = input("Please enter the name of the video you would like to remove: ")
-            # calling the method to remove the video
-            video_removed = video_remover(videos, remove_video)
-            # if the video method comes back as true then print video removed
-            if video_removed == True:
-                print("Video removed from list")
-            # else print video not found
-            else:
-                print("Video not found.")
-
-        case "0":
-            print("Exiting Application. Goodbye!")
-            quit()
-
-        case _:
-            print("Invalid choice. Please choose a valid choice.")
+        # #Section 3(for admin only)
+        # case "6":
+        #     new_video(videos)
+        #
+        # case "7":
+        #
+        #     remove_video = input("Please enter the name of the video you would like to remove: ")
+        #     # calling the method to remove the video
+        #     video_removed = video_remover(videos, remove_video)
+        #     # if the video method comes back as true then print video removed
+        #     if video_removed == True:
+        #         print("Video removed from list")
+        #     # else print video not found
+        #     else:
+        #         print("Video not found.")
+        #
+        # case "0":
+        #     print("Exiting Application. Goodbye!")
+        #     quit()
+        #
+        # case _:
+        #     print("Invalid choice. Please choose a valid choice.")
