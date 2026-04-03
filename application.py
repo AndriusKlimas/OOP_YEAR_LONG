@@ -469,6 +469,14 @@ def create_login(users):
 
         return False, username
 
+
+def admin_check():
+    if logged_in_usernmae.strip().lower() != "admin".strip():
+        return False
+    else:
+        return True
+
+
 if __name__ == "__main__":
 
     # Videos
@@ -547,8 +555,7 @@ if __name__ == "__main__":
             quit()
 
 
-    if logged_in_usernmae != "admin".strip():
-        admin = False
+    admin = admin_check(logged_in_usernmae)
 
 
 
