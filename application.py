@@ -639,36 +639,62 @@ def user_login() -> tuple[bool, str]:
         return True, "An unexpected error occurred during login"
 
 
-def create_login(users):
-    print("Welcome new user")
-    print("Please enter the username you would like: ")
-    username = input().strip()
-    # Checking is the username already exists
-    if username in users:
-        return True, f"username {username} already exists"
-    else:
-        print("Please enter the password you would like: ")
-        password = input().strip()
+def create_login(users:dict) -> tuple[bool, str]:
+    """ getting the user to create and account and saving to json file
 
-        # creating the class object
-        new_user = User(username, password)
-        print(f"New user created {username}")
+    args:
+        users (dict): Dictionary of existing User objects keyed by username
 
-        # saving user to local dictionary
-        users[username] = new_user
+    Returns:
+        tuple[bool, str]: A tuple containing:
+            - bool: True if creation failed, False if successful
+            - str: Error message if failed, username if successful
 
-        # loadin the currnt json file
-        with open("users.json", "r") as f:
-            existing_users = json.load(f)
+    raises:
+    ValueError: Invalid input provided
+    KeyError: Users dictionary not found
+    Exception: An unexpected error occurred during account creation
+    """
+    try:
+        print("Welcome new user")
+        print("Please enter the username you would like: ")
+        username = input().strip()
+        # Checking is the username already exists
+        if username in users:
+            return True, f"username {username} already exists"
+        else:
+            print("Please enter the password you would like: ")
+            password = input().strip()
 
-        # adding the new user made to the dict, using the method to_dict to assist
-        existing_users.append(new_user.to_dict())
+            # creating the class object
+            new_user = User(username, password)
+            print(f"New user created {username}")
 
-        # writing back to the json file
-        with open("users.json", "w") as f:
-            json.dump(existing_users, f)
+            # saving user to local dictionary
+            users[username] = new_user
 
-        return False, username
+            # loadin the currnt json file
+            with open("users.json", "r") as f:
+                existing_users = json.load(f)
+
+            # adding the new user made to the dict, using the method to_dict to assist
+            existing_users.append(new_user.to_dict())
+
+            # writing back to the json file
+            with open("users.json", "w") as f:
+                json.dump(existing_users, f)
+
+            return False, username
+
+    except KeyError:
+        print("Error: Users dictionary not found")
+        return True, "Error: Users dictionary not accessible"
+    except ValueError:
+        print("Error: Invalid input provided")
+        return True, "Error: Invalid input"
+    except Exception as e:
+        print(f"An error occurred during account creation: {e}")
+        return True, "An unexpected error occurred during account creation"
 
 
 def admin_check(logged_in_usernmae):
@@ -851,87 +877,3 @@ if __name__ == "__main__":
                 quit()
             case _:
                 print("Invalid choice. Please choose a valid choice.")
-
-
-
-
-
-
-
-
-
-
-    # print("1. View all Videos")
-    # print("2. Search for specific video")
-    # print("3. Show all videos in specific genre")
-    # print("4. View all PlayRecords by a user")
-    # print("5. Play a specific Video for a specified User")
-    # print("6. Add a new Video to the system")
-    # print("7. Remove a Video from the system")
-    # print("0. Exit Application")
-
-    # choice = input("Enter your choice (1-7) or 0 to exit: ")
-    #
-    #
-    # #Section 1(for any user logged in)
-    # match choice:
-    #     case "1":
-    #         print_videos(videos)
-    #     case "2":
-    #         search_video = input("Please enter the Video title you are looking for: ")
-    #         video_info = video_search(videos, search_video)
-    #         if video_info is not None:
-    #             # isinstance is used to check if the iteam retuernd is a list, if it is then do the below source
-    #             # w3schools, stackoverflow
-    #             if isinstance(video_info, list):
-    #                 for video in video_info:
-    #                     print(video)
-    #             else:
-    #                 print(video_info)
-    #         else:
-    #             print("Video not found.")
-    #
-    #     case "3":
-    #         # getting user to input the genre they are searching for
-    #         search_video_genre = input("Please enter the genre you would like to look for: ")
-    #         in_valid_genres = Video.validate_genre(search_video_genre)
-    #         if in_valid_genres == True:
-    #             search_genre(videos, search_video_genre)
-    #         else:
-    #             print("Genre not valid.")
-    #         # calling the method to search the genre
-    #
-    #
-    #
-    #     #Section 2 (For that specific user only)
-    #     case "4":
-    #         show_user_history(users, videos)
-    #
-    #     case "5":
-    #         play_video_user(users, videos)
-
-
-
-
-        # #Section 3(for admin only)
-        # case "6":
-        #     new_video(videos)
-        #
-        # case "7":
-        #
-        #     remove_video = input("Please enter the name of the video you would like to remove: ")
-        #     # calling the method to remove the video
-        #     video_removed = video_remover(videos, remove_video)
-        #     # if the video method comes back as true then print video removed
-        #     if video_removed == True:
-        #         print("Video removed from list")
-        #     # else print video not found
-        #     else:
-        #         print("Video not found.")
-        #
-        # case "0":
-        #     print("Exiting Application. Goodbye!")
-        #     quit()
-        #
-        # case _:
-        #     print("Invalid choice. Please choose a valid choice.")
