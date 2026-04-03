@@ -168,44 +168,71 @@ def new_video(videos_dictionary: dict) -> None:
     args:
         videos_dictionary (dict): a dictionary of videos with key is title and value is Video object
 
+    raises:
+    ValueError: year and duration need to be numebrs(int)
+    Exception: Catches general issues
+    AttributeError: if info is provided incorrectly
+    TypeError: Invalid data type provided
+
 
     """
-    #getting basic info
-    genres_list = []
-    print("Please enter the following details to add a new video:")
-    #video id no longer key, now goes through dict, counts, and then adds 1 onto for new video id
-    get_video_id = 0
-    for video_list in videos_dictionary.values():
-        for video in video_list:
-            get_video_id += 1
-    get_video_id += 1
-    get_title = input("Title: ")
-    get_description = input("Description: ")
-    get_duration = int(input("Duration seconds: "))
-    get_release_year = int(input("Release Year: "))
-    #loop for genre
-    while True:
-        get_genres = input("Please enter the genres")
-        if get_genres in Video.return_valid_genres():
-            genres_list.append(get_genres)
-        else:
-            print("Genre not valid. Please choose a valid genre")
-            print(Video.return_valid_genres())
-        print("Would you like to add another genre? (y/n)")
-        another = input().lower()
-        if another == "n":
-            break
-    #creating a new video class object
-    new_video = Video(get_video_id, get_title, get_description, get_duration, get_release_year, genres_list)
-    #'checking if he video is in the dictionary'
-    if get_title in videos_dictionary.keys():
-        #'if it is then add the class object under hte same key'
-        videos_dictionary[get_title].append(new_video)
-        #'if not then add the class object under a new key'
-    else:
-        videos_dictionary[get_title] = [new_video]
 
-    print("Video added to list")
+    try:
+        # getting basic info
+        genres_list = []
+        print("Please enter the following details to add a new video:")
+        # video id no longer key, now goes through dict, counts, and then adds 1 onto for new video id
+        get_video_id = 0
+        for video_list in videos_dictionary.values():
+            for video in video_list:
+                get_video_id += 1
+        get_video_id += 1
+
+        try:
+            get_title = input("Title: ")
+            get_description = input("Description: ")
+            get_duration = int(input("Duration seconds: "))
+            get_release_year = int(input("Release Year: "))
+        except ValueError:
+            print("Error: Duration and Release Year must be numbers.")
+            return
+
+        # loop for genre
+        while True:
+            get_genres = input("Please enter the genres")
+            if get_genres in Video.return_valid_genres():
+                genres_list.append(get_genres)
+            else:
+                print("Genre not valid. Please choose a valid genre")
+                print(Video.return_valid_genres())
+            print("Would you like to add another genre? (y/n)")
+            another = input().lower()
+            if another == "n":
+                break
+
+        # creating a new video class object
+        try:
+            new_video = Video(get_video_id, get_title, get_description, get_duration, get_release_year, genres_list)
+        except Exception as e:
+            print(f"Error creating video: {e}")
+            return
+
+        # 'checking if he video is in the dictionary'
+        if get_title in videos_dictionary.keys():
+            # 'if it is then add the class object under hte same key'
+            videos_dictionary[get_title].append(new_video)
+            # 'if not then add the class object under a new key'
+        else:
+            videos_dictionary[get_title] = [new_video]
+
+        print("Video added to list")
+
+    except AttributeError:
+        print("Error: Video class missing required method")
+    except TypeError:
+        print("Error: Invalid data type provided")
+    except Exception as e:
+        print(f"An error occurred while adding new video: {e}")
 
     #added sleep for the
 
