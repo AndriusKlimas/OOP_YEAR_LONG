@@ -38,7 +38,11 @@ def video_search(videos_dictionary: dict, search_video: str) -> Video | None:
         search_video: (str): the title of the video to search for
 
     returns:
-    Video: if the video is found, return it, else return None
+    video_list: if the video is found
+    None : if the video is not found
+
+    raises:
+    Exception : Catches general issues
     """
     # for some unknown reason white spaces where appearing, causing issues when looking it up
 
