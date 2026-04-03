@@ -310,21 +310,25 @@ def video_editor(video_dictionary: dict) -> None:
             new_description = input("Please enter the new desctiption you would like: ").strip()
             selected_video.description = new_description
             print("New description has been changed")
+            print(selected_video)
 
         elif edit_choice == "2":
             try:
                 new_duration = int(input("Enter new duration (in seconds): "))
-                selected_video.duration_seconds = new_duration
+                selected_video._duration_seconds = new_duration
                 print("Duration updated!")
+                print(selected_video)
             except ValueError:
                 print("Invalid input. Duration must be a number.")
                 return None
 
+
         elif edit_choice == "3":
             try:
                 new_year = int(input("Enter new release year: "))
-                selected_video.release_year = new_year
+                selected_video._release_year = new_year
                 print("Release year updated!")
+                print(selected_video)
             except ValueError:
                 print("Invalid input. Release year must be a number.")
                 return None
@@ -334,6 +338,24 @@ def video_editor(video_dictionary: dict) -> None:
             print("1. Add a genre")
             print("2. Remove a genre")
             print("0. Cancel")
+
+            genre_choice = input("Please enter your choice(numbers only): ").strip()
+
+            if genre_choice == "1":
+                print(f"Valid genres: {', '.join(Video.return_valid_genres())}")
+                new_genre = input("Enter genre to add: ").strip()
+
+                if selected_video.add_genre(new_genre):
+                    print(f"Genre '{new_genre}' added!")
+                    print(selected_video)
+                else:
+                    print(f"Genre '{new_genre}' is invalid or already exists.")
+
+            elif genre_choice == "2":
+                if selected_video.genres:
+                    print(f"Current genres: {', '.join(selected_video.genres)}")
+                    genre_to_remove = input("Enter genre to remove: ").strip()
+
 
 
 
@@ -685,7 +707,7 @@ if __name__ == "__main__":
         print("2. Remove a Video from the system")
         print("3. Edit a video")
         print("0. Exit")
-        choice = input(f"Choice").strip()
+        choice = input(f"Choice: ").strip()
         match choice:
             case "1":
                 new_video(videos)
