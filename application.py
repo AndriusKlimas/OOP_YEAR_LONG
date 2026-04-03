@@ -491,6 +491,8 @@ if __name__ == "__main__":
     else:
         users = {u.get_username(): u for u in udata}
 
+
+    logged_in_usernmae = None
     keep_going = True
     while keep_going:
         print("Please choose form one of the following:")
@@ -503,6 +505,7 @@ if __name__ == "__main__":
 
         if choice == "1":
             keep_going, username = user_login()
+            logged_in_usernmae = username
             print(username)
 
 
@@ -510,6 +513,7 @@ if __name__ == "__main__":
 
         if choice == "2":
             keep_going, username = create_login(users)
+            logged_in_usernmae = username
             print(username)
 
 
@@ -541,6 +545,10 @@ if __name__ == "__main__":
 
         if choice == "0":
             quit()
+
+
+    if logged_in_usernmae != "admin".strip():
+        admin = False
 
 
 
