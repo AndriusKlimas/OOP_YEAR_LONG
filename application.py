@@ -437,6 +437,38 @@ def user_login():
     else:
         return True, "invalid username or password"
 
+
+def create_login(users):
+    print("Welcome new user")
+    print("Please enter the username you would like: ")
+    username = input().strip()
+    # Checking is the username already exists
+    if username in users:
+        return True, f"username {username} already exists"
+    else:
+        print("Please enter the password you would like: ")
+        password = input().strip()
+
+        # creating the class object
+        new_user = User(username, password)
+        print(f"New user created {username}")
+
+        # saving user to local dictionary
+        users[username] = new_user
+
+        # loadin the currnt json file
+        with open("users.json", "r") as f:
+            existing_users = json.load(f)
+
+        # adding the new user made to the dict, using the method to_dict to assist
+        existing_users.append(new_user.to_dict())
+
+        # writing back to the json file
+        with open("users.json", "w") as f:
+            json.dump(existing_users, f)
+
+        return False, username
+
 if __name__ == "__main__":
 
     # Videos
@@ -477,35 +509,8 @@ if __name__ == "__main__":
 
 
         if choice == "2":
-            print("Welcome new user")
-            print("Please enter the username you would like: ")
-            username = input().strip()
-            #Checking is the username already exists
-            if username in users:
-                print("Username already exists")
-            else:
-                print("Please enter the password you would like: ")
-                password = input().strip()
-
-                #creating the class object
-                new_user = User(username, password)
-                print(f"New user created {username}")
-
-                #saving user to local dictionary
-                users[username] = new_user
-
-                #loadin the currnt json file
-                with open("users.json", "r") as f:
-                    existing_users = json.load(f)
-
-                #adding the new user made to the dict, using the method to_dict to assist
-                existing_users.append(new_user.to_dict())
-
-                #writing back to the json file
-                with open("users.json", "w") as f:
-                    json.dump(existing_users, f)
-
-                keep_going = False
+            keep_going, username = create_login(users)
+            print(username)
 
 
 
