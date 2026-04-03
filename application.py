@@ -373,8 +373,9 @@ def create_default_users() -> dict:
     u3 = User("Bob_iscool", "iamBob05$")
     u4 = User("Jedibob212", "Sidius66")
     u5 = User("IronManFan3", "TonyStark44!")
+    u6 = User("admin","Password1!")
 
-    for u in (u1, u2, u3, u4, u5):
+    for u in (u1, u2, u3, u4, u5, u6):
         us[u.get_username()] = u
     return us
 

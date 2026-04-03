@@ -1,6 +1,12 @@
 [
   {
     "type": "User",
+    "username": "admin",
+    "password": "Password1!",
+    "play_history": []
+  },
+  {
+    "type": "User",
     "username": "anna_writer",
     "password": "WritePass123",
     "play_history": [
