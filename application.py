@@ -245,6 +245,11 @@ def video_remover(videos_dictionary: dict, remove_video: str) -> bool:
 
     return:
         bool: returns True if video is removed, else False
+
+    raises:
+    IndexError: list out of range
+    ValueError: input must be a number
+    Exception: general exception
     """
     #ps need comments for this as its complex
     try:
