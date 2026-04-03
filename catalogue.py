@@ -82,7 +82,7 @@ class Video:
         Returns:
             True if the genre was successfully added, False otherwise.
         """
-        if genre not in self._genres and genre in Video.validate_genre(genre):
+        if genre not in self._genres and Video.validate_genre(genre):
             self._genres.append(genre.lower())
             return True
         else:
