@@ -48,6 +48,7 @@ def video_search(videos_dictionary: dict, search_video: str) -> Video | None:
     try:
         #stripping white spaces again, causes issues if not their
         search_video = search_video.strip().lower()
+        #goes through all videos in the dictionary
         for title, video_list in videos_dictionary.items():
             #stripping white spaces again, causes issues if not their
             if search_video == title.strip().lower():
@@ -79,6 +80,7 @@ def search_genre(videos_dictionary: dict, search_genre: str) -> None:
         search_genre = search_genre.strip().lower()
         found = False
 
+        #goes through all videos in the dictionary
         for title, genre_list in videos_dictionary.items():
             for video in genre_list:
                 #hets the genres from the class object using the fucntion
@@ -188,6 +190,7 @@ def new_video(videos_dictionary: dict) -> None:
                 get_video_id += 1
         get_video_id += 1
 
+        #getting the user input
         try:
             get_title = input("Title: ")
             get_description = input("Description: ")
@@ -195,9 +198,9 @@ def new_video(videos_dictionary: dict) -> None:
             get_release_year = int(input("Release Year: "))
         except ValueError:
             print("Error: Duration and Release Year must be numbers.")
-            return
+            return None
 
-        # loop for genre
+        # loop for genre, user adding genres
         while True:
             get_genres = input("Please enter the genres")
             if get_genres in Video.return_valid_genres():
@@ -363,12 +366,14 @@ def video_editor(video_dictionary: dict) -> None:
 
         edit_choice = input("Please enter your choice(numbers only): ").strip()
 
+        #will change the description using direct access
         if edit_choice == "1":
             new_description = input("Please enter the new desctiption you would like: ").strip()
             selected_video.description = new_description
             print("New description has been changed")
             print(selected_video)
 
+        # will change the duration using direct access
         elif edit_choice == "2":
             try:
                 new_duration = int(input("Enter new duration (in seconds): "))
@@ -379,7 +384,7 @@ def video_editor(video_dictionary: dict) -> None:
                 print("Invalid input. Duration must be a number.")
                 return None
 
-
+        # will change the release year using direct access
         elif edit_choice == "3":
             try:
                 new_year = int(input("Enter new release year: "))
@@ -390,6 +395,7 @@ def video_editor(video_dictionary: dict) -> None:
                 print("Invalid input. Release year must be a number.")
                 return None
 
+        #if option 4 ius chosen run the below
         elif edit_choice == "4":
             print("\n Genre Options:")
             print("1. Add a genre")
@@ -398,10 +404,12 @@ def video_editor(video_dictionary: dict) -> None:
 
             genre_choice = input("Please enter your choice(numbers only): ").strip()
 
+            #if 1 is inputed, it will run and user will input the new genre they want
             if genre_choice == "1":
                 print(f"Valid genres: {', '.join(Video.return_valid_genres())}")
                 new_genre = input("Enter genre to add: ").strip()
 
+                #appending the genre here
                 valid_genre = selected_video.add_genre(new_genre)
 
                 if valid_genre:
@@ -410,6 +418,7 @@ def video_editor(video_dictionary: dict) -> None:
                 else:
                     print(f"Genre '{new_genre}' is invalid or already exists.")
 
+            #if choice 2 then run the below, will print out what genres are in the video and allow for removal
             elif genre_choice == "2":
                 if selected_video.get_genres():
                     print(f"Current genres: {', '.join(selected_video.get_genres())}")
@@ -886,7 +895,6 @@ if __name__ == "__main__":
                         json.dump(videos_dict, file)
 
                     print("Changes saved to JSON file!")
-                    print("under development")
 
                 except ValueError:
                     print("Error: Video data cannot be serialized to JSON")
