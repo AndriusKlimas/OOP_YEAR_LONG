@@ -423,6 +423,20 @@ def data_setup(parse_type: str, filename: str | None = None):
     print(f"Failed to load {parse_type} after {attempts} attempts; using defaults.")
     return None
 
+def user_login():
+    print("Enter username:")
+    username = input().strip()
+    print("Enter password:")
+    password = input().strip()
+
+    user = User.validate_login(users, username, password)
+    if user is not None:
+        users[username] = user
+        print(f"Logging in as in as {username}")
+        return False, username
+    else:
+        return True, "invalid username or password"
+
 if __name__ == "__main__":
 
     # Videos
@@ -456,17 +470,9 @@ if __name__ == "__main__":
         choice = input().strip()
 
         if choice == "1":
-            print("Enter username:")
-            username = input().strip()
-            print("Enter password:")
-            password = input().strip()
+            keep_going, username = user_login()
+            print(username)
 
-            user = User.validate_login(users, username, password)
-            if user is not None:
-                users[username] = user
-                keep_going = False
-            else:
-                print("Invalid username or password")
 
 
 
@@ -530,7 +536,6 @@ if __name__ == "__main__":
 
         if choice == "0":
             quit()
-
 
 
 
