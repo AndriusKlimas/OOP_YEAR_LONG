@@ -44,7 +44,6 @@ def video_search(videos_dictionary: dict, search_video: str) -> Video | None:
     raises:
     Exception : Catches general issues
     """
-    # for some unknown reason white spaces where appearing, causing issues when looking it up
 
     try:
         #stripping white spaces again, causes issues if not their
@@ -68,6 +67,11 @@ def search_genre(videos_dictionary: dict, search_genre: str) -> None:
         videos_dictionary (dict): a dictionary of videos with key is video title and value is Video object
         search_genre: (str): the genre to search for
 
+
+    raises:
+    Exception : Catches general issues
+    TypeError: if the video dictionary is not a dictionary
+
     """
     try:
         # loops through dictionary and stores the video info in video variable
@@ -86,6 +90,9 @@ def search_genre(videos_dictionary: dict, search_genre: str) -> None:
         if not found:
             print(f"No videos found with genre: {search_genre}")
 
+
+    except TypeError:
+        print("Error: videos_dictionary must be a dictionary")
     except Exception as e:
         print(f"An error occurred while searching for genre: {e}")
 
