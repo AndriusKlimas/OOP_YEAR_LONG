@@ -264,6 +264,7 @@ def video_editor(video_dictionary: dict) -> None:
 
     print("See all videos below")
 
+    #displayas all the videos stored in a neat list
     for title, videos in video_dictionary.items():
         for video in videos:
             print(f"\n{video_number}. Video ID: {Video.get_video_id(video)}")
@@ -276,8 +277,30 @@ def video_editor(video_dictionary: dict) -> None:
             video_list.append((video_number, title, video))
             video_number += 1
 
+    try:
+        choice = int(input("Please enter the one you would like to edit(numbers only): "))
 
+        selected_video = None
+        selected_title = None
 
+        for num, title, video in video_list:
+            if num == choice:
+                selected_video = video
+                selected_title = title
+                break
+
+        if selected_video is None:
+            print("Invalid selection.")
+            return None
+
+        print("\n What would you like to edit?")
+        print("1. Description")
+        print("2. Duration (seconds)")
+        print("3. Release Year")
+        print("4. Genres ")
+        print("0. Cancel")
+
+        edit_choice = input("Please enter your choice(numbers only): ").strip()
 
 
 def sec_to_min(seconds: int) -> str:
