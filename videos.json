@@ -1,131 +1,149 @@
-[
-  {
-    "type": "Video",
-    "video_id": 1,
-    "title": "Inception",
-    "description": "A mind-bending thriller",
-    "duration_seconds": 8880,
-    "release_year": 2010,
-    "genres": [
-      "sci-fi",
-      "thriller"
-    ]
-  },
-  {
-    "type": "Video",
-    "video_id": 2,
-    "title": "The Matrix",
-    "description": "A hacker discovers reality",
-    "duration_seconds": 8160,
-    "release_year": 1999,
-    "genres": [
-      "sci-fi",
-      "action"
-    ]
-  },
-  {
-    "type": "Video",
-    "video_id": 3,
-    "title": "The Godfather",
-    "description": "Crime family saga",
-    "duration_seconds": 10500,
-    "release_year": 1972,
-    "genres": [
-      "drama",
-      "crime"
-    ]
-  },
-  {
-    "type": "Video",
-    "video_id": 4,
-    "title": "Toy Story",
-    "description": "Toys come to life",
-    "duration_seconds": 4860,
-    "release_year": 1995,
-    "genres": [
-      "animation",
-      "comedy"
-    ]
-  },
-  {
-    "type": "Video",
-    "video_id": 5,
-    "title": "Up",
-    "description": "Balloon building",
-    "duration_seconds": 16732,
-    "release_year": 2008,
-    "genres": [
-      "animation",
-      "drama"
-    ]
-  },
-  {
-    "type": "Video",
-    "video_id": 6,
-    "title": "Up",
-    "description": "Something else",
-    "duration_seconds": 23143,
-    "release_year": 2008,
-    "genres": [
-      "animation",
-      "comedy"
-    ]
-  },
-  {
-    "type": "Video",
-    "video_id": 10,
-    "title": "Skybound",
-    "description": "A pilot faces unexpected storms",
-    "duration_seconds": 5400,
-    "release_year": 2018,
-    "genres": [
-      "action",
-      "drama"
-    ]
-  },
-  {
-    "type": "Video",
-    "video_id": 11,
-    "title": "The Last Joke",
-    "description": "A comedian's comeback tour",
-    "duration_seconds": 4800,
-    "release_year": 2020,
-    "genres": [
-      "comedy"
-    ]
-  },
-  {
-    "type": "Video",
-    "video_id": 12,
-    "title": "Deep Sea",
-    "description": "Documentary exploring ocean life",
-    "duration_seconds": 3600,
-    "release_year": 2015,
-    "genres": [
-      "documentary"
-    ]
-  },
-  {
-    "type": "Video",
-    "video_id": 13,
-    "title": "Deep Sea",
-    "description": "A different version or edition",
-    "duration_seconds": 3500,
-    "release_year": 2016,
-    "genres": [
-      "documentary"
-    ]
-  },
-  {
-    "type": "Video",
-    "video_id": 14,
-    "title": "Mystery Island",
-    "description": "uga buga",
-    "duration_seconds": 6200,
-    "release_year": 2019,
-    "genres": [
-      "adventure",
-      "mystery"
-    ]
-  }
-]
+{
+  "Inception": [
+    {
+      "type": "Video",
+      "video_id": 1,
+      "title": "Inception",
+      "description": "A mind-bending thriller",
+      "duration_seconds": 8880,
+      "release_year": 2010,
+      "genres": [
+        "sci-fi",
+        "thriller"
+      ]
+    }
+  ],
+  "The Matrix": [
+    {
+      "type": "Video",
+      "video_id": 2,
+      "title": "The Matrix",
+      "description": "A hacker discovers reality",
+      "duration_seconds": 8160,
+      "release_year": 1999,
+      "genres": [
+        "sci-fi",
+        "action"
+      ]
+    }
+  ],
+  "The Godfather": [
+    {
+      "type": "Video",
+      "video_id": 3,
+      "title": "The Godfather",
+      "description": "Crime family saga",
+      "duration_seconds": 10500,
+      "release_year": 1972,
+      "genres": [
+        "drama",
+        "crime"
+      ]
+    }
+  ],
+  "Toy Story": [
+    {
+      "type": "Video",
+      "video_id": 4,
+      "title": "Toy Story",
+      "description": "Toys come to life",
+      "duration_seconds": 4860,
+      "release_year": 1995,
+      "genres": [
+        "animation",
+        "comedy"
+      ]
+    }
+  ],
+  "Up": [
+    {
+      "type": "Video",
+      "video_id": 5,
+      "title": "Up",
+      "description": "Balloon building",
+      "duration_seconds": 16732,
+      "release_year": 2008,
+      "genres": [
+        "animation",
+        "drama"
+      ]
+    },
+    {
+      "type": "Video",
+      "video_id": 6,
+      "title": "Up",
+      "description": "Something else",
+      "duration_seconds": 23143,
+      "release_year": 2008,
+      "genres": [
+        "animation",
+        "comedy"
+      ]
+    }
+  ],
+  "Skybound": [
+    {
+      "type": "Video",
+      "video_id": 10,
+      "title": "Skybound",
+      "description": "A pilot faces unexpected storms",
+      "duration_seconds": 5400,
+      "release_year": 2018,
+      "genres": [
+        "action",
+        "drama"
+      ]
+    }
+  ],
+  "The Last Joke": [
+    {
+      "type": "Video",
+      "video_id": 11,
+      "title": "The Last Joke",
+      "description": "A comedian's comeback tour",
+      "duration_seconds": 4800,
+      "release_year": 2020,
+      "genres": [
+        "comedy"
+      ]
+    }
+  ],
+  "Deep Sea": [
+    {
+      "type": "Video",
+      "video_id": 12,
+      "title": "Deep Sea",
+      "description": "Documentary exploring ocean life",
+      "duration_seconds": 3600,
+      "release_year": 2015,
+      "genres": [
+        "documentary"
+      ]
+    },
+    {
+      "type": "Video",
+      "video_id": 13,
+      "title": "Deep Sea",
+      "description": "A different version or edition",
+      "duration_seconds": 3500,
+      "release_year": 2016,
+      "genres": [
+        "documentary"
+      ]
+    }
+  ],
+  "Mystery Island": [
+    {
+      "type": "Video",
+      "video_id": 14,
+      "title": "Mystery Island",
+      "description": "uga buga",
+      "duration_seconds": 6200,
+      "release_year": 2019,
+      "genres": [
+        "adventure",
+        "mystery"
+      ]
+    }
+  ]
+}
