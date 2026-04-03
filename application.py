@@ -145,6 +145,8 @@ def play_video_user(users_dict: dict, videos_dict: dict) -> None:
     else:
         print("Invalid username entered")
 
+ #admin logic below
+
 #Option 6 def
 def new_video(videos_dictionary: dict) -> None:
     """ Adds a new video to the dictionary by creating an object of the video class
@@ -253,6 +255,30 @@ def video_remover(videos_dictionary: dict, remove_video: str) -> bool:
     except Exception as e:
         print(f"An error occurred while removing video: {e}")
         return False
+
+
+def video_editor(video_dictionary: dict) -> None:
+
+    video_list = []
+    video_number = 1
+
+    print("See all videos below")
+
+    for title, videos in video_dictionary.items():
+        for video in videos:
+            print(f"\n{video_number}. Video ID: {Video.get_video_id(video)}")
+            print(f"   Title: {Video.get_title(video)}")
+            print(f"   Description: {Video.get_description(video)}")
+            print(f"   Duration: {Video.get_duration_seconds(video)} seconds")
+            print(f"   Release Year: {Video.get_release_year(video)}")
+            print(f"   Genres: {', '.join(Video.get_genres(video)) if Video.get_genres(video) else 'No genres'}")
+
+            video_list.append((video_number, title, video))
+            video_number += 1
+
+
+
+
 
 def sec_to_min(seconds: int) -> str:
     """Convert seconds to a human-readable minutes and seconds string.
@@ -592,6 +618,7 @@ if __name__ == "__main__":
                 play_video_user(users, videos)
 
             case "0":
+                print("Exiting...")
                 quit()
 
             case _:
@@ -623,9 +650,11 @@ if __name__ == "__main__":
                     print("Video not found.")
 
             case "3":
+                video_editor(videos)
                 print("under development")
 
             case "0":
+                print("Exiting...")
                 quit()
             case _:
                 print("Invalid choice. Please choose a valid choice.")
