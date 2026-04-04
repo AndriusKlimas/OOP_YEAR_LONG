@@ -446,8 +446,49 @@ def video_editor(video_dictionary: dict) -> None:
     except ValueError:
         print("Invalid input.")
 
+def view_video_play(video_dict: dict, users_dict: dict) -> None:
+    """Allow the user to see all play history for a specified video.
 
+    Args:
+        video_dict (dict): Dictionary of video information
+        users_dict (dict): Dictionary of users information
+    """
+    try:
+        video_name = input("Please enter the video you would like to view the play history of: ").strip()
 
+        matched_videos = video_search(video_dict, video_name)
+        if matched_videos is None:
+            raise ValueError("Invalid video entered")
+
+        # Normalise to list in case one object is returned.
+        if not isinstance(matched_videos, list):
+            matched_videos = [matched_videos]
+
+        matched_video_ids = []
+        for video_obj in matched_videos:
+            matched_video_ids.append(video_obj.get_video_id())
+
+        records_found = []
+        for username, user_obj in users_dict.items():
+            user_history = user_obj.get_history()
+            for vid_id, play_records_list in user_history.items():
+                if vid_id in matched_video_ids:
+                    for record in play_records_list:
+                        records_found.append((username, vid_id, record))
+
+        print(f"\nPlay history for '{video_name}':")
+
+        if len(records_found) == 0:
+            print("No play history found for this video.")
+            return
+
+        for username, vid_id, record in records_found:
+            print(f"User: {username} | Video ID: {vid_id} | Position: {sec_to_min(record.get_pos())}")
+
+    except ValueError:
+        print("Invalid video entered")
+    except Exception as e:
+        print(f"An error occurred while viewing play history: {e}")
 
 
 def sec_to_min(seconds: int) -> str:
@@ -816,6 +857,7 @@ if __name__ == "__main__":
         print("3. Show all videos in specific genre")
         print("4. View all PlayRecords by a user")
         print("5. Play a specific Video for a specified User")
+        print("6. View all PlayRecords by a video")
         print("0. Exit")
         choice = input(f"Choice: ").strip()
         # Section 1(for any user logged in)
@@ -852,6 +894,9 @@ if __name__ == "__main__":
 
             case "5":
                 play_video_user(users, videos)
+
+            case "6":
+                view_video_play(videos, users)
 
             case "0":
                 print("Exiting...")
@@ -918,3 +963,4 @@ if __name__ == "__main__":
                 quit()
             case _:
                 print("Invalid choice. Please choose a valid choice.")
+
