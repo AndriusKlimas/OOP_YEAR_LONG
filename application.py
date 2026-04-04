@@ -103,13 +103,15 @@ def search_genre(videos_dictionary: dict, search_genre: str) -> None:
                     found = True
 
         if not found:
-            logger.error("")
+            logger.info("No videos found with genre: %s", search_genre)
             print(f"No videos found with genre: {search_genre}")
 
 
     except TypeError:
+        logger.error("TypeError in search_genre: videos_dictionary must be a dictionary: %s", e)
         print("Error: videos_dictionary must be a dictionary")
     except Exception as e:
+        logger.error("Unexpected error while searching for genre: %s", e)
         print(f"An error occurred while searching for genre: {e}")
 
 #option 4 def
