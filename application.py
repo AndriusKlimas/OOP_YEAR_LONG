@@ -197,6 +197,7 @@ def play_video_user(users_dict: dict, videos_dict: dict) -> None:
             selected_video = videos_found[choice - 1]
         except (ValueError, IndexError):
             print("Invalid selection")
+            logger.exception("Invalid selection")
             return
     else:
         selected_video = videos_found[0]
