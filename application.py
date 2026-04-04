@@ -712,8 +712,10 @@ def data_setup(parse_type: str, filename: str | None = None):
             return items
         except FileNotFoundError:
             print(f"File not found: {fname}. Attempts left: {attempts - attempt - 1}")
+            logger.exception(f"File not found: {fname}. Attempts left: {attempts - attempt - 1}")
         except Exception as e:
             print(f"Error loading {parse_type} from {fname}: {e}. Attempts left: {attempts - attempt - 1}")
+            logger.exception(f"Error loading {parse_type} from {fname}")
 
     print(f"Failed to load {parse_type} after {attempts} attempts; using defaults.")
     return None
