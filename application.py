@@ -249,6 +249,7 @@ def new_video(videos_dictionary: dict) -> None:
             get_duration = int(input("Duration seconds: "))
             get_release_year = int(input("Release Year: "))
         except ValueError:
+            logger.error("ValueError in new_video input: Duration and Release Year must be numbers: %s", e)
             print("Error: Duration and Release Year must be numbers.")
             return None
 
@@ -258,6 +259,7 @@ def new_video(videos_dictionary: dict) -> None:
             if get_genres in Video.return_valid_genres():
                 genres_list.append(get_genres)
             else:
+                logger.info("new_video: genre does not exist: %s", get_genres)
                 print("Genre not valid. Please choose a valid genre")
                 print(Video.return_valid_genres())
             print("Would you like to add another genre? (y/n)")
@@ -269,8 +271,9 @@ def new_video(videos_dictionary: dict) -> None:
         try:
             new_video = Video(get_video_id, get_title, get_description, get_duration, get_release_year, genres_list)
         except Exception as e:
+            logger.error("Unexpected error while creating new video: %s", e)
             print(f"Error creating video: {e}")
-            return
+            return None
 
         # 'checking if he video is in the dictionary'
         if get_title in videos_dictionary.keys():
