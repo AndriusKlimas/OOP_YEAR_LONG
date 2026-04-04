@@ -556,7 +556,7 @@ def sec_to_min(seconds: int) -> str:
 
 
 
-def parse_videos(filename: str) -> list:
+def parse_videos(filename: str) -> dict:
     """Parses a file of video information into a list of Video objects.
 
     Args:
