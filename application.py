@@ -2,9 +2,19 @@
 from __future__ import annotations
 
 import json
-
+import logging.config
 from catalogue import Video
 from user_records import User
+
+def config_log_json() -> None:
+    """function to bring in the json logging config file"""
+    with open ("logging_config.json", "r") as f:
+        config = json.load(f)
+    logging.config.dictConfig(config)
+
+config_log_json()
+logger = logging.getLogger(__name__)
+
 
 #Option 1 def
 def print_videos(videos_dictionary: dict) -> None:
