@@ -980,6 +980,7 @@ if __name__ == "__main__":
                         else:
                             print(video_info)
                     else:
+                        logger.info("user functions: video chosen not found")
                         print("Video not found.")
 
                 case "3":
@@ -989,6 +990,7 @@ if __name__ == "__main__":
                     if in_valid_genres == True:
                         search_genre(videos, search_video_genre)
                     else:
+                        logger.info("user functions: genre chosen not found in valid genres")
                         print("Genre not valid.")
                     # calling the method to search the genre
 
@@ -1032,9 +1034,11 @@ if __name__ == "__main__":
                     video_removed = video_remover(videos, remove_video)
                     # if the video method comes back as true then print video removed
                     if video_removed == True:
+                        logger.info("admin functions: video removed")
                         print("Video removed from list")
                     # else print video not found
                     else:
+                        logger.info("user functions: video not found")
                         print("Video not found.")
 
                 case "3":
@@ -1060,9 +1064,11 @@ if __name__ == "__main__":
 
                         print("Changes saved to JSON file!")
 
-                    except ValueError:
+                    except ValueError as e:
+                        logger.error("ValueError in admin functions: Video data cannot be serialized to JSON %s", e)
                         print("Error: Video data cannot be serialized to JSON")
                     except Exception as e:
+                        logger.error("Unexpected error during admin_check %s", e)
                         print(f"An error occurred while saving videos: {e}")
 
                 case "0":
@@ -1070,5 +1076,6 @@ if __name__ == "__main__":
                     print("Exiting...")
                     quit()
                 case _:
+                    logger.info("admin functions: Invalid choice by user.")
                     print("Invalid choice. Please choose a valid choice.")
 
