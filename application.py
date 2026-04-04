@@ -271,7 +271,7 @@ def new_video(videos_dictionary: dict) -> None:
         try:
             new_video = Video(get_video_id, get_title, get_description, get_duration, get_release_year, genres_list)
         except Exception as e:
-            logger.error("Unexpected error while creating new video: %s", e)
+            logger.error("Unexpected error while creating new video class object: %s", e)
             print(f"Error creating video: {e}")
             return None
 
@@ -286,10 +286,13 @@ def new_video(videos_dictionary: dict) -> None:
         print("Video added to list")
 
     except AttributeError:
+        logger.error("Attribute error while creating new video: %s", e)
         print("Error: Video class missing required method")
     except TypeError:
+        logger.error("Type error while creating new video: %s", e)
         print("Error: Invalid data type provided")
     except Exception as e:
+        logger.error("Unexpected error while creating new video")
         print(f"An error occurred while adding new video: {e}")
 
     #added sleep for the
