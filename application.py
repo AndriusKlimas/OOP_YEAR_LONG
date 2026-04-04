@@ -545,9 +545,13 @@ def sec_to_min(seconds: int) -> str:
         Returns:
             str: Formatted string in the form "N minutes and M seconds".
         """
-    minutes = seconds // 60
-    secs = seconds % 60
-    return f"{minutes} minutes and {secs} seconds"
+    try:
+        minutes = seconds // 60
+        secs = seconds % 60
+        return f"{minutes} minutes and {secs} seconds"
+    except ValueError as e:
+        print(f"Invalid number of seconds: {e}")
+        logger.exception("Invalid number of seconds")
 
 
 
