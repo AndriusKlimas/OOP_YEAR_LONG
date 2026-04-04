@@ -842,9 +842,11 @@ if __name__ == "__main__":
     vdata = data_setup("videos", video_filename)
     if vdata is None:
         videos = create_default_videos()
+        logger.info("Video data set up using hardcoded information")
     else:
         # vdata is a list of Video objects
         videos = vdata
+        logger.info("Video data set up using json information")
 
 
     # Users
@@ -853,8 +855,10 @@ if __name__ == "__main__":
     udata = data_setup("users", user_filename)
     if udata is None:
         users = create_default_users()
+        logger.info("User data set up using hardcoded information")
     else:
         users = {u.get_username(): u for u in udata}
+        logger.info("User data set up using json information")
 
 
     logged_in_usernmae = None
