@@ -107,6 +107,12 @@ class Video:
     #New thing added
     @staticmethod
     def validate_genre(genre: str) -> bool:
+        """ checks if the genre is present in the static list
+        args:
+        genre: The genre to be checked.
+        returns:
+        True if the genre is present in the static list, False otherwise.
+        """
         if genre.lower() in Video._VALID_GENRES:
             return True
         else:
@@ -428,8 +434,14 @@ class Video:
 
 
     def to_dict(self) -> dict:
-        # self, video_id: int, title: str, description: str, duration_seconds: int, release_year: int, genres: Optional[
-        #     List[str]] = None) -> None:
+        """Convert Video object to dictionary format for JSON serialization.
+
+            Args:
+                self: The Video object instance
+
+            Returns:
+                dict: Dictionary containing all video attributes with keys
+            """
         data = {}
         data["type"] = self.__class__.__name__
 
