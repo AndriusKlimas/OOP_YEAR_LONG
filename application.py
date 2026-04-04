@@ -915,59 +915,62 @@ if __name__ == "__main__":
     admin = admin_check(logged_in_usernmae)
 
     if admin != True:
-        print(f"Welcome {logged_in_usernmae.strip()}, please choose one of the following:")
-        print("1. View all Videos")
-        print("2. Search for specific video")
-        print("3. Show all videos in specific genre")
-        print("4. View all PlayRecords by a user")
-        print("5. Play a specific Video for a specified User")
-        print("6. View all PlayRecords by a video")
-        print("0. Exit")
-        choice = input(f"Choice: ").strip()
-        # Section 1(for any user logged in)
-        match choice:
-            case "1":
-                print_videos(videos)
-            case "2":
-                search_video = input("Please enter the Video title you are looking for: ")
-                video_info = video_search(videos, search_video)
-                if video_info is not None:
-                    # isinstance is used to check if the iteam retuernd is a list, if it is then do the below source
-                    # w3schools, stackoverflow
-                    if isinstance(video_info, list):
-                        for video in video_info:
-                            print(video)
+        user_run = True
+        while user_run:
+            print(f"Welcome {logged_in_usernmae.strip()}, please choose one of the following:")
+            print("1. View all Videos")
+            print("2. Search for specific video")
+            print("3. Show all videos in specific genre")
+            print("4. View all PlayRecords by a user")
+            print("5. Play a specific Video for a specified User")
+            print("6. View all PlayRecords by a video")
+            print("0. Exit")
+            choice = input(f"Choice: ").strip()
+            # Section 1(for any user logged in)
+            match choice:
+                case "1":
+                    print_videos(videos)
+                case "2":
+                    search_video = input("Please enter the Video title you are looking for: ")
+                    video_info = video_search(videos, search_video)
+                    if video_info is not None:
+                        # isinstance is used to check if the iteam retuernd is a list, if it is then do the below source
+                        # w3schools, stackoverflow
+                        if isinstance(video_info, list):
+                            for video in video_info:
+                                print(video)
+                        else:
+                            print(video_info)
                     else:
-                        print(video_info)
-                else:
-                    print("Video not found.")
+                        print("Video not found.")
 
-            case "3":
-                # getting user to input the genre they are searching for
-                search_video_genre = input("Please enter the genre you would like to look for: ")
-                in_valid_genres = Video.validate_genre(search_video_genre)
-                if in_valid_genres == True:
-                    search_genre(videos, search_video_genre)
-                else:
-                    print("Genre not valid.")
-                # calling the method to search the genre
+                case "3":
+                    # getting user to input the genre they are searching for
+                    search_video_genre = input("Please enter the genre you would like to look for: ")
+                    in_valid_genres = Video.validate_genre(search_video_genre)
+                    if in_valid_genres == True:
+                        search_genre(videos, search_video_genre)
+                    else:
+                        print("Genre not valid.")
+                    # calling the method to search the genre
 
-            # Section 2 (For that specific user only)
-            case "4":
-                show_user_history(users, videos)
+                # Section 2 (For that specific user only)
+                case "4":
+                    show_user_history(users, videos)
 
-            case "5":
-                play_video_user(users, videos)
+                case "5":
+                    play_video_user(users, videos)
 
-            case "6":
-                view_video_play(videos, users)
+                case "6":
+                    view_video_play(videos, users)
 
-            case "0":
-                print("Exiting...")
-                quit()
+                case "0":
+                    user_run = False
+                    print("Exiting...")
+                    quit()
 
-            case _:
-                print("Invalid choice. Please choose a valid choice.")
+                case _:
+                    print("Invalid choice. Please choose a valid choice.")
 
 
 
