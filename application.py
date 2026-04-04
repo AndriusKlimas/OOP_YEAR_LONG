@@ -35,9 +35,11 @@ def print_videos(videos_dictionary: dict) -> None:
                     print(video)
             else:
                 print(video_list)
-    except TypeError:
+    except TypeError as e:
+        logger.error("TypeError in print_videos: videos_dictionary must be a dictionary: %s", e)
         print("Error: videos_dictionary must be a dictionary")
     except Exception as e:
+        logger.error("Unexpected error while printing videos: %s", e)
         print(f"An error occurred while printing videos: {e}")
 
 #Option 2 def
