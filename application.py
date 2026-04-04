@@ -614,6 +614,7 @@ def parse_users(filename: str) -> list:
             users.append(user)
         except Exception as e:
             print(f"Invalid user record #{i} in {filename}: {e}")
+            logger.exception(f"Invalid user record #{i} in {filename}: {e}")
     return users
 
 
