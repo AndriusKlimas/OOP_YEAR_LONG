@@ -69,6 +69,7 @@ def video_search(videos_dictionary: dict, search_video: str) -> Video | None:
         return None
 
     except Exception as e:
+        logger.error("Unexpected error searching for videos: %s", e)
         print(f"An error occurred while searching for video: {e}")
         return None
 
@@ -102,6 +103,7 @@ def search_genre(videos_dictionary: dict, search_genre: str) -> None:
                     found = True
 
         if not found:
+            logger.error("")
             print(f"No videos found with genre: {search_genre}")
 
 
