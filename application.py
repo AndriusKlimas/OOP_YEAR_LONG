@@ -443,8 +443,8 @@ def video_editor(video_dictionary: dict) -> None:
                 selected_video._duration_seconds = new_duration
                 print("Duration updated!")
                 print(selected_video)
-            except ValueError:
-                logger.error
+            except ValueError as e:
+                logger.error("video_editor: duration input must be a number %s", e)
                 print("Invalid input. Duration must be a number.")
                 return None
 
@@ -456,6 +456,7 @@ def video_editor(video_dictionary: dict) -> None:
                 print("Release year updated!")
                 print(selected_video)
             except ValueError:
+                logger.error("video_editor: year input must be a number %s", e)
                 print("Invalid input. Release year must be a number.")
                 return None
 
@@ -478,8 +479,10 @@ def video_editor(video_dictionary: dict) -> None:
 
                 if valid_genre:
                     print(f"Genre '{new_genre}' added!")
+                    logger.info("video_editor genre add: Chosen added successfully")
                     print(selected_video)
                 else:
+                    logger.info("video_editor genre add: Chosen genre does not exist")
                     print(f"Genre '{new_genre}' is invalid or already exists.")
 
             #if choice 2 then run the below, will print out what genres are in the video and allow for removal
@@ -490,12 +493,15 @@ def video_editor(video_dictionary: dict) -> None:
 
                     if genre_to_remove in selected_video.get_genres():
                         selected_video._genres.remove(genre_to_remove)
+                        logger.info("video_editor genre remove: Chosen removed successfully")
                         print(f"Genre '{genre_to_remove}' removed!")
                         print(selected_video)
                     else:
+                        logger.info("video_editor genre remove: Chosen genre does not exist")
                         print(f"Genre '{genre_to_remove}' is invalid or already exists.")
 
                 else:
+                    logger.info("video_editor genre: Video chosen has no genres")
                     print("Video selected has no genres.")
 
             elif genre_choice == "0":
@@ -508,6 +514,7 @@ def video_editor(video_dictionary: dict) -> None:
             print("Video chnaged successfully!")
 
     except ValueError:
+        logger.error("video_editor: Number provided not an option")
         print("Invalid input.")
 
 def view_video_play(video_dict: dict, users_dict: dict) -> None:
