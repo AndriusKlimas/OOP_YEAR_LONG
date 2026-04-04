@@ -815,6 +815,7 @@ def create_login(users:dict) -> tuple[bool, str]:
         username = input().strip()
         # Checking is the username already exists
         if username in users:
+            logger.info("user_login: username already exists")
             return True, f"username {username} already exists"
         else:
             print("Please enter the password you would like: ")
@@ -840,13 +841,16 @@ def create_login(users:dict) -> tuple[bool, str]:
 
             return False, username
 
-    except KeyError:
+    except KeyError as e:
+        logger.error("KeyError in create_login: Users dictionary not found %s", e)
         print("Error: Users dictionary not found")
         return True, "Error: Users dictionary not accessible"
-    except ValueError:
+    except ValueError as e:
+        logger.error("ValueError in create_login: Invalid input provided %s", e)
         print("Error: Invalid input provided")
         return True, "Error: Invalid input"
     except Exception as e:
+        logger.error("Unexpected error during create_login: %s", e)
         print(f"An error occurred during account creation: {e}")
         return True, "An unexpected error occurred during account creation"
 
@@ -865,10 +869,12 @@ def admin_check(logged_in_usernmae:str) -> bool:
             return False
         else:
             return True
-    except AttributeError:
+    except AttributeError as e:
+        logger.error("AttributeError in admin_check: Username must be a string: %s", e)
         print("Error: Username must be a string")
         return False
     except Exception as e:
+        logger.error("Unexpected error during admin_check: %s", e)
         print(f"An error occurred during admin check: {e}")
         return False
 
