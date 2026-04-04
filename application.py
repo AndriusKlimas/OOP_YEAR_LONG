@@ -530,8 +530,10 @@ def view_video_play(video_dict: dict, users_dict: dict) -> None:
 
     except ValueError:
         print("Invalid video entered")
+        logger.exception("Invalid video entered")
     except Exception as e:
         print(f"An error occurred while viewing play history: {e}")
+        logger.exception("An error occurred while viewing play history")
 
 
 def sec_to_min(seconds: int) -> str:
