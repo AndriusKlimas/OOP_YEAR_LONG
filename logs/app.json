@@ -1,5 +1,0 @@
-{ "time": "2026-04-04 18:12:36,485", "function": "play_video_user", "level": "ERROR", "message": "Invalid selection" }
-Traceback (most recent call last):
-  File "C:\Users\noahe\OneDrive - Dundalk Institute of Technology\Year 2\Semester 1\Object-Oriented Programming\OOP_YEAR_LONG\application.py", line 196, in play_video_user
-    choice = int(input("Please choose one (numbers only): ").strip())
-ValueError: invalid literal for int() with base 10: 'fs'
