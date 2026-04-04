@@ -333,6 +333,7 @@ def video_remover(videos_dictionary: dict, remove_video: str) -> bool:
 
         #if the videos_found list is empty, then do the below
         if not videos_found:
+            logger.info("video_remover: No video found in dictionary")
             print(f"No videos found with title provided: {remove_video}")
             return False
 
@@ -345,9 +346,11 @@ def video_remover(videos_dictionary: dict, remove_video: str) -> bool:
             try:
                 actual_remove = choice - 1
                 videos_found.pop(actual_remove)
-            except IndexError:
+            except IndexError as e:
+                logger.error("video_remover:  choice chosen is out of range: %s", e)
                 print("out of range")
-            except ValueError:
+            except ValueError as e:
+                logger.error("video_remover: Value provided is not an int: %s", e)
                 print("please enter a number")
 
         #if one video is found
@@ -361,6 +364,7 @@ def video_remover(videos_dictionary: dict, remove_video: str) -> bool:
 
         return True
     except Exception as e:
+        logger.error("Unexpected error while removing video: %s", e)
         print(f"An error occurred while removing video: {e}")
         return False
 
@@ -411,6 +415,7 @@ def video_editor(video_dictionary: dict) -> None:
 
         #if nothing was selected
         if selected_video is None:
+            logger.info("video_editor: No video selected")
             print("Invalid selection.")
             return None
 
@@ -439,6 +444,7 @@ def video_editor(video_dictionary: dict) -> None:
                 print("Duration updated!")
                 print(selected_video)
             except ValueError:
+                logger.error
                 print("Invalid input. Duration must be a number.")
                 return None
 
