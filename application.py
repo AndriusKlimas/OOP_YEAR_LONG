@@ -587,6 +587,7 @@ def parse_videos(filename: str) -> list:
             except Exception as e:
                 #if error then it will tell the user what line hte issue is on
                 print(f"Invalid video record #{i} under title '{title}' in {filename}: {e}")
+                logger.exception(f"Invalid video record #{i} under title '{title}' in {filename}: {e}")
 
     #returns the dictionary with the successful info
     return new_videos
