@@ -106,7 +106,7 @@ def show_user_history(users_dict: dict, videos_dict: dict) -> None:
         users_dict (dict): dictionary of all users
         videos_dict (dict): dictionary of all videos
     """
-    username = input("Please enter the username of the user you would like to show the play history for: ")
+    username = logged_in_usernmae
     #checking if the username is in the dicktionary
     if username in users_dict:
         #gets the play history fromthe users dickt
