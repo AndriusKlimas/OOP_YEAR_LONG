@@ -735,6 +735,9 @@ def user_login() -> tuple[bool, str]:
     print("Enter username:")
     try:
         username = input().strip()
+        if username not in users:
+            print("Username not found. Please try again.")
+            return True, "Username not found"
         print("Enter password:")
         password = input().strip()
 
