@@ -116,36 +116,48 @@ def show_user_history(users_dict: dict, videos_dict: dict) -> None:
         users_dict (dict): dictionary of all users
         videos_dict (dict): dictionary of all videos
     """
-    username = logged_in_usernmae
-    #checking if the username is in the dicktionary
-    if username in users_dict:
-        #gets the play history fromthe users dickt
-        user_records = users_dict[username].get_history()
-        print(f"Here is the play history for {username}: ")
+    try:
+        username = logged_in_usernmae
 
-        #loops through the info getten
-        for vid_id in user_records:
-            play_records_list = user_records[vid_id]
+        #checking if the username is in the dictionary
+        if username in users_dict:
+            #gets the play history from the users dictionary
+            user_records = users_dict[username].get_history()
+            print(f"Here is the play history for {username}: ")
 
-            # Find the video by ID in the dictionary
-            video = None
-            for title, video_list in videos_dict.items():
-                for v in video_list:
-                    if v.get_video_id() == vid_id:
-                        video = v
+            #loops through the info gotten
+            for vid_id in user_records:
+                play_records_list = user_records[vid_id]
+
+                # Find the video by ID in the dictionary
+                video = None
+                for title, video_list in videos_dict.items():
+                    for v in video_list:
+                        if v.get_video_id() == vid_id:
+                            video = v
+                            break
+                    if video:
                         break
-                if video:
-                    break
 
-            #checking if the video found in the dictionary
-            if video:
-                title = video.get_title()
-                for r in play_records_list:
-                    print(f"{title} starting at {sec_to_min(r.get_pos())})")
-            else:
-                print(f"Video with ID {vid_id} not found")
-    else:
-        print("Invalid username entered")
+                #checking if the video found in the dictionary
+                if video:
+                    title = video.get_title()
+                    for r in play_records_list:
+                        print(f"{title} starting at {sec_to_min(r.get_pos())}")
+                else:
+                    print(f"Video with ID {vid_id} not found")
+        else:
+            print("Invalid username entered")
+
+    except KeyError as e:
+        logger.exception("Missing key while showing user history: %s", e)
+        print("An error occurred while showing user history")
+    except AttributeError as e:
+        logger.exception("Attribute error while showing user history: %s", e)
+        print("An error occurred while showing user history")
+    except Exception as e:
+        logger.exception("Unexpected error while showing user history: %s", e)
+        print("An error occurred while showing user history")
 
 #option 5 def
 def play_video_user(users_dict: dict, videos_dict: dict) -> None:
