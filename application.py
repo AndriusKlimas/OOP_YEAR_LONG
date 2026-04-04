@@ -289,7 +289,7 @@ def new_video(videos_dictionary: dict) -> None:
         logger.error("Attribute error while creating new video: %s", e)
         print("Error: Video class missing required method")
     except TypeError:
-        logger.error("Type error while creating new video: %s", e)
+        logger.error("TypeError while creating new video: %s", e)
         print("Error: Invalid data type provided")
     except Exception as e:
         logger.error("Unexpected error while creating new video")
@@ -347,10 +347,10 @@ def video_remover(videos_dictionary: dict, remove_video: str) -> bool:
                 actual_remove = choice - 1
                 videos_found.pop(actual_remove)
             except IndexError as e:
-                logger.error("video_remover:  choice chosen is out of range: %s", e)
+                logger.error("IndexError in video_remover:  choice chosen is out of range: %s", e)
                 print("out of range")
             except ValueError as e:
-                logger.error("video_remover: Value provided is not an int: %s", e)
+                logger.error("ValueError in video_remover: Value provided is not an int: %s", e)
                 print("please enter a number")
 
         #if one video is found
@@ -444,7 +444,7 @@ def video_editor(video_dictionary: dict) -> None:
                 print("Duration updated!")
                 print(selected_video)
             except ValueError as e:
-                logger.error("video_editor: duration input must be a number %s", e)
+                logger.error("ValueError in video_editor: duration input must be a number %s", e)
                 print("Invalid input. Duration must be a number.")
                 return None
 
@@ -456,7 +456,7 @@ def video_editor(video_dictionary: dict) -> None:
                 print("Release year updated!")
                 print(selected_video)
             except ValueError:
-                logger.error("video_editor: year input must be a number %s", e)
+                logger.error("ValueError in video_editor: year input must be a number %s", e)
                 print("Invalid input. Release year must be a number.")
                 return None
 
@@ -514,7 +514,7 @@ def video_editor(video_dictionary: dict) -> None:
             print("Video chnaged successfully!")
 
     except ValueError:
-        logger.error("video_editor: Number provided not an option")
+        logger.error("ValueError in video_editor: Number provided not an option")
         print("Invalid input.")
 
 def view_video_play(video_dict: dict, users_dict: dict) -> None:
