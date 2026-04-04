@@ -146,17 +146,19 @@ def show_user_history(users_dict: dict, videos_dict: dict) -> None:
                         print(f"{title} starting at {sec_to_min(r.get_pos())}")
                 else:
                     print(f"Video with ID {vid_id} not found")
+                    logger.error("Video with ID {vid_id} not found")
         else:
             print("Invalid username entered")
+            logger.error("Invalid username entered")
 
     except KeyError as e:
-        logger.exception("Missing key while showing user history: %s", e)
+        logger.error("Missing key while showing user history: %s", e)
         print("An error occurred while showing user history")
     except AttributeError as e:
-        logger.exception("Attribute error while showing user history: %s", e)
+        logger.error("Attribute error while showing user history: %s", e)
         print("An error occurred while showing user history")
     except Exception as e:
-        logger.exception("Unexpected error while showing user history: %s", e)
+        logger.error("Unexpected error while showing user history: %s", e)
         print("An error occurred while showing user history")
 
 #option 5 def
@@ -177,6 +179,7 @@ def play_video_user(users_dict: dict, videos_dict: dict) -> None:
 
     if videos_found is None:
         print("Invalid title entered")
+        logger.error("Invalid title entered")
         return
 
     if not isinstance(videos_found, list):
@@ -197,7 +200,7 @@ def play_video_user(users_dict: dict, videos_dict: dict) -> None:
             selected_video = videos_found[choice - 1]
         except (ValueError, IndexError):
             print("Invalid selection")
-            logger.exception("Invalid selection")
+            logger.error("Invalid selection")
             return
     else:
         selected_video = videos_found[0]
@@ -502,6 +505,7 @@ def view_video_play(video_dict: dict, users_dict: dict) -> None:
         matched_videos = video_search(video_dict, video_name)
         if matched_videos is None:
             raise ValueError("Invalid video entered")
+            logger.error("Invalid video entered")
 
         # Normalise to list in case one object is returned.
         if not isinstance(matched_videos, list):
@@ -530,10 +534,10 @@ def view_video_play(video_dict: dict, users_dict: dict) -> None:
 
     except ValueError:
         print("Invalid video entered")
-        logger.exception("Invalid video entered")
+        logger.error("Invalid video entered")
     except Exception as e:
         print(f"An error occurred while viewing play history: {e}")
-        logger.exception("An error occurred while viewing play history")
+        logger.error("An error occurred while viewing play history")
 
 
 def sec_to_min(seconds: int) -> str:
@@ -551,7 +555,7 @@ def sec_to_min(seconds: int) -> str:
         return f"{minutes} minutes and {secs} seconds"
     except ValueError as e:
         print(f"Invalid number of seconds: {e}")
-        logger.exception("Invalid number of seconds")
+        logger.error("Invalid number of seconds")
 
 
 
@@ -587,7 +591,7 @@ def parse_videos(filename: str) -> dict:
             except Exception as e:
                 #if error then it will tell the user what line hte issue is on
                 print(f"Invalid video record #{i} under title '{title}' in {filename}: {e}")
-                logger.exception(f"Invalid video record #{i} under title '{title}' in {filename}: {e}")
+                logger.error(f"Invalid video record #{i} under title '{title}' in {filename}: {e}")
 
     #returns the dictionary with the successful info
     return new_videos
@@ -614,7 +618,7 @@ def parse_users(filename: str) -> list:
             users.append(user)
         except Exception as e:
             print(f"Invalid user record #{i} in {filename}: {e}")
-            logger.exception(f"Invalid user record #{i} in {filename}: {e}")
+            logger.error(f"Invalid user record #{i} in {filename}: {e}")
     return users
 
 
