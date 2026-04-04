@@ -567,6 +567,18 @@ def create_default_users() -> dict:
 
     for u in (u1, u2, u3, u4, u5, u6):
         us[u.get_username()] = u
+
+    # Seed play history in the same internal structure as JSON-loaded users.
+    u1.start_play(1, 120)
+    u1.start_play(4, 950)
+
+    u2.start_play(2, 3400)
+    u2.start_play(3, 5200)
+
+    u3.start_play(5, 600)
+    u4.start_play(6, 1800)
+    u5.start_play(1, 60)
+
     return us
 
 
