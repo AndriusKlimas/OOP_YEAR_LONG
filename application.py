@@ -155,22 +155,42 @@ def play_video_user(users_dict: dict, videos_dict: dict) -> None:
         users_dict (dict): dictionary of all users
         videos_dict (dict): dictionary of all videos
     """
-    username = input("Please enter the username of the user you wish to use: ")
-    if username in users_dict:
-        video = input("Please enter the title of the video: ")
-        found = False
-        for t in videos_dict.values():
-            if t.title.lower() == video.lower():
-                users_dict[username].start_play(t.get_video_id())
-                print(f"{users_dict[username].get_username()} is now playing {t.title}")
-                found = True
-                break
-
-        if not found:
-            print("Invalid title entered")
-
-    else:
+    username = logged_in_usernmae
+    if username not in users_dict:
         print("Invalid username entered")
+        return
+
+    video_title = input("Please enter the title of the video: ").strip()
+    videos_found = video_search(videos_dict, video_title)
+
+    if videos_found is None:
+        print("Invalid title entered")
+        return
+
+    if not isinstance(videos_found, list):
+        videos_found = [videos_found]
+
+    selected_video = None
+    if len(videos_found) > 1:
+        print("Multiple videos found with that title:")
+        for id, video_obj in enumerate(videos_found, start=1):
+            print(
+                f"{id}. ID: {video_obj.get_video_id()} | "
+                f"Description: {video_obj.get_description()} | "
+                f"Year: {video_obj.get_release_year()}"
+            )
+
+        try:
+            choice = int(input("Please choose one (numbers only): ").strip())
+            selected_video = videos_found[choice - 1]
+        except (ValueError, IndexError):
+            print("Invalid selection")
+            return
+    else:
+        selected_video = videos_found[0]
+
+    users_dict[username].start_play(selected_video.get_video_id())
+    print(f"{users_dict[username].get_username()} is now playing {selected_video.get_title()}")
 
  #admin logic below
 
