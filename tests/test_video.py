@@ -32,16 +32,6 @@ class TestVideoRetrieval:
 
         assert video.get_description() == "A hacker discovers reality"
 
-    def test_return_valid_genres_is_copy(self):
-        """Test that return_valid_genres() returns a copy, not the original"""
-        result1 = Video.return_valid_genres()
-        result2 = Video.return_valid_genres()
-
-        # Modify one and check the other isn't affected
-        result1.append("fake_genre")
-
-        assert "fake_genre" not in result2
-        assert len(result2) == 10
 
 
 class TestAddGenre:
@@ -131,21 +121,21 @@ class TestCheckGenre:
 
     def test_check_genre_invalid_genre(self):
         """Test checking for an invalid genre"""
-        video = Video(4, "The Matrix", "A hacker discovers reality", 8160, 1999, ["scifi", "action"])
+        video = Video(1, "The Matrix", "A hacker discovers reality", 8160, 1999, ["scifi", "action"])
         result = video.check_genre("fake_genre")
 
         assert result is False
 
     def test_check_genre_empty_genres(self):
         """Test checking genre when video has no genres"""
-        video = Video(5, "The Matrix", "A hacker discovers reality", 8160, 1999, [])
+        video = Video(1, "The Matrix", "A hacker discovers reality", 8160, 1999, [])
         result = video.check_genre("action")
 
         assert result is False
 
     def test_check_genre_multiple_genres(self):
         """Test checking different genres in a video with multiple genres"""
-        video = Video(6, "The Matrix", "A hacker discovers reality", 8160, 1999, ["scifi", "action", "thriller"])
+        video = Video(1, "The Matrix", "A hacker discovers reality", 8160, 1999, ["scifi", "action", "thriller"])
 
         assert video.check_genre("scifi") is True
         assert video.check_genre("action") is True
@@ -154,7 +144,19 @@ class TestCheckGenre:
 
     def test_check_genre_with_spaces(self):
         """Test checking genre with whitespace"""
-        video = Video(7, "The Matrix", "A hacker discovers reality", 8160, 1999, ["scifi", "action"])
+        video = Video(1, "The Matrix", "A hacker discovers reality", 8160, 1999, ["scifi", "action"])
         result = video.check_genre("  action  ")
 
         assert result is True
+
+class TestValidation:
+    def test_return_valid_genres_is_copy(self):
+        """Test that return_valid_genres() returns a copy, not the original"""
+        result1 = Video.return_valid_genres()
+        result2 = Video.return_valid_genres()
+
+        # Modify one and check the other isn't affected
+        result1.append("fake_genre")
+
+        assert "fake_genre" not in result2
+        assert len(result2) == 10
