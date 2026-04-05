@@ -68,3 +68,10 @@ class TestAddGenre:
 
         assert result is False
         assert video.get_genres() == ["scifi", "action"]
+
+    def test_add_genre_number_fail(self):
+        video = Video(1, "The Matrix", "A hacker discovers reality", 8160, 1999, ["scifi", "action"])
+        result = video.add_genre(123)
+
+        assert result is False
+        assert 123 not in video.get_genres()
