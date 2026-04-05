@@ -16,6 +16,9 @@ class TestVideoCreation:
         assert video.get_release_year() == 2010
         assert video.get_genres() == ["scifi", "action"]
 
+
+class TestVideoRetrieval:
+    """Test Video object retrieval"""
     def test_get_title(self):
         """Test the get_title() method"""
         video = Video(2, "The Matrix", "A hacker discovers reality", 8160, 1999, ["scifi", "action"])
