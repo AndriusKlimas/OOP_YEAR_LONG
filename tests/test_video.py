@@ -129,4 +129,32 @@ class TestCheckGenre:
 
         assert result is True
 
+    def test_check_genre_invalid_genre(self):
+        """Test checking for an invalid genre"""
+        video = Video(4, "The Matrix", "A hacker discovers reality", 8160, 1999, ["scifi", "action"])
+        result = video.check_genre("fake_genre")
 
+        assert result is False
+
+    def test_check_genre_empty_genres(self):
+        """Test checking genre when video has no genres"""
+        video = Video(5, "The Matrix", "A hacker discovers reality", 8160, 1999, [])
+        result = video.check_genre("action")
+
+        assert result is False
+
+    def test_check_genre_multiple_genres(self):
+        """Test checking different genres in a video with multiple genres"""
+        video = Video(6, "The Matrix", "A hacker discovers reality", 8160, 1999, ["scifi", "action", "thriller"])
+
+        assert video.check_genre("scifi") is True
+        assert video.check_genre("action") is True
+        assert video.check_genre("thriller") is True
+        assert video.check_genre("comedy") is False
+
+    def test_check_genre_with_spaces(self):
+        """Test checking genre with whitespace"""
+        video = Video(7, "The Matrix", "A hacker discovers reality", 8160, 1999, ["scifi", "action"])
+        result = video.check_genre("  action  ")
+
+        assert result is True
