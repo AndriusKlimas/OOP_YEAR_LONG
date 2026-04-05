@@ -19,6 +19,7 @@ class TestVideoCreation:
 
 class TestVideoRetrieval:
     """Test Video object retrieval"""
+
     def test_get_title(self):
         """Test the get_title() method"""
         video = Video(2, "The Matrix", "A hacker discovers reality", 8160, 1999, ["scifi", "action"])
@@ -103,5 +104,29 @@ class TestAddGenre:
 
         assert result is True
         assert "horror" in video.get_genres()
+
+class TestCheckGenre:
+    """Test checking a genre in the Video object """
+
+    def test_check_genre_exists(self):
+        """Test checking a genre in the Video object """
+        video = Video(1, "The Matrix", "A hacker discovers reality", 8160, 1999, ["scifi", "action"])
+        result = video.check_genre("action")
+
+        assert result is True
+
+    def test_check_genre_invalid(self):
+        """Test checking a genre not in the Video object """
+        video = Video(1, "The Matrix", "A hacker discovers reality", 8160, 1999, ["scifi", "action"])
+        result = video.check_genre("horror")
+
+        assert result is False
+
+    def test_check_genre_case_insensitive(self):
+        """Test checking if check genre is case insensitive """
+        video = Video(1, "The Matrix", "A hacker discovers reality", 8160, 1999, ["scifi", "action"])
+        result = video.check_genre("ActiOn")
+
+        assert result is True
 
 

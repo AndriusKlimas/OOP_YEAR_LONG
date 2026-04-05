@@ -101,7 +101,7 @@ class Video:
         Returns:
             True if the genre is in the video, False otherwise.
         """
-        if genre.lower().strip() in self._genres and genre.lower().strip() in Video.validate_genre(genre):
+        if Video.validate_genre(genre) and genre.lower().strip() in self._genres:
             return True
         else:
             return False
