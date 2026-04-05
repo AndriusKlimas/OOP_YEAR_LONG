@@ -77,6 +77,17 @@ class TestAddGenre:
         assert result is False
         assert 123 not in video.get_genres()
 
+    def test_add_multiple_genres(self):
+        """Test adding multiple genres"""
+        video = Video(1, "The Matrix", "A hacker discovers reality", 8160, 1999, ["scifi", "action"])
+        result = video.add_genre("horror")
+        result_1 = video.add_genre("DramA")
+
+        assert result is True
+        assert result_1 is True
+        assert "horror" in video.get_genres()
+        assert "drama" in video.get_genres()
+
     def test_add_genre_case_insensitive(self):
         """Test adding a genre case insensitive"""
         video = Video(1, "The Matrix", "A hacker discovers reality", 8160, 1999, ["scifi", "action"])
@@ -84,3 +95,4 @@ class TestAddGenre:
 
         assert result is True
         assert "horror" in video.get_genres()
+
