@@ -39,3 +39,11 @@ class TestVideoCreation:
         assert len(result2) == 10
 
 
+class TestAddGenre:
+    def test_add_genre_valid_genre_success(self):
+        """Test adding a valid genre successfully"""
+        video = Video(1, "The Matrix", "A hacker discovers reality", 8160, 1999, ["scifi", "action"])
+        result = video.add_genre("horror")
+
+        assert result is True
+        assert "horror" in video.get_genres()
