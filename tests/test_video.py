@@ -26,3 +26,16 @@ class TestVideoCreation:
         video = Video(2, "The Matrix", "A hacker discovers reality", 8160, 1999, ["scifi", "action"])
 
         assert video.get_description() == "A hacker discovers reality"
+
+    def test_return_valid_genres_is_copy(self):
+        """Test that return_valid_genres() returns a copy, not the original"""
+        result1 = Video.return_valid_genres()
+        result2 = Video.return_valid_genres()
+
+        # Modify one and check the other isn't affected
+        result1.append("fake_genre")
+
+        assert "fake_genre" not in result2
+        assert len(result2) == 10
+
+
