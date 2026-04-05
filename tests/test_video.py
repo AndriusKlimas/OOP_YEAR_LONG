@@ -26,6 +26,7 @@ class TestVideoRetrieval:
         assert video.get_title() == "The Matrix"
 
     def test_get_description(self):
+        """Test the get_description() method"""
         video = Video(2, "The Matrix", "A hacker discovers reality", 8160, 1999, ["scifi", "action"])
 
         assert video.get_description() == "A hacker discovers reality"
@@ -43,6 +44,7 @@ class TestVideoRetrieval:
 
 
 class TestAddGenre:
+    """Test adding genres to a video"""
     def test_add_genre_valid_genre_success(self):
         """Test adding a valid genre successfully"""
         video = Video(1, "The Matrix", "A hacker discovers reality", 8160, 1999, ["scifi", "action"])
@@ -59,4 +61,10 @@ class TestAddGenre:
         assert result is False
         assert "fake_genre" not in video.get_genres()
 
-    def
+    def test_add_genre_duplicate_fails(self):
+        """Test adding a duplicate genre"""
+        video = Video(1, "The Matrix", "A hacker discovers reality", 8160, 1999, ["scifi", "action"])
+        result = video.add_genre("action")
+
+        assert result is False
+        assert video.get_genres() == ["scifi", "action"]
