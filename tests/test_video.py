@@ -96,3 +96,12 @@ class TestAddGenre:
         assert result is True
         assert "horror" in video.get_genres()
 
+    def test_add_genre_with_whitespace(self):
+        """Test adding a genre with whitespace"""
+        video = Video(1, "The Matrix", "A hacker discovers reality", 8160, 1999, ["scifi", "action"])
+        result = video.add_genre("  horror  ")
+
+        assert result is True
+        assert "horror" in video.get_genres()
+
+

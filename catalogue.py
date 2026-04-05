@@ -86,7 +86,7 @@ class Video:
             return False
 
         if genre not in self._genres and Video.validate_genre(genre):
-            self._genres.append(genre.lower())
+            self._genres.append(genre.lower().strip())
             return True
         else:
             return False
@@ -101,7 +101,7 @@ class Video:
         Returns:
             True if the genre is in the video, False otherwise.
         """
-        if genre.lower() in self._genres and genre.lower() in Video.validate_genre(genre):
+        if genre.lower().strip() in self._genres and genre.lower().strip() in Video.validate_genre(genre):
             return True
         else:
             return False
@@ -116,7 +116,7 @@ class Video:
         returns:
         True if the genre is present in the static list, False otherwise.
         """
-        if genre.lower() in Video._VALID_GENRES:
+        if genre.lower().strip() in Video._VALID_GENRES:
             return True
         else:
             return False
