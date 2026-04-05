@@ -116,6 +116,8 @@ class Video:
         returns:
         True if the genre is present in the static list, False otherwise.
         """
+        if isinstance(genre, str):
+            return False
         if genre.lower().strip() in Video._VALID_GENRES:
             return True
         else:
