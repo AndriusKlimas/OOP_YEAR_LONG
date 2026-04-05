@@ -25,12 +25,14 @@ class TestVideoRetrieval:
         video = Video(2, "The Matrix", "A hacker discovers reality", 8160, 1999, ["scifi", "action"])
 
         assert video.get_title() == "The Matrix"
+        assert video.get_title() != "The"
 
     def test_get_description(self):
         """Test the get_description() method"""
         video = Video(2, "The Matrix", "A hacker discovers reality", 8160, 1999, ["scifi", "action"])
 
         assert video.get_description() == "A hacker discovers reality"
+        assert video.get_description() != "A hacker"
 
 
 
