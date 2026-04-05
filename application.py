@@ -107,7 +107,7 @@ def search_genre(videos_dictionary: dict, search_genre: str) -> None:
             print(f"No videos found with genre: {search_genre}")
 
 
-    except TypeError:
+    except TypeError as e:
         logger.error("TypeError in search_genre: videos_dictionary must be a dictionary: %s", e)
         print("Error: videos_dictionary must be a dictionary")
     except Exception as e:
@@ -248,7 +248,7 @@ def new_video(videos_dictionary: dict) -> None:
             get_description = input("Description: ")
             get_duration = int(input("Duration seconds: "))
             get_release_year = int(input("Release Year: "))
-        except ValueError:
+        except ValueError as e:
             logger.error("ValueError in new_video input: Duration and Release Year must be numbers: %s", e)
             print("Error: Duration and Release Year must be numbers.")
             return None
@@ -455,7 +455,7 @@ def video_editor(video_dictionary: dict) -> None:
                 selected_video._release_year = new_year
                 print("Release year updated!")
                 print(selected_video)
-            except ValueError:
+            except ValueError as e:
                 logger.error("ValueError in video_editor: year input must be a number %s", e)
                 print("Invalid input. Release year must be a number.")
                 return None
