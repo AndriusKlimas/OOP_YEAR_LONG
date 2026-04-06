@@ -13,6 +13,13 @@ class TestAndriusCode:
         result = admin_check("lulu")
         assert result is False
 
+    def test_admin_check_num_returns_false(self):
+        """Test checking admin user"""
+        result = admin_check(123)
+        assert result is False
+
+
+
 
 
 
