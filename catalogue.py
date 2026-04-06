@@ -224,6 +224,8 @@ class Video:
         """
         if description is None:
             return False
+        if not isinstance(description, str):
+            return False
         return True
 
     @staticmethod
