@@ -181,11 +181,12 @@ class Video:
         Returns:
             True if the video ID is valid, False otherwise.
         """
+
         if video_id is None:
             return False
-        if video_id < 0:
-            return False
         if not isinstance(video_id, int):
+            return False
+        if video_id < 0:
             return False
         return True
 
