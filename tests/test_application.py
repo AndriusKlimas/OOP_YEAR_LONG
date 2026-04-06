@@ -30,3 +30,16 @@ class TestNoahCode:
         result = sec_to_min(180)
 
         assert result == "3 minutes and 0 seconds"
+
+    def test_parse_videos_reads_project_file(self):
+        """Use existing videos.json from project"""
+        videos = parse_videos("videos.json")
+
+        assert isinstance(videos, dict)
+        assert len(videos) > 0
+
+        # check first video object has expected methods
+        first_title = list(videos.keys())[0]
+        first_video = videos[first_title][0]
+        assert first_video.get_title() == first_title
+
