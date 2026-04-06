@@ -55,4 +55,25 @@ class TestNoahCode:
         assert first_user.get_username() is not None
 
 
+    def test_create_default_videos_returns_dict(self):
+        """Test default videos creation"""
+        videos = create_default_videos()
+
+        assert isinstance(videos, dict)
+
+    def test_create_default_videos_contains_expected_titles(self):
+        videos = create_default_videos()
+
+        assert "Inception" in videos
+        assert "The Matrix" in videos
+        assert "The Godfather" in videos
+        assert "Toy Story" in videos
+        assert "Up" in videos
+
+    def test_create_default_videos_up_has_two_records(self):
+        videos = create_default_videos()
+
+        assert len(videos["Up"]) == 2
+
+
 
