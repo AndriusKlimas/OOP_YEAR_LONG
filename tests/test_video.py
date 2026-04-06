@@ -243,3 +243,42 @@ class TestValidateGenre:
         """Test that empty string returns False"""
         result = Video.validate_genre("")
         assert result is False
+
+
+class TestValidateId:
+    """Test the validate_id() static method"""
+
+    def test_validate_id_valid_positive(self):
+        """Test validating a valid positive video ID"""
+        result = Video.validate_id(1)
+        assert result is True
+
+    def test_validate_id_valid_zero(self):
+        """Test validating zero as a valid video ID"""
+        result = Video.validate_id(0)
+        assert result is True
+
+    def test_validate_id_valid_large_number(self):
+        """Test validating a large positive video ID"""
+        result = Video.validate_id(999999)
+        assert result is True
+
+    def test_validate_id_negative_returns_false(self):
+        """Test that negative video ID returns False"""
+        result = Video.validate_id(-1)
+        assert result is False
+
+    def test_validate_id_none_returns_false(self):
+        """Test that None returns False"""
+        result = Video.validate_id(None)
+        assert result is False
+
+    def test_validate_id_string_returns_false(self):
+        """Test that string input returns False"""
+        result = Video.validate_id("123")
+        assert result is False
+
+    def test_validate_id_float_returns_false(self):
+        """Test that float input returns False"""
+        result = Video.validate_id(123.5)
+        assert result is False
