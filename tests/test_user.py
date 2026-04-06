@@ -1,3 +1,15 @@
 import pytest
+from user_records import *
 
-from user_records import User
+class TestUserCreation:
+    """Test user object creation"""
+    def test_user_creation(self):
+        user = User("NoahClarke123", "Password123!")
+
+        assert user.get_username() == "NoahClarke123"
+        assert user.get_password() == "Password123!"
+
+
+
+
+
