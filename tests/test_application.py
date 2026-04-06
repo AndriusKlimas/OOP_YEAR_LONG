@@ -43,6 +43,22 @@ class TestAndriusCode:
         assert result is not None
         assert len(result) == 2
 
+    def test_video_search_not_found(self, videos):
+        """Test finding a video"""
+        result = video_search(videos, "not existing")
+        assert result is None
+
+    def test_video_search_case_insensitive(self, videos):
+        """Test finding a video"""
+        result = video_search(videos, "IncePtion")
+        assert result is not None
+
+    def test_video_search_is_list(self, videos):
+        """Test finding a video"""
+        result = video_search(videos, "Inception")
+        assert isinstance(result, list)
+
+
 
 
 
