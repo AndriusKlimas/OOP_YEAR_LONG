@@ -820,26 +820,34 @@ def create_login(users:dict) -> tuple[bool, str]:
         else:
             print("Please enter the password you would like: ")
             password = input().strip()
+            valid_password = User.validate_password(password)
 
-            # creating the class object
-            new_user = User(username, password)
-            print(f"New user created {username}")
+            if valid_password:
 
-            # saving user to local dictionary
-            users[username] = new_user
+                # creating the class object
+                new_user = User(username, password)
+                print(f"New user created {username}")
 
-            # loadin the currnt json file
-            with open("users.json", "r") as f:
-                existing_users = json.load(f)
+                # saving user to local dictionary
+                users[username] = new_user
 
-            # adding the new user made to the dict, using the method to_dict to assist
-            existing_users.append(new_user.to_dict())
+                # loadin the currnt json file
+                with open("users.json", "r") as f:
+                    existing_users = json.load(f)
 
-            # writing back to the json file
-            with open("users.json", "w") as f:
-                json.dump(existing_users, f)
+                # adding the new user made to the dict, using the method to_dict to assist
+                existing_users.append(new_user.to_dict())
 
-            return False, username
+                # writing back to the json file
+                with open("users.json", "w") as f:
+                    json.dump(existing_users, f)
+
+                return False, username
+
+            else:
+                logger.info("user_login: password not pass validation")
+                return True, "password does not meet minimum requirements"
+
 
     except KeyError as e:
         logger.error("KeyError in create_login: Users dictionary not found %s", e)
