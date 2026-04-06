@@ -151,7 +151,7 @@ class TestCheckGenre:
 
         assert result is True
 
-class TestValidation:
+class TestValidationReturnValidGenre:
     def test_return_valid_genres_is_copy(self):
         """Test that return_valid_genres() returns a copy, not the original"""
         result1 = Video.return_valid_genres()
@@ -162,3 +162,56 @@ class TestValidation:
 
         assert "fake_genre" not in result2
         assert len(result2) == 10
+
+
+class TestValidateGenre:
+    """Test the validate_genre() static method"""
+
+    def test_validate_genre_valid_genre(self):
+        """Test validating a valid genre"""
+        result = Video.validate_genre("action")
+        assert result is True
+
+    def test_validate_genre_valid_genre_uppercase(self):
+        """Test validating a valid genre with uppercase"""
+        result = Video.validate_genre("ACTION")
+        assert result is True
+
+    def test_validate_genre_valid_genre_mixed_case(self):
+        """Test validating a valid genre with mixed case"""
+        result = Video.validate_genre("CoMeDy")
+        assert result is True
+
+    def test_validate_genre_invalid_genre(self):
+        """Test validating an invalid genre"""
+        result = Video.validate_genre("fake_genre")
+        assert result is False
+
+    def test_validate_genre_all_valid_genres(self):
+        """Test all valid genres return True"""
+        valid_genres = ["action", "comedy", "drama", "horror", "romance", "scifi", "documentary", "animation",
+                        "thriller", "crime"]
+
+        for genre in valid_genres:
+            result = Video.validate_genre(genre)
+            assert result is True
+
+    def test_validate_genre_non_string_returns_false(self):
+        """Test that non-string input returns False"""
+        result = Video.validate_genre(123)
+        assert result is False
+
+    def test_validate_genre_with_spaces(self):
+        """Test validating genre with leading/trailing spaces"""
+        result = Video.validate_genre("  action  ")
+        assert result is True
+
+    def test_validate_genre_none_returns_false(self):
+        """Test that None returns False"""
+        result = Video.validate_genre(None)
+        assert result is False
+
+    def test_validate_genre_empty_string_returns_false(self):
+        """Test that empty string returns False"""
+        result = Video.validate_genre("")
+        assert result is False
