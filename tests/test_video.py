@@ -311,7 +311,7 @@ class TestValidateTitle:
         assert result is True
 
 class TestValidateDescription:
-    """Test the validate_title() static method"""
+    """Test the validate_description() static method"""
     def test_validate_description_valid(self):
         """Test validating a valid title"""
         result = Video.validate_description("example")
@@ -330,4 +330,26 @@ class TestValidateDescription:
     def test_validate_description_empty_string_returns_false(self):
         """Test that empty string returns False"""
         result = Video.validate_description("")
+        assert result is False
+
+class TestValidateDuration:
+    """Test the validate_duration_seconds() static method"""
+    def test_validate_duration_valid(self):
+        """Test validating a valid duration"""
+        result = Video.validate_duration_seconds(123)
+        assert result is True
+
+    def test_validate_duration_none_returns_false(self):
+        """Test that None returns False"""
+        result = Video.validate_duration_seconds(None)
+        assert result is False
+
+    def test_validate_duration_string_return_false(self):
+        """Test that string input returns False"""
+        result = Video.validate_duration_seconds("eepy")
+        assert result is False
+
+    def test_validate_duration_negative_returns_false(self):
+        """Test that negative duration returns False"""
+        result = Video.validate_duration_seconds(-123)
         assert result is False
