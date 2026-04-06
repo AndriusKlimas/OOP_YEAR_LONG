@@ -21,12 +21,15 @@ class TestAndriusCode:
     @pytest.fixture
     def videos(self):
         """Sample videos dictionary"""
-        v1 = Video(1, "Inception", "A mind-bending thriller", 8880, 2010, ["scifi"])
-        v2 = Video(2, "The Matrix", "A hacker discovers reality", 8160, 1999, ["scifi"])
+        v1 = Video(1, "Inception", "A mind-bending thriller", 8880, 2010, ["scifi", "thriller"])
+        v2 = Video(2, "The Matrix", "A hacker discovers reality", 8160, 1999, ["scifi", "action"])
+        v3 = Video(3, "Toy Story", "Toys come to life", 4860, 1995, ["animation", "comedy"])
+        v4 = Video(4, "Inception", "Different version", 9000, 2010, ["scifi", "thriller"])
 
         return {
-            "Inception": [v1],
-            "The Matrix": [v2]
+            "Inception": [v1, v4],
+            "The Matrix": [v2],
+            "Toy Story": [v3]
         }
 
     def test_video_search_found(self, videos):
