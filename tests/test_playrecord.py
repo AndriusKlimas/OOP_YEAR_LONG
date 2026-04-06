@@ -57,5 +57,18 @@ class TestValidateVideoID:
     def test_validate_video_id_none_fail(self):
         assert PlayRecord.validate_video_id(None) is False
 
+class TestValidatePositionInSeconds:
+    """Test position_in_seconds validation for PlayRecord"""
 
+    def test_validate_position_valid_success(self):
+        assert PlayRecord.validate_position_in_seconds(25) is True
+
+    def test_validate_position_zero_valid_success(self):
+        assert PlayRecord.validate_position_in_seconds(0) is True
+
+    def test_validate_position_negative_fail(self):
+        assert PlayRecord.validate_position_in_seconds(-1) is False
+
+    def test_validate_position_none_fail(self):
+        assert PlayRecord.validate_position_in_seconds(None) is False
 
