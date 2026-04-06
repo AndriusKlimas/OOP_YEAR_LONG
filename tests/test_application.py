@@ -3,10 +3,15 @@ import pytest
 from application import *
 
 class TestAndriusCode:
-    def test_admin_check_is_admin(self):
+    def test_admin_check_returns_true(self):
         """Test checking admin user"""
         result = admin_check("admin")
         assert result is True
+
+    def test_admin_check_returns_false(self):
+        """Test checking admin user"""
+        result = admin_check("lulu")
+        assert result is False
 
 
 
