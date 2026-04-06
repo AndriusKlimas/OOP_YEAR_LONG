@@ -1,4 +1,3 @@
-import pytest
 from user_records import *
 
 class TestUserCreation:
@@ -51,3 +50,32 @@ class TestStartPlay:
 
         assert result is False
         assert user.get_plays(10) == []
+
+class TestGetPlays:
+    """Test getting plays for a user"""
+
+    def test_get_plays_valid_success(self):
+        user = User("NoahClarke123", "Password123!")
+        user.start_play(10, 25)
+        user.start_play(10, 40)
+        user.start_play(11, 5)
+
+        plays = user.get_plays(10)
+
+        assert len(plays) == 2
+        assert plays[0].get_video_id() == 10
+        assert plays[1].get_pos() == 40
+
+    def test_get_plays_no_history_returns_empty_list(self):
+        user = User("NoahClarke123", "Password123!")
+
+        plays = user.get_plays(10)
+
+        assert plays == []
+
+    def test_get_plays_invalid_video_id_returns_empty_list(self):
+        user = User("NoahClarke123", "Password123!")
+
+        plays = user.get_plays(0)
+
+        assert plays == []
