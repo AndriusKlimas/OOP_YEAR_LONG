@@ -55,6 +55,13 @@ class TestVideoRetrieval:
         assert video.get_release_year() == 1999
         assert video.get_release_year() != 1900
 
+    def test_get_genres(self):
+        """Test the get_genres() method"""
+        video = Video(2, "The Matrix", "A hacker discovers reality", 8160, 1999, ["scifi", "action"])
+
+        assert video.get_genres() == ["scifi", "action"]
+        assert video.get_genres() != ["scifi", "a"]
+
 
 
 class TestAddGenre:
