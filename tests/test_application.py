@@ -34,8 +34,14 @@ class TestAndriusCode:
 
     def test_video_search_found(self, videos):
         """Test finding a video"""
+        result = video_search(videos, "Toy Story")
+        assert result is not None
+
+    def test_video_search_multiple_found(self, videos):
+        """Test finding a video"""
         result = video_search(videos, "Inception")
         assert result is not None
+        assert len(result) == 2
 
 
 
