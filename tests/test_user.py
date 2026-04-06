@@ -114,3 +114,21 @@ class TestChangePassword:
 
         assert result is False
         assert user.get_password() == "Password123!"
+
+class TestValidatePassword:
+    """Test password validation"""
+
+    def test_validate_password_valid_success(self):
+        assert User.validate_password("Password123!") is True
+
+    def test_validate_password_too_short_fail(self):
+        assert User.validate_password("Pw1") is False
+
+    def test_validate_password_no_uppercase_fail(self):
+        assert User.validate_password("password123!") is False
+
+    def test_validate_password_no_lowercase_fail(self):
+        assert User.validate_password("PASSWORD123!") is False
+
+    def test_validate_password_no_digit_fail(self):
+        assert User.validate_password("Password!!!") is False
