@@ -18,7 +18,21 @@ class TestAndriusCode:
         result = admin_check(123)
         assert result is False
 
+    @pytest.fixture
+    def videos(self):
+        """Sample videos dictionary"""
+        v1 = Video(1, "Inception", "A mind-bending thriller", 8880, 2010, ["scifi"])
+        v2 = Video(2, "The Matrix", "A hacker discovers reality", 8160, 1999, ["scifi"])
 
+        return {
+            "Inception": [v1],
+            "The Matrix": [v2]
+        }
+
+    def test_video_search_found(self, videos):
+        """Test finding a video"""
+        result = video_search(videos, "Inception")
+        assert result is not None
 
 
 
