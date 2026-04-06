@@ -226,6 +226,8 @@ class Video:
             return False
         if not isinstance(description, str):
             return False
+        if description.strip() == "":
+            return False
         return True
 
     @staticmethod
@@ -241,6 +243,8 @@ class Video:
             True if the duration is valid, False otherwise.
         """
         if duration_seconds is None:
+            return False
+        if not isinstance(duration_seconds, int):
             return False
         if duration_seconds < 0:
             return False
