@@ -144,3 +144,30 @@ class TestValidateUsername:
 
     def test_validate_username_none_fail(self):
         assert User.validate_username(None) is False
+
+class TestValidateLogin:
+    """Test login validation"""
+
+    def test_validate_login_valid_success(self):
+        user = User("NoahClarke123", "Password123!")
+        users = {"NoahClarke123": user}
+
+        result = User.validate_login(users, "NoahClarke123", "Password123!")
+
+        assert result == user
+
+    def test_validate_login_wrong_password_fail(self):
+        user = User("NoahClarke123", "Password123!")
+        users = {"NoahClarke123": user}
+
+        result = User.validate_login(users, "NoahClarke123", "WrongPass123!")
+
+        assert result is None
+
+    def test_validate_login_unknown_username_fail(self):
+        user = User("NoahClarke123", "Password123!")
+        users = {"NoahClarke123": user}
+
+        result = User.validate_login(users, "OtherUser", "Password123!")
+
+        assert result is None
