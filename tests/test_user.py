@@ -79,3 +79,38 @@ class TestGetPlays:
         plays = user.get_plays(0)
 
         assert plays == []
+
+class TestChangePassword:
+    """Test changing a user's password"""
+
+    def test_change_password_valid_success(self):
+        user = User("NoahClarke123", "Password123!")
+
+        result = user.change_password("NoahClarke123", "Password123!", "NewPass123!")
+
+        assert result is True
+        assert user.get_password() == "Password123!"
+
+    def test_change_password_invalid_username_fail(self):
+        user = User("NoahClarke123", "Password123!")
+
+        result = user.change_password("WrongUser", "Password123!", "NewPass123!")
+
+        assert result is False
+        assert user.get_password() == "Password123!"
+
+    def test_change_password_wrong_old_password_fail(self):
+        user = User("NoahClarke123", "Password123!")
+
+        result = user.change_password("NoahClarke123", "WrongPass123!", "NewPass123!")
+
+        assert result is False
+        assert user.get_password() == "Password123!"
+
+    def test_change_password_invalid_new_password_fail(self):
+        user = User("NoahClarke123", "Password123!")
+
+        result = user.change_password("NoahClarke123", "Password123!", "short")
+
+        assert result is False
+        assert user.get_password() == "Password123!"
