@@ -132,3 +132,15 @@ class TestValidatePassword:
 
     def test_validate_password_no_digit_fail(self):
         assert User.validate_password("Password!!!") is False
+
+class TestValidateUsername:
+    """Test username validation"""
+
+    def test_validate_username_valid_success(self):
+        assert User.validate_username("NoahClarke123") is True
+
+    def test_validate_username_empty_fail(self):
+        assert User.validate_username("") is False
+
+    def test_validate_username_none_fail(self):
+        assert User.validate_username(None) is False
