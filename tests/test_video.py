@@ -34,6 +34,27 @@ class TestVideoRetrieval:
         assert video.get_description() == "A hacker discovers reality"
         assert video.get_description() != "A hacker"
 
+    def test_get_video_id(self):
+        """Test the get_video_id() method"""
+        video = Video(2, "The Matrix", "A hacker discovers reality", 8160, 1999, ["scifi", "action"])
+
+        assert video.get_video_id() == 2
+        assert video.get_video_id() != 4
+
+    def test_get_duration_seconds(self):
+        """Test the get_duration_seconds() method"""
+        video = Video(2, "The Matrix", "A hacker discovers reality", 8160, 1999, ["scifi", "action"])
+
+        assert video.get_duration_seconds() == 8160
+        assert video.get_duration_seconds() != 8880
+
+    def test_get_release_year(self):
+        """Test the get_release_year() method"""
+        video = Video(2, "The Matrix", "A hacker discovers reality", 8160, 1999, ["scifi", "action"])
+
+        assert video.get_release_year() == 1999
+        assert video.get_release_year() != 1900
+
 
 
 class TestAddGenre:
