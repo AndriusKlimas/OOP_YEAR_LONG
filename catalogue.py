@@ -264,6 +264,8 @@ class Video:
         """
         if release_year is None:
             return False
+        if not isinstance(release_year, int):
+            return False
         if release_year < 0:
             return False
         return True
