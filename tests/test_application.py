@@ -43,3 +43,16 @@ class TestNoahCode:
         first_video = videos[first_title][0]
         assert first_video.get_title() == first_title
 
+    def test_parse_users_reads_project_file(self):
+        """Use existing users.json from project"""
+        users = parse_users("users.json")
+
+        assert isinstance(users, list)
+        assert len(users) > 0
+
+        # check first user object has expected method
+        first_user = users[0]
+        assert first_user.get_username() is not None
+
+
+
