@@ -353,3 +353,26 @@ class TestValidateDuration:
         """Test that negative duration returns False"""
         result = Video.validate_duration_seconds(-123)
         assert result is False
+
+
+class TestValidateRelaeseYear:
+    """Test the release_validate_year() static method"""
+    def test_validate_year_valid(self):
+        """Test validating a valid year"""
+        result = Video.validate_release_year(123)
+        assert result is True
+
+    def test_validate_year_none_returns_false(self):
+        """Test that None returns False"""
+        result = Video.validate_release_year(None)
+        assert result is False
+
+    def test_validate_year_negative_returns_false(self):
+        """Test that negative duration returns False"""
+        result = Video.validate_release_year(-123)
+        assert result is False
+
+    def test_validate_year_string_return_false(self):
+        """Test that string input returns False"""
+        result = Video.validate_release_year("eepy")
+        assert result is False
