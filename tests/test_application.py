@@ -76,4 +76,34 @@ class TestNoahCode:
         assert len(videos["Up"]) == 2
 
 
+    def test_create_default_users_returns_dict(self):
+        """Test default users creation"""
+        users = create_default_users()
+
+        assert isinstance(users, dict)
+
+    def test_create_default_users_contains_expected_users(self):
+        users = create_default_users()
+
+        assert "NoahClarke123" in users
+        assert "Film_Critic1" in users
+        assert "Bob_iscool" in users
+        assert "Jedibob212" in users
+        assert "IronManFan3" in users
+        assert "admin" in users
+
+    def test_create_default_users_values_are_user_objects(self):
+        users = create_default_users()
+
+        for username, user in users.items():
+            assert user.get_username() == username
+
+    def test_create_default_users_has_seeded_play_history(self):
+        users = create_default_users()
+
+        noah_history = users["NoahClarke123"].get_history()
+        assert 1 in noah_history
+        assert 4 in noah_history
+        assert len(noah_history[1]) >= 1
+        assert len(noah_history[4]) >= 1
 
