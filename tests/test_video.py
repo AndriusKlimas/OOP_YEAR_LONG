@@ -309,3 +309,25 @@ class TestValidateTitle:
         """Test that whitespace string returns True"""
         result = Video.validate_title(" example ")
         assert result is True
+
+class TestValidateDescription:
+    """Test the validate_title() static method"""
+    def test_validate_description_valid(self):
+        """Test validating a valid title"""
+        result = Video.validate_description("example")
+        assert result is True
+
+    def test_validate_description_none_returns_false(self):
+        """Test that None returns False"""
+        result = Video.validate_description(None)
+        assert result is False
+
+    def test_validate_description_num_return_false(self):
+        """Test that number input returns False"""
+        result = Video.validate_description(123)
+        assert result is False
+
+    def test_validate_description_empty_string_returns_false(self):
+        """Test that empty string returns False"""
+        result = Video.validate_description("")
+        assert result is False
