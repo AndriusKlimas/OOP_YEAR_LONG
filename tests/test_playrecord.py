@@ -41,3 +41,21 @@ class TestValidateUsername:
 
     def test_validate_username_none_fail(self):
         assert PlayRecord.validate_username(None) is False
+
+class TestValidateVideoID:
+    """Test video ID validation for PlayRecord"""
+
+    def test_validate_video_id_valid_success(self):
+        assert PlayRecord.validate_video_id(10) is True
+
+    def test_validate_video_id_zero_valid_success(self):
+        assert PlayRecord.validate_video_id(0) is True
+
+    def test_validate_video_id_negative_fail(self):
+        assert PlayRecord.validate_video_id(-1) is False
+
+    def test_validate_video_id_none_fail(self):
+        assert PlayRecord.validate_video_id(None) is False
+
+
+
