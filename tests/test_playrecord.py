@@ -32,3 +32,12 @@ class TestPlayRecordRetrieval:
 
         assert playrecord.get_pos() == 25
         assert playrecord.get_pos() != 30
+
+class TestValidateUsername:
+    """Test username validation for PlayRecord"""
+
+    def test_validate_username_valid_success(self):
+        assert PlayRecord.validate_username("NoahClarke123") is True
+
+    def test_validate_username_none_fail(self):
+        assert PlayRecord.validate_username(None) is False
