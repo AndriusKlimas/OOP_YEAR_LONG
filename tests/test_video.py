@@ -282,3 +282,30 @@ class TestValidateId:
         """Test that float input returns False"""
         result = Video.validate_id(123.5)
         assert result is False
+
+class TestValidateTitle:
+    """Test the validate_title() static method"""
+    def test_validate_title_valid(self):
+        """Test validating a valid title"""
+        result = Video.validate_title("example")
+        assert result is True
+
+    def test_validate_title_num_return_false(self):
+        """Test that number input returns False """
+        result = Video.validate_title(123)
+        assert result is False
+
+    def test_validate_title_none_returns_false(self):
+        """Test that None returns False"""
+        result = Video.validate_title(None)
+        assert result is False
+
+    def test_validate_title_empty_string_returns_false(self):
+        """Test that empty string returns False"""
+        result = Video.validate_title("")
+        assert result is False
+
+    def test_validate_title_whitespace_returns_true(self):
+        """Test that whitespace string returns True"""
+        result = Video.validate_title(" example ")
+        assert result is True
