@@ -873,6 +873,8 @@ def admin_check(logged_in_usernmae:str) -> bool:
             bool: True if user is admin, False otherwise
         """
     try:
+        if not isinstance(logged_in_usernmae, str):
+            return False
         if logged_in_usernmae.strip().lower() != "admin".strip():
             return False
         else:
