@@ -1,4 +1,4 @@
-from user_records import *
+from user_records import User
 
 class TestUserCreation:
     """Test user object creation"""
