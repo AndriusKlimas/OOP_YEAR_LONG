@@ -206,6 +206,8 @@ class Video:
             return False
         if not isinstance(title, str):
             return False
+        if title.strip() != "":
+            return False
         return True
 
     @staticmethod
