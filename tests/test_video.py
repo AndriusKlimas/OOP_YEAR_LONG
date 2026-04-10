@@ -475,3 +475,25 @@ class TestBetterPractice:
         video1 = Video(1, "Inception", "A mind-bending thriller", 8880, 2010, ["scifi"])
         video2 = Video(1, "Inception", "A mind-bending thriller", 8880, 2010, ["scifi"])
         assert not video1 > video2
+
+
+class TestVideoFromDict:
+    """Test the from_dict() class method"""
+
+    def test_from_dict_valid_data(self):
+        """Test creating video from valid dictionary"""
+        data = {
+            "video_id": 1,
+            "title": "Inception",
+            "description": "A mind-bending thriller",
+            "duration_seconds": 8880,
+            "release_year": 2010,
+            "genres": ["scifi", "thriller"]
+        }
+        video = Video.from_dict(data)
+        assert video.get_video_id() == 1
+        assert video.get_title() == "Inception"
+        assert video.get_description() == "A mind-bending thriller"
+        assert video.get_duration_seconds() == 8880
+        assert video.get_release_year() == 2010
+        assert video.get_genres() == ["scifi", "thriller"]
