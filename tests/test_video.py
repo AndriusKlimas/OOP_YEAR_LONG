@@ -549,3 +549,13 @@ class TestVideoFromDict:
         }
         with pytest.raises(ValueError):
             Video.from_dict(data)
+
+
+class TestVideoToDict:
+    """Test the to_dict() method"""
+
+    def test_to_dict_returns_dict(self):
+        """Test that to_dict returns a dictionary"""
+        video = Video(1, "Inception", "A mind-bending thriller", 8880, 2010, ["scifi", "thriller"])
+        result = video.to_dict()
+        assert isinstance(result, dict)
