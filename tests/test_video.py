@@ -391,3 +391,9 @@ class TestBetterPractice:
         video1 = Video(1, "Inception", "A mind-bending thriller", 8880, 2010, ["scifi"])
         video2 = Video(1, "Inception", "A mind-bending thriller", 8880, 2010, ["scifi"])
         assert hash(video1) == hash(video2)
+
+    def test_hash_different_video_id_different_hash(self):
+        """Test videos with different IDs have different hashes"""
+        video1 = Video(1, "Inception", "A mind-bending thriller", 8880, 2010, ["scifi"])
+        video2 = Video(2, "The Matrix", "A hacker discovers reality", 8160, 1999, ["scifi"])
+        assert hash(video1) != hash(video2)
