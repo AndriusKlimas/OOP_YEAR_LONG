@@ -559,3 +559,16 @@ class TestVideoToDict:
         video = Video(1, "Inception", "A mind-bending thriller", 8880, 2010, ["scifi", "thriller"])
         result = video.to_dict()
         assert isinstance(result, dict)
+
+    def test_to_dict_contains_all_fields(self):
+        """Test that to_dict contains all required fields"""
+        video = Video(1, "Inception", "A mind-bending thriller", 8880, 2010, ["scifi", "thriller"])
+        result = video.to_dict()
+
+        assert "type" in result
+        assert "video_id" in result
+        assert "title" in result
+        assert "description" in result
+        assert "duration_seconds" in result
+        assert "release_year" in result
+        assert "genres" in result
