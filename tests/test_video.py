@@ -416,4 +416,14 @@ class TestBetterPractice:
         video2 = Video(1, "Different Title", "Description B", 5000, 2020, ["action"])
         assert video1 == video2
 
+    def test_ne_different_video_id_not_equal(self):
+        """Test videos with different IDs are not equal"""
+        video1 = Video(1, "Inception", "A mind-bending thriller", 8880, 2010, ["scifi"])
+        video2 = Video(2, "The Matrix", "A hacker discovers reality", 8160, 1999, ["scifi"])
+        assert video1 != video2
 
+    def test_ne_same_video_id_equal(self):
+        """Test videos with same ID are equal"""
+        video1 = Video(1, "Inception", "A mind-bending thriller", 8880, 2010, ["scifi"])
+        video2 = Video(1, "Inception", "A mind-bending thriller", 8880, 2010, ["scifi"])
+        assert not video1 != video2
