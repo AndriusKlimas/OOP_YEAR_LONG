@@ -510,3 +510,16 @@ class TestVideoFromDict:
         }
         with pytest.raises(ValueError):
             Video.from_dict(data)
+
+    def test_from_dict_invalid_title(self):
+        """Test from_dict raises error for invalid title"""
+        data = {
+            "video_id": 1,
+            "title": "",
+            "description": "A mind-bending thriller",
+            "duration_seconds": 8880,
+            "release_year": 2010,
+            "genres": ["scifi"]
+        }
+        with pytest.raises(ValueError):
+            Video.from_dict(data)
