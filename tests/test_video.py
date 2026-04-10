@@ -497,3 +497,16 @@ class TestVideoFromDict:
         assert video.get_duration_seconds() == 8880
         assert video.get_release_year() == 2010
         assert video.get_genres() == ["scifi", "thriller"]
+
+    def test_from_dict_invalid_video_id(self):
+        """raises value error if video id is invalid"""
+        data = {
+            "video_id": "word",
+            "title": "Inception",
+            "description": "A mind-bending thriller",
+            "duration_seconds": 8880,
+            "release_year": 2010,
+            "genres": ["scifi", "thriller"]
+        }
+        with pytest.raises(ValueError):
+            Video.from_dict(data)
