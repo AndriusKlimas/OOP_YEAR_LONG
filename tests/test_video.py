@@ -523,3 +523,29 @@ class TestVideoFromDict:
         }
         with pytest.raises(ValueError):
             Video.from_dict(data)
+
+    def test_from_dict_invalid_duration(self):
+        """Test from_dict raises error for negative duration"""
+        data = {
+            "video_id": 1,
+            "title": "Inception",
+            "description": "A mind-bending thriller",
+            "duration_seconds": -100,
+            "release_year": 2010,
+            "genres": ["scifi"]
+        }
+        with pytest.raises(ValueError):
+            Video.from_dict(data)
+
+    def test_from_dict_invalid_genres_type(self):
+        """Test from_dict raises error for genres not being a list"""
+        data = {
+            "video_id": 1,
+            "title": "Inception",
+            "description": "A mind-bending thriller",
+            "duration_seconds": 8880,
+            "release_year": 2010,
+            "genres": "scifi"
+        }
+        with pytest.raises(ValueError):
+            Video.from_dict(data)
