@@ -572,3 +572,15 @@ class TestVideoToDict:
         assert "duration_seconds" in result
         assert "release_year" in result
         assert "genres" in result
+
+    def test_to_dict_correct_values(self):
+        """Test that to_dict has correct values"""
+        video = Video(1, "Inception", "A mind-bending thriller", 8880, 2010, ["scifi", "thriller"])
+        result = video.to_dict()
+
+        assert result["video_id"] == 1
+        assert result["title"] == "Inception"
+        assert result["description"] == "A mind-bending thriller"
+        assert result["duration_seconds"] == 8880
+        assert result["release_year"] == 2010
+        assert result["genres"] == ["scifi", "thriller"]
