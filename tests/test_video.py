@@ -397,3 +397,23 @@ class TestBetterPractice:
         video1 = Video(1, "Inception", "A mind-bending thriller", 8880, 2010, ["scifi"])
         video2 = Video(2, "The Matrix", "A hacker discovers reality", 8160, 1999, ["scifi"])
         assert hash(video1) != hash(video2)
+
+    def test_eq_same_video_id_equal(self):
+        """Test videos with same ID are equal"""
+        video1 = Video(1, "Inception", "A mind-bending thriller", 8880, 2010, ["scifi"])
+        video2 = Video(1, "Inception", "A mind-bending thriller", 8880, 2010, ["scifi"])
+        assert video1 == video2
+
+    def test_eq_different_video_id_not_equal(self):
+        """Test videos with different IDs are not equal"""
+        video1 = Video(1, "Inception", "A mind-bending thriller", 8880, 2010, ["scifi"])
+        video2 = Video(2, "The Matrix", "A hacker discovers reality", 8160, 1999, ["scifi"])
+        assert video1 != video2
+
+    def test_eq_same_id_different_details_equal(self):
+        """Test that only ID matters for equality"""
+        video1 = Video(1, "Inception", "Description A", 8880, 2010, ["scifi"])
+        video2 = Video(1, "Different Title", "Description B", 5000, 2020, ["action"])
+        assert video1 == video2
+
+
