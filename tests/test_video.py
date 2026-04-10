@@ -376,3 +376,18 @@ class TestValidateRelaeseYear:
         """Test that string input returns False"""
         result = Video.validate_release_year("eepy")
         assert result is False
+
+
+
+class TestBetterPractice:
+    def test_hash_returns_integer(self):
+        """Test that hash returns an integer"""
+        video = Video(1, "Inception", "A mind-bending thriller", 8880, 2010, ["scifi"])
+        result = hash(video)
+        assert isinstance(result, int)
+
+    def test_hash_same_video_id_same_hash(self):
+        """Test videos with same ID have same hash"""
+        video1 = Video(1, "Inception", "A mind-bending thriller", 8880, 2010, ["scifi"])
+        video2 = Video(1, "Inception", "A mind-bending thriller", 8880, 2010, ["scifi"])
+        assert hash(video1) == hash(video2)
