@@ -451,3 +451,27 @@ class TestBetterPractice:
         video1 = Video(1, "Inception", "A mind-bending thriller", 8880, 2010, ["scifi"])
         video2 = Video(1, "Inception", "A mind-bending thriller", 8880, 2010, ["scifi"])
         assert video1 >= video2
+
+    def test_lt_less_than(self):
+        """Test video with lower ID is less than"""
+        video1 = Video(1, "Inception", "A mind-bending thriller", 8880, 2010, ["scifi"])
+        video2 = Video(2, "The Matrix", "A hacker discovers reality", 8160, 1999, ["scifi"])
+        assert video1 < video2
+
+    def test_lt_not_less_than_equal(self):
+        """Test video with same ID is not less than"""
+        video1 = Video(1, "Inception", "A mind-bending thriller", 8880, 2010, ["scifi"])
+        video2 = Video(1, "Inception", "A mind-bending thriller", 8880, 2010, ["scifi"])
+        assert not video1 < video2
+
+    def test_gt_greater_than(self):
+        """Test video with higher ID is greater than"""
+        video1 = Video(2, "The Matrix", "A hacker discovers reality", 8160, 1999, ["scifi"])
+        video2 = Video(1, "Inception", "A mind-bending thriller", 8880, 2010, ["scifi"])
+        assert video1 > video2
+
+    def test_gt_not_greater_than_equal(self):
+        """Test video with same ID is not greater than"""
+        video1 = Video(1, "Inception", "A mind-bending thriller", 8880, 2010, ["scifi"])
+        video2 = Video(1, "Inception", "A mind-bending thriller", 8880, 2010, ["scifi"])
+        assert not video1 > video2
