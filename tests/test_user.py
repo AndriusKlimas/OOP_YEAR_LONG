@@ -1,4 +1,5 @@
-from user_records import User
+from user_records import *
+import pytest
 
 class TestUserCreation:
     """Test user object creation"""
@@ -252,3 +253,12 @@ class TestUserFromDict:
         user = User.from_dict(data)
         assert user.get_username() == "Noah"
         assert user.get_password() == "Password123!"
+
+    def test_from_dict_invalid_username(self):
+        """Test creating user from invalid username"""
+        data = {"username": "", "password": "Password123!"}
+
+        with pytest.raises(InvalidUserError):
+            User.from_dict(data)
+
+
