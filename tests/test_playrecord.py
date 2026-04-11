@@ -191,3 +191,12 @@ class TestPlayRecordToDict:
         assert "video_id" in result
         assert "position_in_seconds" in result
 
+    def test_to_dict_correct_values(self):
+        """Test that to_dict returns correct values"""
+        pr = PlayRecord("NoahClarke123", 10, 25)
+        result = pr.to_dict()
+
+        assert result["username"] == "NoahClarke123"
+        assert result["video_id"] == 10
+        assert result["position_in_seconds"] == 25
+
