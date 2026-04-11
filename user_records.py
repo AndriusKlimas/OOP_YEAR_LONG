@@ -6,6 +6,9 @@ from types import NotImplementedType
 class InvalidUserError(Exception):
     pass
 
+class InvalidPlayRecordError(Exception):
+    pass
+
 #creates a class for the play records
 class PlayRecord:
 
@@ -20,8 +23,20 @@ class PlayRecord:
             position_in_seconds (int): Position in seconds of the video
         """
         self._play_id = PlayRecord.record_counter
+
+        if not PlayRecord.validate_username(username):
+            raise InvalidPlayRecordError("Invalid username")
+
         self._username = username
+
+        if not PlayRecord.validate_video_id(video_id):
+            raise InvalidPlayRecordError("Invalid video id")
+
         self._video_id = video_id
+
+        if not PlayRecord.validate_position_in_seconds(position_in_seconds):
+            raise InvalidPlayRecordError("Invalid position in seconds")
+
         self._position_in_seconds = position_in_seconds
 
         #the play id increases each time it is called
