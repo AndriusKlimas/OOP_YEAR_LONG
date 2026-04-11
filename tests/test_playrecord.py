@@ -166,3 +166,10 @@ class TestPlayRecordFromDict:
         with pytest.raises(ValueError):
             PlayRecord.from_dict(data)
 
+    def test_from_dict_invalid_pos(self):
+        """Test from_dict raises error for invalid position in seconds"""
+        data = {"username": "Noah", "video_id": 1, "position_in_seconds": "test"}
+
+        with pytest.raises(ValueError):
+            PlayRecord.from_dict(data)
+
