@@ -276,3 +276,11 @@ class TestUserToDict:
         data = User("Noah", "Password123!")
         result = data.to_dict()
         assert isinstance(result, dict)
+
+    def test_to_dict_contains_all_fields(self):
+        """Test to_dict contains all required fields"""
+        data = User("Noah", "Password123!")
+        result = data.to_dict()
+
+        assert "username" in result
+        assert "password" in result
