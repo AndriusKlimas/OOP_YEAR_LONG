@@ -171,3 +171,74 @@ class TestValidateLogin:
         result = User.validate_login(users, "OtherUser", "Password123!")
 
         assert result is None
+
+class TestBetterPractice:
+    """Test rich comparison and hashing behaviors for User"""
+
+    def test_eq_same_username_true(self):
+        user1 = User("anna", "Password123")
+        user2 = User("anna", "Different123")
+
+        assert user1 == user2
+
+    def test_eq_different_username_false(self):
+        user1 = User("anna", "Password123")
+        user2 = User("ben", "Password123")
+
+        assert (user1 == user2) is False
+
+    def test_ne_same_username_false(self):
+        user1 = User("anna", "Password123")
+        user2 = User("anna", "Different123")
+
+        assert (user1 != user2) is False
+
+    def test_ne_different_username_true(self):
+        user1 = User("anna", "Password123")
+        user2 = User("ben", "Password123")
+
+        assert user1 != user2
+
+    def test_lt_username_ordering(self):
+        user1 = User("anna", "Password123")
+        user2 = User("ben", "Password123")
+
+        assert user1 < user2
+        assert (user2 < user1) is False
+
+    def test_total_ordering_le_gt_ge(self):
+        user1 = User("anna", "Password123")
+        user2 = User("anna", "Different123")
+        user3 = User("ben", "Password123")
+
+        assert user1 <= user2
+        assert user3 > user1
+        assert user3 >= user1
+
+    def test_hash_uses_username(self):
+        user1 = User("anna", "Password123")
+        user2 = User("anna", "Different123")
+        user3 = User("ben", "Password123")
+
+        assert hash(user1) == hash(user2)
+        assert hash(user1) != hash(user3)
+
+    def test_str_masks_password_and_shows_username(self):
+        user = User("anna", "Password123")
+
+        result = str(user)
+
+        assert "Username: anna" in result
+        assert "Password = ********" in result
+        assert "Password123" not in result
+
+    def test_repr_includes_class_username_and_masked_password(self):
+        user = User("anna", "Password123")
+
+        result = repr(user)
+
+        assert "User" in result
+        assert "Username: anna" in result
+        assert "Password: ********" in result
+        assert "Password123" not in result
+
