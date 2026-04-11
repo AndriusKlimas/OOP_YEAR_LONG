@@ -256,14 +256,14 @@ class TestUserFromDict:
 
     def test_from_dict_invalid_username(self):
         """Test creating user from invalid username"""
-        data = {"username": "", "password": "Password123!"}
+        data = {"username": None, "password": "Password123!"}
 
         with pytest.raises(InvalidUserError):
             User.from_dict(data)
 
     def test_from_dict_invalid_password(self):
         """Test creating user from invalid password"""
-        data = {"username": "", "password": "Test"}
+        data = {"username": "Noah", "password": "Test"}
 
         with pytest.raises(InvalidUserError):
             User.from_dict(data)
