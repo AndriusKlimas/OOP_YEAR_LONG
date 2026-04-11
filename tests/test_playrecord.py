@@ -173,3 +173,12 @@ class TestPlayRecordFromDict:
         with pytest.raises(ValueError):
             PlayRecord.from_dict(data)
 
+class TestPlayRecordToDict:
+    """Test PlayRecord to_dict method"""
+
+    def test_to_dict_return_dict(self):
+        """Test that to_dict returns a dictionary"""
+        pr = PlayRecord("NoahClarke123", 10, 25)
+        result = pr.to_dict()
+        assert isinstance(result, dict)
+
