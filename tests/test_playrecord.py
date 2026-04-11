@@ -159,4 +159,10 @@ class TestPlayRecordFromDict:
         with pytest.raises(InvalidPlayRecordError):
             PlayRecord.from_dict(data)
 
+    def test_from_dict_invalid_vidid(self):
+        """Test from_dict raises error for invalid video id"""
+        data = {"username": "Noah", "video_id": "Test", "position_in_seconds": 25}
+
+        with pytest.raises(ValueError):
+            PlayRecord.from_dict(data)
 
