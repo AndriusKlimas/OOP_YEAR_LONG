@@ -284,3 +284,11 @@ class TestUserToDict:
 
         assert "username" in result
         assert "password" in result
+
+    def test_to_dict_correct_values(self):
+        """Test to_dict() returns correct values"""
+        data = User("Noah", "Password123!")
+        result = data.to_dict()
+
+        assert result["username"] == "Noah"
+        assert result["password"] == "Password123!"
