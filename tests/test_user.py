@@ -261,4 +261,9 @@ class TestUserFromDict:
         with pytest.raises(InvalidUserError):
             User.from_dict(data)
 
+    def test_from_dict_invalid_password(self):
+        """Test creating user from invalid password"""
+        data = {"username": "", "password": "Test"}
 
+        with pytest.raises(InvalidUserError):
+            User.from_dict(data)
