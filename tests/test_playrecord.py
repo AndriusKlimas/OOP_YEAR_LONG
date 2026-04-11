@@ -1,5 +1,5 @@
 import pytest
-from user_records import PlayRecord
+from user_records import *
 
 class TestPlayRecordCreation:
     """Test play record object creation"""
@@ -138,4 +138,17 @@ class TestBetterPractice:
         assert "Username: NoahClarke123" in result
         assert "Video ID: 10" in result
         assert "Position in Seconds: 25" in result
+
+class TestPlayRecordFromDict:
+    """Test PlayRecord from_dict method"""
+
+    def test_from_dict_valid_data(self):
+        """Test creating playrecord from valid dictionary"""
+        data = {"username": "Noah", "video_id": 1, "position_in_seconds": 25}
+
+        playrecord = PlayRecord.from_dict(data)
+        assert playrecord.get_username() == "Noah"
+        assert playrecord.get_video_id() == 1
+        assert playrecord.get_pos() == 25
+
 
