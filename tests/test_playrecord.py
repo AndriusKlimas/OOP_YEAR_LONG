@@ -72,3 +72,70 @@ class TestValidatePositionInSeconds:
     def test_validate_position_none_fail(self):
         assert PlayRecord.validate_position_in_seconds(None) is False
 
+class TestBetterPractice:
+    """Test rich comparison behavior for PlayRecord"""
+
+    def test_eq_same_object_true(self):
+        playrecord = PlayRecord("NoahClarke123", 10, 25)
+
+        assert playrecord == playrecord
+
+    def test_eq_different_objects_false(self):
+        playrecord1 = PlayRecord("NoahClarke123", 10, 25)
+        playrecord2 = PlayRecord("NoahClarke123", 10, 25)
+
+        assert (playrecord1 == playrecord2) is False
+
+    def test_ne_different_objects_true(self):
+        playrecord1 = PlayRecord("NoahClarke123", 10, 25)
+        playrecord2 = PlayRecord("NoahClarke123", 10, 25)
+
+        assert playrecord1 != playrecord2
+
+    def test_lt_compares_by_play_id(self):
+        first = PlayRecord("NoahClarke123", 10, 25)
+        second = PlayRecord("NoahClarke123", 10, 30)
+
+        assert first < second
+        assert (second < first) is False
+
+    def test_gt_compares_by_play_id(self):
+        first = PlayRecord("NoahClarke123", 10, 25)
+        second = PlayRecord("NoahClarke123", 10, 30)
+
+        assert second > first
+        assert (first > second) is False
+
+    def test_le_compares_by_play_id(self):
+        first = PlayRecord("NoahClarke123", 10, 25)
+        second = PlayRecord("NoahClarke123", 10, 30)
+
+        assert first <= second
+        assert first <= first
+
+    def test_ge_compares_by_play_id(self):
+        first = PlayRecord("NoahClarke123", 10, 25)
+        second = PlayRecord("NoahClarke123", 10, 30)
+
+        assert second >= first
+        assert second >= second
+
+    def test_str_includes_username_and_position(self):
+        playrecord = PlayRecord("NoahClarke123", 10, 25)
+
+        result = str(playrecord)
+
+        assert "Username: NoahClarke123" in result
+        assert "Position in Seconds: 25" in result
+
+    def test_repr_includes_class_and_key_fields(self):
+        playrecord = PlayRecord("NoahClarke123", 10, 25)
+
+        result = repr(playrecord)
+
+        assert "PlayRecord" in result
+        assert "Play ID:" in result
+        assert "Username: NoahClarke123" in result
+        assert "Video ID: 10" in result
+        assert "Position in Seconds: 25" in result
+
