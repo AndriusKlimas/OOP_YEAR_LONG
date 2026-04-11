@@ -182,3 +182,12 @@ class TestPlayRecordToDict:
         result = pr.to_dict()
         assert isinstance(result, dict)
 
+    def test_to_dict_contains_all_fields(self):
+        """Test that to_dict contains all required fields"""
+        pr = PlayRecord("NoahClarke123", 10, 25)
+        result = pr.to_dict()
+
+        assert "username" in result
+        assert "video_id" in result
+        assert "position_in_seconds" in result
+
