@@ -267,3 +267,12 @@ class TestUserFromDict:
 
         with pytest.raises(InvalidUserError):
             User.from_dict(data)
+
+class TestUserToDict:
+    """Test the to_dict() method"""
+
+    def test_to_dict_returns_dict(self):
+        """Test to_dict() returns dictionary"""
+        data = User("Noah", "Password123!")
+        result = data.to_dict()
+        assert isinstance(result, dict)
