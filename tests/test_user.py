@@ -242,3 +242,13 @@ class TestBetterPractice:
         assert "Password: ********" in result
         assert "Password123" not in result
 
+class TestUserFromDict:
+    """Test the from_dict() method"""
+
+    def test_from_dict_valid_data(self):
+        """Test creating user from valid dictionary"""
+        data = {"username": "Noah", "password": "Password123!"}
+
+        user = User.from_dict(data)
+        assert user.get_username() == "Noah"
+        assert user.get_password() == "Password123!"
