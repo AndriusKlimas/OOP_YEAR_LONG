@@ -151,4 +151,12 @@ class TestPlayRecordFromDict:
         assert playrecord.get_video_id() == 1
         assert playrecord.get_pos() == 25
 
+    def test_from_dict_invalid_username(self):
+        """Test from_dict raises error for invalid username"""
+
+        data = {"username": None, "video_id": 1, "position_in_seconds": 25}
+
+        with pytest.raises(InvalidPlayRecordError):
+            PlayRecord.from_dict(data)
+
 
