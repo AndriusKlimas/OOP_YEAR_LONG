@@ -1013,6 +1013,69 @@ def normal_view():
                 print("Invalid choice. Please choose a valid choice.")
 
 
+def admin_view():
+    admin_run = True
+    while admin_run:
+        print(f"Welcome {logged_in_usernmae}")
+        print("1. Add a new Video to the system")
+        print("2. Remove a Video from the system")
+        print("3. Edit a video")
+        print("0. Exit")
+        choice = input(f"Choice: ").strip()
+        match choice:
+            case "1":
+                new_video(videos)
+
+            case "2":
+                remove_video = input("Please enter the name of the video you would like to remove: ")
+                # calling the method to remove the video
+                video_removed = video_remover(videos, remove_video)
+                # if the video method comes back as true then print video removed
+                if video_removed == True:
+                    logger.info("admin functions: video removed")
+                    print("Video removed from list")
+                # else print video not found
+                else:
+                    logger.info("user functions: video not found")
+                    print("Video not found.")
+
+            case "3":
+                try:
+                    video_editor(videos)
+
+                    # Convert videos dictionary to format expected by JSON
+                    videos_dict = {}
+
+                    # Loop through each title and its list of videos
+                    for title, video_list in videos.items():
+                        # Create empty list for this title
+                        videos_dict[title] = []
+
+                        # Convert each video to a dictionary
+                        for video in video_list:
+                            video_dict = video.to_dict()
+                            videos_dict[title].append(video_dict)
+
+                    # Save to JSON file
+                    with open('videos.json', 'w') as file:
+                        json.dump(videos_dict, file)
+
+                    print("Changes saved to JSON file!")
+
+                except ValueError as e:
+                    logger.error("ValueError in admin functions: Video data cannot be serialized to JSON %s", e)
+                    print("Error: Video data cannot be serialized to JSON")
+                except Exception as e:
+                    logger.error("Unexpected error during admin_check %s", e)
+                    print(f"An error occurred while saving videos: {e}")
+
+            case "0":
+                admin_run = False
+                print("Exiting...")
+                quit()
+            case _:
+                logger.info("admin functions: Invalid choice by user.")
+                print("Invalid choice. Please choose a valid choice.")
 
 if __name__ == "__main__":
 
@@ -1123,66 +1186,67 @@ if __name__ == "__main__":
 
 
     if admin == True:
-        admin_run = True
-        while admin_run:
-            print(f"Welcome {logged_in_usernmae}")
-            print("1. Add a new Video to the system")
-            print("2. Remove a Video from the system")
-            print("3. Edit a video")
-            print("0. Exit")
-            choice = input(f"Choice: ").strip()
-            match choice:
-                case "1":
-                    new_video(videos)
-
-                case "2":
-                    remove_video = input("Please enter the name of the video you would like to remove: ")
-                    # calling the method to remove the video
-                    video_removed = video_remover(videos, remove_video)
-                    # if the video method comes back as true then print video removed
-                    if video_removed == True:
-                        logger.info("admin functions: video removed")
-                        print("Video removed from list")
-                    # else print video not found
-                    else:
-                        logger.info("user functions: video not found")
-                        print("Video not found.")
-
-                case "3":
-                    try:
-                        video_editor(videos)
-
-                        # Convert videos dictionary to format expected by JSON
-                        videos_dict = {}
-
-                        # Loop through each title and its list of videos
-                        for title, video_list in videos.items():
-                            # Create empty list for this title
-                            videos_dict[title] = []
-
-                            # Convert each video to a dictionary
-                            for video in video_list:
-                                video_dict = video.to_dict()
-                                videos_dict[title].append(video_dict)
-
-                        # Save to JSON file
-                        with open('videos.json', 'w') as file:
-                            json.dump(videos_dict, file)
-
-                        print("Changes saved to JSON file!")
-
-                    except ValueError as e:
-                        logger.error("ValueError in admin functions: Video data cannot be serialized to JSON %s", e)
-                        print("Error: Video data cannot be serialized to JSON")
-                    except Exception as e:
-                        logger.error("Unexpected error during admin_check %s", e)
-                        print(f"An error occurred while saving videos: {e}")
-
-                case "0":
-                    admin_run = False
-                    print("Exiting...")
-                    quit()
-                case _:
-                    logger.info("admin functions: Invalid choice by user.")
-                    print("Invalid choice. Please choose a valid choice.")
+        admin_view()
+        # admin_run = True
+        # while admin_run:
+        #     print(f"Welcome {logged_in_usernmae}")
+        #     print("1. Add a new Video to the system")
+        #     print("2. Remove a Video from the system")
+        #     print("3. Edit a video")
+        #     print("0. Exit")
+        #     choice = input(f"Choice: ").strip()
+        #     match choice:
+        #         case "1":
+        #             new_video(videos)
+        #
+        #         case "2":
+        #             remove_video = input("Please enter the name of the video you would like to remove: ")
+        #             # calling the method to remove the video
+        #             video_removed = video_remover(videos, remove_video)
+        #             # if the video method comes back as true then print video removed
+        #             if video_removed == True:
+        #                 logger.info("admin functions: video removed")
+        #                 print("Video removed from list")
+        #             # else print video not found
+        #             else:
+        #                 logger.info("user functions: video not found")
+        #                 print("Video not found.")
+        #
+        #         case "3":
+        #             try:
+        #                 video_editor(videos)
+        #
+        #                 # Convert videos dictionary to format expected by JSON
+        #                 videos_dict = {}
+        #
+        #                 # Loop through each title and its list of videos
+        #                 for title, video_list in videos.items():
+        #                     # Create empty list for this title
+        #                     videos_dict[title] = []
+        #
+        #                     # Convert each video to a dictionary
+        #                     for video in video_list:
+        #                         video_dict = video.to_dict()
+        #                         videos_dict[title].append(video_dict)
+        #
+        #                 # Save to JSON file
+        #                 with open('videos.json', 'w') as file:
+        #                     json.dump(videos_dict, file)
+        #
+        #                 print("Changes saved to JSON file!")
+        #
+        #             except ValueError as e:
+        #                 logger.error("ValueError in admin functions: Video data cannot be serialized to JSON %s", e)
+        #                 print("Error: Video data cannot be serialized to JSON")
+        #             except Exception as e:
+        #                 logger.error("Unexpected error during admin_check %s", e)
+        #                 print(f"An error occurred while saving videos: {e}")
+        #
+        #         case "0":
+        #             admin_run = False
+        #             print("Exiting...")
+        #             quit()
+        #         case _:
+        #             logger.info("admin functions: Invalid choice by user.")
+        #             print("Invalid choice. Please choose a valid choice.")
 
