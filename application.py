@@ -900,20 +900,22 @@ def normal_login():
         match choice:
             case "1":
                 keep_going, username = user_login()
-                return username
+                if keep_going == False:
+                    return username
 
 
             case "2":
                 keep_going, username = create_login(users)
-                return username
+                if keep_going == False:
+                    return username
 
             case "0":
                 print("Exiting")
                 quit()
 
-            case _ :
+            case _:
                 print("Invalid choice")
-                keep_going = False
+                keep_going = True
 
 # Creating a dev login option
 def dev_mode():
@@ -952,10 +954,10 @@ def dev_mode():
             case _:
                 print("Invalid choice")
 
-def normal_view():
+def normal_view(logged_in_usernmae):
     user_run = True
     while user_run:
-        print(f"Welcome {logged_in_usernmae.strip()}, please choose one of the following:")
+        print(f"Welcome {logged_in_usernmae}, please choose one of the following:")
         print("1. View all Videos")
         print("2. Search for specific video")
         print("3. Show all videos in specific genre")
@@ -1013,7 +1015,7 @@ def normal_view():
                 print("Invalid choice. Please choose a valid choice.")
 
 
-def admin_view():
+def admin_view(logged_in_usernmae):
     admin_run = True
     while admin_run:
         print(f"Welcome {logged_in_usernmae}")
@@ -1122,13 +1124,13 @@ if __name__ == "__main__":
     admin = admin_check(logged_in_usernmae)
 
     if admin != True:
-        normal_view()
+        normal_view(logged_in_usernmae)
 
 
 
 
 
     if admin == True:
-        admin_view()
+        admin_view(logged_in_usernmae)
 
 
