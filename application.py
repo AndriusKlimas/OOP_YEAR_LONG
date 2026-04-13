@@ -927,6 +927,15 @@ def normal_login():
 
 # Creating a dev login option
 def dev_mode():
+    """Developer mode menu for auto-login testing without normal authentication.
+
+        Returns:
+            str: Username of the auto-logged-in user.
+
+
+        Raises:
+            SystemExit: When user selects exit option.
+        """
     keep_going = True
     while keep_going:
         print("Please choose form one of the following:")
