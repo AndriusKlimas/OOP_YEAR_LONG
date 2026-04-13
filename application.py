@@ -777,7 +777,7 @@ def user_login() -> tuple[bool, str]:
         if user is not None:
             users[username] = user
             logger.info("user_login: successfully logged in")
-            print(f"Logging in as in as {username}")
+            print(f"Logging in as {username}")
             return False, username
         else:
             logger.info("user_login: failed to log in")
@@ -888,6 +888,27 @@ def admin_check(logged_in_usernmae:str) -> bool:
         print(f"An error occurred during admin check: {e}")
         return False
 
+#creating a normal login funtion
+def normal_login():
+    keep_going = True
+    while keep_going:
+        print("Please choose form one of the following:")
+        print("1. Login")
+        print("2. Create a new account")
+        choice = input().strip()
+        match choice:
+            case "1":
+                keep_going, username = user_login()
+                return username
+
+
+            case "2":
+                keep_going, username = create_login(users)
+                return username
+
+def dev_mode:
+    keep_going = True
+    while keep_going:
 
 if __name__ == "__main__":
 
@@ -916,48 +937,64 @@ if __name__ == "__main__":
         logger.info("User data set up using json information")
 
 
+
     logged_in_usernmae = None
-    keep_going = True
-    while keep_going:
-        print("Please choose form one of the following:")
-        print("1. Login")
-        print("2. Create a new account")
-        print("3. auto login for testing, with json")
-        print("4. auto login for testing, without json")
-        print("5. auto login (admin) for testing, without/with json")
-        print("0. Exit")
-        choice = input().strip()
-        match choice:
-            case "1":
-                keep_going, username = user_login()
-                logged_in_usernmae = username
+    print("what would you like to go into?")
+    print("1. Normal Login")
+    print("2. Super secret dev mode?")
+    choice = input().strip()
+
+    match choice:
+        case "1":
+            logged_in_usernmae = normal_login()
+
+        case "2":
+            "Under development"
 
 
-            case "2":
-                keep_going, username = create_login(users)
-                logged_in_usernmae = username
 
-            case "3":
-                username = "anna_writer".strip()
-                logged_in_usernmae = username
-                keep_going = False
+    # keep_going = True
+    # while keep_going:
+    #     print("Please choose form one of the following:")
+    #     print("1. Login")
+    #     print("2. Create a new account")
+    #     print("3. auto login for testing, with json")
+    #     print("4. auto login for testing, without json")
+    #     print("5. auto login (admin) for testing, without/with json")
+    #     print("0. Exit")
+    #     choice = input().strip()
+    #     match choice:
+    #         case "1":
+    #             keep_going, username = user_login()
+    #             logged_in_usernmae = username
+    #
+    #
+    #         case "2":
+    #             keep_going, username = create_login(users)
+    #             logged_in_usernmae = username
 
-            case "4":
-                username = "NoahClarke123".strip()
-                logged_in_usernmae = username
-                keep_going = False
 
-            case "5":
-                username = "admin".strip()
-                logged_in_usernmae = username
-                keep_going = False
-
-            case "0":
-                print("Exiting...")
-                quit()
-
-            case _:
-                print("Invalid choice")
+            # case "3":
+            #     username = "anna_writer".strip()
+            #     logged_in_usernmae = username
+            #     keep_going = False
+            #
+            # case "4":
+            #     username = "NoahClarke123".strip()
+            #     logged_in_usernmae = username
+            #     keep_going = False
+            #
+            # case "5":
+            #     username = "admin".strip()
+            #     logged_in_usernmae = username
+            #     keep_going = False
+            #
+            # case "0":
+            #     print("Exiting...")
+            #     quit()
+            #
+            # case _:
+            #     print("Invalid choice")
 
 
     admin = admin_check(logged_in_usernmae)
