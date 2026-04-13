@@ -890,6 +890,14 @@ def admin_check(logged_in_usernmae:str) -> bool:
 
 #creating a normal login funtion
 def normal_login():
+    """Handle user login or account creation menu loop.
+
+        Returns:
+            str: Username of logged-in or newly created user.
+
+        Raises:
+            SystemExit: When user selects exit option.
+        """
     keep_going = True
     while keep_going:
         print("Please choose form one of the following:")
@@ -1125,9 +1133,6 @@ if __name__ == "__main__":
 
     if admin != True:
         normal_view(logged_in_usernmae)
-
-
-
 
 
     if admin == True:
