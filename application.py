@@ -922,7 +922,7 @@ def dev_mode():
     keep_going = True
     while keep_going:
         print("Please choose form one of the following:")
-        print("1.auto login for testing, with json")
+        print("1. auto login for testing, with json")
         print("2. auto login for testing, without json")
         print("3. auto login (admin) for testing, without/with json")
         print("0. Exit")
