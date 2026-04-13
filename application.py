@@ -895,6 +895,7 @@ def normal_login():
         print("Please choose form one of the following:")
         print("1. Login")
         print("2. Create a new account")
+        print("0. Exit")
         choice = input().strip()
         match choice:
             case "1":
@@ -906,9 +907,54 @@ def normal_login():
                 keep_going, username = create_login(users)
                 return username
 
-def dev_mode:
+            case "0":
+                print("Exiting")
+                quit()
+
+            case _ :
+                print("Invalid choice")
+                keep_going = False
+
+# Creating a dev login option
+def dev_mode():
     keep_going = True
     while keep_going:
+        print("Please choose form one of the following:")
+        print("1.auto login for testing, with json")
+        print("2. auto login for testing, without json")
+        print("3. auto login (admin) for testing, without/with json")
+        print("0. Exit")
+        choice = input().strip()
+
+        match choice:
+            case "1":
+                username = "anna_writer".strip()
+                logged_in_usernmae = username
+                keep_going = False
+                return logged_in_usernmae
+
+            case "2":
+                username = "NoahClarke123".strip()
+                logged_in_usernmae = username
+                keep_going = False
+                return logged_in_usernmae
+
+            case "3":
+                username = "admin".strip()
+                logged_in_usernmae = username
+                keep_going = False
+                return logged_in_usernmae
+
+            case "0":
+                print("Exiting...")
+                quit()
+
+            case _:
+                print("Invalid choice")
+
+
+
+
 
 if __name__ == "__main__":
 
@@ -949,52 +995,7 @@ if __name__ == "__main__":
             logged_in_usernmae = normal_login()
 
         case "2":
-            "Under development"
-
-
-
-    # keep_going = True
-    # while keep_going:
-    #     print("Please choose form one of the following:")
-    #     print("1. Login")
-    #     print("2. Create a new account")
-    #     print("3. auto login for testing, with json")
-    #     print("4. auto login for testing, without json")
-    #     print("5. auto login (admin) for testing, without/with json")
-    #     print("0. Exit")
-    #     choice = input().strip()
-    #     match choice:
-    #         case "1":
-    #             keep_going, username = user_login()
-    #             logged_in_usernmae = username
-    #
-    #
-    #         case "2":
-    #             keep_going, username = create_login(users)
-    #             logged_in_usernmae = username
-
-
-            # case "3":
-            #     username = "anna_writer".strip()
-            #     logged_in_usernmae = username
-            #     keep_going = False
-            #
-            # case "4":
-            #     username = "NoahClarke123".strip()
-            #     logged_in_usernmae = username
-            #     keep_going = False
-            #
-            # case "5":
-            #     username = "admin".strip()
-            #     logged_in_usernmae = username
-            #     keep_going = False
-            #
-            # case "0":
-            #     print("Exiting...")
-            #     quit()
-            #
-            # case _:
-            #     print("Invalid choice")
+            logged_in_usernmae = dev_mode()
 
 
     admin = admin_check(logged_in_usernmae)
