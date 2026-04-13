@@ -1,0 +1,97 @@
+[
+  {
+    "type": "User",
+    "username": "admin",
+    "password": "Password1!",
+    "play_history": []
+  },
+  {
+    "type": "User",
+    "username": "anna_writer",
+    "password": "WritePass123",
+    "play_history": [
+      {
+        "type": "PlayRecord",
+        "username": "anna_writer",
+        "video_id": 10,
+        "position_in_seconds": 200
+      },
+      {
+        "type": "PlayRecord",
+        "username": "anna_writer",
+        "video_id": 5,
+        "position_in_seconds": 1200
+      }
+    ]
+  },
+  {
+    "type": "User",
+    "username": "moviebuff99",
+    "password": "BuffsLoveMovies1",
+    "play_history": [
+      {
+        "type": "PlayRecord",
+        "username": "moviebuff99",
+        "video_id": 11,
+        "position_in_seconds": 0
+      },
+      {
+        "type": "PlayRecord",
+        "username": "moviebuff99",
+        "video_id": 2,
+        "position_in_seconds": 3400
+      },
+      {
+        "type": "PlayRecord",
+        "username": "moviebuff99",
+        "video_id": 3,
+        "position_in_seconds": 5200
+      }
+    ]
+  },
+  {
+    "type": "User",
+    "username": "sam_gamer",
+    "password": "GameTime2022",
+    "play_history": [
+      {
+        "type": "PlayRecord",
+        "username": "sam_gamer",
+        "video_id": 12,
+        "position_in_seconds": 150
+      }
+    ]
+  },
+  {
+    "type": "User",
+    "username": "linda87",
+    "password": "LindaPass87",
+    "play_history": [
+      {
+        "type": "PlayRecord",
+        "username": "linda87",
+        "video_id": 13,
+        "position_in_seconds": 4000
+      },
+      {
+        "type": "PlayRecord",
+        "username": "linda87",
+        "video_id": 4,
+        "position_in_seconds": 800
+      }
+    ]
+  },
+  {
+    "type": "User",
+    "username": "doc_viewer",
+    "password": "DocuMent9",
+    "play_history": [
+      {
+        "type": "PlayRecord",
+        "username": "doc_viewer",
+        "video_id": 14,
+        "position_in_seconds": 60
+      }
+    ]
+  }
+]
