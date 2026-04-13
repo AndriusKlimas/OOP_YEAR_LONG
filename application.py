@@ -972,6 +972,11 @@ def dev_mode():
                 print("Invalid choice")
 
 def normal_view(logged_in_usernmae):
+    """Handles when the person loging in is not admin
+    args:
+        str: the logged-in usernmae
+
+    """
     user_run = True
     while user_run:
         print(f"Welcome {logged_in_usernmae}, please choose one of the following:")
@@ -1033,6 +1038,11 @@ def normal_view(logged_in_usernmae):
 
 
 def admin_view(logged_in_usernmae):
+    """ handles the logic then the username logged in is admin
+
+    args:
+        str: the logged-in usernmae
+    """
     admin_run = True
     while admin_run:
         print(f"Welcome {logged_in_usernmae}")
