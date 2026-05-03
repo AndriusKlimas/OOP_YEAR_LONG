@@ -1,0 +1,59 @@
+here i will outline the location of where the current code will go, this is still a work in pregress
+This is initial and may need to change
+Need to choos below
+
+for the methods 2 seperate files?
+e.g.
+File 1 - andrius service class
+File 2 - noah service code
+
+or all in one file
+File 1:
+    - andrius service class
+    - noah service class
+
+
+Data class:
+2 serperate files for each?
+e.g.
+File 1 - User loading (both json and static files avalible (dictionary/list))
+File 2 - Video loading (both json and static files avalible (dictionary))
+
+or in 1 file (i dont think this is what was asked of i could be wrong)
+File 1:
+    - User loading (Json and static (dictionary/list)
+    - Video loading (Json and static (dictionary only?))
+
+1. Services class
+    - initiat the logger
+
+Methods:
+    (Andriuses code)
+    - print_videos
+    - video_search
+    - search_genre
+    - new_video
+    - video_remover
+    - video_editor
+    - user_login - data should be provided
+    - create_login - will need to talk to data setup for saving
+    - admin_check
+
+    (Noahs code)
+    - show_user_history
+    - play_video_user
+    - view_video_play
+    - sec_to_min
+    - data_setup - maybe data class tbd
+
+2. Data class
+    - parse_videos
+    - parse_users
+    - create_default_videos - or in the service class tbd
+    - create_default_users - or in the service class tbd
+
+3. keep in main application
+    - normal_login - nothing needs to be moved
+    - dev_mode - nothing needs to be moved
+    - normal_view - case 3 needs to be altered into a new method
+    - admin_view - case 3 needs to be altered into a new method
