@@ -394,7 +394,11 @@ class User:
 
         Returns:
             Whichever object is less than the other
+            -- The return type is true/false or NotImplementedType;
+            -- Your current statement implies it will return the smaller User object itself
+            -- and doesn't cover the NotImplemented aspect
         """
+        # Efficient implementation; nice use of total_ordering
         if not isinstance(other, User):
             return NotImplemented
 
