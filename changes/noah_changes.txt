@@ -6,11 +6,11 @@ MINOR CHANGES:
 updated the username access in str and repr
 included history in str and repr
 fix to return NotImplemented for invalid checks in comparison methods
-fixed how ne works
+fixed how ne works - good work in here
 fix to verify username in change password method
-fix to improve play history management and retrieval
+fix to improve play history management and retrieval - done well! This made a big difference to the efficiency of your action
 fix to create a copy of the history
-fix to include validation logic for videoID and position
+fix to include validation logic for videoID and position - good, but consider your response to validation failure - illegal values can have exceptions raised rather than False flags returned
 fix to enhance validation for username and password
 fix type hinting in some methods
 fix to properly structure the code in application

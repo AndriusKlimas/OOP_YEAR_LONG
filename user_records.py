@@ -301,6 +301,9 @@ class User:
         return self._username
 
     def get_password(self) -> str:
+        # This one shouldn't be present - once the password is stored in an object,
+        # it should not be accessed outside that object. Instead, provide a check_password()
+        # method that takes in the password and checks if it matches the stored value
         """ gets the password of the user
         Returns:
             password for the user
@@ -312,6 +315,11 @@ class User:
         Returns:
             dictionary of the play history for that user (video_id as key, list of PlayRecords as value)
         """
+        # Deep copy is a very good inclusion - you could have made a copy of the dictionary
+        # using self._play_history.copy() but that would have made a shallow copy.
+        # Your approach is more thorough and ensures that the internal lists are independent
+        # of the ones in the original dictionary.
+
         #creates a new dictionary to store the copied history
         history_copy = {}
         #loops through each video_id in the play history
@@ -336,6 +344,7 @@ class User:
         Returns:
             statement including class name, username and password (hidden)
         """
+        # Variable names in repr should be exactly as listed in the class, i.e. _username=XXXX, __password=********, _play_history=ZZZZZ
         return f"{self.__class__.__name__}\nUsername: {self._username}\nPassword: ********\nPLay History: {self._play_history}"
 
     def __format__(self, format_spec: str) -> str:
@@ -380,6 +389,8 @@ class User:
         This avoids duplicating the equality logic. If __eq__ returns NotImplemented,
         we propagate it so Python can try reflected operations.
         """
+        # Minor improvement would be to use self == other, but aside from this,
+        # the implementation is great!
         eq_result = self.__eq__(other)
         if eq_result is NotImplemented:
             return NotImplemented
@@ -425,10 +436,14 @@ class User:
              True if the video id and position are valid, False otherwise
          """
 
+        # These are both illegal value situations, so rather than failing the attempt, raise
+        # an error to indicate bad data
         if video_id <= 0 or pos < 0:
             return False
         else:
             play_record = PlayRecord(self._username, video_id, pos)
+            # Great improvement! Look into setdefault (https://www.w3schools.com/python/ref_dictionary_setdefault.asp)
+            # so that you can avoid the extra if statement
             if video_id not in self._play_history:
                 #if not, creates a new empty list for this video_id
                 self._play_history[video_id] = []
@@ -457,6 +472,7 @@ class User:
             return plays
         #if the video_id exists in the play history dictionary
         if video_id in self._play_history:
+            # So much more efficient this way - good job!
             #gets the list of play records for this video_id
             plays = self._play_history[video_id]
         #returns the list
@@ -478,6 +494,7 @@ class User:
         if len(password) < 8:
             return False
 
+        # Good repair across the board
         upper_check = any((c.isupper() for c in password))
         if not upper_check:
             print("No uppercase letters included")
@@ -506,6 +523,11 @@ class User:
         Returns:
             True if old password is equal to current password and if new password passes validation , False otherwise
         """
+        # The None checks are important (and written correctly), but the action is repeating. Consider writing
+        # a more generic validation method to move the logic elsewhere, then use it on the three variables
+        # (it could be reused across your class)
+
+        # Could fold blank checks in with the None checks
         if username is None:
             print("Username cannot be None")
             return False
