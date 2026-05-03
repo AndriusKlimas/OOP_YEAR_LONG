@@ -1,0 +1,19 @@
+MAJOR CHANGES:
+I changed the data setup from using a hardcoded list of users, play records and videos to now using 2 JSON files, which are users.json for the users and their nested playrecords, and videos.
+This change also came with another function for setting up each default dictionary if the user didnt want to use JSON, and some small bits of refactoring in some of the functions.
+
+MINOR CHANGES:
+updated the username access in str and repr
+included history in str and repr
+fix to return NotImplemented for invalid checks in comparison methods
+fixed how ne works
+fix to verify username in change password method
+fix to improve play history management and retrieval
+fix to create a copy of the history
+fix to include validation logic for videoID and position
+fix to enhance validation for username and password
+fix type hinting in some methods
+fix to properly structure the code in application
+fix to remove unneccessary comments in application
+fix to include proper type hinting in application
+

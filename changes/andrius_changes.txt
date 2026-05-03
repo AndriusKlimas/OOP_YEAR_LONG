@@ -1,0 +1,17 @@
+MAJOR CHANGES:
+The main major chnage was that the dictionary is now using the title as they key instead of the Video_ID as the key.
+So now multiple video objects can be under the same key in the dictionary making it easier to search through.
+
+With this chnage it meant alot of refactoring accross the board, the ones that need to utilise the new searching are:
+print_videos()
+video_search()
+search_genre()
+new_video()
+video_remover()
+video_editor()
+create_default_videos()
+
+Added validation into the Video Class as it did not have any before.
+Added verification where needed
+
+No other intersting chnages were made for the intrest of this version release

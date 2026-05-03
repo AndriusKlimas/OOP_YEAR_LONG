@@ -1,4 +1,7 @@
 #imports annotations for type hinting
+
+#**FOR ANDRIUS - FMT2, V1, V3 in playrecord and search feature for app**
+#imports annotations for type hinting
 from __future__ import annotations
 
 from types import NotImplementedType
@@ -79,8 +82,11 @@ class Video:
         Returns:
             True if the genre was successfully added, False otherwise.
         """
-        if genre not in self._genres and genre in Video.validate_genre(genre):
-            self._genres.append(genre.lower())
+        if not isinstance(genre,str):
+            return False
+
+        if genre not in self._genres and Video.validate_genre(genre):
+            self._genres.append(genre.lower().strip())
             return True
         else:
             return False
@@ -95,7 +101,9 @@ class Video:
         Returns:
             True if the genre is in the video, False otherwise.
         """
-        if genre.lower() in self._genres and genre.lower() in Video.validate_genre(genre):
+        if not isinstance(genre, str):
+            return False
+        if Video.validate_genre(genre) and genre.lower().strip() in self._genres:
             return True
         else:
             return False
@@ -104,7 +112,15 @@ class Video:
     #New thing added
     @staticmethod
     def validate_genre(genre: str) -> bool:
-        if genre.lower() in Video._VALID_GENRES:
+        """ checks if the genre is present in the static list
+        args:
+        genre: The genre to be checked.
+        returns:
+        True if the genre is present in the static list, False otherwise.
+        """
+        if not isinstance(genre, str):
+            return False
+        if genre.lower().strip() in Video._VALID_GENRES:
             return True
         else:
             return False
@@ -127,6 +143,13 @@ class Video:
             The duration in seconds.
         """
         return self._duration_seconds
+
+    def get_description(self) -> str:
+        """Get the description of the video.
+        Returns:
+            Description of the video.
+            """
+        return self.description
 
     # for good practice to return private variables
     def get_release_year(self) -> int:
@@ -158,11 +181,12 @@ class Video:
         Returns:
             True if the video ID is valid, False otherwise.
         """
+
         if video_id is None:
             return False
-        if video_id < 0:
-            return False
         if not isinstance(video_id, int):
+            return False
+        if video_id < 0:
             return False
         return True
 
@@ -180,6 +204,10 @@ class Video:
         """
         if title is None:
             return False
+        if not isinstance(title, str):
+            return False
+        if title.strip() == "":
+            return False
         return True
 
     @staticmethod
@@ -196,6 +224,10 @@ class Video:
         """
         if description is None:
             return False
+        if not isinstance(description, str):
+            return False
+        if description.strip() == "":
+            return False
         return True
 
     @staticmethod
@@ -211,6 +243,8 @@ class Video:
             True if the duration is valid, False otherwise.
         """
         if duration_seconds is None:
+            return False
+        if not isinstance(duration_seconds, int):
             return False
         if duration_seconds < 0:
             return False
@@ -230,6 +264,8 @@ class Video:
         """
         if release_year is None:
             return False
+        if not isinstance(release_year, int):
+            return False
         if release_year < 0:
             return False
         return True
@@ -242,7 +278,7 @@ class Video:
         Returns:
             A formatted string with video information.
         """
-        return f"Title is {self.title} and description is {self.description}, Duration is {self.get_duration_seconds()} seconds, Release year is {self.get_release_year()}. Genres are {', '.join(self.get_genres())}"
+        return f"Title is {self.get_title()} and description is {self.get_description()}, Duration is {self.get_duration_seconds()} seconds, Release year is {self.get_release_year()}. Genres are {', '.join(self.get_genres())}"
 
     #for a developer
     def __repr__(self) -> str:
@@ -251,7 +287,7 @@ class Video:
         Returns:
             A formatted string with all video details and ID.
         """
-        return f"Video_ID: {self.get_video_id()}, Title: {self.title}, Description: {self.description}, Duration: {self.get_duration_seconds()}, Release Year: {self.get_release_year()}, Genres: {self.get_genres()}"
+        return f"Video_ID: {self.get_video_id()}, Title: {self.get_title()}, Description: {self.get_description()}, Duration: {self.get_duration_seconds()}, Release Year: {self.get_release_year()}, Genres: {self.get_genres()}"
 
     #defining equality method
     def __hash__(self) -> int:
@@ -361,3 +397,79 @@ class Video:
         if not isinstance(other, Video):
             return NotImplemented
         return self._video_id > other._video_id
+
+    @classmethod
+    def from_dict(cls, data: dict) -> 'Video':
+        """
+        Creates a Video object from a dictionary.
+
+        Returns:
+            Video object based on the dict
+
+        Raises:
+            ValueError: If required fields are missing or invalid
+        """
+        try:
+            # Validate type field if present
+            if data.get("type") is not None and data.get("type") != cls.__name__:
+                raise ValueError(
+                    f"Invalid type value ({data.get('type')}) within dict - {cls.__name__} cannot deserialise")
+
+            # Extract required fields
+            video_id = data["video_id"]
+            title = data["title"]
+            description = data["description"]
+            duration_seconds = data["duration_seconds"]
+            release_year = data["release_year"]
+            genres = data.get("genres", [])
+
+            # Validate required fields
+            if not isinstance(video_id, int):
+                raise ValueError(f"video_id must be an integer, got {type(video_id)}")
+            if not isinstance(title, str) or not title.strip():
+                raise ValueError(f"title must be a non-empty string")
+            if not isinstance(description, str) or not description.strip():
+                raise ValueError(f"description must be a non-empty string")
+            if not isinstance(duration_seconds, int) or duration_seconds <= 0:
+                raise ValueError(f"duration_seconds must be a positive integer")
+            if not isinstance(release_year, int):
+                raise ValueError(f"release_year must be an integer")
+            if not isinstance(genres, list):
+                raise ValueError(f"genres must be a list")
+
+            return cls(
+                video_id=video_id,
+                title=title,
+                description=description,
+                duration_seconds=duration_seconds,
+                release_year=release_year,
+                genres=genres
+            )
+
+        except KeyError as e:
+            raise ValueError(f"JSON error occurred when building Video - cannot find key {e}")
+        except Exception as e:
+            raise ValueError(f"Unexpected error creating Video from dict: {str(e)}")
+
+
+
+    def to_dict(self) -> dict:
+        """Convert Video object to dictionary format for JSON serialization.
+
+            Args:
+                self: The Video object instance
+
+            Returns:
+                dict: Dictionary containing all video attributes with keys
+            """
+        data = {}
+        data["type"] = self.__class__.__name__
+
+        data["video_id"] = self._video_id
+        data["title"] = self.title
+        data["description"] = self.description
+        data["duration_seconds"] = self._duration_seconds
+        data["release_year"] = self._release_year
+        data["genres"] = self._genres
+
+        return data
