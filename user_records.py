@@ -3,6 +3,8 @@ from __future__ import annotations
 from functools import total_ordering
 from types import NotImplementedType
 
+# The names of these could be simplified to UserError and PlayRecordError - InvalidXXX implies that something exists
+# but contains bad data, but you are using it more to indicate data
 class InvalidUserError(Exception):
     pass
 
@@ -18,23 +20,29 @@ class PlayRecord:
         """ sets up the constructor for the PlayRecord class
 
         Args:
+            # this is inconsistent with the type hint - is it always storing a string (as the docstring indicates)
+            # or is it storing a string OR a user? This sort of inconsistency in documentation can cause confusion
             username (str): The username for the user
             video_id (int): Video id of the video in the play record
             position_in_seconds (int): Position in seconds of the video
         """
         self._play_id = PlayRecord.record_counter
 
+        # This sequence is a good use of raising exceptions in response to failed validation
         if not PlayRecord.validate_username(username):
+            # Not enough information included in the exception message - you say the username is invalid but not why
             raise InvalidPlayRecordError("Invalid username")
 
         self._username = username
 
         if not PlayRecord.validate_video_id(video_id):
+            # Not enough information included in the exception message - you say the id is invalid but not why
             raise InvalidPlayRecordError("Invalid video id")
 
         self._video_id = video_id
 
         if not PlayRecord.validate_position_in_seconds(position_in_seconds):
+            # Not enough information included in the exception message - you say the position is invalid but not why
             raise InvalidPlayRecordError("Invalid position in seconds")
 
         self._position_in_seconds = position_in_seconds
@@ -232,6 +240,7 @@ class PlayRecord:
         try:
             # Validate type field if present
             if data.get("type") is not None and data.get("type") != cls.__name__:
+                # Good use of raising error to indicate the incorrect type is present within the file
                 raise ValueError(f"Invalid type value ({data.get('type')}) within dict - {cls.__name__} cannot deserialise")
 
             # Expect username to be a string here (users are represented by username in JSON)
@@ -241,6 +250,7 @@ class PlayRecord:
 
             return PlayRecord(username, int(video_id), int(position_in_seconds))
         except KeyError as e:
+            # Good conversion from key error to actual issue (JSON-related value error)
             raise ValueError(f"JSON error occurred when building {cls.__name__} - cannot find key {e}")
 
     def to_dict(self) -> dict:
@@ -282,11 +292,15 @@ class User:
         """
 
         if not User.validate_password(password):
+            # Not enough information included in the exception message - you're relying on the displayed information
+            # to fill in the gap re: what was wrong with the password, but that's not going to be part of any log record
             raise InvalidUserError("Password does not meet the requirements")
 
         self._username = username
 
         if not User.validate_username(username):
+            # Not enough information included in the exception message;
+            # you say the username doesn't meet requirements, but not why
             raise InvalidUserError("Username does not meet the requirements")
 
         self.__password = password
@@ -448,6 +462,7 @@ class User:
                 #if not, creates a new empty list for this video_id
                 self._play_history[video_id] = []
             #adds this play record to the list for this video_id
+            # Should create a log to indicate a new play has occurred - log username, video id, position and playrecord id.
             self._play_history[video_id].append(play_record)
             #returns true
             return True
@@ -554,6 +569,8 @@ class User:
             print("Password entered does not meet the requirements")
             return False
 
+        # Where the password is changed, a log should be created - this is best at the application (service) level, but
+        # as the application won't have it included here, it should be included here.
         return True
 
     @staticmethod
@@ -588,6 +605,7 @@ class User:
             plays = data.get("play_history")
             if plays:
                 if not isinstance(plays, list):
+                    # Good use of raised exceptions to indicate that the data is not the right type
                     raise ValueError("play_history must be a list of play record dicts")
                 for pr in plays:
                     try:
@@ -599,12 +617,15 @@ class User:
                             user._play_history[vid] = []
                         user._play_history[vid].append(play_obj)
                     except Exception as e:
+                        # Exception is a very general catch - it would be better to catch the specific types that can crop up
                         # Skip invalid play records but continue
+                        # Should be logging, not printing
                         print(f"Warning: skipping invalid nested PlayRecord for user '{username}': {e}")
 
             return user
 
         except KeyError as e:
+            # Good use of catch to convert KeyError to ValueError (as this is more informative)
             raise ValueError(f"{cls.__name__} JSON error -> Missing key {e}")
 
 

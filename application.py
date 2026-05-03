@@ -161,6 +161,9 @@ def show_user_history(users_dict: dict, videos_dict: dict) -> None:
         logger.error("Missing key while showing user history: %s", e)
         print("An error occurred while showing user history")
     except AttributeError as e:
+        # This one shouldn't be possible - if you're worrying about attribute errors then you're not sure what
+        # you're working on, or what you're working on isn't fully formed. This usually indicates there are bugs
+        # hiding elsewhere
         logger.error("Attribute error while showing user history: %s", e)
         print("An error occurred while showing user history")
     except Exception as e:
@@ -205,6 +208,9 @@ def play_video_user(users_dict: dict, videos_dict: dict) -> None:
             choice = int(input("Please choose one (numbers only): ").strip())
             selected_video = videos_found[choice - 1]
         except (ValueError, IndexError):
+            # While catching multiple exceptions at once is valid, you should combine this with storing the
+            # exception as a variable and including that in the log message. Currently, you don't know what has
+            # triggered the issue and there's no way to find it out or repeat it for debugging later.
             print("Invalid selection")
             logger.error("Invalid selection")
             return
