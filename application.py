@@ -6,6 +6,7 @@ import logging.config
 from catalogue import Video
 from user_records import User
 
+#Need to add this to the service area
 def config_log_json() -> None:
     """function to bring in the json logging config file"""
     with open ("logging_config.json", "r") as f:
@@ -17,6 +18,7 @@ logger = logging.getLogger(__name__)
 
 
 #Option 1 def
+#Need to add to services
 def print_videos(videos_dictionary: dict) -> None:
     """ prints all videos in the dictionary
     args:
@@ -43,6 +45,7 @@ def print_videos(videos_dictionary: dict) -> None:
         print(f"An error occurred while printing videos: {e}")
 
 #Option 2 def
+#Need to add to services
 def video_search(videos_dictionary: dict, search_video: str) -> Video | None:
     """ searching for a specific video in the dictionary
     args:
@@ -75,6 +78,7 @@ def video_search(videos_dictionary: dict, search_video: str) -> Video | None:
 
 
 #Option 3 def
+#Need to add to services
 def search_genre(videos_dictionary: dict, search_genre: str) -> None:
     """ searching for a specific genre in the dictionary
     args:
@@ -115,6 +119,7 @@ def search_genre(videos_dictionary: dict, search_genre: str) -> None:
         print(f"An error occurred while searching for genre: {e}")
 
 #option 4 def
+#Need to add to services
 def show_user_history(users_dict: dict, videos_dict: dict) -> None:
     """ shows the user's play history
 
@@ -168,6 +173,7 @@ def show_user_history(users_dict: dict, videos_dict: dict) -> None:
         print("An error occurred while showing user history")
 
 #option 5 def
+#Need to add to services
 def play_video_user(users_dict: dict, videos_dict: dict) -> None:
     """ creates a play record
 
@@ -217,6 +223,7 @@ def play_video_user(users_dict: dict, videos_dict: dict) -> None:
  #admin logic below
 
 #Option 6 def
+#Need to add to services
 def new_video(videos_dictionary: dict) -> None:
     """ Adds a new video to the dictionary by creating an object of the video class
     args:
@@ -298,6 +305,7 @@ def new_video(videos_dictionary: dict) -> None:
     #added sleep for the
 
 #Option 7 def
+#Need to add to services
 def video_remover(videos_dictionary: dict, remove_video: str) -> bool:
     """ Removes a video from the dictionary
     args:
@@ -368,7 +376,7 @@ def video_remover(videos_dictionary: dict, remove_video: str) -> bool:
         print(f"An error occurred while removing video: {e}")
         return False
 
-
+#Need to add to services
 def video_editor(video_dictionary: dict) -> None:
     """ Allows the admin to edit the video
 
@@ -517,6 +525,7 @@ def video_editor(video_dictionary: dict) -> None:
         logger.error("ValueError in video_editor: Number provided not an option")
         print("Invalid input.")
 
+#Need to add to services
 def view_video_play(video_dict: dict, users_dict: dict) -> None:
     """Allow the user to see all play history for a specified video.
 
@@ -564,7 +573,7 @@ def view_video_play(video_dict: dict, users_dict: dict) -> None:
         print(f"An error occurred while viewing play history: {e}")
         logger.error("An error occurred while viewing play history")
 
-
+#Need to add to services
 def sec_to_min(seconds: int) -> str:
     """Convert seconds to a human-readable minutes and seconds string.
 
@@ -584,7 +593,7 @@ def sec_to_min(seconds: int) -> str:
 
 
 
-
+#need to add to database
 def parse_videos(filename: str) -> dict:
     """Parses a file of video information into a list of Video objects.
 
@@ -622,7 +631,7 @@ def parse_videos(filename: str) -> dict:
     return new_videos
 
 
-
+#need to add to database
 def parse_users(filename: str) -> list:
     """Parses a file of user information into a list of User objects.
 
@@ -646,7 +655,7 @@ def parse_users(filename: str) -> list:
             logger.error(f"Invalid user record #{i} in {filename}: {e}")
     return users
 
-
+#need to add to database
 def create_default_videos() -> dict:
     """Create and return the default videos dictionary used when no file is provided.
 
@@ -672,6 +681,7 @@ def create_default_videos() -> dict:
 
     return vids
 
+#need to add to database
 def create_default_users() -> dict:
     """Create and return the default users dictionary used when no file is provided.
 
@@ -702,7 +712,7 @@ def create_default_users() -> dict:
 
     return us
 
-
+#need to add to database
 def data_setup(parse_type: str, filename: str | None = None):
     """Prompt the user (up to 3 tries) for a filename and parse the file.
 
@@ -749,6 +759,7 @@ def data_setup(parse_type: str, filename: str | None = None):
     print(f"Failed to load {parse_type} after {attempts} attempts; using defaults.")
     return None
 
+#need to add to service
 def user_login() -> tuple[bool, str]:
     """ aks user to login by providing credentials, then validates it with the user dictionary
 
@@ -792,7 +803,7 @@ def user_login() -> tuple[bool, str]:
         print(f"An error occurred during login: {e}")
         return True, "An unexpected error occurred during login"
 
-
+#need to add to service
 def create_login(users:dict) -> tuple[bool, str]:
     """ getting the user to create and account and saving to json file
 
@@ -863,6 +874,7 @@ def create_login(users:dict) -> tuple[bool, str]:
         return True, "An unexpected error occurred during account creation"
 
 
+#need to add to services
 def admin_check(logged_in_usernmae:str) -> bool:
     """check if the logged-in user is an admin.
 
@@ -889,6 +901,7 @@ def admin_check(logged_in_usernmae:str) -> bool:
         return False
 
 #creating a normal login funtion
+#keep here
 def normal_login():
     """Handle user login or account creation menu loop.
 
@@ -926,6 +939,7 @@ def normal_login():
                 keep_going = True
 
 # Creating a dev login option
+#keep here
 def dev_mode():
     """Developer mode menu for auto-login testing without normal authentication.
 
@@ -972,6 +986,7 @@ def dev_mode():
             case _:
                 print("Invalid choice")
 
+#keep here
 def normal_view(logged_in_usernmae):
     """Handles when the person loging in is not admin
     args:
@@ -1037,7 +1052,7 @@ def normal_view(logged_in_usernmae):
             case _:
                 print("Invalid choice. Please choose a valid choice.")
 
-
+#keep here
 def admin_view(logged_in_usernmae):
     """ handles the logic then the username logged in is admin
 
