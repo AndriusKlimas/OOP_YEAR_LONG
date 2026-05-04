@@ -9,6 +9,8 @@ class TestUserCreation:
         assert user.get_username() == "NoahClarke123"
         assert user.get_password() == "Password123!"
 
+    # No tests for the failed validation situations in User creation
+
 class TestUserRetrieval:
     """Test user object retrieval"""
     def test_get_username(self):
@@ -32,6 +34,7 @@ class TestStartPlay:
         assert result is True
         plays = user.get_plays(10)
         assert len(plays) == 1
+        # No assert for PlayRecord id
         assert plays[0].get_username() == "NoahClarke123"
         assert plays[0].get_video_id() == 10
         assert plays[0].get_pos() == 25
@@ -42,6 +45,11 @@ class TestStartPlay:
         result = user.start_play(0, 25)
 
         assert result is False
+
+        # This assert looks to be getting a different id to what you've (intentionally) failed to start playing.
+        # This means the assert isn't really doing much here - the data isn't relevant. You're right that you can't
+        # just use get_plays() to get the value (because of the validation) but if you got a copy of the play_records
+        # dictionary, you can check that it doesn't have any list for video_id = 0
         assert user.get_plays(1) == []
 
     def test_start_play_invalid_position_fail(self):
@@ -50,7 +58,11 @@ class TestStartPlay:
         result = user.start_play(10, -1)
 
         assert result is False
+        # This version makes sense as it's looking for the same video_id that you attempted to play
         assert user.get_plays(10) == []
+
+    # Another test that could be included is does the method add a new play record to an *existing* list - you know there
+    # are records for video_id 10, so you start a new play on that video and confirm that you now have two play records for that id.
 
 class TestGetPlays:
     """Test getting plays for a user"""
@@ -64,6 +76,7 @@ class TestGetPlays:
         plays = user.get_plays(10)
 
         assert len(plays) == 2
+        # The asserts should be confirming all parts are correct - check the id and the position are correct in both entries
         assert plays[0].get_video_id() == 10
         assert plays[1].get_pos() == 40
 
@@ -83,13 +96,16 @@ class TestGetPlays:
 
 class TestChangePassword:
     """Test changing a user's password"""
-
+    # These are good candidates for parameterised testing - the logic of the tests is consistent across all cases,
+    # the only thing that changes is the data for the test input and expected result
     def test_change_password_valid_success(self):
         user = User("NoahClarke123", "Password123!")
 
         result = user.change_password("NoahClarke123", "Password123!", "NewPass123!")
 
         assert result is True
+        # This is the original password again - I'm not sure if the test is written this way because of an oversight,
+        # or because the underlying logic is broken (it never actually changes the password) and you wanted the test to pass
         assert user.get_password() == "Password123!"
 
     def test_change_password_invalid_username_fail(self):
@@ -97,6 +113,7 @@ class TestChangePassword:
 
         result = user.change_password("WrongUser", "Password123!", "NewPass123!")
 
+        # These are good asserts for this situation
         assert result is False
         assert user.get_password() == "Password123!"
 
@@ -105,6 +122,7 @@ class TestChangePassword:
 
         result = user.change_password("NoahClarke123", "WrongPass123!", "NewPass123!")
 
+        # Good asserts
         assert result is False
         assert user.get_password() == "Password123!"
 
@@ -116,9 +134,13 @@ class TestChangePassword:
         assert result is False
         assert user.get_password() == "Password123!"
 
+    # Another test you could include would be to investigate the case-insensitivity of the username (the case of the
+    # username should not matter)
+
 class TestValidatePassword:
     """Test password validation"""
-
+    # These are a good example of where to use parameterised testing - it would mean writing one test and running it
+    # with 5 sets of parameters as the test logic is identical for all test cases.
     def test_validate_password_valid_success(self):
         assert User.validate_password("Password123!") is True
 
@@ -136,7 +158,7 @@ class TestValidatePassword:
 
 class TestValidateUsername:
     """Test username validation"""
-
+    # Parameterised tests would be useful here
     def test_validate_username_valid_success(self):
         assert User.validate_username("NoahClarke123") is True
 
@@ -147,6 +169,9 @@ class TestValidateUsername:
         assert User.validate_username(None) is False
 
 class TestValidateLogin:
+    # These tests are good, but they're highlighting a problem with the code that wasn't repaired - the highlighting
+    # of the users dictionary says it's the wrong type as it was expecting a dictionary of str: str, but you have str:User here
+
     """Test login validation"""
 
     def test_validate_login_valid_success(self):
@@ -174,8 +199,10 @@ class TestValidateLogin:
         assert result is None
 
 class TestBetterPractice:
+    # You have correctly separated the test cases across separate methods rather than clumping them together - good job!
     """Test rich comparison and hashing behaviors for User"""
 
+    # Parameterization would save a lot of repetition here
     def test_eq_same_username_true(self):
         user1 = User("anna", "Password123")
         user2 = User("anna", "Different123")
@@ -187,6 +214,8 @@ class TestBetterPractice:
         user2 = User("ben", "Password123")
 
         assert (user1 == user2) is False
+
+    # No test for comparing users with the same username in different cases
 
     def test_ne_same_username_false(self):
         user1 = User("anna", "Password123")
@@ -212,6 +241,7 @@ class TestBetterPractice:
         user2 = User("anna", "Different123")
         user3 = User("ben", "Password123")
 
+        # These should have been done separately, as they are their own individual test cases
         assert user1 <= user2
         assert user3 > user1
         assert user3 >= user1
@@ -221,6 +251,7 @@ class TestBetterPractice:
         user2 = User("anna", "Different123")
         user3 = User("ben", "Password123")
 
+        # These should have been separate test methods as they are their own individual test cases
         assert hash(user1) == hash(user2)
         assert hash(user1) != hash(user3)
 
@@ -231,6 +262,7 @@ class TestBetterPractice:
 
         assert "Username: anna" in result
         assert "Password = ********" in result
+        # VERY GOOD!!
         assert "Password123" not in result
 
     def test_repr_includes_class_username_and_masked_password(self):
@@ -268,6 +300,8 @@ class TestUserFromDict:
         with pytest.raises(InvalidUserError):
             User.from_dict(data)
 
+    # No test for where the field is missing - that test is pretty important as deserialisation must be robust
+
 class TestUserToDict:
     """Test the to_dict() method"""
 
@@ -284,6 +318,7 @@ class TestUserToDict:
 
         assert "username" in result
         assert "password" in result
+        # No check for the type information in the dictionary
 
     def test_to_dict_correct_values(self):
         """Test to_dict() returns correct values"""

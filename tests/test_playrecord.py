@@ -19,20 +19,24 @@ class TestPlayRecordRetrieval:
         playrecord = PlayRecord("NoahClarke123", 10, 25)
 
         assert playrecord.get_username() == "NoahClarke123"
+        # Redundant assert - if the username is equal to NoahClarke123, it cannot be equal to NoahClarke234
         assert playrecord.get_username() != "NoahClarke234"
 
     def test_get_video_id(self):
         playrecord = PlayRecord("NoahClarke123", 10, 25)
 
         assert playrecord.get_video_id() == 10
+        # Redundant assert - if the id is equal to 10, it cannot be equal to 11
         assert playrecord.get_video_id() != 11
 
     def test_get_pos(self):
         playrecord = PlayRecord("NoahClarke123", 10, 25)
 
         assert playrecord.get_pos() == 25
+        # Redundant assert - if the pos is equal to 25, it cannot be equal to 30
         assert playrecord.get_pos() != 30
 
+# Potential for parameterisation in the tests from the next few suites
 class TestValidateUsername:
     """Test username validation for PlayRecord"""
 
@@ -97,6 +101,7 @@ class TestBetterPractice:
         second = PlayRecord("NoahClarke123", 10, 30)
 
         assert first < second
+        # This should be a separate test
         assert (second < first) is False
 
     def test_gt_compares_by_play_id(self):
@@ -104,6 +109,7 @@ class TestBetterPractice:
         second = PlayRecord("NoahClarke123", 10, 30)
 
         assert second > first
+        # This should be a separate test
         assert (first > second) is False
 
     def test_le_compares_by_play_id(self):
@@ -111,6 +117,7 @@ class TestBetterPractice:
         second = PlayRecord("NoahClarke123", 10, 30)
 
         assert first <= second
+        # This should be a separate test
         assert first <= first
 
     def test_ge_compares_by_play_id(self):
@@ -118,6 +125,7 @@ class TestBetterPractice:
         second = PlayRecord("NoahClarke123", 10, 30)
 
         assert second >= first
+        # This should be a separate test
         assert second >= second
 
     def test_str_includes_username_and_position(self):
@@ -133,6 +141,8 @@ class TestBetterPractice:
 
         result = repr(playrecord)
 
+        # Should be looking for attribute/variable names, not the logical names,
+        # BUT this lines up with the code as it currently stands.
         assert "PlayRecord" in result
         assert "Play ID:" in result
         assert "Username: NoahClarke123" in result
@@ -147,6 +157,7 @@ class TestPlayRecordFromDict:
         data = {"username": "Noah", "video_id": 1, "position_in_seconds": 25}
 
         playrecord = PlayRecord.from_dict(data)
+        # Should be checking the type too
         assert playrecord.get_username() == "Noah"
         assert playrecord.get_video_id() == 1
         assert playrecord.get_pos() == 25
@@ -159,6 +170,7 @@ class TestPlayRecordFromDict:
         with pytest.raises(InvalidPlayRecordError):
             PlayRecord.from_dict(data)
 
+    # These are good test cases - confirming how it handles where the type of data stored is wrong
     def test_from_dict_invalid_vidid(self):
         """Test from_dict raises error for invalid video id"""
         data = {"username": "Noah", "video_id": "Test", "position_in_seconds": 25}
@@ -172,6 +184,8 @@ class TestPlayRecordFromDict:
 
         with pytest.raises(ValueError):
             PlayRecord.from_dict(data)
+
+    # No test for where a key is missing
 
 class TestPlayRecordToDict:
     """Test PlayRecord to_dict method"""
@@ -187,6 +201,7 @@ class TestPlayRecordToDict:
         pr = PlayRecord("NoahClarke123", 10, 25)
         result = pr.to_dict()
 
+        # No assert for the type key
         assert "username" in result
         assert "video_id" in result
         assert "position_in_seconds" in result

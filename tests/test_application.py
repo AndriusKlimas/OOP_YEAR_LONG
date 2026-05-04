@@ -67,6 +67,7 @@ class TestAndriusCode:
 
 
 class TestNoahCode:
+    # THANK YOU FOR SEPARATING THE TESTS BY AUTHOR!!!
     def test_sec_to_min_basic_conversion(self):
         """Test basic conversion of seconds to minutes and seconds"""
         result = sec_to_min(120)
@@ -82,6 +83,8 @@ class TestNoahCode:
 
         assert result == "3 minutes and 0 seconds"
 
+    # Awkward test to cover - what if it's singular; can the logic handle the formatting
+
     def test_parse_videos_reads_project_file(self):
         """Use existing videos.json from project"""
         videos = parse_videos("videos.json")
@@ -89,10 +92,15 @@ class TestNoahCode:
         assert isinstance(videos, dict)
         assert len(videos) > 0
 
+        # The following comment doesn't really align with what the code is doing
         # check first video object has expected methods
         first_title = list(videos.keys())[0]
         first_video = videos[first_title][0]
+        # Checking that the video is stored under the correct title?
         assert first_video.get_title() == first_title
+        # No confirmation that the remaining data is correct - it's not enough to just check that the title
+        # of the first video is right and in the right place. Did the full object get created from the file correctly?
+        # Did all the objects come out?
 
     def test_parse_users_reads_project_file(self):
         """Use existing users.json from project"""
