@@ -103,6 +103,11 @@ class Video:
         # it would be preferable to use that instead of redoing the work here
         # Remember DRY - don't repeat yourself
         if not isinstance(genre,str):
+            # This is a situation where the validation fails because the supplied data is not fit for use
+            # (not a string, so it can't be used or have the main validation logic applied)
+            # For this reason, this should be raising a ValueError
+            # Returning True/False for the other situations makes sense as it's text, but not suitable as a genre
+            # Here you are dealing with data that shouldn't have been passed in to begin with
             return False
 
         # While you are changing the case of the genre when you store it,
@@ -127,6 +132,7 @@ class Video:
             True if the genre is in the video, False otherwise.
         """
         if not isinstance(genre, str):
+            # As discussed in add_genre, this should be raising a ValueError, not returning False
             return False
         if Video.validate_genre(genre) and genre.lower().strip() in self._genres:
             return True
@@ -144,6 +150,7 @@ class Video:
         True if the genre is present in the static list, False otherwise.
         """
         if not isinstance(genre, str):
+            # As discussed in add_genre, this should be raising a ValueError, not returning False
             return False
         if genre.lower().strip() in Video._VALID_GENRES:
             return True
@@ -210,11 +217,25 @@ class Video:
         if video_id is None:
             return False
         if not isinstance(video_id, int):
+            # As discussed in add_genre, this should be raising a ValueError, not returning False
             return False
         if video_id < 0:
             return False
         return True
 
+    # You're including dedicated validation methods, which is great - good examples of
+    # Single Responsibility Principle - the validator method deals with that bit of the logic,
+    # the other code delegates the validation here and focuses on its own work
+
+
+    # With this said, you've included a few separate validation methods that each deals with
+    # the same checks on a string, just using a different variable name each time
+    # (this also happens with numbers further down)
+
+    # An alternative approach that would be more in keeping with DRY would be to create
+    # a single method to validate text to confirm it's not blank, that takes in the variable to be validated
+    # and the name of the field being validated. You can then have it raise an error with the variable name
+    # included in the error message
     @staticmethod
     def validate_title(title: str) -> bool:
         """Validate if a title is valid.
@@ -230,6 +251,7 @@ class Video:
         if title is None:
             return False
         if not isinstance(title, str):
+            # As discussed in add_genre, this should be raising a ValueError, not returning False
             return False
         if title.strip() == "":
             return False
@@ -250,6 +272,7 @@ class Video:
         if description is None:
             return False
         if not isinstance(description, str):
+            # As discussed in add_genre, this should be raising a ValueError, not returning False
             return False
         if description.strip() == "":
             return False
@@ -270,6 +293,7 @@ class Video:
         if duration_seconds is None:
             return False
         if not isinstance(duration_seconds, int):
+            # As discussed in add_genre, this should be raising a ValueError, not returning False
             return False
         if duration_seconds < 0:
             return False
@@ -290,6 +314,7 @@ class Video:
         if release_year is None:
             return False
         if not isinstance(release_year, int):
+            # As discussed in add_genre, this should be raising a ValueError, not returning False
             return False
         if release_year < 0:
             return False
@@ -312,6 +337,10 @@ class Video:
         Returns:
             A formatted string with all video details and ID.
         """
+        # Repr format should include the exact variable names, not just the logical name
+        # (_video_id, _title, description, _duration_seconds etc)
+        # This is to ensure developers know not only the data in the fields, but also their literal names
+        # so they know how to access them
         return f"Video_ID: {self.get_video_id()}, Title: {self.get_title()}, Description: {self.get_description()}, Duration: {self.get_duration_seconds()}, Release Year: {self.get_release_year()}, Genres: {self.get_genres()}"
 
     #defining equality method
@@ -438,6 +467,7 @@ class Video:
         try:
             # Validate type field if present
             if data.get("type") is not None and data.get("type") != cls.__name__:
+                # Good use of raising error to convey issue - very informative error message (great for logging)
                 raise ValueError(
                     f"Invalid type value ({data.get('type')}) within dict - {cls.__name__} cannot deserialise")
 
@@ -450,6 +480,7 @@ class Video:
             genres = data.get("genres", [])
 
             # Validate required fields
+            # Comprehensive!
             if not isinstance(video_id, int):
                 raise ValueError(f"video_id must be an integer, got {type(video_id)}")
             if not isinstance(title, str) or not title.strip():
@@ -473,8 +504,23 @@ class Video:
             )
 
         except KeyError as e:
+            # Very good way of converting from KeyError to the actual problem:
+            # an error indicating JSON deserialisation problems
             raise ValueError(f"JSON error occurred when building Video - cannot find key {e}")
         except Exception as e:
+            # What error are you expecting here? It's preferable to include exception handling only
+            # where we know there will be a potential issue occurring, as we can use it to prepare for that issue.
+
+            # Adding generic Exception catches (especially in a very focused situation such as here where the whole
+            # code section is focused on deserialisation) often means that the code isn't written as robustly as it
+            # could be. Often it's that the developer is trying to avoid too many catches with different code to process
+            # them, or they're not sure if something is going to break and are putting it there as a just in case
+
+            # If you don't understand why something is breaking, it's important that it DOES break - this forces us to
+            # assess it fully and then try to repair it
+
+            # Very good not logging here - you are spot on that this should not be logged when it happens,
+            # it should be logged where the issue is HANDLED
             raise ValueError(f"Unexpected error creating Video from dict: {str(e)}")
 
 

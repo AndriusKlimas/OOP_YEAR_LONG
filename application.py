@@ -38,13 +38,14 @@ def print_videos(videos_dictionary: dict) -> None:
             else:
                 print(video_list)
     except TypeError as e:
+        # Log message is very informative
         logger.error("TypeError in print_videos: videos_dictionary must be a dictionary: %s", e)
         print("Error: videos_dictionary must be a dictionary")
     except Exception as e:
+        # Log message is very informative
         logger.error("Unexpected error while printing videos: %s", e)
         print(f"An error occurred while printing videos: {e}")
 
-#Option 2 def
 def video_search(videos_dictionary: dict, search_video: str) -> Video | None:
     """ searching for a specific video in the dictionary
     args:
@@ -71,6 +72,13 @@ def video_search(videos_dictionary: dict, search_video: str) -> Video | None:
         return None
 
     except Exception as e:
+        # As mentioned in the from_dict() feedback comments, catching Exception is too general
+        # (it's usually considered bad practice)
+
+        # If this is here because you don't fully understand the issue that was occurring,
+        # you need to identify the problems and address them
+        # If it's here because there are a number of potential issues, you need to
+        # specifically identify them and handle them individually.
         logger.error("Unexpected error searching for videos: %s", e)
         print(f"An error occurred while searching for video: {e}")
         return None
@@ -105,16 +113,23 @@ def search_genre(videos_dictionary: dict, search_genre: str) -> None:
                     found = True
 
         if not found:
+            # Log message is very informative
             logger.info("No videos found with genre: %s", search_genre)
             print(f"No videos found with genre: {search_genre}")
 
 
+    # TypeError here is a strange issue to be cropping up - it seems that this is coming from the
+    # inconsistency in the video dictionary
     except TypeError as e:
+        # Log message is very informative
         logger.error("TypeError in search_genre: videos_dictionary must be a dictionary: %s", e)
         print("Error: videos_dictionary must be a dictionary")
     except Exception as e:
+        # See previous note on catching Exception
+        # Log message is very informative
         logger.error("Unexpected error while searching for genre: %s", e)
         print(f"An error occurred while searching for genre: {e}")
+#Option 2 def
 
 #option 4 def
 def show_user_history(users_dict: dict, videos_dict: dict) -> None:
@@ -125,6 +140,7 @@ def show_user_history(users_dict: dict, videos_dict: dict) -> None:
         videos_dict (dict): dictionary of all videos
     """
     try:
+        # Very good, user shouldn't need to keep providing this!
         username = logged_in_usernmae
 
         #checking if the username is in the dictionary
@@ -170,6 +186,7 @@ def show_user_history(users_dict: dict, videos_dict: dict) -> None:
         logger.error("Attribute error while showing user history: %s", e)
         print("An error occurred while showing user history")
     except Exception as e:
+        # See previous note
         logger.error("Unexpected error while showing user history: %s", e)
         print("An error occurred while showing user history")
 
@@ -451,6 +468,7 @@ def video_editor(video_dictionary: dict) -> None:
         if edit_choice == "1":
             new_description = input("Please enter the new desctiption you would like: ").strip()
             selected_video.description = new_description
+            # The change should be logged as well as informing the user that it worked
             print("New description has been changed")
             print(selected_video)
 
@@ -460,6 +478,7 @@ def video_editor(video_dictionary: dict) -> None:
                 new_duration = int(input("Enter new duration (in seconds): "))
                 # Should not be using direct access to duration in seconds
                 selected_video._duration_seconds = new_duration
+                # The change should be logged as well as informing the user that it worked
                 print("Duration updated!")
                 print(selected_video)
             except ValueError as e:
@@ -474,6 +493,7 @@ def video_editor(video_dictionary: dict) -> None:
                 new_year = int(input("Enter new release year: "))
                 # Direct access to protected value
                 selected_video._release_year = new_year
+                # The change should be logged as well as informing the user that it worked
                 print("Release year updated!")
                 print(selected_video)
             except ValueError as e:
@@ -500,9 +520,15 @@ def video_editor(video_dictionary: dict) -> None:
 
                 if valid_genre:
                     print(f"Genre '{new_genre}' added!")
+                    # This is a good example of compliance/audit logging, but you should be logging
+                    # what was changed, who changed it and what data was amended, not just that a change happened
                     logger.info("video_editor genre add: Chosen added successfully")
                     print(selected_video)
                 else:
+                    # This is a good example of compliance/audit logging for a failed attempt, but you should be logging
+                    # what change was attempted, who attempted it and what data they tried to change, not just that
+                    # an attempt failed
+
                     logger.info("video_editor genre add: Chosen genre does not exist")
                     print(f"Genre '{new_genre}' is invalid or already exists.")
 
@@ -515,10 +541,16 @@ def video_editor(video_dictionary: dict) -> None:
                     if genre_to_remove in selected_video.get_genres():
                         # Direct access to protected value
                         selected_video._genres.remove(genre_to_remove)
+
+                        # This is a good example of compliance/audit logging, but you should be logging
+                        # what was changed, who changed it and what data was amended, not just that a change happened
                         logger.info("video_editor genre remove: Chosen removed successfully")
                         print(f"Genre '{genre_to_remove}' removed!")
                         print(selected_video)
                     else:
+                        # This is a good example of compliance/audit logging for a failed attempt, but you should be logging
+                        # what change was attempted, who attempted it and what data they tried to change, not just that
+                        # an attempt failed
                         logger.info("video_editor genre remove: Chosen genre does not exist")
                         print(f"Genre '{genre_to_remove}' is invalid or already exists.")
 
