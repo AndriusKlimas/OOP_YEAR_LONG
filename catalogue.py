@@ -11,9 +11,11 @@ from typing import List, Optional
 #Creating the class
 class Video:
     #Created a class variable to stare all valid genres
+    # Good adjustment
     _VALID_GENRES = ["action", "comedy", "drama", "horror", "romance", "scifi", "documentary", "animation", "thriller", "crime"]
 
     #creating a constructor
+    # Good repair of default value for genre list
     def __init__(
         self,video_id: int,title: str,description: str,duration_seconds: int,release_year: int,genres: Optional[List[str]] = None) -> None:
         """Initialize a Video object.
@@ -24,32 +26,46 @@ class Video:
             description: Description of the video.
             duration_seconds: Duration of the video in seconds.
             release_year: Release year of the video.
+
+            # the Optional keyword is no longer the preferred approach as of python 3.10
+            # (we're now on 3.14 with 3.13 being the standard)
+            # we use the | to indicate where a type has multiple possibilities
+            # (and typeName | None to indicate it might not appear) as it's more readable
             genres: Optional list of genres; defaults to an empty list.
         """
+        # Good way to guarantee genres list will exist, but this won't guarantee that the genre content is valid
+        # You needed to check each genre in the incoming list to confirm it's acceptable before storing it
+        # in the final self._genres list
         self._genres: List[str] = list(genres) if genres is not None else []
 
         if not Video.validate_id(video_id):
             print("Invalid video id.")
+            # Exit will kill off the entire system without chance of recovery
+            # This situation should be raising an error to facilitate logging and potential recovery
             exit()
         self._video_id: int = video_id
 
         if not Video.validate_title(title):
             print("Invalid title.")
+            # See above note on exit()
             exit()
         self.title: str = title
 
         if not Video.validate_description(description):
             print("Invalid description.")
+            # See above note on exit()
             exit()
         self.description: str = description
 
         if not Video.validate_duration_seconds(duration_seconds):
             print("Invalid duration seconds.")
+            # See above note on exit()
             exit()
         self._duration_seconds: int = duration_seconds
 
         if not Video.validate_release_year(release_year):
             print("Invalid release year.")
+            # See above note on exit()
             exit()
         self._release_year: int = release_year
 
@@ -70,6 +86,7 @@ class Video:
         Returns:
             A copy of the list of all valid genres.
         """
+        # Good protection of encapsulation
         return list(Video._VALID_GENRES)
 
     #method to add genre
@@ -82,9 +99,17 @@ class Video:
         Returns:
             True if the genre was successfully added, False otherwise.
         """
+        # You have a method that will do this logic in an even better way (check_genre())
+        # it would be preferable to use that instead of redoing the work here
+        # Remember DRY - don't repeat yourself
         if not isinstance(genre,str):
             return False
 
+        # While you are changing the case of the genre when you store it,
+        # you're not doing the validation with a lowercase version. If you had included
+        # genre = genre.lower().strip()
+        # before doing this validation, you would guarantee consistency as you're adding
+        # the exact same thing you're validating
         if genre not in self._genres and Video.validate_genre(genre):
             self._genres.append(genre.lower().strip())
             return True
@@ -316,6 +341,7 @@ class Video:
             case _:
                 return "Please enter a valid format"
 
+    # Inclusion of type check and NotImplemented logic - good
     def __eq__(self, other: object) -> bool | NotImplementedType:
         """Check equality between two videos based on their video IDs.
 

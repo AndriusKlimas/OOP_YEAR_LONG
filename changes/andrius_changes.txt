@@ -13,5 +13,6 @@ create_default_videos()
 
 Added validation into the Video Class as it did not have any before.
 Added verification where needed
+Added validation for playrecord
 
 No other intersting chnages were made for the intrest of this version release

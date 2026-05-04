@@ -331,6 +331,10 @@ def video_remover(videos_dictionary: dict, remove_video: str) -> bool:
         title_key = None
 
         #finding all videos
+        # If the title is the key of the video, you shouldn't need to search with a loop.
+        # It's ok to store the keys in lowercase if this is the issue you're battling. Otherwise,
+        # video_list = videos_dictionary.get(title)
+        # will give you the list of Videos if there's one present, otherwise it will give you None
         for title, video_list in videos_dictionary.items():
             if search_video == title.strip().lower():
                 title_key = title
@@ -350,6 +354,8 @@ def video_remover(videos_dictionary: dict, remove_video: str) -> bool:
         #in this part will check how many iteams are added to teh list
         if len(videos_found) > 1:
             for num, video in enumerate(videos_found,1):
+                # The more robust way to handle this is to do it by video id, but popping from the specified position
+                # is a neat way to avoid excess processing!
                 print(f"{num}. Name= {Video.get_title(video)}, description = {Video.get_description(video)}, duration = {Video.get_duration_seconds(video)}, release_year = {Video.get_release_year(video)}")
 
             choice = int(input("Please enter the one you would like to remove(numbers only): "))
@@ -398,6 +404,7 @@ def video_editor(video_dictionary: dict) -> None:
     print("See all videos below")
 
     #displayas all the videos stored in a neat list
+    # This is a good inclusion but could be its own function - this part is not really about the remove action
     for title, videos in video_dictionary.items():
         for video in videos:
             print(f"\n{video_number}. Video ID: {Video.get_video_id(video)}")
