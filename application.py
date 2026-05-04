@@ -20,6 +20,8 @@ logger = logging.getLogger(__name__)
 def print_videos(videos_dictionary: dict) -> None:
     """ prints all videos in the dictionary
     args:
+    # This seems to be out of date information - is there a point in your code
+    # where you load the dictionary in this manner?
         videos_dictionary (dict): a dictionary of videos with key is title and value is Video object
 
     raises:
@@ -131,6 +133,7 @@ def show_user_history(users_dict: dict, videos_dict: dict) -> None:
             user_records = users_dict[username].get_history()
             print(f"Here is the play history for {username}: ")
 
+            # This could be moved to a dedicated function
             #loops through the info gotten
             for vid_id in user_records:
                 play_records_list = user_records[vid_id]
@@ -331,6 +334,7 @@ def video_remover(videos_dictionary: dict, remove_video: str) -> bool:
         for title, video_list in videos_dictionary.items():
             if search_video == title.strip().lower():
                 title_key = title
+                # This can be done more efficiently by checking for None
                 if isinstance(video_list, list):
                     videos_found = video_list
                 else:
@@ -365,6 +369,7 @@ def video_remover(videos_dictionary: dict, remove_video: str) -> bool:
             videos_found.pop(0)
 
         #checking if ther list is not empty, if it is then remove the key for dictioanry
+        # Nice tidy up inclusion!
         if not videos_found:
             del videos_dictionary[title_key]
 
@@ -446,6 +451,7 @@ def video_editor(video_dictionary: dict) -> None:
         elif edit_choice == "2":
             try:
                 new_duration = int(input("Enter new duration (in seconds): "))
+                # Should not be using direct access to duration in seconds
                 selected_video._duration_seconds = new_duration
                 print("Duration updated!")
                 print(selected_video)
@@ -454,10 +460,12 @@ def video_editor(video_dictionary: dict) -> None:
                 print("Invalid input. Duration must be a number.")
                 return None
 
+        # I recommend using #todo to mark what you want to change in future - it helps remind you
         # will change the release year using direct access
         elif edit_choice == "3":
             try:
                 new_year = int(input("Enter new release year: "))
+                # Direct access to protected value
                 selected_video._release_year = new_year
                 print("Release year updated!")
                 print(selected_video)
@@ -498,6 +506,7 @@ def video_editor(video_dictionary: dict) -> None:
                     genre_to_remove = input("Enter genre to remove: ").strip()
 
                     if genre_to_remove in selected_video.get_genres():
+                        # Direct access to protected value
                         selected_video._genres.remove(genre_to_remove)
                         logger.info("video_editor genre remove: Chosen removed successfully")
                         print(f"Genre '{genre_to_remove}' removed!")
@@ -571,6 +580,7 @@ def view_video_play(video_dict: dict, users_dict: dict) -> None:
         logger.error("An error occurred while viewing play history")
 
 
+# Very considerate for user experience!
 def sec_to_min(seconds: int) -> str:
     """Convert seconds to a human-readable minutes and seconds string.
 
@@ -613,6 +623,7 @@ def parse_videos(filename: str) -> dict:
         new_videos[title] = []
 
         #Goes throgh each video dictionary in the list for the title
+        # Good use of enumeration for logging record indication
         for i,video_dict in enumerate(videos_list, start=1):
             try:
                 #makes the class object using the from_dict in the video class
@@ -709,6 +720,10 @@ def create_default_users() -> dict:
     return us
 
 
+# This has been decomposed well. You will be splitting this into two separate components by moving the
+# logic to JsonVideoDataAccess/TextVideoDataAccess and JsonUserDataAccess/TextUserDataAccess classes,
+# but the way you have this set up will definitely help you as you have the two kept mostly separate
+# to begin with.
 def data_setup(parse_type: str, filename: str | None = None):
     """Prompt the user (up to 3 tries) for a filename and parse the file.
 
@@ -760,6 +775,8 @@ def user_login() -> tuple[bool, str]:
 
     Returns:
         tuple[bool, str]: A tuple containing:
+            This isn't really upholding POLA (principle of least astonishment) - if a login method returns
+            False, you'd expect the login attempt to have failed
             - bool: False if login successful, True if login failed
             - str: Username if successful, error message if failed
     """
@@ -767,6 +784,7 @@ def user_login() -> tuple[bool, str]:
     try:
         username = input().strip()
         if username not in users:
+            # Which username? This should be included here.
             logger.info("user_login: username not in dictionary")
             print("Username not found. Please try again.")
             return True, "Username not found"
@@ -774,6 +792,8 @@ def user_login() -> tuple[bool, str]:
         password = input().strip()
 
         try:
+            # The validate_login method shouldn't be part of User, as it's about the logic of this application
+            # It should be in this module (or more accurately, it will be in the service/application)
             user = User.validate_login(users, username, password)
         except Exception as e:
             logger.error("user_login: unexpected error when validating username/password %s",e)
@@ -818,15 +838,19 @@ def create_login(users:dict) -> tuple[bool, str]:
     try:
         print("Welcome new user")
         print("Please enter the username you would like: ")
+        # Username should be set to lowercase so that there are no case issues later
         username = input().strip()
         # Checking is the username already exists
         if username in users:
+            # Need to include the username with the issue in the log message
             logger.info("user_login: username already exists")
             return True, f"username {username} already exists"
         else:
             print("Please enter the password you would like: ")
             password = input().strip()
             valid_password = User.validate_password(password)
+            # Always take in the password twice when registering a user - it reduces the potential
+            # for problems due to typos
 
             if valid_password:
 
@@ -836,6 +860,14 @@ def create_login(users:dict) -> tuple[bool, str]:
 
                 # saving user to local dictionary
                 users[username] = new_user
+
+                # Very nice inclusion! It would be more efficient for you to do the write out
+                # at the end of the program's execution (when the user logs out) as then you don't
+                # keep updating the file. If you're concerned about losing the progress by the program not
+                # terminating correctly, you could have the data write to a temporary file.
+                # Append the record to the end (this is more efficient with text files than JSON) of a temp file.
+                # When the official "main" file is written to at the end of the program, delete the temp file. If
+                # the program crashes or is terminated early, the temp file contains the data to be inserted.
 
                 # loadin the currnt json file
                 with open("users.json", "r") as f:
@@ -851,6 +883,9 @@ def create_login(users:dict) -> tuple[bool, str]:
                 return False, username
 
             else:
+                # This implies the issue is in the login process, not the registration process
+                # No need to log where the password isn't strong enough, but you should log
+                # where the username selected fails
                 logger.info("user_login: password not pass validation")
                 return True, "password does not meet minimum requirements"
 
@@ -885,6 +920,7 @@ def admin_check(logged_in_usernmae:str) -> bool:
             return False
         else:
             return True
+    # There shouldn't be the possibility of an attribute error here
     except AttributeError as e:
         logger.error("AttributeError in admin_check: Username must be a string: %s", e)
         print("Error: Username must be a string")
@@ -932,6 +968,7 @@ def normal_login():
                 keep_going = True
 
 # Creating a dev login option
+# Good call moving it to a separate function
 def dev_mode():
     """Developer mode menu for auto-login testing without normal authentication.
 
@@ -986,6 +1023,7 @@ def normal_view(logged_in_usernmae):
     """
     user_run = True
     while user_run:
+        # Decompose opportunity - extract the menu display to a different function
         print(f"Welcome {logged_in_usernmae}, please choose one of the following:")
         print("1. View all Videos")
         print("2. Search for specific video")
@@ -1000,9 +1038,11 @@ def normal_view(logged_in_usernmae):
             case "1":
                 print_videos(videos)
             case "2":
+                # Extract to a separate function
                 search_video = input("Please enter the Video title you are looking for: ")
                 video_info = video_search(videos, search_video)
                 if video_info is not None:
+                    # It should only be possible for this to be None or a list - did this at some point return something else?
                     # isinstance is used to check if the iteam retuernd is a list, if it is then do the below source
                     # w3schools, stackoverflow
                     if isinstance(video_info, list):
@@ -1015,6 +1055,7 @@ def normal_view(logged_in_usernmae):
                     print("Video not found.")
 
             case "3":
+                # Extract to a separate function
                 # getting user to input the genre they are searching for
                 search_video_genre = input("Please enter the genre you would like to look for: ")
                 in_valid_genres = Video.validate_genre(search_video_genre)
@@ -1063,6 +1104,7 @@ def admin_view(logged_in_usernmae):
                 new_video(videos)
 
             case "2":
+                # Could be extracted to separate function
                 remove_video = input("Please enter the name of the video you would like to remove: ")
                 # calling the method to remove the video
                 video_removed = video_remover(videos, remove_video)

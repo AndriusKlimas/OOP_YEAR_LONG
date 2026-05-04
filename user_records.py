@@ -597,6 +597,7 @@ class User:
         list of dictionaries (as produced by PlayRecord.to_dict()).
         """
         try:
+            # No check for the type name - you add the type mapping in your to_dict() but you don't use it here.
             username = data["username"]
             password = data["password"]
             # Create user object (validates username/password)
@@ -655,6 +656,9 @@ class User:
         return data
 
     @staticmethod
+    # This method does not belong in here - it's not about this specific user or the rules for all users,
+    # it's about the business logic of this specific application, so it belongs in the application/business layer
+    # (this will be the service in your next release)
     def validate_login(user_dict: dict[str, str], username: str, password: str) -> bool:
         """Validates if the username entered is empty or not
         Args:
