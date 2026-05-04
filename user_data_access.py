@@ -84,3 +84,20 @@ class JSONUserDataAccess(IUserDataAccess):
         except Exception as e:
             logger.error(f"Error loading users from {self._filename}: {e}")
             raise
+
+
+    def store(self, users: dict[str, User]) -> None:
+        """Store users to JSON file
+
+        Args:
+        users: Dict of users
+
+        """
+        try:
+            users_list = [user.to_dict() for user in users.values()]
+            with open(self._filename, "w") as file:
+                json.dump(users_list, file, indent=2)
+            logger.info(f"Successfully saved {len(users_list)} to file {self._filename}")
+        except Exception as e:
+            logger.error(f"Error saving users to {self._filename}: {e}")
+            raise
