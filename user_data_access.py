@@ -3,6 +3,7 @@ from user_records import User
 import json
 import logging
 
+logger = logging.getLogger(__name__)
 
 class IUserDataAccess(ABC):
     """Abstract class to store and retrieve user data from database
@@ -53,3 +54,33 @@ class JSONUserDataAccess(IUserDataAccess):
 
         self._filename = filename
 
+
+    def load(self) -> dict[str, User]:
+        """Load user data from JSON file
+
+        Returns:
+            dict[str, User]: Dict of users
+
+        Raises:
+            ValueError: If JSON is malformed or doesnt contain user data
+        """
+        try:
+            with open(self._filename, "r") as file:
+                users_list = json.load(file)
+
+            users_dict = {}
+            for i, user_data in enumerate(users_list, start=1):
+                try:
+                    user = User.from_dict(user_data)
+                    users_dict[user.get_username()] = user
+                except Exception as e:
+                    print(f"Invalid user record #{i} in {self._filename}: {e}")
+                    logger.error(f"Invalid user record #{i} in {self._filename}: {e}")
+                    continue
+
+            logger.info(f"Successfully loaded {len(users_dict)} users from {self._filename}")
+            return users_dict
+
+        except Exception as e:
+            logger.error(f"Error loading users from {self._filename}: {e}")
+            raise
