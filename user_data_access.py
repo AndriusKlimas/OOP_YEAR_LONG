@@ -31,3 +31,25 @@ class IUserDataAccess(ABC):
         """
         pass
 
+
+class JSONUserDataAccess(IUserDataAccess):
+
+    def __init__(self, filename: str):
+        """Initialises JSON data access
+
+        Args:
+            filename(str): Path to JSON file
+
+        Raises:
+            FileNotFoundError: If user data file not exists
+
+        """
+
+        try:
+            with open(filename, "r") as file:
+                pass
+        except FileNotFoundError:
+            raise FileNotFoundError(f"File not found: {filename}")
+
+        self._filename = filename
+
