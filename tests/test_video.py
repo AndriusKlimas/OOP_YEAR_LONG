@@ -16,10 +16,15 @@ class TestVideoCreation:
         assert video.get_release_year() == 2010
         assert video.get_genres() == ["scifi", "action"]
 
+    # No tests for the failed validation situations in Video creation
+
 
 class TestVideoRetrieval:
     """Test Video object retrieval"""
 
+    # Each of the following tests contains the same issue - they all have a redundant assert
+    # (where you have already confirmed that a variable equals X, there is no point also confirming
+    # it does not equal Y)
     def test_get_title(self):
         """Test the get_title() method"""
         video = Video(2, "The Matrix", "A hacker discovers reality", 8160, 1999, ["scifi", "action"])
@@ -55,6 +60,8 @@ class TestVideoRetrieval:
         assert video.get_release_year() == 1999
         assert video.get_release_year() != 1900
 
+    # This one should have a few more test cases - does the method behave as expected when the genre list is empty?
+    # Does it perform ok when there is only one genre in the list?
     def test_get_genres(self):
         """Test the get_genres() method"""
         video = Video(2, "The Matrix", "A hacker discovers reality", 8160, 1999, ["scifi", "action"])
@@ -62,7 +69,11 @@ class TestVideoRetrieval:
         assert video.get_genres() == ["scifi", "action"]
         assert video.get_genres() != ["scifi", "a"]
 
-
+# Many of the following tests could be made more efficiently with the use of parameterised testing
+# the logic of the tests is consistent across all cases, the only thing that changes is
+# the data for the test input and the expected result. Rather than writing the same test over and over,
+# you could write it once and supplied a set of test case parameters that will be used while
+# running the test multiple times
 
 class TestAddGenre:
     """Test adding genres to a video"""
@@ -73,6 +84,12 @@ class TestAddGenre:
 
         assert result is True
         assert "horror" in video.get_genres()
+        # You've gotten two of the asserts for this situation spot on:
+        # 1) Did it give the right answer
+        # 2) Did it add the value to the genres list
+
+        # You also need to confirm it didn't break the original information - does it still contain
+        # "scifi" and "action" and are they in the right order?
 
     def test_add_genre_invalid_genre_fail(self):
         """Test adding a valid genre fails"""
@@ -80,6 +97,7 @@ class TestAddGenre:
         result = video.add_genre("fake_genre")
 
         assert result is False
+        # Very important one to include!
         assert "fake_genre" not in video.get_genres()
 
     def test_add_genre_duplicate_fails(self):
@@ -109,6 +127,7 @@ class TestAddGenre:
         assert "horror" in video.get_genres()
         assert "drama" in video.get_genres()
 
+    # Very good test case to include!
     def test_add_genre_case_insensitive(self):
         """Test adding a genre case insensitive"""
         video = Video(1, "The Matrix", "A hacker discovers reality", 8160, 1999, ["scifi", "action"])
@@ -180,6 +199,7 @@ class TestCheckGenre:
         assert result is True
 
 class TestValidationReturnValidGenre:
+    # GREAT one to include!!
     def test_return_valid_genres_is_copy(self):
         """Test that return_valid_genres() returns a copy, not the original"""
         result1 = Video.return_valid_genres()
@@ -380,6 +400,8 @@ class TestValidateRelaeseYear:
 
 
 class TestBetterPractice:
+    # You have separated these test cases well - many students will combine them into a single method/one method per
+    # method being tested, but this will not work correctly where the test fails. You have not fallen into that trap!
     def test_hash_returns_integer(self):
         """Test that hash returns an integer"""
         video = Video(1, "Inception", "A mind-bending thriller", 8880, 2010, ["scifi"])
@@ -508,6 +530,7 @@ class TestVideoFromDict:
             "release_year": 2010,
             "genres": ["scifi", "thriller"]
         }
+        # Very good. Might be worth looking into whether you can also check if the exception message mentions JSON
         with pytest.raises(ValueError):
             Video.from_dict(data)
 
@@ -521,6 +544,7 @@ class TestVideoFromDict:
             "release_year": 2010,
             "genres": ["scifi"]
         }
+        # Very good. Might be worth looking into whether you can also check if the exception message mentions JSON
         with pytest.raises(ValueError):
             Video.from_dict(data)
 
@@ -539,6 +563,7 @@ class TestVideoFromDict:
 
     def test_from_dict_invalid_genres_type(self):
         """Test from_dict raises error for genres not being a list"""
+        # Good case to test
         data = {
             "video_id": 1,
             "title": "Inception",
