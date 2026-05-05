@@ -17,4 +17,4 @@ class VideoService:
         print("\n✅ Users loaded:")
         for video_name in self.__usable_video_data.keys():
             print(f"  - {video_name}")
-        print(f"Total users: {len(self.__usable_video_data)}\n")
+        print(f"Total videos: {len(self.__usable_video_data)}\n")

@@ -77,3 +77,4 @@
 { "time": "2026-05-05 17:56:17,344", "function": "load", "level": "INFO", "message": "Successfully loaded videos from videos.json" }
 { "time": "2026-05-05 17:56:20,560", "function": "load", "level": "INFO", "message": "Successfully loaded 6 users from users.json" }
 { "time": "2026-05-05 17:56:31,003", "function": "user_login_serv", "level": "INFO", "message": "user_login: successfully logged in" }
+{ "time": "2026-05-05 18:00:23,832", "function": "load", "level": "INFO", "message": "Successfully loaded default videos" }

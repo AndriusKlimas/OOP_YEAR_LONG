@@ -10,6 +10,7 @@ from user_service import UserService
 from user_data_access import JSONUserDataAccess
 from video_service import VideoService
 from video_data_access import JSONVideoDataAccess
+from video_data_access import DefaultVideoDataAccess
 
 #Need to add this to the service area
 def config_log_json() -> None:
@@ -36,8 +37,13 @@ def load_user_model() -> UserService:
 def load_video_model() -> VideoService:
     filename = ""
     try:
-        filename = input("Enter the path of the video model file: ")
-        video_doa = JSONVideoDataAccess(filename)
+        filename = input("Enter the path of the video model file or 'default': ").strip()
+
+        if filename.lower() == "default":
+            video_doa = DefaultVideoDataAccess()
+        else:
+            video_doa = JSONVideoDataAccess(filename)
+
         video_service = VideoService(video_doa)
         video_service.load_serv_video()
         return video_service
