@@ -3,7 +3,7 @@ from catalogue import Video
 import json
 import logging
 
-from video_service import VideoService
+
 
 logger = logging.getLogger(__name__)
 
