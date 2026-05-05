@@ -5,6 +5,7 @@ import json
 import logging.config
 from catalogue import Video
 from user_records import User
+from user_service import UserService
 
 #Need to add this to the service area
 def config_log_json() -> None:
@@ -769,6 +770,7 @@ def user_login() -> tuple[bool, str]:
             - str: Username if successful, error message if failed
     """
     print("Enter username:")
+
     try:
         username = input().strip()
         if username not in users:
