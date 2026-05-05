@@ -98,3 +98,37 @@ class JSONVideoDataAccess(IVideoDataAccess):
         except Exception as e:
             logger.error(f"Error saving videos to {self._filename}: {e}")
             raise
+
+class DefaultVideoDataAccess:
+    """Provides default preset video data"""
+
+    @staticmethod
+    def load() -> dict[str, list[Video]]:
+        """Load default preset video data
+
+        Returns:
+            dict[str, list[Video]]: Dict with titles as keys and lists of Video objects as values
+        """
+        v1 = Video(video_id=1, title="Inception", description="A mind-bending thriller",
+                   duration_seconds=8880, release_year=2010, genres=["sci-fi", "thriller"])
+        v2 = Video(video_id=2, title="The Matrix", description="A hacker discovers reality",
+                   duration_seconds=8160, release_year=1999, genres=["sci-fi", "action"])
+        v3 = Video(video_id=3, title="The Godfather", description="Crime family saga",
+                   duration_seconds=10500, release_year=1972, genres=["drama", "crime"])
+        v4 = Video(video_id=4, title="Toy Story", description="Toys come to life",
+                   duration_seconds=4860, release_year=1995, genres=["animation", "comedy"])
+        v5 = Video(video_id=5, title="Up", description="Balloon building",
+                   duration_seconds=16732, release_year=2008, genres=["animation", "drama"])
+        v6 = Video(video_id=6, title="Up", description="Something else",
+                   duration_seconds=23143, release_year=2008, genres=["animation", "comedy"])
+
+        videos_dict = {}
+        for v in [v1, v2, v3, v4, v5, v6]:
+            title = v.get_title()
+            if title in videos_dict:
+                videos_dict[title].append(v)
+            else:
+                videos_dict[title] = [v]
+
+        logger.info("Successfully loaded default videos")
+        return videos_dict
