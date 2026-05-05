@@ -1183,10 +1183,10 @@ if __name__ == "__main__":
 
     # Users
     valid = False
-    User_service = None
+    user_service = None
     while not valid:
-        User_service = load_user_model()
-        if User_service is not None:
+        user_service = load_user_model()
+        if user_service is not None:
             valid = True
     # user_filename = input(
     #     "Please enter a filename where user information is stored or press Enter to use defaults: ").strip()
