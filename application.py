@@ -7,6 +7,8 @@ from catalogue import Video
 from user_records import User
 from user_service import UserService
 from user_data_access import JSONUserDataAccess
+from video_service import VideoService
+from video_data_access import JSONVideoDataAccess
 
 #Need to add this to the service area
 def config_log_json() -> None:
@@ -24,8 +26,20 @@ def load_user_model() -> UserService:
         filename = input("Enter the path of the user model file: ")
         user_doa = JSONUserDataAccess(filename)
         user_service = UserService(user_doa)
-        user_service.load_serv()
+        user_service.load_serv_user()
         return user_service
+    except FileNotFoundError as e:
+        logger.error(f"File {filename} not found")
+        return None
+
+def load_video_model() -> VideoService:
+    filename = ""
+    try:
+        filename = input("Enter the path of the user model file: ")
+        Video_doa = JSONVideoDataAccess(filename)
+        Video_service = UserService(Video_doa)
+        Video_service.load_serv_video()
+        return Video_service
     except FileNotFoundError as e:
         logger.error(f"File {filename} not found")
         return None
@@ -1147,25 +1161,31 @@ def admin_view(logged_in_usernmae):
 
 if __name__ == "__main__":
 
-    # Videos
-    video_filename = input(
-        "Please enter a filename (json) where video information is stored or press Enter to use defaults: ").strip()
-    vdata = data_setup("videos", video_filename)
-    if vdata is None:
-        videos = create_default_videos()
-        logger.info("Video data set up using hardcoded information")
-    else:
-        # vdata is a list of Video objects
-        videos = vdata
-        logger.info("Video data set up using json information")
+    # # Videos
+    valid = False
+    Video_service = None
+    while not valid:
+        Video_service = load_video_model()
+        if Video_service is not None:
+            valid = True
+    # video_filename = input(
+    #     "Please enter a filename (json) where video information is stored or press Enter to use defaults: ").strip()
+    # vdata = data_setup("videos", video_filename)
+    # if vdata is None:
+    #     videos = create_default_videos()
+    #     logger.info("Video data set up using hardcoded information")
+    # else:
+    #     # vdata is a list of Video objects
+    #     videos = vdata
+    #     logger.info("Video data set up using json information")
 
 
     # Users
     valid = False
-    ticket_service = None
+    User_service = None
     while not valid:
-        ticket_service = load_user_model()
-        if ticket_service is not None:
+        User_service = load_user_model()
+        if User_service is not None:
             valid = True
     # user_filename = input(
     #     "Please enter a filename where user information is stored or press Enter to use defaults: ").strip()

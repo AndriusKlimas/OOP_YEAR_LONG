@@ -8,7 +8,7 @@ class UserService:
         self.__usable_user_data = {}
 
 
-    def load_serv(self):
+    def load_serv_user(self):
         if not self.__user_data:
             raise AttributeError("No user_data class present- cannot load data")
 
