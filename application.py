@@ -35,11 +35,11 @@ def load_user_model() -> UserService:
 def load_video_model() -> VideoService:
     filename = ""
     try:
-        filename = input("Enter the path of the user model file: ")
-        Video_doa = JSONVideoDataAccess(filename)
-        Video_service = UserService(Video_doa)
-        Video_service.load_serv_video()
-        return Video_service
+        filename = input("Enter the path of the video model file: ")
+        video_doa = JSONVideoDataAccess(filename)
+        video_service = VideoService(video_doa)
+        video_service.load_serv_video()
+        return video_service
     except FileNotFoundError as e:
         logger.error(f"File {filename} not found")
         return None

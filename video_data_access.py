@@ -8,7 +8,31 @@ from video_service import VideoService
 logger = logging.getLogger(__name__)
 
 
-class JSONVideoDataAccess():
+class IVideoDataAccess(ABC):
+    """Abstract class to store and retrieve video data from database"""
+
+    @abstractmethod
+    def load(self) -> dict[str, list[Video]]:
+        """Load videos from file
+
+        Returns:
+            dict[str, list[Video]]: Dict with titles as keys and lists of Video objects as values
+
+        Raises:
+            FileNotFoundError: If video data file not exists
+        """
+        pass
+
+    @abstractmethod
+    def store(self, data: dict[str, list[Video]]) -> None:
+        """Store video data to database
+
+        Args:
+            data (dict[str, list[Video]]): Dict with titles as keys and lists of Video objects as values
+        """
+        pass
+
+class JSONVideoDataAccess(IVideoDataAccess):
     def __init__(self, filename: str):
         """Initialises JSON data access
 

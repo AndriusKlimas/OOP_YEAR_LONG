@@ -1,5 +1,4 @@
-from video_data_access import *
-from catalogue import Video
+
 
 class VideoService:
     def __init__(self, video_data):
