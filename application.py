@@ -6,6 +6,7 @@ import logging.config
 from catalogue import Video
 from user_records import User
 from user_service import UserService
+from user_data_access import JSONUserDataAccess
 
 #Need to add this to the service area
 def config_log_json() -> None:
@@ -16,6 +17,21 @@ def config_log_json() -> None:
 
 config_log_json()
 logger = logging.getLogger(__name__)
+
+def load_user_model() -> UserService:
+    filename = ""
+    try:
+        filename = input("Enter the path of the user model file: ")
+        user_doa = JSONUserDataAccess(filename)
+        user_service = UserService(user_doa)
+        user_service.load_serv()
+        return user_service
+    except FileNotFoundError as e:
+        logger.error(f"File {filename} not found")
+        return None
+
+
+
 
 
 #Option 1 def
@@ -1140,15 +1156,21 @@ if __name__ == "__main__":
 
 
     # Users
-    user_filename = input(
-        "Please enter a filename where user information is stored or press Enter to use defaults: ").strip()
-    udata = data_setup("users", user_filename)
-    if udata is None:
-        users = create_default_users()
-        logger.info("User data set up using hardcoded information")
-    else:
-        users = {u.get_username(): u for u in udata}
-        logger.info("User data set up using json information")
+    valid = False
+    ticket_service = None
+    while not valid:
+        ticket_service = load_user_model ()
+        if ticket_service is not None:
+            valid = True
+    # user_filename = input(
+    #     "Please enter a filename where user information is stored or press Enter to use defaults: ").strip()
+    # udata = data_setup("users", user_filename)
+    # if udata is None:
+    #     users = create_default_users()
+    #     logger.info("User data set up using hardcoded information")
+    # else:
+    #     users = {u.get_username(): u for u in udata}
+    #     logger.info("User data set up using json information")
 
 
 

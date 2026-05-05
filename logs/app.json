@@ -1,0 +1,23 @@
+{ "time": "2026-05-05 13:44:51,352", "function": "<module>", "level": "INFO", "message": "Video data set up using json information" }
+{ "time": "2026-05-05 13:51:22,274", "function": "<module>", "level": "INFO", "message": "Video data set up using json information" }
+{ "time": "2026-05-05 13:51:55,379", "function": "<module>", "level": "INFO", "message": "Video data set up using hardcoded information" }
+{ "time": "2026-05-05 13:51:57,724", "function": "load_user_model", "level": "ERROR", "message": "File  not found" }
+{ "time": "2026-05-05 13:52:20,804", "function": "load_user_model", "level": "ERROR", "message": "File  not found" }
+{ "time": "2026-05-05 13:52:21,563", "function": "load_user_model", "level": "ERROR", "message": "File  not found" }
+{ "time": "2026-05-05 13:54:52,256", "function": "<module>", "level": "INFO", "message": "Video data set up using hardcoded information" }
+{ "time": "2026-05-05 13:54:52,738", "function": "load_user_model", "level": "ERROR", "message": "File  not found" }
+{ "time": "2026-05-05 13:54:53,268", "function": "load_user_model", "level": "ERROR", "message": "File  not found" }
+{ "time": "2026-05-05 13:54:53,765", "function": "load_user_model", "level": "ERROR", "message": "File  not found" }
+{ "time": "2026-05-05 13:57:49,971", "function": "<module>", "level": "INFO", "message": "Video data set up using hardcoded information" }
+{ "time": "2026-05-05 13:57:50,481", "function": "load_user_model", "level": "ERROR", "message": "File  not found" }
+{ "time": "2026-05-05 13:57:51,058", "function": "load_user_model", "level": "ERROR", "message": "File  not found" }
+{ "time": "2026-05-05 13:57:51,655", "function": "load_user_model", "level": "ERROR", "message": "File  not found" }
+{ "time": "2026-05-05 14:01:43,895", "function": "<module>", "level": "INFO", "message": "Video data set up using hardcoded information" }
+{ "time": "2026-05-05 14:03:00,047", "function": "<module>", "level": "INFO", "message": "Video data set up using hardcoded information" }
+{ "time": "2026-05-05 14:03:38,436", "function": "<module>", "level": "INFO", "message": "Video data set up using hardcoded information" }
+{ "time": "2026-05-05 14:03:41,445", "function": "load_user_model", "level": "ERROR", "message": "File users,json not found" }
+{ "time": "2026-05-05 14:06:47,675", "function": "<module>", "level": "INFO", "message": "Video data set up using hardcoded information" }
+{ "time": "2026-05-05 14:07:46,859", "function": "<module>", "level": "INFO", "message": "Video data set up using hardcoded information" }
+{ "time": "2026-05-05 14:07:50,728", "function": "load", "level": "INFO", "message": "Successfully loaded 6 users from users.json" }
+{ "time": "2026-05-05 14:11:08,071", "function": "<module>", "level": "INFO", "message": "Video data set up using hardcoded information" }
+{ "time": "2026-05-05 14:11:11,371", "function": "load", "level": "INFO", "message": "Successfully loaded 6 users from users.json" }
