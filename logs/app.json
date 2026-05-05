@@ -23,3 +23,31 @@
 { "time": "2026-05-05 14:11:11,371", "function": "load", "level": "INFO", "message": "Successfully loaded 6 users from users.json" }
 { "time": "2026-05-05 14:35:26,078", "function": "<module>", "level": "INFO", "message": "Video data set up using hardcoded information" }
 { "time": "2026-05-05 14:35:29,736", "function": "load", "level": "INFO", "message": "Successfully loaded 6 users from users.json" }
+{ "time": "2026-05-05 14:41:45,705", "function": "<module>", "level": "INFO", "message": "Video data set up using hardcoded information" }
+{ "time": "2026-05-05 14:41:48,454", "function": "load", "level": "INFO", "message": "Successfully loaded 6 users from users.json" }
+{ "time": "2026-05-05 14:44:44,448", "function": "<module>", "level": "INFO", "message": "Video data set up using hardcoded information" }
+{ "time": "2026-05-05 14:44:47,595", "function": "load", "level": "INFO", "message": "Successfully loaded 6 users from users.json" }
+{ "time": "2026-05-05 14:44:56,946", "function": "user_login_serv", "level": "ERROR", "message": "Unexpected error during user_login: UserService.get_user_data() missing 1 required positional argument: 'self'" }
+{ "time": "2026-05-05 14:47:03,704", "function": "<module>", "level": "INFO", "message": "Video data set up using hardcoded information" }
+{ "time": "2026-05-05 14:47:06,364", "function": "load", "level": "INFO", "message": "Successfully loaded 6 users from users.json" }
+{ "time": "2026-05-05 14:49:51,312", "function": "<module>", "level": "INFO", "message": "Video data set up using hardcoded information" }
+{ "time": "2026-05-05 14:49:54,459", "function": "load", "level": "INFO", "message": "Successfully loaded 6 users from users.json" }
+{ "time": "2026-05-05 14:50:00,557", "function": "user_login_serv", "level": "INFO", "message": "user_login: username not in dictionary" }
+{ "time": "2026-05-05 14:50:52,984", "function": "<module>", "level": "INFO", "message": "Video data set up using hardcoded information" }
+{ "time": "2026-05-05 14:50:56,659", "function": "load", "level": "INFO", "message": "Successfully loaded 6 users from users.json" }
+{ "time": "2026-05-05 14:51:22,550", "function": "<module>", "level": "INFO", "message": "Video data set up using hardcoded information" }
+{ "time": "2026-05-05 14:51:25,364", "function": "load", "level": "INFO", "message": "Successfully loaded 6 users from users.json" }
+{ "time": "2026-05-05 14:51:31,162", "function": "user_login_serv", "level": "INFO", "message": "user_login: failed to log in" }
+{ "time": "2026-05-05 14:54:22,581", "function": "<module>", "level": "INFO", "message": "Video data set up using hardcoded information" }
+{ "time": "2026-05-05 14:54:25,165", "function": "load", "level": "INFO", "message": "Successfully loaded 6 users from users.json" }
+{ "time": "2026-05-05 14:54:31,507", "function": "user_login_serv", "level": "INFO", "message": "user_login: failed to log in" }
+{ "time": "2026-05-05 14:56:06,362", "function": "<module>", "level": "INFO", "message": "Video data set up using hardcoded information" }
+{ "time": "2026-05-05 14:56:09,259", "function": "load", "level": "INFO", "message": "Successfully loaded 6 users from users.json" }
+{ "time": "2026-05-05 14:56:15,913", "function": "user_login_serv", "level": "INFO", "message": "user_login: failed to log in" }
+{ "time": "2026-05-05 14:56:42,477", "function": "user_login_serv", "level": "INFO", "message": "user_login: failed to log in" }
+{ "time": "2026-05-05 14:56:56,835", "function": "user_login_serv", "level": "INFO", "message": "user_login: successfully logged in" }
+{ "time": "2026-05-05 14:58:05,838", "function": "<module>", "level": "INFO", "message": "Video data set up using hardcoded information" }
+{ "time": "2026-05-05 14:58:09,786", "function": "load", "level": "INFO", "message": "Successfully loaded 6 users from users.json" }
+{ "time": "2026-05-05 14:58:18,207", "function": "user_login_serv", "level": "INFO", "message": "user_login: failed to log in" }
+{ "time": "2026-05-05 14:58:30,306", "function": "user_login_serv", "level": "INFO", "message": "user_login: username not in dictionary" }
+{ "time": "2026-05-05 14:58:38,318", "function": "user_login_serv", "level": "INFO", "message": "user_login: successfully logged in" }

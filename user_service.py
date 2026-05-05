@@ -31,12 +31,9 @@ class UserService:
 
 
         try:
-            username = input().strip()
             if username not in self.__usable_user_data:
                 logger.info("user_login: username not in dictionary")
-                print("Username not found. Please try again.")
                 return True, "Username not found"
-            password = input().strip()
 
             try:
                 user = User.validate_login(self.__usable_user_data, username, password)

@@ -787,7 +787,8 @@ def user_login() -> tuple[bool, str]:
     """
     username = input("Username: ")
     password = input("Password: ")
-    valid, valid_name = UserService.user_login_serv(username, password)
+    valid, valid_name = ticket_service.user_login_serv(username, password)
+    return valid, valid_name
 
     # print("Enter username:")
     #
@@ -1163,7 +1164,7 @@ if __name__ == "__main__":
     valid = False
     ticket_service = None
     while not valid:
-        ticket_service = load_user_model ()
+        ticket_service = load_user_model()
         if ticket_service is not None:
             valid = True
     # user_filename = input(
