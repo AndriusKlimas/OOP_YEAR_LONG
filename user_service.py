@@ -57,3 +57,42 @@ class UserService:
             return True, "An unexpected error occurred during login"
 
 
+    def create_login_srv(self, username, password) -> tuple[bool, str]:
+        try:
+            # Checking is the username already exists
+            if username in self.__usable_user_data:
+                logger.info("user_login: username already exists")
+                return True, f"username {username} already exists"
+            else:
+                valid_password = User.validate_password(password)
+                logger.info("user_login: validating password")
+
+                if valid_password:
+                    # creating the class object
+                    new_user = User(username, password)
+                    logger.info("user_login: created new user")
+
+                    # saving user to local dictionary
+                    self.__usable_user_data[username] = new_user
+
+                    # saving to json file
+                    self.__user_data.store(self.__usable_user_data)
+
+                    return False, username
+
+                else:
+                    logger.info("user_login: password not pass validation")
+                    return True, "password does not meet minimum requirements"
+
+        except KeyError as e:
+            logger.error("KeyError in create_login: Users dictionary not found %s", e)
+            return True, "Error: Users dictionary not accessible"
+
+        except ValueError as e:
+            logger.error("ValueError in create_login: Invalid input provided %s", e)
+            return True, "Error: Invalid input"
+        except Exception as e:
+            logger.error("Unexpected error during create_login: %s", e)
+            return True, "An unexpected error occurred during account creation"
+
+

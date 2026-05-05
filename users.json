@@ -2,8 +2,7 @@
   {
     "type": "User",
     "username": "admin",
-    "password": "Password1!",
-    "play_history": []
+    "password": "Password1!"
   },
   {
     "type": "User",
@@ -93,5 +92,10 @@
         "position_in_seconds": 60
       }
     ]
+  },
+  {
+    "type": "User",
+    "username": "meep",
+    "password": "1Password"
   }
 ]

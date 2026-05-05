@@ -39,6 +39,10 @@ def load_video_model() -> VideoService:
     try:
         filename = input("Enter the path of the video model file or 'default': ").strip()
 
+        if filename.lower() == "users.json":
+            logger.error("Trying to access the users file instead of videos file")
+            return None
+
         if filename.lower() == "default":
             video_doa = DefaultVideoDataAccess()
         else:
@@ -848,7 +852,7 @@ def user_login() -> tuple[bool, str]:
     #     return True, "An unexpected error occurred during login"
 
 #need to add to service
-def create_login(users:dict) -> tuple[bool, str]:
+def create_login() -> tuple[bool, str]:
     """ getting the user to create and account and saving to json file
 
     args:
@@ -864,46 +868,49 @@ def create_login(users:dict) -> tuple[bool, str]:
     KeyError: Users dictionary not found
     Exception: An unexpected error occurred during account creation
     """
+
     try:
         print("Welcome new user")
         print("Please enter the username you would like: ")
         username = input().strip()
-        # Checking is the username already exists
-        if username in users:
-            logger.info("user_login: username already exists")
-            return True, f"username {username} already exists"
-        else:
-            print("Please enter the password you would like: ")
-            password = input().strip()
-            valid_password = User.validate_password(password)
+        print("Please enter the password you would like: ")
+        password = input().strip()
+        valid, username = user_service.create_login_srv(username, password)
+        return valid, username
+        # # Checking is the username already exists
+        # if username in users:
+        #     logger.info("user_login: username already exists")
+        #     return True, f"username {username} already exists"
+        # else:
+        #     print("Please enter the password you would like: ")
+        #     password = input().strip()
+        #     valid_password = User.validate_password(password)
 
-            if valid_password:
-
-                # creating the class object
-                new_user = User(username, password)
-                print(f"New user created {username}")
-
-                # saving user to local dictionary
-                users[username] = new_user
+            # if valid_password:
+            #
+            #     # creating the class object
+            #     new_user = User(username, password)
+            #     print(f"New user created {username}")
+            #
+            #     # saving user to local dictionary
+            #     users[username] = new_user
 
                 # loadin the currnt json file
-                with open("users.json", "r") as f:
-                    existing_users = json.load(f)
-
-                # adding the new user made to the dict, using the method to_dict to assist
-                existing_users.append(new_user.to_dict())
-
-                # writing back to the json file
-                with open("users.json", "w") as f:
-                    json.dump(existing_users, f)
-
-                return False, username
-
-            else:
-                logger.info("user_login: password not pass validation")
-                return True, "password does not meet minimum requirements"
-
-
+                # with open("users.json", "r") as f:
+                #     existing_users = json.load(f)
+                #
+                # # adding the new user made to the dict, using the method to_dict to assist
+                # existing_users.append(new_user.to_dict())
+                #
+                # # writing back to the json file
+                # with open("users.json", "w") as f:
+                #     json.dump(existing_users, f)
+                # return False, username
+    #         else:
+    #             logger.info("user_login: password not pass validation")
+    #             return True, "password does not meet minimum requirements"
+    #
+    #
     except KeyError as e:
         logger.error("KeyError in create_login: Users dictionary not found %s", e)
         print("Error: Users dictionary not found")
@@ -970,7 +977,7 @@ def normal_login():
 
 
             case "2":
-                keep_going, username = create_login(users)
+                keep_going, username = create_login()
                 if keep_going == False:
                     return username
 

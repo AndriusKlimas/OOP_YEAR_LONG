@@ -78,3 +78,22 @@
 { "time": "2026-05-05 17:56:20,560", "function": "load", "level": "INFO", "message": "Successfully loaded 6 users from users.json" }
 { "time": "2026-05-05 17:56:31,003", "function": "user_login_serv", "level": "INFO", "message": "user_login: successfully logged in" }
 { "time": "2026-05-05 18:00:23,832", "function": "load", "level": "INFO", "message": "Successfully loaded default videos" }
+{ "time": "2026-05-05 18:34:51,844", "function": "load", "level": "ERROR", "message": "Error loading videos from users.json: 'list' object has no attribute 'items'" }
+{ "time": "2026-05-05 18:35:25,841", "function": "load", "level": "INFO", "message": "Successfully loaded videos from videos.json" }
+{ "time": "2026-05-05 18:35:29,909", "function": "load", "level": "INFO", "message": "Successfully loaded 6 users from users.json" }
+{ "time": "2026-05-05 18:36:06,261", "function": "load", "level": "INFO", "message": "Successfully loaded videos from videos.json" }
+{ "time": "2026-05-05 18:36:09,627", "function": "load", "level": "INFO", "message": "Successfully loaded 6 users from users.json" }
+{ "time": "2026-05-05 18:36:45,606", "function": "load", "level": "INFO", "message": "Successfully loaded videos from videos.json" }
+{ "time": "2026-05-05 18:36:49,596", "function": "load", "level": "INFO", "message": "Successfully loaded 6 users from users.json" }
+{ "time": "2026-05-05 18:36:59,334", "function": "create_login_srv", "level": "INFO", "message": "user_login: validating password" }
+{ "time": "2026-05-05 18:36:59,335", "function": "create_login_srv", "level": "INFO", "message": "user_login: password not pass validation" }
+{ "time": "2026-05-05 18:37:25,157", "function": "load", "level": "INFO", "message": "Successfully loaded videos from videos.json" }
+{ "time": "2026-05-05 18:37:28,480", "function": "load", "level": "INFO", "message": "Successfully loaded 6 users from users.json" }
+{ "time": "2026-05-05 18:37:35,036", "function": "create_login_srv", "level": "INFO", "message": "user_login: username already exists" }
+{ "time": "2026-05-05 18:37:53,617", "function": "create_login_srv", "level": "INFO", "message": "user_login: validating password" }
+{ "time": "2026-05-05 18:37:53,618", "function": "create_login_srv", "level": "INFO", "message": "user_login: created new user" }
+{ "time": "2026-05-05 18:37:53,620", "function": "store", "level": "INFO", "message": "Successfully saved 7 to file users.json" }
+{ "time": "2026-05-05 18:38:10,812", "function": "load_video_model", "level": "ERROR", "message": "File dasda not found" }
+{ "time": "2026-05-05 18:38:14,238", "function": "load_video_model", "level": "ERROR", "message": "File dndsajk.json not found" }
+{ "time": "2026-05-05 18:38:19,532", "function": "load", "level": "ERROR", "message": "Error loading videos from users.json: 'list' object has no attribute 'items'" }
+{ "time": "2026-05-05 18:41:59,907", "function": "load_video_model", "level": "ERROR", "message": "Trying to access the users file instead of videos file" }
