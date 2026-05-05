@@ -3,10 +3,13 @@ from __future__ import annotations
 
 import json
 import logging.config
+
 from catalogue import Video
 from user_records import User
 from user_service import UserService
 from user_data_access import JSONUserDataAccess
+from video_service import VideoService
+from video_data_access import JSONVideoDataAccess
 
 #Need to add this to the service area
 def config_log_json() -> None:
@@ -24,8 +27,20 @@ def load_user_model() -> UserService:
         filename = input("Enter the path of the user model file: ")
         user_doa = JSONUserDataAccess(filename)
         user_service = UserService(user_doa)
-        user_service.load_serv()
+        user_service.load_serv_user()
         return user_service
+    except FileNotFoundError as e:
+        logger.error(f"File {filename} not found")
+        return None
+
+def load_video_model() -> VideoService:
+    filename = ""
+    try:
+        filename = input("Enter the path of the video model file: ")
+        video_doa = JSONVideoDataAccess(filename)
+        video_service = VideoService(video_doa)
+        video_service.load_serv_video()
+        return video_service
     except FileNotFoundError as e:
         logger.error(f"File {filename} not found")
         return None
@@ -673,30 +688,30 @@ def parse_users(filename: str) -> list:
     return users
 
 #need to add to database
-def create_default_videos() -> dict:
-    """Create and return the default videos dictionary used when no file is provided.
-
-    Returns:
-        A dictionary that maps video id to video title.
-       """
-
-    vids = {}
-    v1 = Video(1, "Inception", "A mind-bending thriller", 8880, 2010, ["scifi", "thriller"])
-    v2 = Video(2, "The Matrix", "A hacker discovers reality", 8160, 1999, ["scifi", "action"])
-    v3 = Video(3, "The Godfather", "Crime family saga", 10500, 1972, ["drama", "crime"])
-    v4 = Video(4, "Toy Story", "Toys come to life", 4860, 1995, ["animation", "comedy"])
-    v5 = Video(5, "Up", "Balloon building", 16732, 2008, ["animation", "drama"])
-    #Do NOT TOUCH THIS AS I NEED IT FOR MULTIPLE VIDEOS UNDER HTE SAME TITLE
-    v6 = Video(6, "Up", "Something else", 23143, 2008, ["animation", "comedy"])
-
-    for v in (v1, v2, v3, v4, v5, v6):
-        title = v.get_title()
-        if title in vids:
-            vids[title].append(v)
-        else:
-            vids[title] = [v]
-
-    return vids
+# def create_default_videos() -> dict:
+#     """Create and return the default videos dictionary used when no file is provided.
+#
+#     Returns:
+#         A dictionary that maps video id to video title.
+#        """
+#
+#     vids = {}
+#     v1 = Video(1, "Inception", "A mind-bending thriller", 8880, 2010, ["scifi", "thriller"])
+#     v2 = Video(2, "The Matrix", "A hacker discovers reality", 8160, 1999, ["scifi", "action"])
+#     v3 = Video(3, "The Godfather", "Crime family saga", 10500, 1972, ["drama", "crime"])
+#     v4 = Video(4, "Toy Story", "Toys come to life", 4860, 1995, ["animation", "comedy"])
+#     v5 = Video(5, "Up", "Balloon building", 16732, 2008, ["animation", "drama"])
+#     #Do NOT TOUCH THIS AS I NEED IT FOR MULTIPLE VIDEOS UNDER HTE SAME TITLE
+#     v6 = Video(6, "Up", "Something else", 23143, 2008, ["animation", "comedy"])
+#
+#     for v in (v1, v2, v3, v4, v5, v6):
+#         title = v.get_title()
+#         if title in vids:
+#             vids[title].append(v)
+#         else:
+#             vids[title] = [v]
+#
+#     return vids
 
 #need to add to database
 def create_default_users() -> dict:
@@ -787,7 +802,7 @@ def user_login() -> tuple[bool, str]:
     """
     username = input("Username: ")
     password = input("Password: ")
-    valid, valid_name = ticket_service.user_login_serv(username, password)
+    valid, valid_name = user_service.user_login_serv(username, password)
     return valid, valid_name
 
     # print("Enter username:")
@@ -1147,25 +1162,31 @@ def admin_view(logged_in_usernmae):
 
 if __name__ == "__main__":
 
-    # Videos
-    video_filename = input(
-        "Please enter a filename (json) where video information is stored or press Enter to use defaults: ").strip()
-    vdata = data_setup("videos", video_filename)
-    if vdata is None:
-        videos = create_default_videos()
-        logger.info("Video data set up using hardcoded information")
-    else:
-        # vdata is a list of Video objects
-        videos = vdata
-        logger.info("Video data set up using json information")
+    # # Videos
+    valid = False
+    Video_service = None
+    while not valid:
+        Video_service = load_video_model()
+        if Video_service is not None:
+            valid = True
+    # video_filename = input(
+    #     "Please enter a filename (json) where video information is stored or press Enter to use defaults: ").strip()
+    # vdata = data_setup("videos", video_filename)
+    # if vdata is None:
+    #     videos = create_default_videos()
+    #     logger.info("Video data set up using hardcoded information")
+    # else:
+    #     # vdata is a list of Video objects
+    #     videos = vdata
+    #     logger.info("Video data set up using json information")
 
 
     # Users
     valid = False
-    ticket_service = None
+    User_service = None
     while not valid:
-        ticket_service = load_user_model()
-        if ticket_service is not None:
+        User_service = load_user_model()
+        if User_service is not None:
             valid = True
     # user_filename = input(
     #     "Please enter a filename where user information is stored or press Enter to use defaults: ").strip()

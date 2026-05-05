@@ -51,7 +51,7 @@
 { "time": "2026-05-05 14:58:18,207", "function": "user_login_serv", "level": "INFO", "message": "user_login: failed to log in" }
 { "time": "2026-05-05 14:58:30,306", "function": "user_login_serv", "level": "INFO", "message": "user_login: username not in dictionary" }
 { "time": "2026-05-05 14:58:38,318", "function": "user_login_serv", "level": "INFO", "message": "user_login: successfully logged in" }
-{ "time": "2026-05-05 17:47:05,777", "function": "<module>", "level": "INFO", "message": "Video data set up using hardcoded information" }
-{ "time": "2026-05-05 17:47:09,046", "function": "load", "level": "INFO", "message": "Successfully loaded 6 users from users.json" }
-{ "time": "2026-05-05 17:47:15,988", "function": "user_login_serv", "level": "INFO", "message": "user_login: failed to log in" }
-{ "time": "2026-05-05 17:47:24,606", "function": "user_login_serv", "level": "INFO", "message": "user_login: successfully logged in" }
+{ "time": "2026-05-05 17:03:53,189", "function": "load", "level": "INFO", "message": "Successfully loaded videos from videos.json" }
+{ "time": "2026-05-05 17:03:59,264", "function": "load", "level": "INFO", "message": "Successfully loaded 6 users from users.json" }
+{ "time": "2026-05-05 17:28:55,796", "function": "load", "level": "INFO", "message": "Successfully loaded videos from videos.json" }
+{ "time": "2026-05-05 17:29:00,263", "function": "load", "level": "INFO", "message": "Successfully loaded 6 users from users.json" }
