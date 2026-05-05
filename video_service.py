@@ -7,7 +7,6 @@ class VideoService:
         self.__usable_video_data = {}
 
 
-
     def load_serv_video(self):
         if not self.__video_data:
             raise AttributeError("No user_data class present- cannot load data")

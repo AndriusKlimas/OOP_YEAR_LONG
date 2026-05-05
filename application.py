@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import json
 import logging.config
+
 from catalogue import Video
 from user_records import User
 from user_service import UserService
@@ -687,30 +688,30 @@ def parse_users(filename: str) -> list:
     return users
 
 #need to add to database
-def create_default_videos() -> dict:
-    """Create and return the default videos dictionary used when no file is provided.
-
-    Returns:
-        A dictionary that maps video id to video title.
-       """
-
-    vids = {}
-    v1 = Video(1, "Inception", "A mind-bending thriller", 8880, 2010, ["scifi", "thriller"])
-    v2 = Video(2, "The Matrix", "A hacker discovers reality", 8160, 1999, ["scifi", "action"])
-    v3 = Video(3, "The Godfather", "Crime family saga", 10500, 1972, ["drama", "crime"])
-    v4 = Video(4, "Toy Story", "Toys come to life", 4860, 1995, ["animation", "comedy"])
-    v5 = Video(5, "Up", "Balloon building", 16732, 2008, ["animation", "drama"])
-    #Do NOT TOUCH THIS AS I NEED IT FOR MULTIPLE VIDEOS UNDER HTE SAME TITLE
-    v6 = Video(6, "Up", "Something else", 23143, 2008, ["animation", "comedy"])
-
-    for v in (v1, v2, v3, v4, v5, v6):
-        title = v.get_title()
-        if title in vids:
-            vids[title].append(v)
-        else:
-            vids[title] = [v]
-
-    return vids
+# def create_default_videos() -> dict:
+#     """Create and return the default videos dictionary used when no file is provided.
+#
+#     Returns:
+#         A dictionary that maps video id to video title.
+#        """
+#
+#     vids = {}
+#     v1 = Video(1, "Inception", "A mind-bending thriller", 8880, 2010, ["scifi", "thriller"])
+#     v2 = Video(2, "The Matrix", "A hacker discovers reality", 8160, 1999, ["scifi", "action"])
+#     v3 = Video(3, "The Godfather", "Crime family saga", 10500, 1972, ["drama", "crime"])
+#     v4 = Video(4, "Toy Story", "Toys come to life", 4860, 1995, ["animation", "comedy"])
+#     v5 = Video(5, "Up", "Balloon building", 16732, 2008, ["animation", "drama"])
+#     #Do NOT TOUCH THIS AS I NEED IT FOR MULTIPLE VIDEOS UNDER HTE SAME TITLE
+#     v6 = Video(6, "Up", "Something else", 23143, 2008, ["animation", "comedy"])
+#
+#     for v in (v1, v2, v3, v4, v5, v6):
+#         title = v.get_title()
+#         if title in vids:
+#             vids[title].append(v)
+#         else:
+#             vids[title] = [v]
+#
+#     return vids
 
 #need to add to database
 def create_default_users() -> dict:
@@ -801,7 +802,7 @@ def user_login() -> tuple[bool, str]:
     """
     username = input("Username: ")
     password = input("Password: ")
-    valid, valid_name = ticket_service.user_login_serv(username, password)
+    valid, valid_name = user_service.user_login_serv(username, password)
     return valid, valid_name
 
     # print("Enter username:")

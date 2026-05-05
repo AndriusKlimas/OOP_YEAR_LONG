@@ -53,3 +53,5 @@
 { "time": "2026-05-05 14:58:38,318", "function": "user_login_serv", "level": "INFO", "message": "user_login: successfully logged in" }
 { "time": "2026-05-05 17:03:53,189", "function": "load", "level": "INFO", "message": "Successfully loaded videos from videos.json" }
 { "time": "2026-05-05 17:03:59,264", "function": "load", "level": "INFO", "message": "Successfully loaded 6 users from users.json" }
+{ "time": "2026-05-05 17:28:55,796", "function": "load", "level": "INFO", "message": "Successfully loaded videos from videos.json" }
+{ "time": "2026-05-05 17:29:00,263", "function": "load", "level": "INFO", "message": "Successfully loaded 6 users from users.json" }
