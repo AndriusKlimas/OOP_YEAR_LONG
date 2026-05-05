@@ -21,3 +21,5 @@
 { "time": "2026-05-05 14:07:50,728", "function": "load", "level": "INFO", "message": "Successfully loaded 6 users from users.json" }
 { "time": "2026-05-05 14:11:08,071", "function": "<module>", "level": "INFO", "message": "Video data set up using hardcoded information" }
 { "time": "2026-05-05 14:11:11,371", "function": "load", "level": "INFO", "message": "Successfully loaded 6 users from users.json" }
+{ "time": "2026-05-05 14:35:26,078", "function": "<module>", "level": "INFO", "message": "Video data set up using hardcoded information" }
+{ "time": "2026-05-05 14:35:29,736", "function": "load", "level": "INFO", "message": "Successfully loaded 6 users from users.json" }

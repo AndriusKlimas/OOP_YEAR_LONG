@@ -785,41 +785,45 @@ def user_login() -> tuple[bool, str]:
             - bool: False if login successful, True if login failed
             - str: Username if successful, error message if failed
     """
-    print("Enter username:")
+    username = input("Username: ")
+    password = input("Password: ")
+    valid, valid_name = UserService.user_login_serv(username, password)
 
-    try:
-        username = input().strip()
-        if username not in users:
-            logger.info("user_login: username not in dictionary")
-            print("Username not found. Please try again.")
-            return True, "Username not found"
-        print("Enter password:")
-        password = input().strip()
-
-        try:
-            user = User.validate_login(users, username, password)
-        except Exception as e:
-            logger.error("user_login: unexpected error when validating username/password %s",e)
-            print(f"Error logging in: {e}")
-
-            return True, "Error logging in"
-        if user is not None:
-            users[username] = user
-            logger.info("user_login: successfully logged in")
-            print(f"Logging in as {username}")
-            return False, username
-        else:
-            logger.info("user_login: failed to log in")
-            return True, "invalid username or password"
-
-    except KeyError:
-        logger.error("KeyError in user_login: Users dictionary not found: %s", e)
-        print("User dictionary not found")
-        return True, "Error: Users dictionary not accessible"
-    except Exception as e:
-        logger.error("Unexpected error during user_login: %s", e)
-        print(f"An error occurred during login: {e}")
-        return True, "An unexpected error occurred during login"
+    # print("Enter username:")
+    #
+    # try:
+    #     username = input().strip()
+    #     if username not in users:
+    #         logger.info("user_login: username not in dictionary")
+    #         print("Username not found. Please try again.")
+    #         return True, "Username not found"
+    #     print("Enter password:")
+    #     password = input().strip()
+    #
+    #     try:
+    #         user = User.validate_login(users, username, password)
+    #     except Exception as e:
+    #         logger.error("user_login: unexpected error when validating username/password %s",e)
+    #         print(f"Error logging in: {e}")
+    #
+    #         return True, "Error logging in"
+    #     if user is not None:
+    #         users[username] = user
+    #         logger.info("user_login: successfully logged in")
+    #         print(f"Logging in as {username}")
+    #         return False, username
+    #     else:
+    #         logger.info("user_login: failed to log in")
+    #         return True, "invalid username or password"
+    #
+    # except KeyError:
+    #     logger.error("KeyError in user_login: Users dictionary not found: %s", e)
+    #     print("User dictionary not found")
+    #     return True, "Error: Users dictionary not accessible"
+    # except Exception as e:
+    #     logger.error("Unexpected error during user_login: %s", e)
+    #     print(f"An error occurred during login: {e}")
+    #     return True, "An unexpected error occurred during login"
 
 #need to add to service
 def create_login(users:dict) -> tuple[bool, str]:
