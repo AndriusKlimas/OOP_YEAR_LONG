@@ -1,0 +1,19 @@
+user_service:
+    - line 16 (printing out what was added)
+
+
+application:
+    - line 1170 (all commented out code)
+    - line 690 (all commented out code)
+
+
+catalouge:
+
+user_data_access:
+
+user_record:
+
+video_data_access:
+
+video_service:
+    - line 16 (printing out what was added)

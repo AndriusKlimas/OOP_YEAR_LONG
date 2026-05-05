@@ -3,9 +3,15 @@ from __future__ import annotations
 
 import json
 import logging.config
+
 from catalogue import Video
 from user_records import User
+from user_service import UserService
+from user_data_access import JSONUserDataAccess
+from video_service import VideoService
+from video_data_access import JSONVideoDataAccess
 
+#Need to add this to the service area
 def config_log_json() -> None:
     """function to bring in the json logging config file"""
     with open ("logging_config.json", "r") as f:
@@ -15,8 +21,36 @@ def config_log_json() -> None:
 config_log_json()
 logger = logging.getLogger(__name__)
 
+def load_user_model() -> UserService:
+    filename = ""
+    try:
+        filename = input("Enter the path of the user model file: ")
+        user_doa = JSONUserDataAccess(filename)
+        user_service = UserService(user_doa)
+        user_service.load_serv_user()
+        return user_service
+    except FileNotFoundError as e:
+        logger.error(f"File {filename} not found")
+        return None
+
+def load_video_model() -> VideoService:
+    filename = ""
+    try:
+        filename = input("Enter the path of the video model file: ")
+        video_doa = JSONVideoDataAccess(filename)
+        video_service = VideoService(video_doa)
+        video_service.load_serv_video()
+        return video_service
+    except FileNotFoundError as e:
+        logger.error(f"File {filename} not found")
+        return None
+
+
+
+
 
 #Option 1 def
+#Need to add to services
 def print_videos(videos_dictionary: dict) -> None:
     """ prints all videos in the dictionary
     args:
@@ -43,6 +77,7 @@ def print_videos(videos_dictionary: dict) -> None:
         print(f"An error occurred while printing videos: {e}")
 
 #Option 2 def
+#Need to add to services
 def video_search(videos_dictionary: dict, search_video: str) -> Video | None:
     """ searching for a specific video in the dictionary
     args:
@@ -75,6 +110,7 @@ def video_search(videos_dictionary: dict, search_video: str) -> Video | None:
 
 
 #Option 3 def
+#Need to add to services
 def search_genre(videos_dictionary: dict, search_genre: str) -> None:
     """ searching for a specific genre in the dictionary
     args:
@@ -115,6 +151,7 @@ def search_genre(videos_dictionary: dict, search_genre: str) -> None:
         print(f"An error occurred while searching for genre: {e}")
 
 #option 4 def
+#Need to add to services
 def show_user_history(users_dict: dict, videos_dict: dict) -> None:
     """ shows the user's play history
 
@@ -168,6 +205,7 @@ def show_user_history(users_dict: dict, videos_dict: dict) -> None:
         print("An error occurred while showing user history")
 
 #option 5 def
+#Need to add to services
 def play_video_user(users_dict: dict, videos_dict: dict) -> None:
     """ creates a play record
 
@@ -217,6 +255,7 @@ def play_video_user(users_dict: dict, videos_dict: dict) -> None:
  #admin logic below
 
 #Option 6 def
+#Need to add to services
 def new_video(videos_dictionary: dict) -> None:
     """ Adds a new video to the dictionary by creating an object of the video class
     args:
@@ -298,6 +337,7 @@ def new_video(videos_dictionary: dict) -> None:
     #added sleep for the
 
 #Option 7 def
+#Need to add to services
 def video_remover(videos_dictionary: dict, remove_video: str) -> bool:
     """ Removes a video from the dictionary
     args:
@@ -368,7 +408,7 @@ def video_remover(videos_dictionary: dict, remove_video: str) -> bool:
         print(f"An error occurred while removing video: {e}")
         return False
 
-
+#Need to add to services
 def video_editor(video_dictionary: dict) -> None:
     """ Allows the admin to edit the video
 
@@ -517,6 +557,7 @@ def video_editor(video_dictionary: dict) -> None:
         logger.error("ValueError in video_editor: Number provided not an option")
         print("Invalid input.")
 
+#Need to add to services
 def view_video_play(video_dict: dict, users_dict: dict) -> None:
     """Allow the user to see all play history for a specified video.
 
@@ -564,7 +605,7 @@ def view_video_play(video_dict: dict, users_dict: dict) -> None:
         print(f"An error occurred while viewing play history: {e}")
         logger.error("An error occurred while viewing play history")
 
-
+#Need to add to services
 def sec_to_min(seconds: int) -> str:
     """Convert seconds to a human-readable minutes and seconds string.
 
@@ -584,7 +625,7 @@ def sec_to_min(seconds: int) -> str:
 
 
 
-
+#need to add to database
 def parse_videos(filename: str) -> dict:
     """Parses a file of video information into a list of Video objects.
 
@@ -622,7 +663,7 @@ def parse_videos(filename: str) -> dict:
     return new_videos
 
 
-
+#need to add to database
 def parse_users(filename: str) -> list:
     """Parses a file of user information into a list of User objects.
 
@@ -646,32 +687,33 @@ def parse_users(filename: str) -> list:
             logger.error(f"Invalid user record #{i} in {filename}: {e}")
     return users
 
+#need to add to database
+# def create_default_videos() -> dict:
+#     """Create and return the default videos dictionary used when no file is provided.
+#
+#     Returns:
+#         A dictionary that maps video id to video title.
+#        """
+#
+#     vids = {}
+#     v1 = Video(1, "Inception", "A mind-bending thriller", 8880, 2010, ["scifi", "thriller"])
+#     v2 = Video(2, "The Matrix", "A hacker discovers reality", 8160, 1999, ["scifi", "action"])
+#     v3 = Video(3, "The Godfather", "Crime family saga", 10500, 1972, ["drama", "crime"])
+#     v4 = Video(4, "Toy Story", "Toys come to life", 4860, 1995, ["animation", "comedy"])
+#     v5 = Video(5, "Up", "Balloon building", 16732, 2008, ["animation", "drama"])
+#     #Do NOT TOUCH THIS AS I NEED IT FOR MULTIPLE VIDEOS UNDER HTE SAME TITLE
+#     v6 = Video(6, "Up", "Something else", 23143, 2008, ["animation", "comedy"])
+#
+#     for v in (v1, v2, v3, v4, v5, v6):
+#         title = v.get_title()
+#         if title in vids:
+#             vids[title].append(v)
+#         else:
+#             vids[title] = [v]
+#
+#     return vids
 
-def create_default_videos() -> dict:
-    """Create and return the default videos dictionary used when no file is provided.
-
-    Returns:
-        A dictionary that maps video id to video title.
-       """
-
-    vids = {}
-    v1 = Video(1, "Inception", "A mind-bending thriller", 8880, 2010, ["scifi", "thriller"])
-    v2 = Video(2, "The Matrix", "A hacker discovers reality", 8160, 1999, ["scifi", "action"])
-    v3 = Video(3, "The Godfather", "Crime family saga", 10500, 1972, ["drama", "crime"])
-    v4 = Video(4, "Toy Story", "Toys come to life", 4860, 1995, ["animation", "comedy"])
-    v5 = Video(5, "Up", "Balloon building", 16732, 2008, ["animation", "drama"])
-    #Do NOT TOUCH THIS AS I NEED IT FOR MULTIPLE VIDEOS UNDER HTE SAME TITLE
-    v6 = Video(6, "Up", "Something else", 23143, 2008, ["animation", "comedy"])
-
-    for v in (v1, v2, v3, v4, v5, v6):
-        title = v.get_title()
-        if title in vids:
-            vids[title].append(v)
-        else:
-            vids[title] = [v]
-
-    return vids
-
+#need to add to database
 def create_default_users() -> dict:
     """Create and return the default users dictionary used when no file is provided.
 
@@ -702,7 +744,7 @@ def create_default_users() -> dict:
 
     return us
 
-
+#need to add to database
 def data_setup(parse_type: str, filename: str | None = None):
     """Prompt the user (up to 3 tries) for a filename and parse the file.
 
@@ -749,6 +791,7 @@ def data_setup(parse_type: str, filename: str | None = None):
     print(f"Failed to load {parse_type} after {attempts} attempts; using defaults.")
     return None
 
+#need to add to service
 def user_login() -> tuple[bool, str]:
     """ aks user to login by providing credentials, then validates it with the user dictionary
 
@@ -757,42 +800,48 @@ def user_login() -> tuple[bool, str]:
             - bool: False if login successful, True if login failed
             - str: Username if successful, error message if failed
     """
-    print("Enter username:")
-    try:
-        username = input().strip()
-        if username not in users:
-            logger.info("user_login: username not in dictionary")
-            print("Username not found. Please try again.")
-            return True, "Username not found"
-        print("Enter password:")
-        password = input().strip()
+    username = input("Username: ")
+    password = input("Password: ")
+    valid, valid_name = user_service.user_login_serv(username, password)
+    return valid, valid_name
 
-        try:
-            user = User.validate_login(users, username, password)
-        except Exception as e:
-            logger.error("user_login: unexpected error when validating username/password %s",e)
-            print(f"Error logging in: {e}")
+    # print("Enter username:")
+    #
+    # try:
+    #     username = input().strip()
+    #     if username not in users:
+    #         logger.info("user_login: username not in dictionary")
+    #         print("Username not found. Please try again.")
+    #         return True, "Username not found"
+    #     print("Enter password:")
+    #     password = input().strip()
+    #
+    #     try:
+    #         user = User.validate_login(users, username, password)
+    #     except Exception as e:
+    #         logger.error("user_login: unexpected error when validating username/password %s",e)
+    #         print(f"Error logging in: {e}")
+    #
+    #         return True, "Error logging in"
+    #     if user is not None:
+    #         users[username] = user
+    #         logger.info("user_login: successfully logged in")
+    #         print(f"Logging in as {username}")
+    #         return False, username
+    #     else:
+    #         logger.info("user_login: failed to log in")
+    #         return True, "invalid username or password"
+    #
+    # except KeyError:
+    #     logger.error("KeyError in user_login: Users dictionary not found: %s", e)
+    #     print("User dictionary not found")
+    #     return True, "Error: Users dictionary not accessible"
+    # except Exception as e:
+    #     logger.error("Unexpected error during user_login: %s", e)
+    #     print(f"An error occurred during login: {e}")
+    #     return True, "An unexpected error occurred during login"
 
-            return True, "Error logging in"
-        if user is not None:
-            users[username] = user
-            logger.info("user_login: successfully logged in")
-            print(f"Logging in as {username}")
-            return False, username
-        else:
-            logger.info("user_login: failed to log in")
-            return True, "invalid username or password"
-
-    except KeyError:
-        logger.error("KeyError in user_login: Users dictionary not found: %s", e)
-        print("User dictionary not found")
-        return True, "Error: Users dictionary not accessible"
-    except Exception as e:
-        logger.error("Unexpected error during user_login: %s", e)
-        print(f"An error occurred during login: {e}")
-        return True, "An unexpected error occurred during login"
-
-
+#need to add to service
 def create_login(users:dict) -> tuple[bool, str]:
     """ getting the user to create and account and saving to json file
 
@@ -863,6 +912,7 @@ def create_login(users:dict) -> tuple[bool, str]:
         return True, "An unexpected error occurred during account creation"
 
 
+#need to add to services
 def admin_check(logged_in_usernmae:str) -> bool:
     """check if the logged-in user is an admin.
 
@@ -889,6 +939,7 @@ def admin_check(logged_in_usernmae:str) -> bool:
         return False
 
 #creating a normal login funtion
+#keep here
 def normal_login():
     """Handle user login or account creation menu loop.
 
@@ -926,6 +977,7 @@ def normal_login():
                 keep_going = True
 
 # Creating a dev login option
+#keep here
 def dev_mode():
     """Developer mode menu for auto-login testing without normal authentication.
 
@@ -972,6 +1024,7 @@ def dev_mode():
             case _:
                 print("Invalid choice")
 
+#keep here
 def normal_view(logged_in_usernmae):
     """Handles when the person loging in is not admin
     args:
@@ -1037,7 +1090,7 @@ def normal_view(logged_in_usernmae):
             case _:
                 print("Invalid choice. Please choose a valid choice.")
 
-
+#keep here
 def admin_view(logged_in_usernmae):
     """ handles the logic then the username logged in is admin
 
@@ -1109,29 +1162,41 @@ def admin_view(logged_in_usernmae):
 
 if __name__ == "__main__":
 
-    # Videos
-    video_filename = input(
-        "Please enter a filename (json) where video information is stored or press Enter to use defaults: ").strip()
-    vdata = data_setup("videos", video_filename)
-    if vdata is None:
-        videos = create_default_videos()
-        logger.info("Video data set up using hardcoded information")
-    else:
-        # vdata is a list of Video objects
-        videos = vdata
-        logger.info("Video data set up using json information")
+    # # Videos
+    valid = False
+    Video_service = None
+    while not valid:
+        Video_service = load_video_model()
+        if Video_service is not None:
+            valid = True
+    # video_filename = input(
+    #     "Please enter a filename (json) where video information is stored or press Enter to use defaults: ").strip()
+    # vdata = data_setup("videos", video_filename)
+    # if vdata is None:
+    #     videos = create_default_videos()
+    #     logger.info("Video data set up using hardcoded information")
+    # else:
+    #     # vdata is a list of Video objects
+    #     videos = vdata
+    #     logger.info("Video data set up using json information")
 
 
     # Users
-    user_filename = input(
-        "Please enter a filename where user information is stored or press Enter to use defaults: ").strip()
-    udata = data_setup("users", user_filename)
-    if udata is None:
-        users = create_default_users()
-        logger.info("User data set up using hardcoded information")
-    else:
-        users = {u.get_username(): u for u in udata}
-        logger.info("User data set up using json information")
+    valid = False
+    User_service = None
+    while not valid:
+        User_service = load_user_model()
+        if User_service is not None:
+            valid = True
+    # user_filename = input(
+    #     "Please enter a filename where user information is stored or press Enter to use defaults: ").strip()
+    # udata = data_setup("users", user_filename)
+    # if udata is None:
+    #     users = create_default_users()
+    #     logger.info("User data set up using hardcoded information")
+    # else:
+    #     users = {u.get_username(): u for u in udata}
+    #     logger.info("User data set up using json information")
 
 
 
