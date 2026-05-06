@@ -150,3 +150,12 @@ class UserService:
         minutes = seconds // 60
         secs = seconds % 60
         return f"{minutes} minutes and {secs} seconds"
+
+    def get_usable_user_data(self):
+        """Gets usable user data
+
+        Returns:
+            Dictionary of usable user data
+        """
+        return self.__usable_user_data
+
