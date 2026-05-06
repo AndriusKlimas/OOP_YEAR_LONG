@@ -5,6 +5,7 @@ user_service:
 application:
     - line 1170 (all commented out code)
     - line 690 (all commented out code)
+    - line 118 (all commented out code)
 
 
 catalouge:

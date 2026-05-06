@@ -105,19 +105,40 @@ class VideoService:
         """Print all videos in the dictionary
 
         returns:
-
+            all_videos (list[tuple[str, int, object]]): All videos in the dictionary
 
         """
+        all_videos = []
         try:
             for title, video_list in self.__usable_video_data.items():
                 if isinstance(video_list, list):
                     for video in video_list:
-                        print(video)
+                        all_videos.append(video)
                 else:
                     print(video_list)
+                    all_videos.append(video_list)
+
+            return all_videos
         except TypeError as e:
             logger.error("TypeError in print_videos: videos_dictionary must be a dictionary: %s", e)
-            print("Error: videos_dictionary must be a dictionary")
         except Exception as e:
             logger.error("Unexpected error while printing videos: %s", e)
-            print(f"An error occurred while printing videos: {e}")
+
+
+
+    def video_search_srv(self, search_video: str) -> list:
+
+        try:
+            # stripping white spaces again, causes issues if not their
+            search_video = search_video.strip().lower()
+            # goes through all videos in the dictionary
+            for title, video_list in self.__usable_video_data.items():
+                # stripping white spaces again, causes issues if not their
+                if search_video == title.strip().lower():
+                    return video_list
+
+            return None
+
+        except Exception as e:
+            logger.error("Unexpected error searching for videos: %s", e)
+            return None

@@ -1,6 +1,7 @@
 Here i will outline the location of where the current code will go, this is still a work in pregress
 This is initial and may need to change
 Need to choos below
+IMPORTANT When code has been done, please add a done / tested / docstring changed comment to it for clerity sake
 
 for the methods 2 seperate files?
 e.g.
@@ -29,7 +30,7 @@ File 1:
 
 Methods:
     (Andriuses code)
-    - print_videos
+    - print_videos - done/tested
     - video_search
     - search_genre
     - new_video

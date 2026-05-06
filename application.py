@@ -71,7 +71,7 @@ def load_video_model() -> VideoService:
 
 #Option 1 def
 #Need to add to services
-def print_videos(videos_dictionary: dict) -> None:
+def print_videos() -> None:
     """ prints all videos in the dictionary
     args:
         videos_dictionary (dict): a dictionary of videos with key is title and value is Video object
@@ -82,23 +82,13 @@ def print_videos(videos_dictionary: dict) -> None:
 
     """
     #Loops through dictionary and prints all videos
-    try:
-        for title, video_list in videos_dictionary.items():
-            if isinstance(video_list, list):
-                for video in video_list:
-                    print(video)
-            else:
-                print(video_list)
-    except TypeError as e:
-        logger.error("TypeError in print_videos: videos_dictionary must be a dictionary: %s", e)
-        print("Error: videos_dictionary must be a dictionary")
-    except Exception as e:
-        logger.error("Unexpected error while printing videos: %s", e)
-        print(f"An error occurred while printing videos: {e}")
+    returned_videos = video_service.print_videos_svc()
+    for video in returned_videos:
+        print(video)
 
 #Option 2 def
 #Need to add to services
-def video_search(videos_dictionary: dict, search_video: str) -> Video | None:
+def video_search() -> Video | None:
     """ searching for a specific video in the dictionary
     args:
         videos_dictionary (dict): a dictionary of videos with key is video title and value is Video object
@@ -111,22 +101,35 @@ def video_search(videos_dictionary: dict, search_video: str) -> Video | None:
     raises:
     Exception : Catches general issues
     """
+    search_video = input("Enter the title of the video to search for: ")
+    video_info = video_service.video_search_srv(search_video)
 
-    try:
-        #stripping white spaces again, causes issues if not their
-        search_video = search_video.strip().lower()
-        #goes through all videos in the dictionary
-        for title, video_list in videos_dictionary.items():
-            #stripping white spaces again, causes issues if not their
-            if search_video == title.strip().lower():
-                return video_list
-
-        return None
-
-    except Exception as e:
-        logger.error("Unexpected error searching for videos: %s", e)
-        print(f"An error occurred while searching for video: {e}")
-        return None
+    if video_info is not None:
+        # isinstance is used to check if the iteam retuernd is a list, if it is then do the below source
+        # w3schools, stackoverflow
+        if isinstance(video_info, list):
+            for video in video_info:
+                print(video)
+        else:
+            print(video_info)
+    else:
+        logger.info("user functions: video chosen not found")
+        print("Video not found.")
+    # try:
+    #     #stripping white spaces again, causes issues if not their
+    #     search_video = search_video.strip().lower()
+    #     #goes through all videos in the dictionary
+    #     for title, video_list in videos_dictionary.items():
+    #         #stripping white spaces again, causes issues if not their
+    #         if search_video == title.strip().lower():
+    #             return video_list
+    #
+    #     return None
+    #
+    # except Exception as e:
+    #     logger.error("Unexpected error searching for videos: %s", e)
+    #     print(f"An error occurred while searching for video: {e}")
+    #     return None
 
 
 #Option 3 def
@@ -1021,7 +1024,7 @@ def dev_mode():
                 print("Invalid choice")
 
 #keep here
-def normal_view(logged_in_usernmae, user_service, video_service):
+def normal_view(logged_in_usernmae):
     """Handles when the person loging in is not admin
     args:
         str: the logged-in usernmae
@@ -1043,42 +1046,42 @@ def normal_view(logged_in_usernmae, user_service, video_service):
         # Section 1(for any user logged in)
         match choice:
             case "1":
-                print_videos(videos)
+                print_videos()
             case "2":
-                search_video = input("Please enter the Video title you are looking for: ")
-                video_info = video_search(videos, search_video)
-                if video_info is not None:
-                    # isinstance is used to check if the iteam retuernd is a list, if it is then do the below source
-                    # w3schools, stackoverflow
-                    if isinstance(video_info, list):
-                        for video in video_info:
-                            print(video)
-                    else:
-                        print(video_info)
-                else:
-                    logger.info("user functions: video chosen not found")
-                    print("Video not found.")
+                video_search()
 
-            case "3":
-                # getting user to input the genre they are searching for
-                search_video_genre = input("Please enter the genre you would like to look for: ")
-                in_valid_genres = Video.validate_genre(search_video_genre)
-                if in_valid_genres == True:
-                    search_genre(videos, search_video_genre)
-                else:
-                    logger.info("user functions: genre chosen not found in valid genres")
-                    print("Genre not valid.")
-                # calling the method to search the genre
-
-            # Section 2 (For that specific user only)
-            case "4":
-                show_user_history(video_service.get_usable_video_data())
-
-            case "5":
-                play_video_user(user_service, video_service)
-
-            case "6":
-                view_video_play(user_service, video_service)
+                # if video_info is not None:
+                #     # isinstance is used to check if the iteam retuernd is a list, if it is then do the below source
+                #     # w3schools, stackoverflow
+                #     if isinstance(video_info, list):
+                #         for video in video_info:
+                #             print(video)
+                #     else:
+                #         print(video_info)
+                # else:
+                #     logger.info("user functions: video chosen not found")
+                #     print("Video not found.")
+            #
+            # case "3":
+            #     # getting user to input the genre they are searching for
+            #     search_video_genre = input("Please enter the genre you would like to look for: ")
+            #     in_valid_genres = Video.validate_genre(search_video_genre)
+            #     if in_valid_genres == True:
+            #         search_genre(videos, search_video_genre)
+            #     else:
+            #         logger.info("user functions: genre chosen not found in valid genres")
+            #         print("Genre not valid.")
+            #     # calling the method to search the genre
+            #
+            # # Section 2 (For that specific user only)
+            # case "4":
+            #     show_user_history(video_service.get_usable_video_data())
+            #
+            # case "5":
+            #     play_video_user(user_service, video_service)
+            #
+            # case "6":
+            #     view_video_play(user_service, video_service)
 
             case "0":
                 user_run = False
@@ -1215,7 +1218,7 @@ if __name__ == "__main__":
     admin = admin_check(logged_in_usernmae)
 
     if admin != True:
-        normal_view(logged_in_usernmae, user_service, video_service)
+        normal_view(logged_in_usernmae)
 
 
     if admin == True:
