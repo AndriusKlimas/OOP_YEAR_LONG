@@ -100,3 +100,24 @@ class VideoService:
         except Exception as e:
             logger.error(f"Error retrieving play records for videos: {e}")
             return []
+
+    def print_videos_svc (self) -> None:
+        """Print all videos in the dictionary
+
+        returns:
+
+
+        """
+        try:
+            for title, video_list in self.__usable_video_data.items():
+                if isinstance(video_list, list):
+                    for video in video_list:
+                        print(video)
+                else:
+                    print(video_list)
+        except TypeError as e:
+            logger.error("TypeError in print_videos: videos_dictionary must be a dictionary: %s", e)
+            print("Error: videos_dictionary must be a dictionary")
+        except Exception as e:
+            logger.error("Unexpected error while printing videos: %s", e)
+            print(f"An error occurred while printing videos: {e}")
