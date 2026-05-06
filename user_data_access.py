@@ -74,7 +74,6 @@ class JSONUserDataAccess(IUserDataAccess):
                     user = User.from_dict(user_data)
                     users_dict[user.get_username()] = user
                 except Exception as e:
-                    print(f"Invalid user record #{i} in {self._filename}: {e}")
                     logger.error(f"Invalid user record #{i} in {self._filename}: {e}")
                     continue
 
