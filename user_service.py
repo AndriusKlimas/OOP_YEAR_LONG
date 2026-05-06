@@ -1,6 +1,5 @@
 from user_data_access import *
 from user_records import User
-from video_service import VideoService
 
 class UserService:
     def __init__(self, user_data):
