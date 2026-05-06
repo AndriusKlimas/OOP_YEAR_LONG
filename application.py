@@ -430,12 +430,24 @@ def video_remover():
         for num, video in enumerate(videos_found, 1):
             print(f"{num}. Name= {Video.get_title(video)}, description = {Video.get_description(video)}, duration = {Video.get_duration_seconds(video)}, release_year = {Video.get_release_year(video)}")
 
-        choice = int(input("Please choose one (numbers only): ").strip())
-        something= video_service.video_remover_multiple_srv(choice, videos_found, title_key = remove_video)
+        try:
+            choice = int(input("Please choose one (numbers only): ").strip())
+        except ValueError:
+            print("Please enter a valid format")
+            choice = None
+        if choice is not None:
+            removed = video_service.video_remover_multiple_srv(choice, videos_found, title_key = remove_video)
+            print(f"removed1: {removed}")
+
+        else:
+            print("Skipping removal due to invalid input")
+
+
 
 
     if valid == False:
-        something= video_service.video_remover_single_srv(videos_found, title_key = remove_video)
+        removed= video_service.video_remover_single_srv(videos_found, title_key = remove_video)
+        print(f"removed: {removed}")
 
 
 

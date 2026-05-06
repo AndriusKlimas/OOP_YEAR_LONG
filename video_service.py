@@ -223,12 +223,14 @@ class VideoService:
             return False, videos_found
 
     def video_remover_single_srv(self, videos_found: list, title_key: str) -> bool:
+        removed_video = videos_found[0]
         videos_found.pop(0)
 
         if not videos_found:
             del self.__usable_video_data[title_key.strip().lower()]
             self.__video_data.store(self.__usable_video_data)
-            return True
+
+        return removed_video
 
         #
         # try:
@@ -272,17 +274,24 @@ class VideoService:
         #     return False
 
     def video_remover_multiple_srv(self, choice: int, videos_found: list, title_key: str) -> list:
+        removed_video = None
 
         try:
             actual_remove = choice - 1
+            removed_video = videos_found[actual_remove]
             videos_found.pop(actual_remove)
         except IndexError as e:
             logger.error("IndexError in video_remover:  choice chosen is out of range: %s", e)
+            return None
         except ValueError as e:
             logger.error("ValueError in video_remover: Value provided is not an int: %s", e)
+            return None
 
         # checking if ther list is not empty, if it is then remove the key for dictioanry
         if not videos_found:
             del self.__usable_video_data[title_key.strip().lower()]
 
-        return True
+        # IMPORTANT: Store the changes back to the JSON file
+        self.__video_data.store(self.__usable_video_data)
+
+        return removed_video

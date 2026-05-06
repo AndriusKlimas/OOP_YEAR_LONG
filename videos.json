@@ -1,33 +1,5 @@
 {
-  "Inception": [
-    {
-      "type": "Video",
-      "video_id": 1,
-      "title": "Inception",
-      "description": "A mind-bending thriller",
-      "duration_seconds": 8880,
-      "release_year": 2010,
-      "genres": [
-        "sci-fi",
-        "thriller"
-      ]
-    }
-  ],
-  "The Matrix": [
-    {
-      "type": "Video",
-      "video_id": 2,
-      "title": "The Matrix",
-      "description": "A hacker discovers reality",
-      "duration_seconds": 8160,
-      "release_year": 1999,
-      "genres": [
-        "sci-fi",
-        "action"
-      ]
-    }
-  ],
-  "The Godfather": [
+  "the godfather": [
     {
       "type": "Video",
       "video_id": 3,
@@ -41,61 +13,7 @@
       ]
     }
   ],
-  "Toy Story": [
-    {
-      "type": "Video",
-      "video_id": 4,
-      "title": "Toy Story",
-      "description": "Toys come to life",
-      "duration_seconds": 4860,
-      "release_year": 1995,
-      "genres": [
-        "animation",
-        "comedy"
-      ]
-    }
-  ],
-  "Up": [
-    {
-      "type": "Video",
-      "video_id": 5,
-      "title": "Up",
-      "description": "Balloon building",
-      "duration_seconds": 16732,
-      "release_year": 2008,
-      "genres": [
-        "animation",
-        "drama"
-      ]
-    },
-    {
-      "type": "Video",
-      "video_id": 6,
-      "title": "Up",
-      "description": "Something else",
-      "duration_seconds": 23143,
-      "release_year": 2008,
-      "genres": [
-        "animation",
-        "comedy"
-      ]
-    }
-  ],
-  "Skybound": [
-    {
-      "type": "Video",
-      "video_id": 10,
-      "title": "Skybound",
-      "description": "A pilot faces unexpected storms",
-      "duration_seconds": 5400,
-      "release_year": 2018,
-      "genres": [
-        "action",
-        "drama"
-      ]
-    }
-  ],
-  "The Last Joke": [
+  "the last joke": [
     {
       "type": "Video",
       "video_id": 11,
@@ -108,7 +26,7 @@
       ]
     }
   ],
-  "Deep Sea": [
+  "deep sea": [
     {
       "type": "Video",
       "video_id": 12,
@@ -132,7 +50,7 @@
       ]
     }
   ],
-  "Mystery Island": [
+  "mystery island": [
     {
       "type": "Video",
       "video_id": 14,
