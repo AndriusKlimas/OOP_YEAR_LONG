@@ -30,8 +30,8 @@ File 1:
 
 Methods:
     (Andriuses code)
-    - print_videos - done/tested
-    - video_search
+    - print_videos - done/tested/
+    - video_search - done/tested/
     - search_genre
     - new_video
     - video_remover
@@ -48,9 +48,9 @@ Methods:
     - data_setup - maybe data class tbd
 
 2. Data class
-    - parse_videos
+    - parse_videos done/tested/
     - parse_users
-    - create_default_videos - or in the service class tbd
+    - create_default_videos - or in the service class tbd done/tested/
     - create_default_users - or in the service class tbd
 
 3. keep in main application
