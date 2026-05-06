@@ -145,3 +145,10 @@
 { "time": "2026-05-06 19:38:21,591", "function": "load", "level": "INFO", "message": "Successfully loaded 7 users from users.json" }
 { "time": "2026-05-06 19:39:11,660", "function": "load", "level": "INFO", "message": "Successfully loaded videos from videos.json" }
 { "time": "2026-05-06 19:39:14,125", "function": "load", "level": "INFO", "message": "Successfully loaded 7 users from users.json" }
+{ "time": "2026-05-06 19:55:31,422", "function": "load", "level": "INFO", "message": "Successfully loaded videos from videos.json" }
+{ "time": "2026-05-06 19:55:34,059", "function": "load", "level": "INFO", "message": "Successfully loaded 7 users from users.json" }
+{ "time": "2026-05-06 19:56:05,069", "function": "load", "level": "INFO", "message": "Successfully loaded videos from videos.json" }
+{ "time": "2026-05-06 19:56:07,698", "function": "load", "level": "INFO", "message": "Successfully loaded 7 users from users.json" }
+{ "time": "2026-05-06 19:57:11,677", "function": "load", "level": "INFO", "message": "Successfully loaded videos from videos.json" }
+{ "time": "2026-05-06 19:57:14,783", "function": "load", "level": "INFO", "message": "Successfully loaded 7 users from users.json" }
+{ "time": "2026-05-06 19:57:33,245", "function": "store", "level": "INFO", "message": "Successfully saved videos to file videos.json" }

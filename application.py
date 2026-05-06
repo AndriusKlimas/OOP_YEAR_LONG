@@ -280,7 +280,7 @@ def play_video_user(user_service, video_service) -> None:
 
 #Option 6 def
 #Need to add to services
-def new_video(videos_dictionary: dict) -> None:
+def new_video() -> None:
     """ Adds a new video to the dictionary by creating an object of the video class
     args:
         videos_dictionary (dict): a dictionary of videos with key is title and value is Video object
@@ -293,70 +293,97 @@ def new_video(videos_dictionary: dict) -> None:
 
 
     """
-
+    # Getting the video info
+    genres_list = []
     try:
-        # getting basic info
-        genres_list = []
-        print("Please enter the following details to add a new video:")
-        # video id no longer key, now goes through dict, counts, and then adds 1 onto for new video id
-        get_video_id = 0
-        for video_list in videos_dictionary.values():
-            for video in video_list:
-                get_video_id += 1
-        get_video_id += 1
+        print("Please enter the following details to add a new video: ")
+        get_title = input("Title: ")
+        get_description = input("Description: ")
+        get_duration = int(input("Duration seconds: "))
+        get_release_year = int(input("Release Year: "))
+    except ValueError as e:
+        logger.error("ValueError in new_video input: Duration and Release Year must be numbers: %s", e)
+        print("Error: Duration and Release Year must be numbers.")
 
-        #getting the user input
-        try:
-            get_title = input("Title: ")
-            get_description = input("Description: ")
-            get_duration = int(input("Duration seconds: "))
-            get_release_year = int(input("Release Year: "))
-        except ValueError as e:
-            logger.error("ValueError in new_video input: Duration and Release Year must be numbers: %s", e)
-            print("Error: Duration and Release Year must be numbers.")
-            return None
-
-        # loop for genre, user adding genres
-        while True:
-            get_genres = input("Please enter the genres")
-            if get_genres in Video.return_valid_genres():
-                genres_list.append(get_genres)
-            else:
-                logger.info("new_video: genre does not exist: %s", get_genres)
-                print("Genre not valid. Please choose a valid genre")
-                print(Video.return_valid_genres())
-            print("Would you like to add another genre? (y/n)")
-            another = input().lower()
-            if another == "n":
-                break
-
-        # creating a new video class object
-        try:
-            new_video = Video(get_video_id, get_title, get_description, get_duration, get_release_year, genres_list)
-        except Exception as e:
-            logger.error("Unexpected error while creating new video class object: %s", e)
-            print(f"Error creating video: {e}")
-            return None
-
-        # 'checking if he video is in the dictionary'
-        if get_title in videos_dictionary.keys():
-            # 'if it is then add the class object under hte same key'
-            videos_dictionary[get_title].append(new_video)
-            # 'if not then add the class object under a new key'
+    # loop for genre, user adding genres
+    while True:
+        get_genres = input("Please enter the genres")
+        if get_genres in Video.return_valid_genres():
+            genres_list.append(get_genres)
         else:
-            videos_dictionary[get_title] = [new_video]
+            logger.info("new_video: genre does not exist: %s", get_genres)
+            print("Genre not valid. Please choose a valid genre")
+            print(Video.return_valid_genres())
+        print("Would you like to add another genre? (y/n)")
+        another = input().lower()
+        if another == "n":
+            break
+    video_service.new_video_svr(get_title,get_description,get_duration,get_release_year,genres_list)
 
-        print("Video added to list")
 
-    except AttributeError:
-        logger.error("Attribute error while creating new video: %s", e)
-        print("Error: Video class missing required method")
-    except TypeError:
-        logger.error("TypeError while creating new video: %s", e)
-        print("Error: Invalid data type provided")
-    except Exception as e:
-        logger.error("Unexpected error while creating new video")
-        print(f"An error occurred while adding new video: {e}")
+    # try:
+    #     # getting basic info
+    #     genres_list = []
+    #     print("Please enter the following details to add a new video:")
+    #     # video id no longer key, now goes through dict, counts, and then adds 1 onto for new video id
+    #     get_video_id = 0
+    #     for video_list in videos_dictionary.values():
+    #         for video in video_list:
+    #             get_video_id += 1
+    #     get_video_id += 1
+    #
+    #     #getting the user input
+    #     try:
+    #         get_title = input("Title: ")
+    #         get_description = input("Description: ")
+    #         get_duration = int(input("Duration seconds: "))
+    #         get_release_year = int(input("Release Year: "))
+    #     except ValueError as e:
+    #         logger.error("ValueError in new_video input: Duration and Release Year must be numbers: %s", e)
+    #         print("Error: Duration and Release Year must be numbers.")
+    #         return None
+    #
+    #     # loop for genre, user adding genres
+    #     while True:
+    #         get_genres = input("Please enter the genres")
+    #         if get_genres in Video.return_valid_genres():
+    #             genres_list.append(get_genres)
+    #         else:
+    #             logger.info("new_video: genre does not exist: %s", get_genres)
+    #             print("Genre not valid. Please choose a valid genre")
+    #             print(Video.return_valid_genres())
+    #         print("Would you like to add another genre? (y/n)")
+    #         another = input().lower()
+    #         if another == "n":
+    #             break
+    #
+    #     # creating a new video class object
+    #     try:
+    #         new_video = Video(get_video_id, get_title, get_description, get_duration, get_release_year, genres_list)
+    #     except Exception as e:
+    #         logger.error("Unexpected error while creating new video class object: %s", e)
+    #         print(f"Error creating video: {e}")
+    #         return None
+    #
+    #     # 'checking if he video is in the dictionary'
+    #     if get_title in videos_dictionary.keys():
+    #         # 'if it is then add the class object under hte same key'
+    #         videos_dictionary[get_title].append(new_video)
+    #         # 'if not then add the class object under a new key'
+    #     else:
+    #         videos_dictionary[get_title] = [new_video]
+    #
+    #     print("Video added to list")
+    #
+    # except AttributeError:
+    #     logger.error("Attribute error while creating new video: %s", e)
+    #     print("Error: Video class missing required method")
+    # except TypeError:
+    #     logger.error("TypeError while creating new video: %s", e)
+    #     print("Error: Invalid data type provided")
+    # except Exception as e:
+    #     logger.error("Unexpected error while creating new video")
+    #     print(f"An error occurred while adding new video: {e}")
 
     #added sleep for the
 
@@ -1244,6 +1271,6 @@ if __name__ == "__main__":
 
 
     if admin == True:
-        admin_view(logged_in_usernmae, user_service, video_service)
+        admin_view(logged_in_usernmae)
 
 

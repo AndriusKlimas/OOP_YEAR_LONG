@@ -159,7 +159,38 @@ class VideoService:
 
         return valid_videos
 
-    def new_video_svr(self):
+    def new_video_svr(self,get_title:str ,get_description:str ,get_duration:int ,get_release_year:int ,genres_list: list ):
         """Create a new video record"""
+        try:
+            # video id no longer key, now goes through dict, counts, and then adds 1 onto for new video id
+            get_video_id = 0
+            for video_list in self.__usable_video_data.values():
+                for video in video_list:
+                    get_video_id += 1
+            get_video_id += 1
 
-        print("under contruction")
+            # creating a new video class object
+            try:
+                new_video = Video(get_video_id, get_title, get_description, get_duration, get_release_year, genres_list)
+            except Exception as e:
+                logger.error("Unexpected error while creating new video class object: %s", e)
+
+            # 'checking if he video is in the dictionary'
+            if get_title in self.__usable_video_data.keys():
+                # 'if it is then add the class object under hte same key'
+                self.__usable_video_data[get_title].append(new_video)
+                # 'if not then add the class object under a new key'
+            else:
+                self.__usable_video_data[get_title] = [new_video]
+
+            self.__video_data.store(self.__usable_video_data)
+
+        except AttributeError:
+            logger.error("Attribute error while creating new video: %s", e)
+            print("Error: Video class missing required method")
+        except TypeError:
+            logger.error("TypeError while creating new video: %s", e)
+            print("Error: Invalid data type provided")
+        except Exception as e:
+            logger.error("Unexpected error while creating new video")
+            print(f"An error occurred while adding new video: {e}")
