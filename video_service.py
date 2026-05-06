@@ -101,7 +101,7 @@ class VideoService:
             logger.error(f"Error retrieving play records for videos: {e}")
             return []
 
-    def print_videos_svc (self) -> None:
+    def print_videos_svc (self) -> list:
         """Print all videos in the dictionary
 
         returns:
@@ -127,13 +127,10 @@ class VideoService:
 
 
     def video_search_srv(self, search_video: str) -> list:
-
+        """Search video by name"""
         try:
-            # stripping white spaces again, causes issues if not their
             search_video = search_video.strip().lower()
-            # goes through all videos in the dictionary
             for title, video_list in self.__usable_video_data.items():
-                # stripping white spaces again, causes issues if not their
                 if search_video == title.strip().lower():
                     return video_list
 
@@ -142,3 +139,5 @@ class VideoService:
         except Exception as e:
             logger.error("Unexpected error searching for videos: %s", e)
             return None
+
+    def search_genre_srv(self, search_genre: str) -> list:

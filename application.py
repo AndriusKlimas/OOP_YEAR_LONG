@@ -134,7 +134,7 @@ def video_search() -> Video | None:
 
 #Option 3 def
 #Need to add to services
-def search_genre(videos_dictionary: dict, search_genre: str) -> None:
+def search_genre() -> None:
     """ searching for a specific genre in the dictionary
     args:
         videos_dictionary (dict): a dictionary of videos with key is video title and value is Video object
@@ -149,6 +149,14 @@ def search_genre(videos_dictionary: dict, search_genre: str) -> None:
     try:
         # loops through dictionary and stores the video info in video variable
         #whitespace again causing issues
+        search_video_genre = input("Please enter the genre you would like to look for: ")
+        in_valid_genres = Video.validate_genre(search_video_genre)
+        if in_valid_genres == True:
+            search_genre(videos, search_video_genre)
+        else:
+            logger.info("user functions: genre chosen not found in valid genres")
+            print("Genre not valid.")
+
         search_genre = search_genre.strip().lower()
         found = False
 
@@ -1062,16 +1070,17 @@ def normal_view(logged_in_usernmae):
                 #     logger.info("user functions: video chosen not found")
                 #     print("Video not found.")
             #
-            # case "3":
-            #     # getting user to input the genre they are searching for
-            #     search_video_genre = input("Please enter the genre you would like to look for: ")
-            #     in_valid_genres = Video.validate_genre(search_video_genre)
-            #     if in_valid_genres == True:
-            #         search_genre(videos, search_video_genre)
-            #     else:
-            #         logger.info("user functions: genre chosen not found in valid genres")
-            #         print("Genre not valid.")
-            #     # calling the method to search the genre
+            case "3":
+                search_genre()
+                # getting user to input the genre they are searching for
+                # search_video_genre = input("Please enter the genre you would like to look for: ")
+                # in_valid_genres = Video.validate_genre(search_video_genre)
+                # if in_valid_genres == True:
+                #     search_genre(videos, search_video_genre)
+                # else:
+                #     logger.info("user functions: genre chosen not found in valid genres")
+                #     print("Genre not valid.")
+                # calling the method to search the genre
             #
             # # Section 2 (For that specific user only)
             # case "4":
