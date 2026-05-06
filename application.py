@@ -431,7 +431,11 @@ def video_remover():
             print(f"{num}. Name= {Video.get_title(video)}, description = {Video.get_description(video)}, duration = {Video.get_duration_seconds(video)}, release_year = {Video.get_release_year(video)}")
 
         choice = int(input("Please choose one (numbers only): ").strip())
-        video_service.video_remover_multiple_srv(choice, videos_found, title_key = remove_video)
+        something = video_service.video_remover_multiple_srv(choice, videos_found, title_key = remove_video)
+
+    if valid == False:
+
+
 
 
 

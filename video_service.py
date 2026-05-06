@@ -222,7 +222,11 @@ class VideoService:
 
 
 
-    def video_remover_single_srv(self, remove_video: str) -> bool:
+    def video_remover_single_srv(self, videos_found: list, title_key: str) -> bool:
+        videos_found.pop(0)
+        if not videos_found:
+            del self.__usable_video_data[title_key]
+
         print("under construction")
         #
         # try:
@@ -270,7 +274,6 @@ class VideoService:
         try:
             actual_remove = choice - 1
             videos_found.pop(actual_remove)
-            print(self.__usable_video_data)
         except IndexError as e:
             logger.error("IndexError in video_remover:  choice chosen is out of range: %s", e)
         except ValueError as e:
