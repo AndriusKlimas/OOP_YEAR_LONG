@@ -172,47 +172,19 @@ def search_genre(videos_dictionary: dict, search_genre: str) -> None:
 
 #option 4 def
 #Need to add to services
-def show_user_history(users_dict: dict, videos_dict: dict) -> None:
+def show_user_history(videos_dict: dict) -> None:
     """ shows the user's play history
 
     Args:
-        users_dict (dict): dictionary of all users
         videos_dict (dict): dictionary of all videos
     """
     try:
         username = logged_in_usernmae
+        history = user_service.show_user_history_svc(username, videos_dict)
 
-        #checking if the username is in the dictionary
-        if username in users_dict:
-            #gets the play history from the users dictionary
-            user_records = users_dict[username].get_history()
-            print(f"Here is the play history for {username}: ")
-
-            #loops through the info gotten
-            for vid_id in user_records:
-                play_records_list = user_records[vid_id]
-
-                # Find the video by ID in the dictionary
-                video = None
-                for title, video_list in videos_dict.items():
-                    for v in video_list:
-                        if v.get_video_id() == vid_id:
-                            video = v
-                            break
-                    if video:
-                        break
-
-                #checking if the video found in the dictionary
-                if video:
-                    title = video.get_title()
-                    for r in play_records_list:
-                        print(f"{title} starting at {sec_to_min(r.get_pos())}")
-                else:
-                    print(f"Video with ID {vid_id} not found")
-                    logger.error("Video with ID {vid_id} not found")
-        else:
-            print("Invalid username entered")
-            logger.error("Invalid username entered")
+        print(f"Here is the play history for {username}")
+        for line in history:
+            print(line)
 
     except KeyError as e:
         logger.error("Missing key while showing user history: %s", e)
@@ -626,22 +598,22 @@ def view_video_play(video_dict: dict, users_dict: dict) -> None:
         logger.error("An error occurred while viewing play history")
 
 #Need to add to services
-def sec_to_min(seconds: int) -> str:
-    """Convert seconds to a human-readable minutes and seconds string.
-
-        Args:
-            seconds (int): Number of seconds
-
-        Returns:
-            str: Formatted string in the form "N minutes and M seconds".
-        """
-    try:
-        minutes = seconds // 60
-        secs = seconds % 60
-        return f"{minutes} minutes and {secs} seconds"
-    except ValueError as e:
-        print(f"Invalid number of seconds: {e}")
-        logger.error("Invalid number of seconds")
+# def sec_to_min(seconds: int) -> str:
+#     """Convert seconds to a human-readable minutes and seconds string.
+#
+#         Args:
+#             seconds (int): Number of seconds
+#
+#         Returns:
+#             str: Formatted string in the form "N minutes and M seconds".
+#         """
+#     try:
+#         minutes = seconds // 60
+#         secs = seconds % 60
+#         return f"{minutes} minutes and {secs} seconds"
+#     except ValueError as e:
+#         print(f"Invalid number of seconds: {e}")
+#         logger.error("Invalid number of seconds")
 
 
 
@@ -1049,10 +1021,12 @@ def dev_mode():
                 print("Invalid choice")
 
 #keep here
-def normal_view(logged_in_usernmae):
+def normal_view(logged_in_usernmae, user_service, video_service):
     """Handles when the person loging in is not admin
     args:
         str: the logged-in usernmae
+        user_service (UserService): User service
+        video_service (VideoService): Video service
 
     """
     user_run = True
@@ -1098,7 +1072,7 @@ def normal_view(logged_in_usernmae):
 
             # Section 2 (For that specific user only)
             case "4":
-                show_user_history(users, videos)
+                show_user_history(video_service.get_usable_video_data())
 
             case "5":
                 play_video_user(users, videos)
@@ -1188,10 +1162,10 @@ if __name__ == "__main__":
 
     # # Videos
     valid = False
-    Video_service = None
+    video_service = None
     while not valid:
-        Video_service = load_video_model()
-        if Video_service is not None:
+        video_service = load_video_model()
+        if video_service is not None:
             valid = True
     # video_filename = input(
     #     "Please enter a filename (json) where video information is stored or press Enter to use defaults: ").strip()
@@ -1241,10 +1215,10 @@ if __name__ == "__main__":
     admin = admin_check(logged_in_usernmae)
 
     if admin != True:
-        normal_view(logged_in_usernmae)
+        normal_view(logged_in_usernmae, user_service, video_service)
 
 
     if admin == True:
-        admin_view(logged_in_usernmae)
+        admin_view(logged_in_usernmae, user_service, video_service)
 
 
