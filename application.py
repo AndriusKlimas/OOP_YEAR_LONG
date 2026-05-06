@@ -234,7 +234,7 @@ def play_video_user(user_service, video_service) -> None:
         videos_dict = video_service.get_usable_video_data()
 
         video_title = input("Please enter the title of the video: ").strip()
-        videos_found = video_search(videos_dict, video_title)
+        videos_found = video_service.video_search_srv(video_title)
 
         if videos_found is None:
             print("Invalid title entered")
