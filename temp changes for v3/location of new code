@@ -41,17 +41,17 @@ Methods:
     - admin_check - done/tested
 
     (Noahs code)
-    - show_user_history
-    - play_video_user
-    - view_video_play
-    - sec_to_min
-    - data_setup - maybe data class tbd
+    - show_user_history - done/tested
+    - play_video_user - done/tested
+    - view_video_play - done/tested
+    - sec_to_min - done/tested
+    - data_setup - commented out. handled elsewhere
 
 2. Data class
     - parse_videos done/tested/
-    - parse_users
+    - parse_users - done/tested
     - create_default_videos - or in the service class tbd done/tested/
-    - create_default_users - or in the service class tbd
+    - create_default_users - or in the service class tbd done/tested
 
 3. keep in main application
     - normal_login - nothing needs to be moved - what was i on when i wrote this?
