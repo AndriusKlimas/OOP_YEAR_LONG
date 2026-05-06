@@ -101,3 +101,39 @@ class JSONUserDataAccess(IUserDataAccess):
         except Exception as e:
             logger.error(f"Error saving users to {self._filename}: {e}")
             raise
+
+class TextUserDataAccess(IUserDataAccess):
+
+    def load(self) -> dict[str, User]:
+        """Load user data from text file
+        Returns:
+            dict[str, User]: Dict of users
+        """
+        us = {}
+        u1 = User("NoahClarke123", "Password123!")
+        u2 = User("Film_Critic1", "ILoveMovies0000")
+        u3 = User("Bob_iscool", "iamBob05$")
+        u4 = User("Jedibob212", "Sidius66")
+        u5 = User("IronManFan3", "TonyStark44!")
+        u6 = User("admin", "Password1!")
+
+        for u in (u1, u2, u3, u4, u5, u6):
+            us[u.get_username()] = u
+
+        # Seed play history in the same internal structure as JSON-loaded users.
+        u1.start_play(1, 120)
+        u1.start_play(4, 950)
+
+        u2.start_play(2, 3400)
+        u2.start_play(3, 5200)
+
+        u3.start_play(5, 600)
+        u4.start_play(6, 1800)
+        u5.start_play(1, 60)
+
+        logger.info(f"Successfully loaded {len(us)} default users their play history")
+        return us
+
+    def store(self, users: dict[str, User]) -> None:
+        """Store users to default dictionary"""
+        pass
