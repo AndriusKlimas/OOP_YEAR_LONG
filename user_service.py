@@ -1,5 +1,6 @@
 from user_data_access import *
 from user_records import User
+from video_service import VideoService
 
 class UserService:
     def __init__(self, user_data):
@@ -96,3 +97,56 @@ class UserService:
             return True, "An unexpected error occurred during account creation"
 
 
+    def show_user_history_svc(self, username: str, video_data: dict) -> list[str]:
+        """ shows the user's play history
+
+        Args:
+            username (str): username of user to show play history of
+            video_data (dict): dictionary of all videos
+
+        Returns:
+            history for specified user
+        """
+        history = []
+
+        if username not in self.__usable_user_data:
+            raise KeyError("Invalid username entered")
+
+        user_records = self.__usable_user_data[username].get_history()
+
+        for vid_id, play_records_list in user_records.items():
+            video = None
+
+            for title, video_list in video_data.items():
+                for v in video_list:
+                    if v.get_video_id() == vid_id:
+                        video = v
+                        break
+
+                if video:
+                    break
+
+            if video is None:
+                history.append(f"Video with ID {vid_id} not found")
+                continue
+
+            title = video.get_title()
+            for record in play_records_list:
+                history.append(f"{title} starting at {self.sec_to_min(record.get_pos())}")
+
+
+        return history
+
+    @staticmethod
+    def sec_to_min(seconds: int) -> str:
+        """Convert seconds to a human-readable minutes and seconds string.
+
+            Args:
+                seconds (int): Number of seconds
+
+            Returns:
+                str: Formatted string in the form "N minutes and M seconds".
+            """
+        minutes = seconds // 60
+        secs = seconds % 60
+        return f"{minutes} minutes and {secs} seconds"
