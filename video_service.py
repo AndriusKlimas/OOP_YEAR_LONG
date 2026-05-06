@@ -187,10 +187,10 @@ class VideoService:
 
         except AttributeError:
             logger.error("Attribute error while creating new video: %s", e)
-            print("Error: Video class missing required method")
+
         except TypeError:
             logger.error("TypeError while creating new video: %s", e)
-            print("Error: Invalid data type provided")
+
         except Exception as e:
             logger.error("Unexpected error while creating new video")
-            print(f"An error occurred while adding new video: {e}")
+

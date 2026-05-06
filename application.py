@@ -299,8 +299,23 @@ def new_video() -> None:
         print("Please enter the following details to add a new video: ")
         get_title = input("Title: ")
         get_description = input("Description: ")
-        get_duration = int(input("Duration seconds: "))
-        get_release_year = int(input("Release Year: "))
+        valid_duration = False
+        while not valid_duration:
+            try:
+                get_duration = int(input("Duration seconds: "))
+                valid_duration = True
+            except ValueError:
+                print("Error: Duration must be a number. Please try again.")
+
+        # Getting release year
+        valid_year = False
+        while not valid_year:
+            try:
+                get_release_year = int(input("Release Year: "))
+                valid_year = True
+            except ValueError:
+                print("Error: Release Year must be a number. Please try again.")
+
     except ValueError as e:
         logger.error("ValueError in new_video input: Duration and Release Year must be numbers: %s", e)
         print("Error: Duration and Release Year must be numbers.")
