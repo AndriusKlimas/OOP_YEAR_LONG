@@ -8,6 +8,7 @@ from catalogue import Video
 from user_records import User
 from user_service import UserService
 from user_data_access import JSONUserDataAccess
+from user_data_access import TextUserDataAccess
 from video_service import VideoService
 from video_data_access import JSONVideoDataAccess
 from video_data_access import DefaultVideoDataAccess
@@ -25,8 +26,17 @@ logger = logging.getLogger(__name__)
 def load_user_model() -> UserService:
     filename = ""
     try:
-        filename = input("Enter the path of the user model file: ")
-        user_doa = JSONUserDataAccess(filename)
+        filename = input("Enter the path of the user model file or 'default: ").strip()
+
+        if filename.lower() == "videos.json":
+            logger.error("Trying to access the videos.json file instead of users file")
+            return None
+
+        if filename.lower() == "default":
+            user_doa = TextUserDataAccess()
+        else:
+            user_doa = JSONUserDataAccess(filename)
+
         user_service = UserService(user_doa)
         user_service.load_serv_user()
         return user_service
@@ -724,35 +734,35 @@ def parse_users(filename: str) -> list:
 #     return vids
 
 #need to add to database
-def create_default_users() -> dict:
-    """Create and return the default users dictionary used when no file is provided.
-
-    Returns:
-        A dictionary that maps username to user object.
-       """
-    us = {}
-    u1 = User("NoahClarke123", "Password123!")
-    u2 = User("Film_Critic1", "ILoveMovies0000")
-    u3 = User("Bob_iscool", "iamBob05$")
-    u4 = User("Jedibob212", "Sidius66")
-    u5 = User("IronManFan3", "TonyStark44!")
-    u6 = User("admin","Password1!")
-
-    for u in (u1, u2, u3, u4, u5, u6):
-        us[u.get_username()] = u
-
-    # Seed play history in the same internal structure as JSON-loaded users.
-    u1.start_play(1, 120)
-    u1.start_play(4, 950)
-
-    u2.start_play(2, 3400)
-    u2.start_play(3, 5200)
-
-    u3.start_play(5, 600)
-    u4.start_play(6, 1800)
-    u5.start_play(1, 60)
-
-    return us
+# def create_default_users() -> dict:
+#     """Create and return the default users dictionary used when no file is provided.
+#
+#     Returns:
+#         A dictionary that maps username to user object.
+#        """
+#     us = {}
+#     u1 = User("NoahClarke123", "Password123!")
+#     u2 = User("Film_Critic1", "ILoveMovies0000")
+#     u3 = User("Bob_iscool", "iamBob05$")
+#     u4 = User("Jedibob212", "Sidius66")
+#     u5 = User("IronManFan3", "TonyStark44!")
+#     u6 = User("admin","Password1!")
+#
+#     for u in (u1, u2, u3, u4, u5, u6):
+#         us[u.get_username()] = u
+#
+#     # Seed play history in the same internal structure as JSON-loaded users.
+#     u1.start_play(1, 120)
+#     u1.start_play(4, 950)
+#
+#     u2.start_play(2, 3400)
+#     u2.start_play(3, 5200)
+#
+#     u3.start_play(5, 600)
+#     u4.start_play(6, 1800)
+#     u5.start_play(1, 60)
+#
+#     return us
 
 #need to add to database
 def data_setup(parse_type: str, filename: str | None = None):
