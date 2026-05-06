@@ -765,51 +765,52 @@ def parse_users(filename: str) -> list:
 #     return us
 
 #need to add to database
-def data_setup(parse_type: str, filename: str | None = None):
-    """Prompt the user (up to 3 tries) for a filename and parse the file.
-
-    Args:
-        parse_type (str): one of "videos", "users" or "playrecords".
-        filename (str | None): optional initial filename to try first (if provided
-                                the function will attempt it, otherwise it will
-                                prompt the user).
-
-    Returns:
-        list: list of parsed objects on success, or None to indicate the caller
-              should use the hardcoded defaults.
-    """
-    attempts = 3
-    for attempt in range(attempts):
-        # If caller provided a filename, try it first on the first attempt.
-        if attempt == 0 and filename:
-            fname = filename.strip()
-        else:
-            fname = input(f"Enter {parse_type} filename (JSON) or press Enter to use defaults: ").strip()
-
-        if not fname:
-            # User chose defaults or pressed Enter
-            return None
-
-        try:
-            if parse_type == "videos":
-                items = parse_videos(fname)
-            elif parse_type == "users":
-                items = parse_users(fname)
-            else:
-                print("Unknown data type requested; using defaults.")
-                return None
-
-            print(f"Loaded {len(items)} {parse_type} from {fname}")
-            return items
-        except FileNotFoundError:
-            print(f"File not found: {fname}. Attempts left: {attempts - attempt - 1}")
-            logger.error(f"File not found: {fname}. Attempts left: {attempts - attempt - 1}")
-        except Exception as e:
-            print(f"Error loading {parse_type} from {fname}: {e}. Attempts left: {attempts - attempt - 1}")
-            logger.error(f"Error loading {parse_type} from {fname}")
-
-    print(f"Failed to load {parse_type} after {attempts} attempts; using defaults.")
-    return None
+#pretty sure data_setup is now redundant with current functionality all of it is being handled elsewhere
+# def data_setup(parse_type: str, filename: str | None = None):
+#     """Prompt the user (up to 3 tries) for a filename and parse the file.
+#
+#     Args:
+#         parse_type (str): one of "videos", "users" or "playrecords".
+#         filename (str | None): optional initial filename to try first (if provided
+#                                 the function will attempt it, otherwise it will
+#                                 prompt the user).
+#
+#     Returns:
+#         list: list of parsed objects on success, or None to indicate the caller
+#               should use the hardcoded defaults.
+#     """
+#     attempts = 3
+#     for attempt in range(attempts):
+#         # If caller provided a filename, try it first on the first attempt.
+#         if attempt == 0 and filename:
+#             fname = filename.strip()
+#         else:
+#             fname = input(f"Enter {parse_type} filename (JSON) or press Enter to use defaults: ").strip()
+#
+#         if not fname:
+#             # User chose defaults or pressed Enter
+#             return None
+#
+#         try:
+#             if parse_type == "videos":
+#                 items = parse_videos(fname)
+#             elif parse_type == "users":
+#                 items = parse_users(fname)
+#             else:
+#                 print("Unknown data type requested; using defaults.")
+#                 return None
+#
+#             print(f"Loaded {len(items)} {parse_type} from {fname}")
+#             return items
+#         except FileNotFoundError:
+#             print(f"File not found: {fname}. Attempts left: {attempts - attempt - 1}")
+#             logger.error(f"File not found: {fname}. Attempts left: {attempts - attempt - 1}")
+#         except Exception as e:
+#             print(f"Error loading {parse_type} from {fname}: {e}. Attempts left: {attempts - attempt - 1}")
+#             logger.error(f"Error loading {parse_type} from {fname}")
+#
+#     print(f"Failed to load {parse_type} after {attempts} attempts; using defaults.")
+#     return None
 
 #need to add to service
 def user_login() -> tuple[bool, str]:
