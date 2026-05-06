@@ -1,3 +1,4 @@
+from user_service import UserService
 from video_data_access import *
 
 class VideoService:
@@ -40,3 +41,28 @@ class VideoService:
             dict: Usable video data.
         """
         return self.__usable_video_data
+
+    def play_video_user_svc(self, username: str, user_service: UserService, video_id: int) -> bool:
+        """Play a video user by username.
+
+        Args:
+            username (str): Username of the user to play a video.
+            user_service (UserService): User service object.
+            video_id (int): Video id to play a video.
+
+        Returns:
+            bool: True of play record created successfully. False otherwise.
+
+        """
+        try:
+            users_dict = user_service.get_usable_user_data()
+
+            if username not in users_dict:
+                return False
+
+            users_dict[username].start_play(video_id)
+            return True
+
+        except Exception as e:
+            logger.error(f"Error creating play record for user {username}: {e}")
+            return False
