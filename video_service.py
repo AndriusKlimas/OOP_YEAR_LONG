@@ -219,15 +219,17 @@ class VideoService:
         if len(videos_found) > 1:
             return True, videos_found
 
-
-
+        if len(videos_found) == 1:
+            return False, videos_found
 
     def video_remover_single_srv(self, videos_found: list, title_key: str) -> bool:
         videos_found.pop(0)
-        if not videos_found:
-            del self.__usable_video_data[title_key]
 
-        print("under construction")
+        if not videos_found:
+            del self.__usable_video_data[title_key.strip().lower()]
+            self.__video_data.store(self.__usable_video_data)
+            return True
+
         #
         # try:
         #     # stripping white spaces again, causes issues if not their
@@ -281,6 +283,6 @@ class VideoService:
 
         # checking if ther list is not empty, if it is then remove the key for dictioanry
         if not videos_found:
-            del self.__usable_video_data[title_key]
+            del self.__usable_video_data[title_key.strip().lower()]
 
         return True

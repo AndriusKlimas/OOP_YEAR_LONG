@@ -65,11 +65,11 @@ class JSONVideoDataAccess(IVideoDataAccess):
 
             videos_dict = {}
             for title, videos_list in videos_data.items():
-                videos_dict[title] = []
+                videos_dict[title.lower()] = []
                 for i, video_data in enumerate(videos_list, start=1):
                     try:
                         video = Video.from_dict(video_data)
-                        videos_dict[title].append(video)
+                        videos_dict[title.lower()].append(video)
                     except Exception as e:
                         logger.error(f"Invalid video record #{i} under '{title}' in {self._filename}: {e}")
                         continue

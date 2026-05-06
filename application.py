@@ -421,7 +421,7 @@ def video_remover():
     #ps need comments for this as its complex
     remove_video = input("Please enter the name of the video you would like to remove: ")
     # calling the method to remove the video
-    valid,videos_found = video_service.video_remover_amount_srv(remove_video)
+    valid , videos_found = video_service.video_remover_amount_srv(remove_video)
 
     if valid is None:
         print("Video not found")
@@ -431,10 +431,11 @@ def video_remover():
             print(f"{num}. Name= {Video.get_title(video)}, description = {Video.get_description(video)}, duration = {Video.get_duration_seconds(video)}, release_year = {Video.get_release_year(video)}")
 
         choice = int(input("Please choose one (numbers only): ").strip())
-        something = video_service.video_remover_multiple_srv(choice, videos_found, title_key = remove_video)
+        something= video_service.video_remover_multiple_srv(choice, videos_found, title_key = remove_video)
+
 
     if valid == False:
-
+        something= video_service.video_remover_single_srv(videos_found, title_key = remove_video)
 
 
 
