@@ -194,60 +194,90 @@ class VideoService:
         except Exception as e:
             logger.error("Unexpected error while creating new video")
 
-    def video_remover_srv(self, remove_video: str) -> bool:
 
-        try:
-            # stripping white spaces again, causes issues if not their
-            search_video = remove_video.strip().lower()
-            # to store the videos found
-            videos_found = []
-            # this will be used to store the title/key iof found
-            title_key = None
+    def video_remover_amount_srv(self,remove_video:str):
+        # stripping white spaces again, causes issues if not their
+        search_video = remove_video.strip().lower()
+        # to store the videos found
+        videos_found = []
 
-            # finding all videos
-            for title, video_list in self.__usable_video_data.items():
-                if search_video == title.strip().lower():
-                    title_key = title
-                    if isinstance(video_list, list):
-                        videos_found = video_list
-                    else:
-                        videos_found = [video_list]
-                    break
+        # searching through the videos and adding them to teh list
+        for title, video_list in self.__usable_video_data.items():
+            if search_video == title.strip().lower():
+                title_key = title
+                if isinstance(video_list, list):
+                    videos_found = video_list
+                else:
+                    videos_found = [video_list]
+                break
+
+        # if none are found then return None
+        if not videos_found:
+            logger.info("video_remover: No video found in dictionary")
+            return None, None
+
+        if len(videos_found) > 1:
+            return True, videos_found
+
+
+
+
+    def video_remover_single_srv(self, remove_video: str) -> bool:
+        print("under construction")
+        #
+        # try:
+        #     # stripping white spaces again, causes issues if not their
+        #     search_video = remove_video.strip().lower()
+        #     # to store the videos found
+        #     videos_found = []
+        #     # this will be used to store the title/key iof found
+        #     title_key = None
+        #
+        #     # finding all videos
+        #     for title, video_list in self.__usable_video_data.items():
+        #         if search_video == title.strip().lower():
+        #             title_key = title
+        #             if isinstance(video_list, list):
+        #                 videos_found = video_list
+        #             else:
+        #                 videos_found = [video_list]
+        #             break
 
             # if the videos_found list is empty, then do the below
-            if not videos_found:
-                logger.info("video_remover: No video found in dictionary")
-                print(f"No videos found with title provided: {remove_video}")
-                return False
+            # if not videos_found:
+            #     logger.info("video_remover: No video found in dictionary")
+            #     return False
+            #
+            # if len(videos_found) == 1:
+            #     videos_found.pop(0)
+            #     return False
+            #
+            # else:
+            #     return videos_found
 
             # in this part will check how many iteams are added to teh list
-            if len(videos_found) > 1:
-                for num, video in enumerate(videos_found, 1):
-                    print(
-                        f"{num}. Name= {Video.get_title(video)}, description = {Video.get_description(video)}, duration = {Video.get_duration_seconds(video)}, release_year = {Video.get_release_year(video)}")
+            # if len(videos_found) > 1:
+            #     for num, video in enumerate(videos_found, 1):
+            #         print(
+            #             f"{num}. Name= {Video.get_title(video)}, description = {Video.get_description(video)}, duration = {Video.get_duration_seconds(video)}, release_year = {Video.get_release_year(video)}"
+        # except Exception as e:
+        #     logger.error("Unexpected error while removing video: %s", e)
+        #     print(f"An error occurred while removing video: {e}")
+        #     return False
 
-                choice = int(input("Please enter the one you would like to remove(numbers only): "))
-                try:
-                    actual_remove = choice - 1
-                    videos_found.pop(actual_remove)
-                except IndexError as e:
-                    logger.error("IndexError in video_remover:  choice chosen is out of range: %s", e)
-                    print("out of range")
-                except ValueError as e:
-                    logger.error("ValueError in video_remover: Value provided is not an int: %s", e)
-                    print("please enter a number")
+    def video_remover_multiple_srv(self, choice: int, videos_found: list, title_key: str) -> list:
 
-            # if one video is found
-            else:
-                print(f"removing video: {videos_found}")
-                videos_found.pop(0)
+        try:
+            actual_remove = choice - 1
+            videos_found.pop(actual_remove)
+            print(self.__usable_video_data)
+        except IndexError as e:
+            logger.error("IndexError in video_remover:  choice chosen is out of range: %s", e)
+        except ValueError as e:
+            logger.error("ValueError in video_remover: Value provided is not an int: %s", e)
 
-            # checking if ther list is not empty, if it is then remove the key for dictioanry
-            if not videos_found:
-                del videos_dictionary[title_key]
+        # checking if ther list is not empty, if it is then remove the key for dictioanry
+        if not videos_found:
+            del self.__usable_video_data[title_key]
 
-            return True
-        except Exception as e:
-            logger.error("Unexpected error while removing video: %s", e)
-            print(f"An error occurred while removing video: {e}")
-            return False
+        return True

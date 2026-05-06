@@ -155,3 +155,27 @@
 { "time": "2026-05-06 20:52:05,760", "function": "load", "level": "INFO", "message": "Successfully loaded videos from videos.json" }
 { "time": "2026-05-06 20:52:08,973", "function": "load", "level": "INFO", "message": "Successfully loaded 7 users from users.json" }
 { "time": "2026-05-06 20:52:22,335", "function": "new_video", "level": "ERROR", "message": "ValueError in new_video input: Duration and Release Year must be numbers: invalid literal for int() with base 10: 'das'" }
+{ "time": "2026-05-06 21:09:51,771", "function": "load", "level": "INFO", "message": "Successfully loaded videos from videos.json" }
+{ "time": "2026-05-06 21:09:54,102", "function": "load", "level": "INFO", "message": "Successfully loaded 7 users from users.json" }
+{ "time": "2026-05-06 21:16:09,280", "function": "load", "level": "INFO", "message": "Successfully loaded videos from videos.json" }
+{ "time": "2026-05-06 21:16:11,844", "function": "load", "level": "INFO", "message": "Successfully loaded 7 users from users.json" }
+{ "time": "2026-05-06 21:23:59,275", "function": "load", "level": "INFO", "message": "Successfully loaded videos from videos.json" }
+{ "time": "2026-05-06 21:24:02,034", "function": "load", "level": "INFO", "message": "Successfully loaded 7 users from users.json" }
+{ "time": "2026-05-06 21:25:07,104", "function": "load", "level": "INFO", "message": "Successfully loaded videos from videos.json" }
+{ "time": "2026-05-06 21:25:09,718", "function": "load", "level": "INFO", "message": "Successfully loaded 7 users from users.json" }
+{ "time": "2026-05-06 21:27:40,344", "function": "load", "level": "INFO", "message": "Successfully loaded videos from videos.json" }
+{ "time": "2026-05-06 21:27:42,929", "function": "load", "level": "INFO", "message": "Successfully loaded 7 users from users.json" }
+{ "time": "2026-05-06 21:29:31,614", "function": "load", "level": "INFO", "message": "Successfully loaded videos from videos.json" }
+{ "time": "2026-05-06 21:29:34,318", "function": "load", "level": "INFO", "message": "Successfully loaded 7 users from users.json" }
+{ "time": "2026-05-06 21:30:00,199", "function": "load_video_model", "level": "ERROR", "message": "File vidoes.json not found" }
+{ "time": "2026-05-06 21:30:06,579", "function": "load", "level": "INFO", "message": "Successfully loaded videos from videos.json" }
+{ "time": "2026-05-06 21:30:09,046", "function": "load", "level": "INFO", "message": "Successfully loaded 7 users from users.json" }
+{ "time": "2026-05-06 21:30:48,636", "function": "load", "level": "INFO", "message": "Successfully loaded videos from videos.json" }
+{ "time": "2026-05-06 21:30:51,444", "function": "load", "level": "INFO", "message": "Successfully loaded 7 users from users.json" }
+{ "time": "2026-05-06 21:39:41,518", "function": "load", "level": "INFO", "message": "Successfully loaded videos from videos.json" }
+{ "time": "2026-05-06 21:39:44,376", "function": "load", "level": "INFO", "message": "Successfully loaded 7 users from users.json" }
+{ "time": "2026-05-06 21:39:49,615", "function": "video_remover_amount_srv", "level": "INFO", "message": "video_remover: No video found in dictionary" }
+{ "time": "2026-05-06 21:45:46,758", "function": "load", "level": "INFO", "message": "Successfully loaded videos from videos.json" }
+{ "time": "2026-05-06 21:45:49,251", "function": "load", "level": "INFO", "message": "Successfully loaded 7 users from users.json" }
+{ "time": "2026-05-06 21:46:45,632", "function": "load", "level": "INFO", "message": "Successfully loaded videos from videos.json" }
+{ "time": "2026-05-06 21:46:48,147", "function": "load", "level": "INFO", "message": "Successfully loaded 7 users from users.json" }
