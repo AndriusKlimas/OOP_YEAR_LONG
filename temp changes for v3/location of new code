@@ -34,7 +34,7 @@ Methods:
     - video_search - done/tested/
     - search_genre - done/tested/
     - new_video - done/tested
-    - video_remover
+    - video_remover done/tested
     - video_editor
     - user_login - done/tested/
     - create_login - done/tested/
