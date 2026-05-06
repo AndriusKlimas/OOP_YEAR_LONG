@@ -558,7 +558,7 @@ def video_editor(video_dictionary: dict) -> None:
         print("Invalid input.")
 
 #Need to add to services
-def view_video_play(video_dict: dict, users_dict: dict) -> None:
+def view_video_play(user_service, video_service) -> None:
     """Allow the user to see all play history for a specified video.
 
     Args:
@@ -568,26 +568,21 @@ def view_video_play(video_dict: dict, users_dict: dict) -> None:
     try:
         video_name = input("Please enter the video you would like to view the play history of: ").strip()
 
-        matched_videos = video_search(video_dict, video_name)
+        videos_dict = video_service.get_usable_video_data()
+        matched_videos = video_search(videos_dict, video_name)
+
         if matched_videos is None:
-            raise ValueError("Invalid video entered")
+            print("Invalid video entered")
             logger.error("Invalid video entered")
+            return
 
         # Normalise to list in case one object is returned.
         if not isinstance(matched_videos, list):
             matched_videos = [matched_videos]
 
-        matched_video_ids = []
-        for video_obj in matched_videos:
-            matched_video_ids.append(video_obj.get_video_id())
+        matched_video_ids = [video_obj.get_video_id() for video_obj in matched_videos]
 
-        records_found = []
-        for username, user_obj in users_dict.items():
-            user_history = user_obj.get_history()
-            for vid_id, play_records_list in user_history.items():
-                if vid_id in matched_video_ids:
-                    for record in play_records_list:
-                        records_found.append((username, vid_id, record))
+        records_found = video_service.view_video_play_svc(matched_video_ids, user_service)
 
         print(f"\nPlay history for '{video_name}':")
 
@@ -596,11 +591,8 @@ def view_video_play(video_dict: dict, users_dict: dict) -> None:
             return
 
         for username, vid_id, record in records_found:
-            print(f"User: {username} | Video ID: {vid_id} | Position: {sec_to_min(record.get_pos())}")
+            print(f"User: {username} | Video ID: {vid_id} | Position: {VideoService.sec_to_min(record.get_pos())}")
 
-    except ValueError:
-        print("Invalid video entered")
-        logger.error("Invalid video entered")
     except Exception as e:
         print(f"An error occurred while viewing play history: {e}")
         logger.error("An error occurred while viewing play history")
@@ -1086,7 +1078,7 @@ def normal_view(logged_in_usernmae, user_service, video_service):
                 play_video_user(user_service, video_service)
 
             case "6":
-                view_video_play(videos, users)
+                view_video_play(user_service, video_service)
 
             case "0":
                 user_run = False

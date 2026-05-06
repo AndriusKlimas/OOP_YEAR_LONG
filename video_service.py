@@ -66,3 +66,37 @@ class VideoService:
         except Exception as e:
             logger.error(f"Error creating play record for user {username}: {e}")
             return False
+
+    @staticmethod
+    def view_video_play_svc( video_ids: list[int], user_service: UserService) -> list[tuple[str, int, object]]:
+        """Get all play records for a specified video
+
+        Args:
+            video_ids (list[int]): List of video ids that match
+            user_service (UserService): User service object.
+
+        Returns:
+            list[tuple[str, int, object]]: All play records for a specified video
+
+        Raises:
+            ValueError: If video_ids is empty or invalid.
+        """
+        try:
+            if not video_ids:
+                raise ValueError("No video IDs provided")
+
+            users_dict = user_service.get_usable_user_data()
+            records_found = []
+
+            for username, user_obj in users_dict.items():
+                user_history = user_obj.get_history()
+                for vid_id, play_records_list in user_history.items():
+                    if vid_id in video_ids:
+                        for record in play_records_list:
+                            records_found.append((username, vid_id, record))
+
+            return records_found
+
+        except Exception as e:
+            logger.error(f"Error retrieving play records for videos: {e}")
+            return []
