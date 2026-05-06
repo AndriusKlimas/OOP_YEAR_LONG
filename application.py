@@ -152,26 +152,39 @@ def search_genre() -> None:
         search_video_genre = input("Please enter the genre you would like to look for: ")
         in_valid_genres = Video.validate_genre(search_video_genre)
         if in_valid_genres == True:
-            search_genre(videos, search_video_genre)
+            valid_videos = video_service.search_genre_srv(search_video_genre)
+
         else:
             logger.info("user functions: genre chosen not found in valid genres")
             print("Genre not valid.")
 
-        search_genre = search_genre.strip().lower()
-        found = False
-
-        #goes through all videos in the dictionary
-        for title, genre_list in videos_dictionary.items():
-            for video in genre_list:
-                #hets the genres from the class object using the fucntion
-                video_genres = Video.get_genres(video)
-                if search_genre in video_genres:
+        if valid_videos is not None:
+            # isinstance is used to check if the iteam retuernd is a list, if it is then do the below source
+            # w3schools, stackoverflow
+            if isinstance(valid_videos, list):
+                for video in valid_videos:
                     print(video)
-                    found = True
+            else:
+                print(valid_videos)
+        else:
+            logger.info("user functions: video chosen not found")
+            print("Video not found.")
 
-        if not found:
-            logger.info("No videos found with genre: %s", search_genre)
-            print(f"No videos found with genre: {search_genre}")
+        # search_genre = search_genre.strip().lower()
+        # found = False
+
+        # #goes through all videos in the dictionary
+        # for title, genre_list in videos_dictionary.items():
+        #     for video in genre_list:
+        #         #hets the genres from the class object using the fucntion
+        #         video_genres = Video.get_genres(video)
+        #         if search_genre in video_genres:
+        #             print(video)
+        #             found = True
+        #
+        # if not found:
+        #     logger.info("No videos found with genre: %s", search_genre)
+        #     print(f"No videos found with genre: {search_genre}")
 
 
     except TypeError as e:

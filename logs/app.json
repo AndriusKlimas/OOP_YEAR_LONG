@@ -133,3 +133,11 @@
 { "time": "2026-05-06 18:45:18,428", "function": "load", "level": "INFO", "message": "Successfully loaded videos from videos.json" }
 { "time": "2026-05-06 18:45:21,087", "function": "load", "level": "INFO", "message": "Successfully loaded 7 users from users.json" }
 { "time": "2026-05-06 18:45:34,068", "function": "video_search", "level": "INFO", "message": "user functions: video chosen not found" }
+{ "time": "2026-05-06 19:04:03,488", "function": "load", "level": "INFO", "message": "Successfully loaded videos from videos.json" }
+{ "time": "2026-05-06 19:04:05,944", "function": "load", "level": "INFO", "message": "Successfully loaded 7 users from users.json" }
+{ "time": "2026-05-06 19:05:18,107", "function": "load", "level": "INFO", "message": "Successfully loaded videos from videos.json" }
+{ "time": "2026-05-06 19:05:20,519", "function": "load", "level": "INFO", "message": "Successfully loaded 7 users from users.json" }
+{ "time": "2026-05-06 19:06:41,519", "function": "load", "level": "INFO", "message": "Successfully loaded videos from videos.json" }
+{ "time": "2026-05-06 19:06:44,056", "function": "load", "level": "INFO", "message": "Successfully loaded 7 users from users.json" }
+{ "time": "2026-05-06 19:06:58,278", "function": "search_genre", "level": "INFO", "message": "user functions: genre chosen not found in valid genres" }
+{ "time": "2026-05-06 19:06:58,279", "function": "search_genre", "level": "ERROR", "message": "Unexpected error while searching for genre: cannot access local variable 'valid_videos' where it is not associated with a value" }

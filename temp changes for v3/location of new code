@@ -32,12 +32,12 @@ Methods:
     (Andriuses code)
     - print_videos - done/tested/
     - video_search - done/tested/
-    - search_genre
+    - search_genre - done/tested/
     - new_video
     - video_remover
     - video_editor
-    - user_login - data should be provided
-    - create_login - will need to talk to data setup for saving
+    - user_login - done/tested/
+    - create_login - done/tested/
     - admin_check
 
     (Noahs code)
@@ -54,7 +54,7 @@ Methods:
     - create_default_users - or in the service class tbd
 
 3. keep in main application
-    - normal_login - nothing needs to be moved
-    - dev_mode - nothing needs to be moved
+    - normal_login - nothing needs to be moved - what was i on when i wrote this?
+    - dev_mode - nothing needs to be moved - what was i on when i wrote this?
     - normal_view - case 3 needs to be altered into a new method
     - admin_view - case 3 needs to be altered into a new method

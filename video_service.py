@@ -141,3 +141,20 @@ class VideoService:
             return None
 
     def search_genre_srv(self, search_genre: str) -> list:
+        search_genre = search_genre.strip().lower()
+        found = False
+        valid_videos = []
+
+        # goes through all videos in the dictionary
+        for title, genre_list in self.__usable_video_data.items():
+            for video in genre_list:
+                # gets the genres from the class object using the fucntion
+                video_genres = Video.get_genres(video)
+                if search_genre in video_genres:
+                    valid_videos.append(video)
+                    found = True
+        if not found:
+            logger.info("No videos found with genre: %s", search_genre)
+            return None
+
+        return valid_videos
