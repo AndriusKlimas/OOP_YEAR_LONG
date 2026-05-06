@@ -76,5 +76,126 @@
         "animation"
       ]
     }
+  ],
+  "inception": [
+    {
+      "type": "Video",
+      "video_id": 15,
+      "title": "Inception",
+      "description": "A skilled thief infiltrates dreams to plant ideas",
+      "duration_seconds": 8880,
+      "release_year": 2010,
+      "genres": [
+        "sci-fi",
+        "action",
+        "thriller"
+      ]
+    }
+  ],
+  "the matrix": [
+    {
+      "type": "Video",
+      "video_id": 16,
+      "title": "The Matrix",
+      "description": "A hacker discovers the true nature of reality",
+      "duration_seconds": 8160,
+      "release_year": 1999,
+      "genres": [
+        "sci-fi",
+        "action"
+      ]
+    }
+  ],
+  "up": [
+    {
+      "type": "Video",
+      "video_id": 17,
+      "title": "Up",
+      "description": "An elderly man and a boy embark on an adventure",
+      "duration_seconds": 5400,
+      "release_year": 2009,
+      "genres": [
+        "animation",
+        "adventure",
+        "drama"
+      ]
+    },
+    {
+      "type": "Video",
+      "video_id": 18,
+      "title": "Up: Extended Cut",
+      "description": "Extended version with bonus content",
+      "duration_seconds": 6300,
+      "release_year": 2010,
+      "genres": [
+        "animation",
+        "adventure"
+      ]
+    }
+  ],
+  "interstellar": [
+    {
+      "type": "Video",
+      "video_id": 19,
+      "title": "Interstellar",
+      "description": "A team of astronauts travel through a wormhole",
+      "duration_seconds": 10980,
+      "release_year": 2014,
+      "genres": [
+        "sci-fi",
+        "drama",
+        "adventure"
+      ]
+    },
+    {
+      "type": "Video",
+      "video_id": 20,
+      "title": "Interstellar: Behind the Scenes",
+      "description": "Documentary about the making of Interstellar",
+      "duration_seconds": 4800,
+      "release_year": 2015,
+      "genres": [
+        "documentary"
+      ]
+    },
+    {
+      "type": "Video",
+      "video_id": 21,
+      "title": "Interstellar: Soundtrack Experience",
+      "description": "Hans Zimmer performing the Interstellar score",
+      "duration_seconds": 5400,
+      "release_year": 2016,
+      "genres": [
+        "music",
+        "documentary"
+      ]
+    }
+  ],
+  "dark knight": [
+    {
+      "type": "Video",
+      "video_id": 22,
+      "title": "The Dark Knight",
+      "description": "Batman faces the Joker in a battle for Gotham",
+      "duration_seconds": 9480,
+      "release_year": 2008,
+      "genres": [
+        "action",
+        "crime",
+        "drama"
+      ]
+    },
+    {
+      "type": "Video",
+      "video_id": 23,
+      "title": "The Dark Knight: Special Edition",
+      "description": "Extended version with additional scenes",
+      "duration_seconds": 10200,
+      "release_year": 2009,
+      "genres": [
+        "action",
+        "crime"
+      ]
+    }
   ]
 }
