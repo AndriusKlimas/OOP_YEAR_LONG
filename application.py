@@ -404,7 +404,7 @@ def new_video() -> None:
 
 #Option 7 def
 #Need to add to services
-def video_remover(videos_dictionary: dict, remove_video: str) -> bool:
+def video_remover():
     """ Removes a video from the dictionary
     args:
         videos_dictionary (dict): a dictionary of videos with key is Video ID and value is Video object
@@ -419,6 +419,19 @@ def video_remover(videos_dictionary: dict, remove_video: str) -> bool:
     Exception: general exception
     """
     #ps need comments for this as its complex
+    remove_video = input("Please enter the name of the video you would like to remove: ")
+    # calling the method to remove the video
+    video_removed = video_service.video_remover_srv(remove_video)
+    # if the video method comes back as true then print video removed
+    if video_removed == True:
+        logger.info("admin functions: video removed")
+        print("Video removed from list")
+    # else print video not found
+    else:
+        logger.info("user functions: video not found")
+        print("Video not found.")
+
+
     try:
         #stripping white spaces again, causes issues if not their
         search_video = remove_video.strip().lower()
@@ -1174,19 +1187,21 @@ def admin_view(logged_in_usernmae):
             case "1":
                 new_video()
 
-            # case "2":
-            #     remove_video = input("Please enter the name of the video you would like to remove: ")
-            #     # calling the method to remove the video
-            #     video_removed = video_remover(videos, remove_video)
-            #     # if the video method comes back as true then print video removed
-            #     if video_removed == True:
-            #         logger.info("admin functions: video removed")
-            #         print("Video removed from list")
-            #     # else print video not found
-            #     else:
-            #         logger.info("user functions: video not found")
-            #         print("Video not found.")
-            #
+            case "2":
+                print("trialing")
+                video_remover()
+                # remove_video = input("Please enter the name of the video you would like to remove: ")
+                # # calling the method to remove the video
+                # video_removed = video_remover(videos, remove_video)
+                # # if the video method comes back as true then print video removed
+                # if video_removed == True:
+                #     logger.info("admin functions: video removed")
+                #     print("Video removed from list")
+                # # else print video not found
+                # else:
+                #     logger.info("user functions: video not found")
+                #     print("Video not found.")
+
             # case "3":
             #     try:
             #         video_editor(videos)
