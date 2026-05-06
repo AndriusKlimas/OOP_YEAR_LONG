@@ -198,51 +198,59 @@ def show_user_history(videos_dict: dict) -> None:
 
 #option 5 def
 #Need to add to services
-def play_video_user(users_dict: dict, videos_dict: dict) -> None:
+def play_video_user(user_service, video_service) -> None:
     """ creates a play record
 
     Args:
         users_dict (dict): dictionary of all users
         videos_dict (dict): dictionary of all videos
     """
-    username = logged_in_usernmae
-    if username not in users_dict:
-        print("Invalid username entered")
-        return
+    try:
+        username = logged_in_usernmae
+        videos_dict = video_service.get_usable_video_data()
 
-    video_title = input("Please enter the title of the video: ").strip()
-    videos_found = video_search(videos_dict, video_title)
+        video_title = input("Please enter the title of the video: ").strip()
+        videos_found = video_search(videos_dict, video_title)
 
-    if videos_found is None:
-        print("Invalid title entered")
-        logger.error("Invalid title entered")
-        return
-
-    if not isinstance(videos_found, list):
-        videos_found = [videos_found]
-
-    selected_video = None
-    if len(videos_found) > 1:
-        print("Multiple videos found with that title:")
-        for id, video_obj in enumerate(videos_found, start=1):
-            print(
-                f"{id}. ID: {video_obj.get_video_id()} | "
-                f"Description: {video_obj.get_description()} | "
-                f"Year: {video_obj.get_release_year()}"
-            )
-
-        try:
-            choice = int(input("Please choose one (numbers only): ").strip())
-            selected_video = videos_found[choice - 1]
-        except (ValueError, IndexError):
-            print("Invalid selection")
-            logger.error("Invalid selection")
+        if videos_found is None:
+            print("Invalid title entered")
+            logger.error("Invalid title entered")
             return
-    else:
-        selected_video = videos_found[0]
 
-    users_dict[username].start_play(selected_video.get_video_id())
-    print(f"{users_dict[username].get_username()} is now playing {selected_video.get_title()}")
+        if not isinstance(videos_found, list):
+            videos_found = [videos_found]
+
+        selected_video = None
+        if len(videos_found) > 1:
+            print("Multiple videos found with that title:")
+            for id, video_obj in enumerate(videos_found, start=1):
+                print(
+                    f"{id}. ID: {video_obj.get_video_id()} | "
+                    f"Description: {video_obj.get_description()} | "
+                    f"Year: {video_obj.get_release_year()}"
+                )
+
+            try:
+                choice = int(input("Please choose one (numbers only): ").strip())
+                selected_video = videos_found[choice - 1]
+            except (ValueError, IndexError):
+                print("Invalid selection")
+                logger.error("Invalid selection")
+                return
+        else:
+            selected_video = videos_found[0]
+
+        success = video_service.play_video_user_svc(username, user_service, selected_video.get_video_id())
+
+        if success:
+           print(f"{username} is now playing {selected_video.get_title()}")
+        else:
+            print("Error creating play record")
+            logger.error("Error creating play record")
+
+    except Exception as e:
+        logger.error("Unexpected error while playing video: %s", e)
+        print("An error occurred while playing video: %s", e)
 
  #admin logic below
 
@@ -1075,7 +1083,7 @@ def normal_view(logged_in_usernmae, user_service, video_service):
                 show_user_history(video_service.get_usable_video_data())
 
             case "5":
-                play_video_user(users, videos)
+                play_video_user(user_service, video_service)
 
             case "6":
                 view_video_play(videos, users)
