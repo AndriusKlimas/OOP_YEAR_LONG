@@ -38,7 +38,7 @@ Methods:
     - video_editor
     - user_login - done/tested/
     - create_login - done/tested/
-    - admin_check
+    - admin_check - done/tested
 
     (Noahs code)
     - show_user_history

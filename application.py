@@ -933,30 +933,30 @@ def create_login() -> tuple[bool, str]:
 
 
 #need to add to services
-def admin_check(logged_in_usernmae:str) -> bool:
-    """check if the logged-in user is an admin.
-
-        Args:
-            logged_in_usernmae (str): The username of the currently logged-in user
-
-        Returns:
-            bool: True if user is admin, False otherwise
-        """
-    try:
-        if not isinstance(logged_in_usernmae, str):
-            return False
-        if logged_in_usernmae.strip().lower() != "admin".strip():
-            return False
-        else:
-            return True
-    except AttributeError as e:
-        logger.error("AttributeError in admin_check: Username must be a string: %s", e)
-        print("Error: Username must be a string")
-        return False
-    except Exception as e:
-        logger.error("Unexpected error during admin_check: %s", e)
-        print(f"An error occurred during admin check: {e}")
-        return False
+# def admin_check(logged_in_usernmae:str) -> bool:
+#     """check if the logged-in user is an admin.
+#
+#         Args:
+#             logged_in_usernmae (str): The username of the currently logged-in user
+#
+#         Returns:
+#             bool: True if user is admin, False otherwise
+#         """
+    # try:
+    #     if not isinstance(logged_in_usernmae, str):
+    #         return False
+    #     if logged_in_usernmae.strip().lower() != "admin".strip():
+    #         return False
+    #     else:
+    #         return True
+    # except AttributeError as e:
+    #     logger.error("AttributeError in admin_check: Username must be a string: %s", e)
+    #     print("Error: Username must be a string")
+    #     return False
+    # except Exception as e:
+    #     logger.error("Unexpected error during admin_check: %s", e)
+    #     print(f"An error occurred during admin check: {e}")
+    #     return False
 
 #creating a normal login funtion
 #keep here
@@ -1096,14 +1096,14 @@ def normal_view(logged_in_usernmae):
                 # calling the method to search the genre
             #
             # # Section 2 (For that specific user only)
-            # case "4":
-            #     show_user_history(video_service.get_usable_video_data())
-            #
-            # case "5":
-            #     play_video_user(user_service, video_service)
-            #
-            # case "6":
-            #     view_video_play(user_service, video_service)
+            case "4":
+                show_user_history(video_service.get_usable_video_data())
+
+            case "5":
+                play_video_user(user_service, video_service)
+
+            case "6":
+                view_video_play(user_service, video_service)
 
             case "0":
                 user_run = False
@@ -1130,50 +1130,50 @@ def admin_view(logged_in_usernmae):
         choice = input(f"Choice: ").strip()
         match choice:
             case "1":
-                new_video(videos)
+                new_video()
 
-            case "2":
-                remove_video = input("Please enter the name of the video you would like to remove: ")
-                # calling the method to remove the video
-                video_removed = video_remover(videos, remove_video)
-                # if the video method comes back as true then print video removed
-                if video_removed == True:
-                    logger.info("admin functions: video removed")
-                    print("Video removed from list")
-                # else print video not found
-                else:
-                    logger.info("user functions: video not found")
-                    print("Video not found.")
-
-            case "3":
-                try:
-                    video_editor(videos)
-
-                    # Convert videos dictionary to format expected by JSON
-                    videos_dict = {}
-
-                    # Loop through each title and its list of videos
-                    for title, video_list in videos.items():
-                        # Create empty list for this title
-                        videos_dict[title] = []
-
-                        # Convert each video to a dictionary
-                        for video in video_list:
-                            video_dict = video.to_dict()
-                            videos_dict[title].append(video_dict)
-
-                    # Save to JSON file
-                    with open('videos.json', 'w') as file:
-                        json.dump(videos_dict, file)
-
-                    print("Changes saved to JSON file!")
-
-                except ValueError as e:
-                    logger.error("ValueError in admin functions: Video data cannot be serialized to JSON %s", e)
-                    print("Error: Video data cannot be serialized to JSON")
-                except Exception as e:
-                    logger.error("Unexpected error during admin_check %s", e)
-                    print(f"An error occurred while saving videos: {e}")
+            # case "2":
+            #     remove_video = input("Please enter the name of the video you would like to remove: ")
+            #     # calling the method to remove the video
+            #     video_removed = video_remover(videos, remove_video)
+            #     # if the video method comes back as true then print video removed
+            #     if video_removed == True:
+            #         logger.info("admin functions: video removed")
+            #         print("Video removed from list")
+            #     # else print video not found
+            #     else:
+            #         logger.info("user functions: video not found")
+            #         print("Video not found.")
+            #
+            # case "3":
+            #     try:
+            #         video_editor(videos)
+            #
+            #         # Convert videos dictionary to format expected by JSON
+            #         videos_dict = {}
+            #
+            #         # Loop through each title and its list of videos
+            #         for title, video_list in videos.items():
+            #             # Create empty list for this title
+            #             videos_dict[title] = []
+            #
+            #             # Convert each video to a dictionary
+            #             for video in video_list:
+            #                 video_dict = video.to_dict()
+            #                 videos_dict[title].append(video_dict)
+            #
+            #         # Save to JSON file
+            #         with open('videos.json', 'w') as file:
+            #             json.dump(videos_dict, file)
+            #
+            #         print("Changes saved to JSON file!")
+            #
+            #     except ValueError as e:
+            #         logger.error("ValueError in admin functions: Video data cannot be serialized to JSON %s", e)
+            #         print("Error: Video data cannot be serialized to JSON")
+            #     except Exception as e:
+            #         logger.error("Unexpected error during admin_check %s", e)
+            #         print(f"An error occurred while saving videos: {e}")
 
             case "0":
                 admin_run = False
@@ -1237,7 +1237,7 @@ if __name__ == "__main__":
             logged_in_usernmae = dev_mode()
 
 
-    admin = admin_check(logged_in_usernmae)
+    admin = user_service.admin_check_srv(logged_in_usernmae)
 
     if admin != True:
         normal_view(logged_in_usernmae)

@@ -158,3 +158,19 @@ class UserService:
         """
         return self.__usable_user_data
 
+
+    def admin_check_srv(self, username: str) -> bool:
+        try:
+            if not isinstance(username, str):
+                return False
+            if username.strip().lower() != "admin".strip():
+                return False
+            else:
+                return True
+        except AttributeError as e:
+            logger.error("AttributeError in admin_check: Username must be a string: %s", e)
+            return False
+        except Exception as e:
+            logger.error("Unexpected error during admin_check: %s", e)
+            return False
+

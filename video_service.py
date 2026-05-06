@@ -158,3 +158,8 @@ class VideoService:
             return None
 
         return valid_videos
+
+    def new_video_svr(self):
+        """Create a new video record"""
+
+        print("under contruction")
