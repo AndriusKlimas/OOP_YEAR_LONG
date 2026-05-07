@@ -692,19 +692,21 @@ def video_editor() -> None:
 
         #if choice 2 then run the below, will print out what genres are in the video and allow for removal
         elif genre_choice == "2":
-            if selected_video.get_genres():
-                print(f"Current genres: {', '.join(selected_video.get_genres())}")
+            current_genres = selected_video.get_genres()
+
+            if current_genres:
+                print(f"Current genres: {', '.join(current_genres)}")
                 genre_to_remove = input("Enter genre to remove: ").strip()
 
-                if genre_to_remove in selected_video.get_genres():
-                    selected_video._genres.remove(genre_to_remove)
+                success, message = video_service.genre_remove_srv(selected_video, genre_to_remove)
+
+                if success:
+                    print(message)
                     logger.info("video_editor genre remove: Chosen removed successfully")
-                    print(f"Genre '{genre_to_remove}' removed!")
                     print(selected_video)
                 else:
+                    print(message)
                     logger.info("video_editor genre remove: Chosen genre does not exist")
-                    print(f"Genre '{genre_to_remove}' is invalid or already exists.")
-
             else:
                 logger.info("video_editor genre: Video chosen has no genres")
                 print("Video selected has no genres.")

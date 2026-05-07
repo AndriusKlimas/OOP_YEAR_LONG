@@ -382,3 +382,18 @@ class VideoService:
             return True, f"Genre '{new_genre}' added!"
         else:
             return False, f"Genre '{new_genre}' is invalid or already exists."
+
+
+    def genre_remove_srv(self, selected_video, genre_to_remove: str) -> tuple:
+        # Check if video has any genres
+        if not selected_video.get_genres():
+            return False, "Video has no genres."
+
+        # Check if genre is in the video
+        if genre_to_remove in selected_video.get_genres():
+            selected_video._genres.remove(genre_to_remove)
+            # Save changes to JSON file
+            self.__video_data.store(self.__usable_video_data)
+            return True, f"Genre '{genre_to_remove}' removed!"
+        else:
+            return False, f"Genre '{genre_to_remove}' is not in this video."
