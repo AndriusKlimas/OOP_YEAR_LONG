@@ -234,3 +234,7 @@
 { "time": "2026-05-06 23:22:37,168", "function": "load", "level": "INFO", "message": "Successfully loaded videos from videos.json" }
 { "time": "2026-05-06 23:22:42,655", "function": "load", "level": "INFO", "message": "Successfully loaded 7 users from users.json" }
 { "time": "2026-05-06 23:23:00,594", "function": "store", "level": "INFO", "message": "Successfully saved videos to file videos.json" }
+{ "time": "2026-05-07 11:38:56,304", "function": "load", "level": "INFO", "message": "Successfully loaded default videos" }
+{ "time": "2026-05-07 11:38:58,535", "function": "load", "level": "INFO", "message": "Successfully loaded 6 default users their play history" }
+{ "time": "2026-05-07 11:40:37,751", "function": "load", "level": "INFO", "message": "Successfully loaded default videos" }
+{ "time": "2026-05-07 11:40:39,527", "function": "load", "level": "INFO", "message": "Successfully loaded 6 default users their play history" }

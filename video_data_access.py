@@ -132,3 +132,7 @@ class DefaultVideoDataAccess:
 
         logger.info("Successfully loaded default videos")
         return videos_dict
+
+    def store(self, video: dict[str, Video]) -> None:
+        """Store users to default dictionary"""
+        pass
