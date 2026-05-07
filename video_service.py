@@ -369,3 +369,16 @@ class VideoService:
             logger.error("ValueError in video_editor: year input must be a number %s", e)
             return False
 
+    def genre_add_srv(self,selected_video, new_genre: str)-> tuple:
+
+        # Check if genre is already in the video
+        if selected_video.check_genre(new_genre):
+            return False, f"Genre '{new_genre}' is already in the video"
+
+        # Try to add the genre
+        if selected_video.add_genre(new_genre):
+            # Save changes to JSON file
+            self.__video_data.store(self.__usable_video_data)
+            return True, f"Genre '{new_genre}' added!"
+        else:
+            return False, f"Genre '{new_genre}' is invalid or already exists."

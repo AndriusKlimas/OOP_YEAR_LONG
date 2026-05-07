@@ -675,19 +675,20 @@ def video_editor() -> None:
 
         #if 1 is inputed, it will run and user will input the new genre they want
         if genre_choice == "1":
-            print(f"Valid genres: {', '.join(Video.return_valid_genres())}")
+            valid_genres = Video.return_valid_genres()
+            print(f"Valid genres: {', '.join(valid_genres)}")
+
             new_genre = input("Enter genre to add: ").strip()
 
-            #appending the genre here
-            valid_genre = selected_video.add_genre(new_genre)
+            success, message = video_service.genre_add_srv(selected_video, new_genre)
 
-            if valid_genre:
-                print(f"Genre '{new_genre}' added!")
+            if success:
+                print(message)
                 logger.info("video_editor genre add: Chosen added successfully")
                 print(selected_video)
             else:
+                print(message)
                 logger.info("video_editor genre add: Chosen genre does not exist")
-                print(f"Genre '{new_genre}' is invalid or already exists.")
 
         #if choice 2 then run the below, will print out what genres are in the video and allow for removal
         elif genre_choice == "2":
