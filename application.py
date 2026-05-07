@@ -583,23 +583,33 @@ def video_editor() -> None:
         print(f"   Genres: {', '.join(Video.get_genres(video)) if Video.get_genres(video) else 'No genres'}")
 
     try:
-        choice = int(input("Please enter the one you would like to edit(numbers only): "))
+        try:
+            choice = int(input("Please enter the one you would like to edit (numbers only): "))
+            selected_video, selected_title = video_service.video_editor_chosen_return_srv(choice, video_list)
 
-        selected_video = None
-        selected_title = None
-
-        #looping through everything on the video_list
-        for num, title, video in video_list:
-            if num == choice:
-                selected_video = video
-                selected_title = title
-                break
-
-        #if nothing was selected
-        if selected_video is None:
+        except ValueError:
             logger.info("video_editor: No video selected")
             print("Invalid selection.")
-            return None
+            selected_video = None
+            selected_title = None
+
+        # choice = int(input("Please enter the one you would like to edit(numbers only): "))
+        #
+        # selected_video = None
+        # selected_title = None
+        #
+        # #looping through everything on the video_list
+        # for num, title, video in video_list:
+        #     if num == choice:
+        #         selected_video = video
+        #         selected_title = title
+        #         break
+        #
+        # #if nothing was selected
+        # if selected_video is None:
+        #     logger.info("video_editor: No video selected")
+        #     print("Invalid selection.")
+        #     return None
 
         #printing oput what the admin wants to do
         print("\n What would you like to edit?")
