@@ -269,3 +269,11 @@
 { "time": "2026-05-07 18:04:48,502", "function": "video_editor", "level": "INFO", "message": "video_editor: No video selected" }
 { "time": "2026-05-07 18:04:50,962", "function": "video_editor", "level": "INFO", "message": "video_editor: No video selected" }
 { "time": "2026-05-07 18:04:54,578", "function": "video_editor_chosen_return_srv", "level": "INFO", "message": "video_editor: No video selected" }
+{ "time": "2026-05-07 18:09:17,855", "function": "load", "level": "INFO", "message": "Successfully loaded videos from videos.json" }
+{ "time": "2026-05-07 18:09:20,239", "function": "load", "level": "INFO", "message": "Successfully loaded 7 users from users.json" }
+{ "time": "2026-05-07 19:01:09,234", "function": "load", "level": "INFO", "message": "Successfully loaded videos from videos.json" }
+{ "time": "2026-05-07 19:01:11,262", "function": "load", "level": "INFO", "message": "Successfully loaded 7 users from users.json" }
+{ "time": "2026-05-07 19:01:19,688", "function": "store", "level": "INFO", "message": "Successfully saved videos to file videos.json" }
+{ "time": "2026-05-07 19:03:28,069", "function": "load", "level": "INFO", "message": "Successfully loaded videos from videos.json" }
+{ "time": "2026-05-07 19:03:30,765", "function": "load", "level": "INFO", "message": "Successfully loaded 7 users from users.json" }
+{ "time": "2026-05-07 19:03:40,374", "function": "store", "level": "INFO", "message": "Successfully saved videos to file videos.json" }

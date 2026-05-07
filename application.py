@@ -625,23 +625,29 @@ def video_editor() -> None:
     edit_choice = input("Please enter your choice(numbers only): ").strip()
 
     #will change the description using direct access
+    # will change the description
     if edit_choice == "1":
-        new_description = input("Please enter the new desctiption you would like: ").strip()
-        selected_video.description = new_description
-        print("New description has been changed")
-        print(selected_video)
-
-    # will change the duration using direct access
-    elif edit_choice == "2":
-        try:
-            new_duration = int(input("Enter new duration (in seconds): "))
-            selected_video._duration_seconds = new_duration
-            print("Duration updated!")
+        new_description = input("Please enter the new description you would like: ")
+        if video_service.video_editor_description_change_srv(selected_video, new_description):
+            print("New description has been changed")
             print(selected_video)
-        except ValueError as e:
-            logger.error("ValueError in video_editor: duration input must be a number %s", e)
-            print("Invalid input. Duration must be a number.")
-            return None
+        else:
+            print("Invalid input. Description must be a non-empty string.")
+
+    # will change the duration
+    elif edit_choice == "2":
+        new_duration = None
+        while new_duration is None:
+            try:
+                new_duration = int(input("Enter new duration (in seconds): "))
+                if video_service.video_editor_duration_change_srv(selected_video, new_duration):
+                    print("Duration updated!")
+                    print(selected_video)
+                else:
+                    print("Invalid input. Duration must be a number.")
+            except ValueError:
+                print("Invalid input. Duration must be a number.")
+                new_duration = None
 
     # will change the release year using direct access
     elif edit_choice == "3":

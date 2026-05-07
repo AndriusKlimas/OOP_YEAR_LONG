@@ -330,3 +330,29 @@ class VideoService:
         if choice > len(video_list) or choice < 1:
             logger.info("video_editor: No video selected")
             return None, None
+
+
+    def video_editor_description_change_srv(self,selected_video, new_description: str) -> bool:
+        try:
+            selected_video.description = new_description.strip()
+
+            # Save changes to JSON file
+            self.__video_data.store(self.__usable_video_data)
+            return True
+
+        except ValueError as e:
+            logger.error("ValueError in video_editor: description input error: %s", e)
+            return False
+
+    def video_editor_duration_change_srv(self, selected_video, new_duration: int) -> bool:
+        try:
+            selected_video._duration_seconds = new_duration
+
+            # Save changes to JSON file
+            self.__video_data.store(self.__usable_video_data)
+            return True
+
+        except ValueError as e:
+            logger.error("ValueError in video_editor: duration input must be a number %s", e)
+            return False
+
