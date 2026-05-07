@@ -254,3 +254,18 @@
 { "time": "2026-05-07 17:43:24,117", "function": "load", "level": "INFO", "message": "Successfully loaded videos from videos.json" }
 { "time": "2026-05-07 17:43:26,546", "function": "load", "level": "INFO", "message": "Successfully loaded 7 users from users.json" }
 { "time": "2026-05-07 17:43:28,796", "function": "admin_view", "level": "INFO", "message": "admin functions: Invalid choice by user." }
+{ "time": "2026-05-07 17:58:51,449", "function": "load", "level": "INFO", "message": "Successfully loaded videos from videos.json" }
+{ "time": "2026-05-07 17:58:57,386", "function": "load_user_model", "level": "ERROR", "message": "File users,.json not found" }
+{ "time": "2026-05-07 17:59:01,339", "function": "load_user_model", "level": "ERROR", "message": "File user.json not found" }
+{ "time": "2026-05-07 17:59:06,283", "function": "load", "level": "INFO", "message": "Successfully loaded 7 users from users.json" }
+{ "time": "2026-05-07 18:01:17,587", "function": "load", "level": "INFO", "message": "Successfully loaded videos from videos.json" }
+{ "time": "2026-05-07 18:01:21,712", "function": "load", "level": "INFO", "message": "Successfully loaded 7 users from users.json" }
+{ "time": "2026-05-07 18:01:38,811", "function": "load_video_model", "level": "ERROR", "message": "File videso.json not found" }
+{ "time": "2026-05-07 18:01:42,628", "function": "load", "level": "INFO", "message": "Successfully loaded videos from videos.json" }
+{ "time": "2026-05-07 18:01:45,245", "function": "load", "level": "INFO", "message": "Successfully loaded 7 users from users.json" }
+{ "time": "2026-05-07 18:01:50,036", "function": "video_editor", "level": "INFO", "message": "video_editor: No video selected" }
+{ "time": "2026-05-07 18:04:42,108", "function": "load", "level": "INFO", "message": "Successfully loaded videos from videos.json" }
+{ "time": "2026-05-07 18:04:44,784", "function": "load", "level": "INFO", "message": "Successfully loaded 7 users from users.json" }
+{ "time": "2026-05-07 18:04:48,502", "function": "video_editor", "level": "INFO", "message": "video_editor: No video selected" }
+{ "time": "2026-05-07 18:04:50,962", "function": "video_editor", "level": "INFO", "message": "video_editor: No video selected" }
+{ "time": "2026-05-07 18:04:54,578", "function": "video_editor_chosen_return_srv", "level": "INFO", "message": "video_editor: No video selected" }

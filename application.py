@@ -582,132 +582,132 @@ def video_editor() -> None:
         print(f"   Release Year: {Video.get_release_year(video)}")
         print(f"   Genres: {', '.join(Video.get_genres(video)) if Video.get_genres(video) else 'No genres'}")
 
-    try:
+    selected_video = None
+    selected_title = None
+
+    while selected_video is None:
         try:
             choice = int(input("Please enter the one you would like to edit (numbers only): "))
             selected_video, selected_title = video_service.video_editor_chosen_return_srv(choice, video_list)
+            print(f"selected video: {selected_video}")
 
         except ValueError:
             logger.info("video_editor: No video selected")
             print("Invalid selection.")
-            selected_video = None
-            selected_title = None
 
-        # choice = int(input("Please enter the one you would like to edit(numbers only): "))
-        #
-        # selected_video = None
-        # selected_title = None
-        #
-        # #looping through everything on the video_list
-        # for num, title, video in video_list:
-        #     if num == choice:
-        #         selected_video = video
-        #         selected_title = title
-        #         break
-        #
-        # #if nothing was selected
-        # if selected_video is None:
-        #     logger.info("video_editor: No video selected")
-        #     print("Invalid selection.")
-        #     return None
 
-        #printing oput what the admin wants to do
-        print("\n What would you like to edit?")
-        print("1. Description")
-        print("2. Duration (seconds)")
-        print("3. Release Year")
-        print("4. Genres ")
+    # choice = int(input("Please enter the one you would like to edit(numbers only): "))
+    #
+    # selected_video = None
+    # selected_title = None
+    #
+    # #looping through everything on the video_list
+    # for num, title, video in video_list:
+    #     if num == choice:
+    #         selected_video = video
+    #         selected_title = title
+    #         break
+    #
+    # #if nothing was selected
+    # if selected_video is None:
+    #     logger.info("video_editor: No video selected")
+    #     print("Invalid selection.")
+    #     return None
+
+    #printing oput what the admin wants to do
+    print("\n What would you like to edit?")
+    print("1. Description")
+    print("2. Duration (seconds)")
+    print("3. Release Year")
+    print("4. Genres ")
+    print("0. Cancel")
+
+    edit_choice = input("Please enter your choice(numbers only): ").strip()
+
+    #will change the description using direct access
+    if edit_choice == "1":
+        new_description = input("Please enter the new desctiption you would like: ").strip()
+        selected_video.description = new_description
+        print("New description has been changed")
+        print(selected_video)
+
+    # will change the duration using direct access
+    elif edit_choice == "2":
+        try:
+            new_duration = int(input("Enter new duration (in seconds): "))
+            selected_video._duration_seconds = new_duration
+            print("Duration updated!")
+            print(selected_video)
+        except ValueError as e:
+            logger.error("ValueError in video_editor: duration input must be a number %s", e)
+            print("Invalid input. Duration must be a number.")
+            return None
+
+    # will change the release year using direct access
+    elif edit_choice == "3":
+        try:
+            new_year = int(input("Enter new release year: "))
+            selected_video._release_year = new_year
+            print("Release year updated!")
+            print(selected_video)
+        except ValueError as e:
+            logger.error("ValueError in video_editor: year input must be a number %s", e)
+            print("Invalid input. Release year must be a number.")
+            return None
+
+    #if option 4 ius chosen run the below
+    elif edit_choice == "4":
+        print("\n Genre Options:")
+        print("1. Add a genre")
+        print("2. Remove a genre")
         print("0. Cancel")
 
-        edit_choice = input("Please enter your choice(numbers only): ").strip()
+        genre_choice = input("Please enter your choice(numbers only): ").strip()
 
-        #will change the description using direct access
-        if edit_choice == "1":
-            new_description = input("Please enter the new desctiption you would like: ").strip()
-            selected_video.description = new_description
-            print("New description has been changed")
-            print(selected_video)
+        #if 1 is inputed, it will run and user will input the new genre they want
+        if genre_choice == "1":
+            print(f"Valid genres: {', '.join(Video.return_valid_genres())}")
+            new_genre = input("Enter genre to add: ").strip()
 
-        # will change the duration using direct access
-        elif edit_choice == "2":
-            try:
-                new_duration = int(input("Enter new duration (in seconds): "))
-                selected_video._duration_seconds = new_duration
-                print("Duration updated!")
+            #appending the genre here
+            valid_genre = selected_video.add_genre(new_genre)
+
+            if valid_genre:
+                print(f"Genre '{new_genre}' added!")
+                logger.info("video_editor genre add: Chosen added successfully")
                 print(selected_video)
-            except ValueError as e:
-                logger.error("ValueError in video_editor: duration input must be a number %s", e)
-                print("Invalid input. Duration must be a number.")
-                return None
+            else:
+                logger.info("video_editor genre add: Chosen genre does not exist")
+                print(f"Genre '{new_genre}' is invalid or already exists.")
 
-        # will change the release year using direct access
-        elif edit_choice == "3":
-            try:
-                new_year = int(input("Enter new release year: "))
-                selected_video._release_year = new_year
-                print("Release year updated!")
-                print(selected_video)
-            except ValueError as e:
-                logger.error("ValueError in video_editor: year input must be a number %s", e)
-                print("Invalid input. Release year must be a number.")
-                return None
+        #if choice 2 then run the below, will print out what genres are in the video and allow for removal
+        elif genre_choice == "2":
+            if selected_video.get_genres():
+                print(f"Current genres: {', '.join(selected_video.get_genres())}")
+                genre_to_remove = input("Enter genre to remove: ").strip()
 
-        #if option 4 ius chosen run the below
-        elif edit_choice == "4":
-            print("\n Genre Options:")
-            print("1. Add a genre")
-            print("2. Remove a genre")
-            print("0. Cancel")
-
-            genre_choice = input("Please enter your choice(numbers only): ").strip()
-
-            #if 1 is inputed, it will run and user will input the new genre they want
-            if genre_choice == "1":
-                print(f"Valid genres: {', '.join(Video.return_valid_genres())}")
-                new_genre = input("Enter genre to add: ").strip()
-
-                #appending the genre here
-                valid_genre = selected_video.add_genre(new_genre)
-
-                if valid_genre:
-                    print(f"Genre '{new_genre}' added!")
-                    logger.info("video_editor genre add: Chosen added successfully")
+                if genre_to_remove in selected_video.get_genres():
+                    selected_video._genres.remove(genre_to_remove)
+                    logger.info("video_editor genre remove: Chosen removed successfully")
+                    print(f"Genre '{genre_to_remove}' removed!")
                     print(selected_video)
                 else:
-                    logger.info("video_editor genre add: Chosen genre does not exist")
-                    print(f"Genre '{new_genre}' is invalid or already exists.")
+                    logger.info("video_editor genre remove: Chosen genre does not exist")
+                    print(f"Genre '{genre_to_remove}' is invalid or already exists.")
 
-            #if choice 2 then run the below, will print out what genres are in the video and allow for removal
-            elif genre_choice == "2":
-                if selected_video.get_genres():
-                    print(f"Current genres: {', '.join(selected_video.get_genres())}")
-                    genre_to_remove = input("Enter genre to remove: ").strip()
-
-                    if genre_to_remove in selected_video.get_genres():
-                        selected_video._genres.remove(genre_to_remove)
-                        logger.info("video_editor genre remove: Chosen removed successfully")
-                        print(f"Genre '{genre_to_remove}' removed!")
-                        print(selected_video)
-                    else:
-                        logger.info("video_editor genre remove: Chosen genre does not exist")
-                        print(f"Genre '{genre_to_remove}' is invalid or already exists.")
-
-                else:
-                    logger.info("video_editor genre: Video chosen has no genres")
-                    print("Video selected has no genres.")
-
-            elif genre_choice == "0":
-                print("Canceled")
-                return None
             else:
-                print("Invalid input. Please enter a valid choice.")
-                return None
+                logger.info("video_editor genre: Video chosen has no genres")
+                print("Video selected has no genres.")
 
-            print("Video chnaged successfully!")
+        elif genre_choice == "0":
+            print("Canceled")
+            return None
+        else:
+            print("Invalid input. Please enter a valid choice.")
+            return None
 
-    except ValueError:
-        logger.error("ValueError in video_editor: Number provided not an option")
-        print("Invalid input.")
+        print("Video chnaged successfully!")
+
 
 #Need to add to services
 def view_video_play(user_service, video_service) -> None:

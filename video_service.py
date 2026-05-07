@@ -319,7 +319,6 @@ class VideoService:
             choice = int(choice)
         except ValueError:
             logger.info("video_editor: No video selected")
-            print("Invalid selection.")
             return None, None
 
             # looping through everything on the video_list
@@ -330,5 +329,4 @@ class VideoService:
             # if nothing was selected
         if choice > len(video_list) or choice < 1:
             logger.info("video_editor: No video selected")
-            print("Invalid selection.")
             return None, None
