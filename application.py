@@ -651,15 +651,18 @@ def video_editor() -> None:
 
     # will change the release year using direct access
     elif edit_choice == "3":
-        try:
-            new_year = int(input("Enter new release year: "))
-            selected_video._release_year = new_year
-            print("Release year updated!")
-            print(selected_video)
-        except ValueError as e:
-            logger.error("ValueError in video_editor: year input must be a number %s", e)
-            print("Invalid input. Release year must be a number.")
-            return None
+        new_year = None
+        while new_year is None:
+            try:
+                new_year = int(input("Enter new release year: "))
+                if video_service.video_editor_year_change_srv(selected_video, new_year):
+                    print("Release year updated!")
+                    print(selected_video)
+                else:
+                    print("Invalid input. Release year must be a number.")
+            except ValueError:
+                print("Invalid input. Release year must be a number.")
+                new_year = None
 
     #if option 4 ius chosen run the below
     elif edit_choice == "4":
@@ -1267,7 +1270,6 @@ def admin_view(logged_in_usernmae):
                 new_video()
 
             case "2":
-                print("trialing")
                 video_remover()
                 # remove_video = input("Please enter the name of the video you would like to remove: ")
                 # # calling the method to remove the video

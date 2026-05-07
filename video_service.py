@@ -356,3 +356,16 @@ class VideoService:
             logger.error("ValueError in video_editor: duration input must be a number %s", e)
             return False
 
+
+    def video_editor_year_change_srv(self,selected_video, new_year: int) -> bool:
+        try:
+            selected_video._release_year = new_year
+
+            # Save changes to JSON file
+            self.__video_data.store(self.__usable_video_data)
+            return True
+
+        except ValueError as e:
+            logger.error("ValueError in video_editor: year input must be a number %s", e)
+            return False
+

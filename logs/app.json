@@ -277,3 +277,5 @@
 { "time": "2026-05-07 19:03:28,069", "function": "load", "level": "INFO", "message": "Successfully loaded videos from videos.json" }
 { "time": "2026-05-07 19:03:30,765", "function": "load", "level": "INFO", "message": "Successfully loaded 7 users from users.json" }
 { "time": "2026-05-07 19:03:40,374", "function": "store", "level": "INFO", "message": "Successfully saved videos to file videos.json" }
+{ "time": "2026-05-07 19:05:28,160", "function": "load", "level": "INFO", "message": "Successfully loaded videos from videos.json" }
+{ "time": "2026-05-07 19:05:30,898", "function": "load", "level": "INFO", "message": "Successfully loaded 7 users from users.json" }
