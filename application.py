@@ -539,7 +539,7 @@ def video_remover():
     #     return False
 
 #Need to add to services
-def video_editor(video_dictionary: dict) -> None:
+def video_editor() -> None:
     """ Allows the admin to edit the video
 
     :args video_dictionary:
@@ -551,24 +551,36 @@ def video_editor(video_dictionary: dict) -> None:
     ValueError: input was not one of the options
     """
 
-    video_list = []
-    video_number = 1
+    # video_list = []
+    # video_number = 1
+    #
+    # print("See all videos below")
+    #
+    # #displayas all the videos stored in a neat list
+    # for title, videos in video_dictionary.items():
+    #     for video in videos:
+    #         print(f"\n{video_number}. Video ID: {Video.get_video_id(video)}")
+    #         print(f"   Title: {Video.get_title(video)}")
+    #         print(f"   Description: {Video.get_description(video)}")
+    #         print(f"   Duration: {Video.get_duration_seconds(video)} seconds")
+    #         print(f"   Release Year: {Video.get_release_year(video)}")
+    #         print(f"   Genres: {', '.join(Video.get_genres(video)) if Video.get_genres(video) else 'No genres'}")
+    #
+    #         #adding the following info to the video_list
+    #         video_list.append((video_number, title, video))
+    #         video_number += 1
 
-    print("See all videos below")
+    print("See all videos below:")
 
-    #displayas all the videos stored in a neat list
-    for title, videos in video_dictionary.items():
-        for video in videos:
-            print(f"\n{video_number}. Video ID: {Video.get_video_id(video)}")
-            print(f"   Title: {Video.get_title(video)}")
-            print(f"   Description: {Video.get_description(video)}")
-            print(f"   Duration: {Video.get_duration_seconds(video)} seconds")
-            print(f"   Release Year: {Video.get_release_year(video)}")
-            print(f"   Genres: {', '.join(Video.get_genres(video)) if Video.get_genres(video) else 'No genres'}")
+    video_list = video_service.video_editor_display_srv()
 
-            #adding the following info to the video_list
-            video_list.append((video_number, title, video))
-            video_number += 1
+    for video_number, title, video in video_list:
+        print(f"\n{video_number}. Video ID: {Video.get_video_id(video)}")
+        print(f"   Title: {Video.get_title(video)}")
+        print(f"   Description: {Video.get_description(video)}")
+        print(f"   Duration: {Video.get_duration_seconds(video)} seconds")
+        print(f"   Release Year: {Video.get_release_year(video)}")
+        print(f"   Genres: {', '.join(Video.get_genres(video)) if Video.get_genres(video) else 'No genres'}")
 
     try:
         choice = int(input("Please enter the one you would like to edit(numbers only): "))
@@ -1253,9 +1265,8 @@ def admin_view(logged_in_usernmae):
                 #     logger.info("user functions: video not found")
                 #     print("Video not found.")
 
-            # case "3":
-            #     try:
-            #         video_editor(videos)
+            case "3":
+                video_editor()
             #
             #         # Convert videos dictionary to format expected by JSON
             #         videos_dict = {}

@@ -295,3 +295,20 @@ class VideoService:
         self.__video_data.store(self.__usable_video_data)
 
         return removed_video
+
+    def video_editor_display_srv(self) -> list:
+        """Get all videos formatted for display in the editor.
+
+        Returns:
+            list: List of tuples containing (video_number, title, video_object)
+        """
+        video_list = []
+        video_number = 1
+
+        # displays all the videos stored in a neat list
+        for title, videos in self.__usable_video_data.items():
+            for video in videos:
+                video_list.append((video_number, title, video))
+                video_number += 1
+
+        return video_list

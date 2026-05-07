@@ -238,3 +238,19 @@
 { "time": "2026-05-07 11:38:58,535", "function": "load", "level": "INFO", "message": "Successfully loaded 6 default users their play history" }
 { "time": "2026-05-07 11:40:37,751", "function": "load", "level": "INFO", "message": "Successfully loaded default videos" }
 { "time": "2026-05-07 11:40:39,527", "function": "load", "level": "INFO", "message": "Successfully loaded 6 default users their play history" }
+{ "time": "2026-05-07 11:55:20,299", "function": "load", "level": "INFO", "message": "Successfully loaded default videos" }
+{ "time": "2026-05-07 11:55:22,273", "function": "load", "level": "INFO", "message": "Successfully loaded 6 default users their play history" }
+{ "time": "2026-05-07 17:35:44,370", "function": "load", "level": "INFO", "message": "Successfully loaded videos from videos.json" }
+{ "time": "2026-05-07 17:35:46,821", "function": "load", "level": "INFO", "message": "Successfully loaded 7 users from users.json" }
+{ "time": "2026-05-07 17:36:20,825", "function": "load", "level": "INFO", "message": "Successfully loaded videos from videos.json" }
+{ "time": "2026-05-07 17:36:23,971", "function": "load", "level": "INFO", "message": "Successfully loaded 7 users from users.json" }
+{ "time": "2026-05-07 17:37:10,936", "function": "load", "level": "INFO", "message": "Successfully loaded videos from videos.json" }
+{ "time": "2026-05-07 17:37:12,978", "function": "load", "level": "INFO", "message": "Successfully loaded 7 users from users.json" }
+{ "time": "2026-05-07 17:40:56,070", "function": "load_video_model", "level": "ERROR", "message": "File videos.jsopn not found" }
+{ "time": "2026-05-07 17:41:00,883", "function": "load", "level": "INFO", "message": "Successfully loaded videos from videos.json" }
+{ "time": "2026-05-07 17:41:03,435", "function": "load", "level": "INFO", "message": "Successfully loaded 7 users from users.json" }
+{ "time": "2026-05-07 17:43:06,000", "function": "load", "level": "INFO", "message": "Successfully loaded videos from videos.json" }
+{ "time": "2026-05-07 17:43:08,565", "function": "load", "level": "INFO", "message": "Successfully loaded 7 users from users.json" }
+{ "time": "2026-05-07 17:43:24,117", "function": "load", "level": "INFO", "message": "Successfully loaded videos from videos.json" }
+{ "time": "2026-05-07 17:43:26,546", "function": "load", "level": "INFO", "message": "Successfully loaded 7 users from users.json" }
+{ "time": "2026-05-07 17:43:28,796", "function": "admin_view", "level": "INFO", "message": "admin functions: Invalid choice by user." }
