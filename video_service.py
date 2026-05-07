@@ -2,7 +2,7 @@ from user_service import UserService
 from video_data_access import *
 
 class VideoService:
-    def __init__(self, video_data):
+    def __init__(self, video_data: IVideoDataAccess):
         self.__video_data = video_data
 
         self.__usable_video_data = {}
@@ -15,7 +15,7 @@ class VideoService:
         self.__usable_video_data = self.__video_data.load()
 
         # Print all loaded usernames, for testing
-        print("\n✅ Users loaded:")
+        print("\n✅ Videos loaded:")
         for video_name in self.__usable_video_data.keys():
             print(f"  - {video_name}")
         print(f"Total videos: {len(self.__usable_video_data)}\n")

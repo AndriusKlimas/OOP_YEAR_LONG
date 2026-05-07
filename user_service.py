@@ -2,7 +2,7 @@ from user_data_access import *
 from user_records import User
 
 class UserService:
-    def __init__(self, user_data):
+    def __init__(self, user_data: IUserDataAccess):
         self.__user_data = user_data
 
         self.__usable_user_data = {}
