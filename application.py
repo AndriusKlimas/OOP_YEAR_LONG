@@ -299,8 +299,23 @@ def new_video() -> None:
         print("Please enter the following details to add a new video: ")
         get_title = input("Title: ")
         get_description = input("Description: ")
-        get_duration = int(input("Duration seconds: "))
-        get_release_year = int(input("Release Year: "))
+        valid_duration = False
+        while not valid_duration:
+            try:
+                get_duration = int(input("Duration seconds: "))
+                valid_duration = True
+            except ValueError:
+                print("Error: Duration must be a number. Please try again.")
+
+        # Getting release year
+        valid_year = False
+        while not valid_year:
+            try:
+                get_release_year = int(input("Release Year: "))
+                valid_year = True
+            except ValueError:
+                print("Error: Release Year must be a number. Please try again.")
+
     except ValueError as e:
         logger.error("ValueError in new_video input: Duration and Release Year must be numbers: %s", e)
         print("Error: Duration and Release Year must be numbers.")
@@ -389,7 +404,7 @@ def new_video() -> None:
 
 #Option 7 def
 #Need to add to services
-def video_remover(videos_dictionary: dict, remove_video: str) -> bool:
+def video_remover():
     """ Removes a video from the dictionary
     args:
         videos_dictionary (dict): a dictionary of videos with key is Video ID and value is Video object
@@ -404,60 +419,124 @@ def video_remover(videos_dictionary: dict, remove_video: str) -> bool:
     Exception: general exception
     """
     #ps need comments for this as its complex
-    try:
-        #stripping white spaces again, causes issues if not their
-        search_video = remove_video.strip().lower()
-        #to store the videos found
-        videos_found = []
-        #this will be used to store the title/key iof found
-        title_key = None
+    remove_video = input("Please enter the name of the video you would like to remove: ")
+    # calling the method to remove the video
+    valid , videos_found = video_service.video_remover_amount_srv(remove_video)
 
-        #finding all videos
-        for title, video_list in videos_dictionary.items():
-            if search_video == title.strip().lower():
-                title_key = title
-                if isinstance(video_list, list):
-                    videos_found = video_list
-                else:
-                    videos_found = [video_list]
-                break
+    if valid is None:
+        print("Video not found")
 
-        #if the videos_found list is empty, then do the below
-        if not videos_found:
-            logger.info("video_remover: No video found in dictionary")
-            print(f"No videos found with title provided: {remove_video}")
-            return False
+    if valid == True:
+        for num, video in enumerate(videos_found, 1):
+            print(f"{num}. Name= {Video.get_title(video)}, description = {Video.get_description(video)}, duration = {Video.get_duration_seconds(video)}, release_year = {Video.get_release_year(video)}")
 
-        #in this part will check how many iteams are added to teh list
-        if len(videos_found) > 1:
-            for num, video in enumerate(videos_found,1):
-                print(f"{num}. Name= {Video.get_title(video)}, description = {Video.get_description(video)}, duration = {Video.get_duration_seconds(video)}, release_year = {Video.get_release_year(video)}")
+        try:
+            choice = int(input("Please choose one (numbers only): ").strip())
+        except ValueError:
+            print("Please enter a valid format")
+            choice = None
+        if choice is not None:
+            removed = video_service.video_remover_multiple_srv(choice, videos_found, title_key = remove_video)
+            print(f"removed1: {removed}")
 
-            choice = int(input("Please enter the one you would like to remove(numbers only): "))
-            try:
-                actual_remove = choice - 1
-                videos_found.pop(actual_remove)
-            except IndexError as e:
-                logger.error("IndexError in video_remover:  choice chosen is out of range: %s", e)
-                print("out of range")
-            except ValueError as e:
-                logger.error("ValueError in video_remover: Value provided is not an int: %s", e)
-                print("please enter a number")
-
-        #if one video is found
         else:
-            print(f"removing video: {videos_found}")
-            videos_found.pop(0)
+            print("Skipping removal due to invalid input")
 
-        #checking if ther list is not empty, if it is then remove the key for dictioanry
-        if not videos_found:
-            del videos_dictionary[title_key]
 
-        return True
-    except Exception as e:
-        logger.error("Unexpected error while removing video: %s", e)
-        print(f"An error occurred while removing video: {e}")
-        return False
+
+
+    if valid == False:
+        removed= video_service.video_remover_single_srv(videos_found, title_key = remove_video)
+        print(f"removed: {removed}")
+
+
+
+
+    # if len(videos_found) > 1:
+    #     for num, video in enumerate(videos_found, 1):
+    #         print(
+    #             f"{num}. Name= {Video.get_title(video)}, description = {Video.get_description(video)}, duration = {Video.get_duration_seconds(video)}, release_year = {Video.get_release_year(video)}")
+    #
+    #     choice = int(input("Please enter the one you would like to remove(numbers only): "))
+    #
+    #     something = video_service.video_remover_multiple_srv(choice, videos_found, title_key=remove_video)
+    #
+    # else:
+    #     print(f"Video Removed {remove_video} from the dictionary")
+    #
+    # if something == True:
+    #     print("Successfully removed video")
+    #
+    # if something == False:
+    #     print("single video removed")
+
+
+
+
+    # if the video method comes back as true then print video removed
+    # if video_removed == True:
+    #     logger.info("admin functions: video removed")
+    #     print("Video removed from list")
+    # # else print video not found
+    # else:
+    #     logger.info("user functions: video not found")
+    #     print("Video not found.")
+
+
+    # try:
+    #     #stripping white spaces again, causes issues if not their
+    #     search_video = remove_video.strip().lower()
+    #     #to store the videos found
+    #     videos_found = []
+    #     #this will be used to store the title/key iof found
+    #     title_key = None
+    #
+    #     #finding all videos
+    #     for title, video_list in videos_dictionary.items():
+    #         if search_video == title.strip().lower():
+    #             title_key = title
+    #             if isinstance(video_list, list):
+    #                 videos_found = video_list
+    #             else:
+    #                 videos_found = [video_list]
+    #             break
+    #
+    #     #if the videos_found list is empty, then do the below
+    #     if not videos_found:
+    #         logger.info("video_remover: No video found in dictionary")
+    #         print(f"No videos found with title provided: {remove_video}")
+    #         return False
+    #
+    #     #in this part will check how many iteams are added to teh list
+    #     if len(videos_found) > 1:
+    #         for num, video in enumerate(videos_found,1):
+    #             print(f"{num}. Name= {Video.get_title(video)}, description = {Video.get_description(video)}, duration = {Video.get_duration_seconds(video)}, release_year = {Video.get_release_year(video)}")
+    #
+    #         choice = int(input("Please enter the one you would like to remove(numbers only): "))
+    #         try:
+    #             actual_remove = choice - 1
+    #             videos_found.pop(actual_remove)
+    #         except IndexError as e:
+    #             logger.error("IndexError in video_remover:  choice chosen is out of range: %s", e)
+    #             print("out of range")
+    #         except ValueError as e:
+    #             logger.error("ValueError in video_remover: Value provided is not an int: %s", e)
+    #             print("please enter a number")
+    #
+    #     #if one video is found
+    #     else:
+    #         print(f"removing video: {videos_found}")
+    #         videos_found.pop(0)
+    #
+    #     #checking if ther list is not empty, if it is then remove the key for dictioanry
+    #     if not videos_found:
+    #         del videos_dictionary[title_key]
+    #
+    #     return True
+    # except Exception as e:
+    #     logger.error("Unexpected error while removing video: %s", e)
+    #     print(f"An error occurred while removing video: {e}")
+    #     return False
 
 #Need to add to services
 def video_editor(video_dictionary: dict) -> None:
@@ -1159,19 +1238,21 @@ def admin_view(logged_in_usernmae):
             case "1":
                 new_video()
 
-            # case "2":
-            #     remove_video = input("Please enter the name of the video you would like to remove: ")
-            #     # calling the method to remove the video
-            #     video_removed = video_remover(videos, remove_video)
-            #     # if the video method comes back as true then print video removed
-            #     if video_removed == True:
-            #         logger.info("admin functions: video removed")
-            #         print("Video removed from list")
-            #     # else print video not found
-            #     else:
-            #         logger.info("user functions: video not found")
-            #         print("Video not found.")
-            #
+            case "2":
+                print("trialing")
+                video_remover()
+                # remove_video = input("Please enter the name of the video you would like to remove: ")
+                # # calling the method to remove the video
+                # video_removed = video_remover(videos, remove_video)
+                # # if the video method comes back as true then print video removed
+                # if video_removed == True:
+                #     logger.info("admin functions: video removed")
+                #     print("Video removed from list")
+                # # else print video not found
+                # else:
+                #     logger.info("user functions: video not found")
+                #     print("Video not found.")
+
             # case "3":
             #     try:
             #         video_editor(videos)

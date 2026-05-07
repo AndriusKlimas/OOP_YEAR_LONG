@@ -313,6 +313,8 @@ class Video:
                 return f"{self.title}, {self.get_release_year()}, {self.get_duration_seconds()} seconds)"
             case "long":
                 return f"Title: {self.title}\nDescription: {self.description}\nDuration: {self.get_duration_seconds()} seconds\nRelease Year: {self.get_release_year()}\nGenres: {', '.join(self.get_genres())}"
+            case "":
+                return self.__str__()
             case _:
                 return "Please enter a valid format"
 
