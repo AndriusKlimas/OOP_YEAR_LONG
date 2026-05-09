@@ -159,7 +159,8 @@ class VideoService:
 
         return valid_videos
 
-    def new_video_svr(self,get_title:str ,get_description:str ,get_duration:int ,get_release_year:int ,genres_list: list ):
+    def create_new_video(self,get_title:str ,get_description:str ,get_duration:int ,get_release_year:int ,genres_list:
+    list ):
         """Create a new video record"""
         try:
             # video id no longer key, now goes through dict, counts, and then adds 1 onto for new video id

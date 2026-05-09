@@ -333,7 +333,7 @@ def new_video() -> None:
         another = input().lower()
         if another == "n":
             break
-    video_service.new_video_svr(get_title,get_description,get_duration,get_release_year,genres_list)
+    video_service.create_new_video(get_title,get_description,get_duration,get_release_year,genres_list)
 
 
     # try:
