@@ -279,3 +279,18 @@
 { "time": "2026-05-07 19:03:40,374", "function": "store", "level": "INFO", "message": "Successfully saved videos to file videos.json" }
 { "time": "2026-05-07 19:05:28,160", "function": "load", "level": "INFO", "message": "Successfully loaded videos from videos.json" }
 { "time": "2026-05-07 19:05:30,898", "function": "load", "level": "INFO", "message": "Successfully loaded 7 users from users.json" }
+{ "time": "2026-05-09 22:59:21,159", "function": "load", "level": "INFO", "message": "Successfully loaded videos from videos.json" }
+{ "time": "2026-05-09 22:59:24,602", "function": "load", "level": "INFO", "message": "Successfully loaded 7 users from users.json" }
+{ "time": "2026-05-09 22:59:36,843", "function": "store", "level": "INFO", "message": "Successfully saved videos to file videos.json" }
+{ "time": "2026-05-09 22:59:50,714", "function": "store", "level": "INFO", "message": "Successfully saved videos to file videos.json" }
+{ "time": "2026-05-09 22:59:50,714", "function": "video_editor", "level": "INFO", "message": "video_editor genre add: Chosen added successfully" }
+{ "time": "2026-05-09 23:00:02,939", "function": "video_editor", "level": "INFO", "message": "video_editor genre add: Chosen genre does not exist" }
+{ "time": "2026-05-09 23:00:13,918", "function": "store", "level": "INFO", "message": "Successfully saved videos to file videos.json" }
+{ "time": "2026-05-09 23:00:13,919", "function": "video_editor", "level": "INFO", "message": "video_editor genre remove: Chosen removed successfully" }
+{ "time": "2026-05-09 23:00:21,940", "function": "video_editor", "level": "INFO", "message": "video_editor genre remove: Chosen genre does not exist" }
+{ "time": "2026-05-09 23:01:46,495", "function": "load", "level": "INFO", "message": "Successfully loaded default videos" }
+{ "time": "2026-05-09 23:01:49,066", "function": "load", "level": "INFO", "message": "Successfully loaded 6 default users their play history" }
+{ "time": "2026-05-09 23:02:21,434", "function": "video_editor", "level": "INFO", "message": "video_editor genre add: Chosen added successfully" }
+{ "time": "2026-05-09 23:02:34,699", "function": "video_editor", "level": "INFO", "message": "video_editor genre add: Chosen genre does not exist" }
+{ "time": "2026-05-09 23:02:50,188", "function": "video_editor", "level": "INFO", "message": "video_editor genre remove: Chosen removed successfully" }
+{ "time": "2026-05-09 23:02:55,696", "function": "video_editor", "level": "INFO", "message": "video_editor genre remove: Chosen genre does not exist" }
