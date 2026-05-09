@@ -82,7 +82,7 @@ def print_videos() -> None:
 
     """
     #Loops through dictionary and prints all videos
-    returned_videos = video_service.print_videos_svc()
+    returned_videos = video_service.return_all_videos()
     for video in returned_videos:
         print(video)
 

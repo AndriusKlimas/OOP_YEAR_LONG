@@ -101,7 +101,7 @@ class VideoService:
             logger.error(f"Error retrieving play records for videos: {e}")
             return []
 
-    def print_videos_svc (self) -> list:
+    def return_all_videos (self) -> list:
         """Print all videos in the dictionary
 
         returns:
