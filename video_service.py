@@ -140,7 +140,7 @@ class VideoService:
             logger.error("Unexpected error searching for videos: %s", e)
             return None
 
-    def search_genre_srv(self, search_genre: str) -> list:
+    def return_videos_with_genre(self, search_genre: str) -> list:
         search_genre = search_genre.strip().lower()
         found = False
         valid_videos = []

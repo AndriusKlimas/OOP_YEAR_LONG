@@ -152,7 +152,7 @@ def search_genre() -> None:
         search_video_genre = input("Please enter the genre you would like to look for: ")
         in_valid_genres = Video.validate_genre(search_video_genre)
         if in_valid_genres == True:
-            valid_videos = video_service.search_genre_srv(search_video_genre)
+            valid_videos = video_service.return_videos_with_genre(search_video_genre)
 
         else:
             logger.info("user functions: genre chosen not found in valid genres")
