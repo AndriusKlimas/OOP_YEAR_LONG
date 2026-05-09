@@ -126,7 +126,7 @@ class VideoService:
 
 
 
-    def video_search_srv(self, search_video: str) -> list:
+    def return_specific_videos(self, search_video: str) -> list:
         """Search video by name"""
         try:
             search_video = search_video.strip().lower()

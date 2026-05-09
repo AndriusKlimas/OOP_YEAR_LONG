@@ -102,7 +102,7 @@ def video_search() -> Video | None:
     Exception : Catches general issues
     """
     search_video = input("Enter the title of the video to search for: ")
-    video_info = video_service.video_search_srv(search_video)
+    video_info = video_service.return_specific_videos(search_video)
 
     if video_info is not None:
         # isinstance is used to check if the iteam retuernd is a list, if it is then do the below source
@@ -234,7 +234,7 @@ def play_video_user(user_service, video_service) -> None:
         videos_dict = video_service.get_usable_video_data()
 
         video_title = input("Please enter the title of the video: ").strip()
-        videos_found = video_service.video_search_srv(video_title)
+        videos_found = video_service.return_specific_videos(video_title)
 
         if videos_found is None:
             print("Invalid title entered")
