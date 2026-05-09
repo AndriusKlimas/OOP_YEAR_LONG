@@ -959,7 +959,7 @@ def user_login() -> tuple[bool, str]:
     """
     username = input("Username: ")
     password = input("Password: ")
-    valid, valid_name = user_service.user_login_serv(username, password)
+    valid, valid_name = user_service.check_login_info(username, password)
     return valid, valid_name
 
     # print("Enter username:")

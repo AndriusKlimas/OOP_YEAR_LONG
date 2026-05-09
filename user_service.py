@@ -20,7 +20,7 @@ class UserService:
             print(f"  - {username}")
         print(f"Total users: {len(self.__usable_user_data)}\n")
 
-    def user_login_serv(self, username, password) -> tuple[bool, str]:
+    def check_login_info(self, username, password) -> tuple[bool, str]:
         """ validatying the info provided by the user
 
         Returns:
