@@ -3,12 +3,24 @@ from user_records import User
 
 class UserService:
     def __init__(self, user_data: IUserDataAccess):
+        """
+            Initializes the UserService object.
+
+            Parameters:
+                user_data (IUserDataAccess): The backend data access instance for user data.
+            """
         self.__user_data = user_data
 
         self.__usable_user_data = {}
 
 
     def load_serv_user(self):
+        """
+            Loads all users from the data source into memory and prints their usernames.
+
+            Returns:
+                None
+            """
         if not self.__user_data:
             raise AttributeError("No user_data class present- cannot load data")
 
@@ -21,13 +33,17 @@ class UserService:
         print(f"Total users: {len(self.__usable_user_data)}\n")
 
     def check_login_info(self, username, password) -> tuple[bool, str]:
-        """ validatying the info provided by the user
-
-        Returns:
-            tuple[bool, str]: A tuple containing:
-                - bool: False if login successful, True if login failed
-                - str: Username if successful, error message if failed
         """
+            Validates the provided username and password.
+
+            Parameters:
+                username (str): The username entered by the user.
+                password (str): The password entered by the user.
+
+            Returns:
+                tuple[bool, str]: (False, username) if login is successful,
+                                  (True, error message) otherwise.
+            """
 
 
         try:
@@ -58,6 +74,17 @@ class UserService:
 
 
     def create_login_srv(self, username, password) -> tuple[bool, str]:
+        """
+            Creates a new user account with the given username and password.
+
+            Parameters:
+                username (str): The new user's username.
+                password (str): The new user's password.
+
+            Returns:
+                tuple[bool, str]: (False, username) if creation is successful,
+                                  (True, error message) otherwise.
+            """
         try:
             # Checking is the username already exists
             if username in self.__usable_user_data:
@@ -160,6 +187,15 @@ class UserService:
 
 
     def admin_check_srv(self, username: str) -> bool:
+        """
+            Checks if the given username corresponds to an admin user.
+
+            Parameters:
+                username (str): The username to check.
+
+            Returns:
+                bool: True if admin, False otherwise.
+            """
         try:
             if not isinstance(username, str):
                 return False

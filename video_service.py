@@ -3,12 +3,24 @@ from video_data_access import *
 
 class VideoService:
     def __init__(self, video_data: IVideoDataAccess):
+        """
+            Initializes the VideoService object.
+
+            Parameters:
+                video_data (IVideoDataAccess): The backend data access object for videos.
+            """
         self.__video_data = video_data
 
         self.__usable_video_data = {}
 
 
     def load_serv_video(self):
+        """
+            Loads all videos from the data source into memory and prints their titles.
+
+            Returns:
+                None
+            """
         if not self.__video_data:
             raise AttributeError("No user_data class present- cannot load data")
 
@@ -102,10 +114,10 @@ class VideoService:
             return []
 
     def return_all_videos (self) -> list:
-        """Print all videos in the dictionary
+        """Returns a list of all video objects currently loaded.
 
-        returns:
-            all_videos (list[tuple[str, int, object]]): All videos in the dictionary
+    Returns:
+        list: All video objects.
 
         """
         all_videos = []
@@ -127,7 +139,15 @@ class VideoService:
 
 
     def return_specific_videos(self, search_video: str) -> list:
-        """Search video by name"""
+        """
+    Searches for videos by title.
+
+    Parameters:
+        search_video (str): The title to search for.
+
+    Returns:
+        list: List of video objects with the given title, or None if not found.
+    """
         try:
             search_video = search_video.strip().lower()
             for title, video_list in self.__usable_video_data.items():
@@ -141,6 +161,16 @@ class VideoService:
             return None
 
     def return_videos_with_genre(self, search_genre: str) -> list:
+        """Will go through dictionary and look for specific value
+
+                    If key found then it will return all values
+
+                    if not then returns none
+
+                return:
+                    valid_videos - if something found
+                    None - if nothing found
+                """
         search_genre = search_genre.strip().lower()
         found = False
         valid_videos = []
@@ -161,7 +191,19 @@ class VideoService:
 
     def create_new_video(self,get_title:str ,get_description:str ,get_duration:int ,get_release_year:int ,genres_list:
     list ):
-        """Create a new video record"""
+        """
+    Adds a new video with the specified details.
+
+    Parameters:
+        get_title (str): The title of the video.
+        get_description (str): The video's description.
+        get_duration (int): The video's duration in seconds.
+        get_release_year (int): The year the video was released.
+        genres_list (list): List of genres to associate with the video.
+
+    Returns:
+        None
+    """
         try:
             # video id no longer key, now goes through dict, counts, and then adds 1 onto for new video id
             get_video_id = 0
@@ -197,6 +239,15 @@ class VideoService:
 
 
     def video_remover_amount_srv(self,remove_video:str):
+        """ This willl get the amount of videos that can be removed
+
+        Args:
+            remove_video (str): The video Name to remove
+
+        Return:
+            video_found : The amount of videos that can be removed
+
+        """
         # stripping white spaces again, causes issues if not their
         search_video = remove_video.strip().lower()
         # to store the videos found
@@ -224,6 +275,16 @@ class VideoService:
             return False, videos_found
 
     def video_remover_single_srv(self, videos_found: list, title_key: str) -> bool:
+        """
+            Removes a single video from the list and updates the video data store.
+
+            Parameters:
+                videos_found (list): The list of found video objects to remove from.
+                title_key (str): The key associated with the video, used for deletion if the list is empty.
+
+            Returns:
+                bool: The removed video object.
+            """
         removed_video = videos_found[0]
         videos_found.pop(0)
 
@@ -233,48 +294,19 @@ class VideoService:
 
         return removed_video
 
-        #
-        # try:
-        #     # stripping white spaces again, causes issues if not their
-        #     search_video = remove_video.strip().lower()
-        #     # to store the videos found
-        #     videos_found = []
-        #     # this will be used to store the title/key iof found
-        #     title_key = None
-        #
-        #     # finding all videos
-        #     for title, video_list in self.__usable_video_data.items():
-        #         if search_video == title.strip().lower():
-        #             title_key = title
-        #             if isinstance(video_list, list):
-        #                 videos_found = video_list
-        #             else:
-        #                 videos_found = [video_list]
-        #             break
-
-            # if the videos_found list is empty, then do the below
-            # if not videos_found:
-            #     logger.info("video_remover: No video found in dictionary")
-            #     return False
-            #
-            # if len(videos_found) == 1:
-            #     videos_found.pop(0)
-            #     return False
-            #
-            # else:
-            #     return videos_found
-
-            # in this part will check how many iteams are added to teh list
-            # if len(videos_found) > 1:
-            #     for num, video in enumerate(videos_found, 1):
-            #         print(
-            #             f"{num}. Name= {Video.get_title(video)}, description = {Video.get_description(video)}, duration = {Video.get_duration_seconds(video)}, release_year = {Video.get_release_year(video)}"
-        # except Exception as e:
-        #     logger.error("Unexpected error while removing video: %s", e)
-        #     print(f"An error occurred while removing video: {e}")
-        #     return False
 
     def video_remover_multiple_srv(self, choice: int, videos_found: list, title_key: str) -> list:
+        """
+            Removes a video from a list based on the user's selection and updates the video data store.
+
+            Parameters:
+                choice (int): The index (1-based) of the video selected for removal.
+                videos_found (list): The list of video objects found that match the criteria.
+                title_key (str): The key associated with the video(s), used for data deletion if list becomes empty.
+
+            Returns:
+                list: The video object that was removed, or None if no video was removed due to error.
+            """
         removed_video = None
 
         try:
@@ -298,11 +330,13 @@ class VideoService:
         return removed_video
 
     def video_editor_display_srv(self) -> list:
-        """Get all videos formatted for display in the editor.
-
-        Returns:
-            list: List of tuples containing (video_number, title, video_object)
         """
+            Returns a numbered list of all videos for display in an editor UI.
+
+            Returns:
+                list: List of (video_number, title, video_object).
+            """
+
         video_list = []
         video_number = 1
 
@@ -316,6 +350,16 @@ class VideoService:
 
 
     def video_editor_chosen_return_srv(self, choice: int, video_list: list)-> tuple:
+        """
+            Returns the video and its title based on user's selection.
+
+            Parameters:
+                choice (int): The index (number) of the selected video.
+                video_list (list): List of (video_number, title, video_object).
+
+            Returns:
+                tuple: (video, title) if found; otherwise (None, None).
+            """
         try:
             choice = int(choice)
         except ValueError:
@@ -334,6 +378,16 @@ class VideoService:
 
 
     def video_editor_description_change_srv(self,selected_video, new_description: str) -> bool:
+        """
+            Updates the description of the selected video.
+
+            Parameters:
+                selected_video (object): The video to update.
+                new_description (str): The new description.
+
+            Returns:
+                bool: True if changed successfully, False otherwise.
+            """
         try:
             selected_video.description = new_description.strip()
 
@@ -346,6 +400,16 @@ class VideoService:
             return False
 
     def video_editor_duration_change_srv(self, selected_video, new_duration: int) -> bool:
+        """
+            Updates the duration of the selected video.
+
+            Parameters:
+                selected_video (object): The video to update.
+                new_duration (int): The new duration.
+
+            Returns:
+                bool: True if changed successfully, False otherwise.
+            """
         try:
             selected_video._duration_seconds = new_duration
 
@@ -359,6 +423,16 @@ class VideoService:
 
 
     def video_editor_year_change_srv(self,selected_video, new_year: int) -> bool:
+        """
+            Updates the release year of the selected video.
+
+            Parameters:
+                selected_video (object): The video to update.
+                new_year (int): The new release year.
+
+            Returns:
+                bool: True if changed successfully, False otherwise.
+            """
         try:
             selected_video._release_year = new_year
 
@@ -371,6 +445,16 @@ class VideoService:
             return False
 
     def genre_add_srv(self,selected_video, new_genre: str)-> tuple:
+        """
+            Adds a genre to the selected video if not present.
+
+            Parameters:
+                selected_video (object): The video object to update.
+                new_genre (str): The genre to add.
+
+            Returns:
+                tuple: (True, message) if added, (False, message) if failed.
+            """
 
         # Check if genre is already in the video
         if selected_video.check_genre(new_genre):
@@ -386,6 +470,16 @@ class VideoService:
 
 
     def genre_remove_srv(self, selected_video, genre_to_remove: str) -> tuple:
+        """
+            Removes a genre from the selected video.
+
+            Parameters:
+                selected_video (object): The video to update.
+                genre_to_remove (str): The genre to remove.
+
+            Returns:
+                tuple: (True, message) if removed, (False, message) if not found.
+            """
         # Check if video has any genres
         if not selected_video.get_genres():
             return False, "Video has no genres."
