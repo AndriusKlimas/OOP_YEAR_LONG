@@ -733,7 +733,7 @@ def view_video_play(user_service, video_service) -> None:
         video_name = input("Please enter the video you would like to view the play history of: ").strip()
 
         videos_dict = video_service.get_usable_video_data()
-        matched_videos = video_search(videos_dict, video_name)
+        matched_videos = video_service.return_specific_videos(video_name)
 
         if matched_videos is None:
             print("Invalid video entered")
