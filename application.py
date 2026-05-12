@@ -23,6 +23,9 @@ config_log_json()
 logger = logging.getLogger(__name__)
 
 def load_user_model() -> UserService:
+    """
+    Loads the user model or default user data based on user input.
+    """
     filename = ""
     try:
         filename = input("Enter the path of the user model file or 'default: ").strip()
@@ -44,6 +47,9 @@ def load_user_model() -> UserService:
         return None
 
 def load_video_model() -> VideoService:
+    """
+    Loads the video model or default video data based on user input.
+    """
     filename = ""
     try:
         filename = input("Enter the path of the video model file or 'default': ").strip()
@@ -70,33 +76,17 @@ def load_video_model() -> VideoService:
 
 #Option 1 def
 def print_videos() -> None:
-    """ prints all videos in the dictionary
-    args:
-        videos_dictionary (dict): a dictionary of videos with key is title and value is Video object
-
-    raises:
-    TypeError: if the video dictionary is not a dictionary
-    Exception : Catches general issues
-
     """
-    #Loops through dictionary and prints all videos
+    Prints all videos from the video service.
+    """
     returned_videos = video_service.return_all_videos()
     for video in returned_videos:
         print(video)
 
 #Option 2 def
 def video_search() -> Video | None:
-    """ searching for a specific video in the dictionary
-    args:
-        videos_dictionary (dict): a dictionary of videos with key is video title and value is Video object
-        search_video: (str): the title of the video to search for
-
-    returns:
-    video_list: if the video is found
-    None : if the video is not found
-
-    raises:
-    Exception : Catches general issues
+    """
+    Searches for a video by title and prints the results.
     """
     search_video = input("Enter the title of the video to search for: ")
     video_info = video_service.return_specific_videos(search_video)
@@ -116,16 +106,8 @@ def video_search() -> Video | None:
 
 #Option 3 def
 def search_genre() -> None:
-    """ searching for a specific genre in the dictionary
-    args:
-        videos_dictionary (dict): a dictionary of videos with key is video title and value is Video object
-        search_genre: (str): the genre to search for
-
-
-    raises:
-    Exception : Catches general issues
-    TypeError: if the video dictionary is not a dictionary
-
+    """
+    Searches for and prints videos matching a user-specified genre.
     """
     try:
         # loops through dictionary and stores the video info in video variable
@@ -241,19 +223,18 @@ def play_video_user(user_service, video_service) -> None:
 
 #Option 6 def
 def new_video() -> None:
-    """ Adds a new video to the dictionary by creating an object of the video class
-    args:
-        videos_dictionary (dict): a dictionary of videos with key is title and value is Video object
+    """Interactively collects details from the user to add a new video entry.
 
-    raises:
-    ValueError: year and duration need to be numebrs(int)
-    Exception: Catches general issues
-    AttributeError: if info is provided incorrectly
-    TypeError: Invalid data type provided
+        The function prompts the user to enter information required for a new video:
+        - Title
+        - Description
+        - Duration (validated to ensure it is a number)
+        - Release year (validated to ensure it is a number)
+        - Genres (user can add multiple genres, each must be valid as defined by `Video.return_valid_genres()`)
 
+        Once all data is successfully collected and validated, a new video is created using create_new_video()
 
     """
-    # Getting the video info
     genres_list = []
     try:
         print("Please enter the following details to add a new video: ")
@@ -298,18 +279,11 @@ def new_video() -> None:
 
 #Option 7 def
 def video_remover():
-    """ Removes a video from the dictionary
-    args:
-        videos_dictionary (dict): a dictionary of videos with key is Video ID and value is Video object
-        remove_video: (str): the title of the video to remove
+    """this gets in inputs from the user to remove a video
 
-    return:
-        bool: returns True if video is removed, else False
-
-    raises:
-    IndexError: list out of range
-    ValueError: input must be a number
-    Exception: general exception
+        Will ask user to choose between videos of same title if they are the same.
+        Once user chooses, chosen one will be removed.
+        If no more values in the key then key gets removed from dict
     """
     #ps need comments for this as its complex
     remove_video = input("Please enter the name of the video you would like to remove: ")
@@ -344,6 +318,15 @@ def video_remover():
 
 
 def video_editor():
+    """
+    Allows the user to edit details of a selected video.
+
+    Allows for change of
+        - description
+        - duration (validated to ensure it is a number)
+        - release year (validated to ensure it is a number)
+        - genres add and remove
+    """
     print("See all videos below:")
 
     video_list = video_service.video_editor_display_srv()
@@ -518,12 +501,14 @@ def view_video_play(user_service, video_service) -> None:
 
 
 def user_login() -> tuple[bool, str]:
-    """ aks user to login by providing credentials, then validates it with the user dictionary
+    """ aks user to login by providing credentials
+    Passes the info to check_login_info()
 
     Returns:
-        tuple[bool, str]: A tuple containing:
-            - bool: False if login successful, True if login failed
-            - str: Username if successful, error message if failed
+        tuple[bool, str]
+        True if the user is logged in, False otherwise
+
+
     """
     username = input("Username: ")
     password = input("Password: ")
@@ -532,10 +517,8 @@ def user_login() -> tuple[bool, str]:
 
 
 def create_login() -> tuple[bool, str]:
-    """ getting the user to create and account and saving to json file
+    """ getting user input for new login, passes info to create_login_srv
 
-    args:
-        users (dict): Dictionary of existing User objects keyed by username
 
     Returns:
         tuple[bool, str]: A tuple containing:
@@ -660,8 +643,7 @@ def normal_view(logged_in_usernmae):
     """Handles when the person loging in is not admin
     args:
         str: the logged-in usernmae
-        user_service (UserService): User service
-        video_service (VideoService): Video service
+
 
     """
     user_run = True
