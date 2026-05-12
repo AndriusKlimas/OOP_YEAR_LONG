@@ -12,13 +12,13 @@
       {
         "type": "PlayRecord",
         "username": "anna_writer",
-        "video_id": 10,
+        "video_id": 11,
         "position_in_seconds": 200
       },
       {
         "type": "PlayRecord",
         "username": "anna_writer",
-        "video_id": 5,
+        "video_id": 3,
         "position_in_seconds": 1200
       }
     ]
