@@ -13,7 +13,6 @@ from video_service import VideoService
 from video_data_access import JSONVideoDataAccess
 from video_data_access import DefaultVideoDataAccess
 
-#Need to add this to the service area
 def config_log_json() -> None:
     """function to bring in the json logging config file"""
     with open ("logging_config.json", "r") as f:
@@ -70,7 +69,6 @@ def load_video_model() -> VideoService:
 
 
 #Option 1 def
-#Need to add to services
 def print_videos() -> None:
     """ prints all videos in the dictionary
     args:
@@ -87,7 +85,6 @@ def print_videos() -> None:
         print(video)
 
 #Option 2 def
-#Need to add to services
 def video_search() -> Video | None:
     """ searching for a specific video in the dictionary
     args:
@@ -115,25 +112,9 @@ def video_search() -> Video | None:
     else:
         logger.info("user functions: video chosen not found")
         print("Video not found.")
-    # try:
-    #     #stripping white spaces again, causes issues if not their
-    #     search_video = search_video.strip().lower()
-    #     #goes through all videos in the dictionary
-    #     for title, video_list in videos_dictionary.items():
-    #         #stripping white spaces again, causes issues if not their
-    #         if search_video == title.strip().lower():
-    #             return video_list
-    #
-    #     return None
-    #
-    # except Exception as e:
-    #     logger.error("Unexpected error searching for videos: %s", e)
-    #     print(f"An error occurred while searching for video: {e}")
-    #     return None
 
 
 #Option 3 def
-#Need to add to services
 def search_genre() -> None:
     """ searching for a specific genre in the dictionary
     args:
@@ -170,23 +151,6 @@ def search_genre() -> None:
             logger.info("user functions: video chosen not found")
             print("Video not found.")
 
-        # search_genre = search_genre.strip().lower()
-        # found = False
-
-        # #goes through all videos in the dictionary
-        # for title, genre_list in videos_dictionary.items():
-        #     for video in genre_list:
-        #         #hets the genres from the class object using the fucntion
-        #         video_genres = Video.get_genres(video)
-        #         if search_genre in video_genres:
-        #             print(video)
-        #             found = True
-        #
-        # if not found:
-        #     logger.info("No videos found with genre: %s", search_genre)
-        #     print(f"No videos found with genre: {search_genre}")
-
-
     except TypeError as e:
         logger.error("TypeError in search_genre: videos_dictionary must be a dictionary: %s", e)
         print("Error: videos_dictionary must be a dictionary")
@@ -195,7 +159,6 @@ def search_genre() -> None:
         print(f"An error occurred while searching for genre: {e}")
 
 #option 4 def
-#Need to add to services
 def show_user_history(videos_dict: dict) -> None:
     """ shows the user's play history
 
@@ -221,7 +184,6 @@ def show_user_history(videos_dict: dict) -> None:
         print("An error occurred while showing user history")
 
 #option 5 def
-#Need to add to services
 def play_video_user(user_service, video_service) -> None:
     """ creates a play record
 
@@ -276,10 +238,8 @@ def play_video_user(user_service, video_service) -> None:
         logger.error("Unexpected error while playing video: %s", e)
         print("An error occurred while playing video: %s", e)
 
- #admin logic below
 
 #Option 6 def
-#Need to add to services
 def new_video() -> None:
     """ Adds a new video to the dictionary by creating an object of the video class
     args:
@@ -336,74 +296,7 @@ def new_video() -> None:
     video_service.create_new_video(get_title,get_description,get_duration,get_release_year,genres_list)
 
 
-    # try:
-    #     # getting basic info
-    #     genres_list = []
-    #     print("Please enter the following details to add a new video:")
-    #     # video id no longer key, now goes through dict, counts, and then adds 1 onto for new video id
-    #     get_video_id = 0
-    #     for video_list in videos_dictionary.values():
-    #         for video in video_list:
-    #             get_video_id += 1
-    #     get_video_id += 1
-    #
-    #     #getting the user input
-    #     try:
-    #         get_title = input("Title: ")
-    #         get_description = input("Description: ")
-    #         get_duration = int(input("Duration seconds: "))
-    #         get_release_year = int(input("Release Year: "))
-    #     except ValueError as e:
-    #         logger.error("ValueError in new_video input: Duration and Release Year must be numbers: %s", e)
-    #         print("Error: Duration and Release Year must be numbers.")
-    #         return None
-    #
-    #     # loop for genre, user adding genres
-    #     while True:
-    #         get_genres = input("Please enter the genres")
-    #         if get_genres in Video.return_valid_genres():
-    #             genres_list.append(get_genres)
-    #         else:
-    #             logger.info("new_video: genre does not exist: %s", get_genres)
-    #             print("Genre not valid. Please choose a valid genre")
-    #             print(Video.return_valid_genres())
-    #         print("Would you like to add another genre? (y/n)")
-    #         another = input().lower()
-    #         if another == "n":
-    #             break
-    #
-    #     # creating a new video class object
-    #     try:
-    #         new_video = Video(get_video_id, get_title, get_description, get_duration, get_release_year, genres_list)
-    #     except Exception as e:
-    #         logger.error("Unexpected error while creating new video class object: %s", e)
-    #         print(f"Error creating video: {e}")
-    #         return None
-    #
-    #     # 'checking if he video is in the dictionary'
-    #     if get_title in videos_dictionary.keys():
-    #         # 'if it is then add the class object under hte same key'
-    #         videos_dictionary[get_title].append(new_video)
-    #         # 'if not then add the class object under a new key'
-    #     else:
-    #         videos_dictionary[get_title] = [new_video]
-    #
-    #     print("Video added to list")
-    #
-    # except AttributeError:
-    #     logger.error("Attribute error while creating new video: %s", e)
-    #     print("Error: Video class missing required method")
-    # except TypeError:
-    #     logger.error("TypeError while creating new video: %s", e)
-    #     print("Error: Invalid data type provided")
-    # except Exception as e:
-    #     logger.error("Unexpected error while creating new video")
-    #     print(f"An error occurred while adding new video: {e}")
-
-    #added sleep for the
-
 #Option 7 def
-#Need to add to services
 def video_remover():
     """ Removes a video from the dictionary
     args:
@@ -451,125 +344,6 @@ def video_remover():
 
 
 
-
-    # if len(videos_found) > 1:
-    #     for num, video in enumerate(videos_found, 1):
-    #         print(
-    #             f"{num}. Name= {Video.get_title(video)}, description = {Video.get_description(video)}, duration = {Video.get_duration_seconds(video)}, release_year = {Video.get_release_year(video)}")
-    #
-    #     choice = int(input("Please enter the one you would like to remove(numbers only): "))
-    #
-    #     something = video_service.video_remover_multiple_srv(choice, videos_found, title_key=remove_video)
-    #
-    # else:
-    #     print(f"Video Removed {remove_video} from the dictionary")
-    #
-    # if something == True:
-    #     print("Successfully removed video")
-    #
-    # if something == False:
-    #     print("single video removed")
-
-
-
-
-    # if the video method comes back as true then print video removed
-    # if video_removed == True:
-    #     logger.info("admin functions: video removed")
-    #     print("Video removed from list")
-    # # else print video not found
-    # else:
-    #     logger.info("user functions: video not found")
-    #     print("Video not found.")
-
-
-    # try:
-    #     #stripping white spaces again, causes issues if not their
-    #     search_video = remove_video.strip().lower()
-    #     #to store the videos found
-    #     videos_found = []
-    #     #this will be used to store the title/key iof found
-    #     title_key = None
-    #
-    #     #finding all videos
-    #     for title, video_list in videos_dictionary.items():
-    #         if search_video == title.strip().lower():
-    #             title_key = title
-    #             if isinstance(video_list, list):
-    #                 videos_found = video_list
-    #             else:
-    #                 videos_found = [video_list]
-    #             break
-    #
-    #     #if the videos_found list is empty, then do the below
-    #     if not videos_found:
-    #         logger.info("video_remover: No video found in dictionary")
-    #         print(f"No videos found with title provided: {remove_video}")
-    #         return False
-    #
-    #     #in this part will check how many iteams are added to teh list
-    #     if len(videos_found) > 1:
-    #         for num, video in enumerate(videos_found,1):
-    #             print(f"{num}. Name= {Video.get_title(video)}, description = {Video.get_description(video)}, duration = {Video.get_duration_seconds(video)}, release_year = {Video.get_release_year(video)}")
-    #
-    #         choice = int(input("Please enter the one you would like to remove(numbers only): "))
-    #         try:
-    #             actual_remove = choice - 1
-    #             videos_found.pop(actual_remove)
-    #         except IndexError as e:
-    #             logger.error("IndexError in video_remover:  choice chosen is out of range: %s", e)
-    #             print("out of range")
-    #         except ValueError as e:
-    #             logger.error("ValueError in video_remover: Value provided is not an int: %s", e)
-    #             print("please enter a number")
-    #
-    #     #if one video is found
-    #     else:
-    #         print(f"removing video: {videos_found}")
-    #         videos_found.pop(0)
-    #
-    #     #checking if ther list is not empty, if it is then remove the key for dictioanry
-    #     if not videos_found:
-    #         del videos_dictionary[title_key]
-    #
-    #     return True
-    # except Exception as e:
-    #     logger.error("Unexpected error while removing video: %s", e)
-    #     print(f"An error occurred while removing video: {e}")
-    #     return False
-
-#Need to add to services
-def video_editor() -> None:
-    """ Allows the admin to edit the video
-
-    :args video_dictionary:
-    return: None:
-
-
-    raises:
-    ValueError: input must be a number
-    ValueError: input was not one of the options
-    """
-
-    # video_list = []
-    # video_number = 1
-    #
-    # print("See all videos below")
-    #
-    # #displayas all the videos stored in a neat list
-    # for title, videos in video_dictionary.items():
-    #     for video in videos:
-    #         print(f"\n{video_number}. Video ID: {Video.get_video_id(video)}")
-    #         print(f"   Title: {Video.get_title(video)}")
-    #         print(f"   Description: {Video.get_description(video)}")
-    #         print(f"   Duration: {Video.get_duration_seconds(video)} seconds")
-    #         print(f"   Release Year: {Video.get_release_year(video)}")
-    #         print(f"   Genres: {', '.join(Video.get_genres(video)) if Video.get_genres(video) else 'No genres'}")
-    #
-    #         #adding the following info to the video_list
-    #         video_list.append((video_number, title, video))
-    #         video_number += 1
-
     print("See all videos below:")
 
     video_list = video_service.video_editor_display_srv()
@@ -595,24 +369,6 @@ def video_editor() -> None:
             logger.info("video_editor: No video selected")
             print("Invalid selection.")
 
-
-    # choice = int(input("Please enter the one you would like to edit(numbers only): "))
-    #
-    # selected_video = None
-    # selected_title = None
-    #
-    # #looping through everything on the video_list
-    # for num, title, video in video_list:
-    #     if num == choice:
-    #         selected_video = video
-    #         selected_title = title
-    #         break
-    #
-    # #if nothing was selected
-    # if selected_video is None:
-    #     logger.info("video_editor: No video selected")
-    #     print("Invalid selection.")
-    #     return None
 
     #printing oput what the admin wants to do
     print("\n What would you like to edit?")
@@ -721,7 +477,6 @@ def video_editor() -> None:
 
 
 
-#Need to add to services
 def view_video_play(user_service, video_service) -> None:
     """Allow the user to see all play history for a specified video.
 
@@ -761,194 +516,7 @@ def view_video_play(user_service, video_service) -> None:
         print(f"An error occurred while viewing play history: {e}")
         logger.error("An error occurred while viewing play history")
 
-#Need to add to services
-# def sec_to_min(seconds: int) -> str:
-#     """Convert seconds to a human-readable minutes and seconds string.
-#
-#         Args:
-#             seconds (int): Number of seconds
-#
-#         Returns:
-#             str: Formatted string in the form "N minutes and M seconds".
-#         """
-#     try:
-#         minutes = seconds // 60
-#         secs = seconds % 60
-#         return f"{minutes} minutes and {secs} seconds"
-#     except ValueError as e:
-#         print(f"Invalid number of seconds: {e}")
-#         logger.error("Invalid number of seconds")
 
-
-
-#need to add to database
-def parse_videos(filename: str) -> dict:
-    """Parses a file of video information into a list of Video objects.
-
-    Args:
-        filename(str): the name of the file
-
-    Returns:
-        Invalid records are logged and skipped; the function returns a list of successfully
-        created Video objects.
-    """
-    #opens the file inputed
-    with open(filename) as file:
-        videos_dictionary = json.load(file)
-
-    new_videos = {}
-
-    #going through each title and the indiviual info
-    for title, videos_list in videos_dictionary.items():
-        #creting an empty list with teh title as
-        new_videos[title] = []
-
-        #Goes throgh each video dictionary in the list for the title
-        for i,video_dict in enumerate(videos_list, start=1):
-            try:
-                #makes the class object using the from_dict in the video class
-                video = Video.from_dict(video_dict)
-                #if make then it will add it to the list for that title and add it to dictionary
-                new_videos[title].append(video)
-            except Exception as e:
-                #if error then it will tell the user what line hte issue is on
-                print(f"Invalid video record #{i} under title '{title}' in {filename}: {e}")
-                logger.error(f"Invalid video record #{i} under title '{title}' in {filename}: {e}")
-
-    #returns the dictionary with the successful info
-    return new_videos
-
-
-#need to add to database
-def parse_users(filename: str) -> list:
-    """Parses a file of user information into a list of User objects.
-
-    Args:
-        filename(str): the name of the file
-
-    Returns:
-        Invalid records are logged and skipped; the function returns a list of successfully
-        created User objects.
-    """
-    with open(filename) as file:
-        users_dicts = json.load(file)
-
-    users = []
-    for i, users_dict in enumerate(users_dicts, start=1):
-        try:
-            user = User.from_dict(users_dict)
-            users.append(user)
-        except Exception as e:
-            print(f"Invalid user record #{i} in {filename}: {e}")
-            logger.error(f"Invalid user record #{i} in {filename}: {e}")
-    return users
-
-#need to add to database
-# def create_default_videos() -> dict:
-#     """Create and return the default videos dictionary used when no file is provided.
-#
-#     Returns:
-#         A dictionary that maps video id to video title.
-#        """
-#
-#     vids = {}
-#     v1 = Video(1, "Inception", "A mind-bending thriller", 8880, 2010, ["scifi", "thriller"])
-#     v2 = Video(2, "The Matrix", "A hacker discovers reality", 8160, 1999, ["scifi", "action"])
-#     v3 = Video(3, "The Godfather", "Crime family saga", 10500, 1972, ["drama", "crime"])
-#     v4 = Video(4, "Toy Story", "Toys come to life", 4860, 1995, ["animation", "comedy"])
-#     v5 = Video(5, "Up", "Balloon building", 16732, 2008, ["animation", "drama"])
-#     #Do NOT TOUCH THIS AS I NEED IT FOR MULTIPLE VIDEOS UNDER HTE SAME TITLE
-#     v6 = Video(6, "Up", "Something else", 23143, 2008, ["animation", "comedy"])
-#
-#     for v in (v1, v2, v3, v4, v5, v6):
-#         title = v.get_title()
-#         if title in vids:
-#             vids[title].append(v)
-#         else:
-#             vids[title] = [v]
-#
-#     return vids
-
-#need to add to database
-# def create_default_users() -> dict:
-#     """Create and return the default users dictionary used when no file is provided.
-#
-#     Returns:
-#         A dictionary that maps username to user object.
-#        """
-#     us = {}
-#     u1 = User("NoahClarke123", "Password123!")
-#     u2 = User("Film_Critic1", "ILoveMovies0000")
-#     u3 = User("Bob_iscool", "iamBob05$")
-#     u4 = User("Jedibob212", "Sidius66")
-#     u5 = User("IronManFan3", "TonyStark44!")
-#     u6 = User("admin","Password1!")
-#
-#     for u in (u1, u2, u3, u4, u5, u6):
-#         us[u.get_username()] = u
-#
-#     # Seed play history in the same internal structure as JSON-loaded users.
-#     u1.start_play(1, 120)
-#     u1.start_play(4, 950)
-#
-#     u2.start_play(2, 3400)
-#     u2.start_play(3, 5200)
-#
-#     u3.start_play(5, 600)
-#     u4.start_play(6, 1800)
-#     u5.start_play(1, 60)
-#
-#     return us
-
-#need to add to database
-#pretty sure data_setup is now redundant with current functionality all of it is being handled elsewhere
-# def data_setup(parse_type: str, filename: str | None = None):
-#     """Prompt the user (up to 3 tries) for a filename and parse the file.
-#
-#     Args:
-#         parse_type (str): one of "videos", "users" or "playrecords".
-#         filename (str | None): optional initial filename to try first (if provided
-#                                 the function will attempt it, otherwise it will
-#                                 prompt the user).
-#
-#     Returns:
-#         list: list of parsed objects on success, or None to indicate the caller
-#               should use the hardcoded defaults.
-#     """
-#     attempts = 3
-#     for attempt in range(attempts):
-#         # If caller provided a filename, try it first on the first attempt.
-#         if attempt == 0 and filename:
-#             fname = filename.strip()
-#         else:
-#             fname = input(f"Enter {parse_type} filename (JSON) or press Enter to use defaults: ").strip()
-#
-#         if not fname:
-#             # User chose defaults or pressed Enter
-#             return None
-#
-#         try:
-#             if parse_type == "videos":
-#                 items = parse_videos(fname)
-#             elif parse_type == "users":
-#                 items = parse_users(fname)
-#             else:
-#                 print("Unknown data type requested; using defaults.")
-#                 return None
-#
-#             print(f"Loaded {len(items)} {parse_type} from {fname}")
-#             return items
-#         except FileNotFoundError:
-#             print(f"File not found: {fname}. Attempts left: {attempts - attempt - 1}")
-#             logger.error(f"File not found: {fname}. Attempts left: {attempts - attempt - 1}")
-#         except Exception as e:
-#             print(f"Error loading {parse_type} from {fname}: {e}. Attempts left: {attempts - attempt - 1}")
-#             logger.error(f"Error loading {parse_type} from {fname}")
-#
-#     print(f"Failed to load {parse_type} after {attempts} attempts; using defaults.")
-#     return None
-
-#need to add to service
 def user_login() -> tuple[bool, str]:
     """ aks user to login by providing credentials, then validates it with the user dictionary
 
@@ -962,43 +530,7 @@ def user_login() -> tuple[bool, str]:
     valid, valid_name = user_service.check_login_info(username, password)
     return valid, valid_name
 
-    # print("Enter username:")
-    #
-    # try:
-    #     username = input().strip()
-    #     if username not in users:
-    #         logger.info("user_login: username not in dictionary")
-    #         print("Username not found. Please try again.")
-    #         return True, "Username not found"
-    #     print("Enter password:")
-    #     password = input().strip()
-    #
-    #     try:
-    #         user = User.validate_login(users, username, password)
-    #     except Exception as e:
-    #         logger.error("user_login: unexpected error when validating username/password %s",e)
-    #         print(f"Error logging in: {e}")
-    #
-    #         return True, "Error logging in"
-    #     if user is not None:
-    #         users[username] = user
-    #         logger.info("user_login: successfully logged in")
-    #         print(f"Logging in as {username}")
-    #         return False, username
-    #     else:
-    #         logger.info("user_login: failed to log in")
-    #         return True, "invalid username or password"
-    #
-    # except KeyError:
-    #     logger.error("KeyError in user_login: Users dictionary not found: %s", e)
-    #     print("User dictionary not found")
-    #     return True, "Error: Users dictionary not accessible"
-    # except Exception as e:
-    #     logger.error("Unexpected error during user_login: %s", e)
-    #     print(f"An error occurred during login: {e}")
-    #     return True, "An unexpected error occurred during login"
 
-#need to add to service
 def create_login() -> tuple[bool, str]:
     """ getting the user to create and account and saving to json file
 
@@ -1024,40 +556,7 @@ def create_login() -> tuple[bool, str]:
         password = input().strip()
         valid, username = user_service.create_login_srv(username, password)
         return valid, username
-        # # Checking is the username already exists
-        # if username in users:
-        #     logger.info("user_login: username already exists")
-        #     return True, f"username {username} already exists"
-        # else:
-        #     print("Please enter the password you would like: ")
-        #     password = input().strip()
-        #     valid_password = User.validate_password(password)
 
-            # if valid_password:
-            #
-            #     # creating the class object
-            #     new_user = User(username, password)
-            #     print(f"New user created {username}")
-            #
-            #     # saving user to local dictionary
-            #     users[username] = new_user
-
-                # loadin the currnt json file
-                # with open("users.json", "r") as f:
-                #     existing_users = json.load(f)
-                #
-                # # adding the new user made to the dict, using the method to_dict to assist
-                # existing_users.append(new_user.to_dict())
-                #
-                # # writing back to the json file
-                # with open("users.json", "w") as f:
-                #     json.dump(existing_users, f)
-                # return False, username
-    #         else:
-    #             logger.info("user_login: password not pass validation")
-    #             return True, "password does not meet minimum requirements"
-    #
-    #
     except KeyError as e:
         logger.error("KeyError in create_login: Users dictionary not found %s", e)
         print("Error: Users dictionary not found")
@@ -1072,34 +571,7 @@ def create_login() -> tuple[bool, str]:
         return True, "An unexpected error occurred during account creation"
 
 
-#need to add to services
-# def admin_check(logged_in_usernmae:str) -> bool:
-#     """check if the logged-in user is an admin.
-#
-#         Args:
-#             logged_in_usernmae (str): The username of the currently logged-in user
-#
-#         Returns:
-#             bool: True if user is admin, False otherwise
-#         """
-    # try:
-    #     if not isinstance(logged_in_usernmae, str):
-    #         return False
-    #     if logged_in_usernmae.strip().lower() != "admin".strip():
-    #         return False
-    #     else:
-    #         return True
-    # except AttributeError as e:
-    #     logger.error("AttributeError in admin_check: Username must be a string: %s", e)
-    #     print("Error: Username must be a string")
-    #     return False
-    # except Exception as e:
-    #     logger.error("Unexpected error during admin_check: %s", e)
-    #     print(f"An error occurred during admin check: {e}")
-    #     return False
-
 #creating a normal login funtion
-#keep here
 def normal_login():
     """Handle user login or account creation menu loop.
 
@@ -1137,7 +609,6 @@ def normal_login():
                 keep_going = True
 
 # Creating a dev login option
-#keep here
 def dev_mode():
     """Developer mode menu for auto-login testing without normal authentication.
 
@@ -1184,7 +655,7 @@ def dev_mode():
             case _:
                 print("Invalid choice")
 
-#keep here
+
 def normal_view(logged_in_usernmae):
     """Handles when the person loging in is not admin
     args:
@@ -1208,34 +679,13 @@ def normal_view(logged_in_usernmae):
         match choice:
             case "1":
                 print_videos()
+
             case "2":
                 video_search()
 
-                # if video_info is not None:
-                #     # isinstance is used to check if the iteam retuernd is a list, if it is then do the below source
-                #     # w3schools, stackoverflow
-                #     if isinstance(video_info, list):
-                #         for video in video_info:
-                #             print(video)
-                #     else:
-                #         print(video_info)
-                # else:
-                #     logger.info("user functions: video chosen not found")
-                #     print("Video not found.")
-            #
             case "3":
                 search_genre()
-                # getting user to input the genre they are searching for
-                # search_video_genre = input("Please enter the genre you would like to look for: ")
-                # in_valid_genres = Video.validate_genre(search_video_genre)
-                # if in_valid_genres == True:
-                #     search_genre(videos, search_video_genre)
-                # else:
-                #     logger.info("user functions: genre chosen not found in valid genres")
-                #     print("Genre not valid.")
-                # calling the method to search the genre
-            #
-            # # Section 2 (For that specific user only)
+
             case "4":
                 show_user_history(video_service.get_usable_video_data())
 
@@ -1274,74 +724,27 @@ def admin_view(logged_in_usernmae):
 
             case "2":
                 video_remover()
-                # remove_video = input("Please enter the name of the video you would like to remove: ")
-                # # calling the method to remove the video
-                # video_removed = video_remover(videos, remove_video)
-                # # if the video method comes back as true then print video removed
-                # if video_removed == True:
-                #     logger.info("admin functions: video removed")
-                #     print("Video removed from list")
-                # # else print video not found
-                # else:
-                #     logger.info("user functions: video not found")
-                #     print("Video not found.")
 
             case "3":
                 video_editor()
-            #
-            #         # Convert videos dictionary to format expected by JSON
-            #         videos_dict = {}
-            #
-            #         # Loop through each title and its list of videos
-            #         for title, video_list in videos.items():
-            #             # Create empty list for this title
-            #             videos_dict[title] = []
-            #
-            #             # Convert each video to a dictionary
-            #             for video in video_list:
-            #                 video_dict = video.to_dict()
-            #                 videos_dict[title].append(video_dict)
-            #
-            #         # Save to JSON file
-            #         with open('videos.json', 'w') as file:
-            #             json.dump(videos_dict, file)
-            #
-            #         print("Changes saved to JSON file!")
-            #
-            #     except ValueError as e:
-            #         logger.error("ValueError in admin functions: Video data cannot be serialized to JSON %s", e)
-            #         print("Error: Video data cannot be serialized to JSON")
-            #     except Exception as e:
-            #         logger.error("Unexpected error during admin_check %s", e)
-            #         print(f"An error occurred while saving videos: {e}")
 
             case "0":
                 admin_run = False
                 print("Exiting...")
                 quit()
+
             case _:
                 logger.info("admin functions: Invalid choice by user.")
                 print("Invalid choice. Please choose a valid choice.")
 
 if __name__ == "__main__":
 
-    # # Videos
     valid = False
     video_service = None
     while not valid:
         video_service = load_video_model()
         if video_service is not None:
             valid = True
-    # video_filename = input(
-    #     "Please enter a filename (json) where video information is stored or press Enter to use defaults: ").strip()
-    # vdata = data_setup("videos", video_filename)
-    # if vdata is None:
-    #     videos = create_default_videos()
-    #     logger.info("Video data set up using hardcoded information")
-    # else:
-    #     # vdata is a list of Video objects
-    #     videos = vdata
-    #     logger.info("Video data set up using json information")
 
 
     # Users
@@ -1351,15 +754,6 @@ if __name__ == "__main__":
         user_service = load_user_model()
         if user_service is not None:
             valid = True
-    # user_filename = input(
-    #     "Please enter a filename where user information is stored or press Enter to use defaults: ").strip()
-    # udata = data_setup("users", user_filename)
-    # if udata is None:
-    #     users = create_default_users()
-    #     logger.info("User data set up using hardcoded information")
-    # else:
-    #     users = {u.get_username(): u for u in udata}
-    #     logger.info("User data set up using json information")
 
 
 
