@@ -294,3 +294,20 @@
 { "time": "2026-05-09 23:02:34,699", "function": "video_editor", "level": "INFO", "message": "video_editor genre add: Chosen genre does not exist" }
 { "time": "2026-05-09 23:02:50,188", "function": "video_editor", "level": "INFO", "message": "video_editor genre remove: Chosen removed successfully" }
 { "time": "2026-05-09 23:02:55,696", "function": "video_editor", "level": "INFO", "message": "video_editor genre remove: Chosen genre does not exist" }
+{ "time": "2026-05-12 18:55:42,860", "function": "load", "level": "INFO", "message": "Successfully loaded videos from videos.json" }
+{ "time": "2026-05-12 18:55:45,503", "function": "load", "level": "INFO", "message": "Successfully loaded 7 users from users.json" }
+{ "time": "2026-05-12 18:56:51,708", "function": "load", "level": "INFO", "message": "Successfully loaded videos from videos.json" }
+{ "time": "2026-05-12 18:56:54,602", "function": "load", "level": "INFO", "message": "Successfully loaded 7 users from users.json" }
+{ "time": "2026-05-12 18:57:59,021", "function": "load", "level": "INFO", "message": "Successfully loaded videos from videos.json" }
+{ "time": "2026-05-12 18:58:01,543", "function": "load", "level": "INFO", "message": "Successfully loaded 7 users from users.json" }
+{ "time": "2026-05-12 18:58:31,049", "function": "load", "level": "INFO", "message": "Successfully loaded videos from videos.json" }
+{ "time": "2026-05-12 18:58:33,534", "function": "load", "level": "INFO", "message": "Successfully loaded 7 users from users.json" }
+{ "time": "2026-05-12 18:58:45,937", "function": "load", "level": "INFO", "message": "Successfully loaded videos from videos.json" }
+{ "time": "2026-05-12 18:58:48,594", "function": "load", "level": "INFO", "message": "Successfully loaded 7 users from users.json" }
+{ "time": "2026-05-12 18:59:08,740", "function": "store", "level": "INFO", "message": "Successfully saved videos to file videos.json" }
+{ "time": "2026-05-12 18:59:22,721", "function": "store", "level": "INFO", "message": "Successfully saved videos to file videos.json" }
+{ "time": "2026-05-12 18:59:31,699", "function": "store", "level": "INFO", "message": "Successfully saved videos to file videos.json" }
+{ "time": "2026-05-12 18:59:43,829", "function": "store", "level": "INFO", "message": "Successfully saved videos to file videos.json" }
+{ "time": "2026-05-12 18:59:43,830", "function": "video_editor", "level": "INFO", "message": "video_editor genre add: Chosen added successfully" }
+{ "time": "2026-05-12 18:59:54,531", "function": "store", "level": "INFO", "message": "Successfully saved videos to file videos.json" }
+{ "time": "2026-05-12 18:59:54,531", "function": "video_editor", "level": "INFO", "message": "video_editor genre remove: Chosen removed successfully" }

@@ -343,7 +343,7 @@ def video_remover():
         print(f"removed: {removed}")
 
 
-
+def video_editor():
     print("See all videos below:")
 
     video_list = video_service.video_editor_display_srv()
@@ -606,7 +606,7 @@ def normal_login():
 
             case _:
                 print("Invalid choice")
-                keep_going = True
+                keep_going == True
 
 # Creating a dev login option
 def dev_mode():
@@ -769,6 +769,9 @@ if __name__ == "__main__":
 
         case "2":
             logged_in_usernmae = dev_mode()
+
+        case _:
+            print("Invalid choice. Please choose a valid choice.")
 
 
     admin = user_service.admin_check_srv(logged_in_usernmae)
